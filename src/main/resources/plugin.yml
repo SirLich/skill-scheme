@@ -1,0 +1,7 @@
+name: SkillSchema
+version: 0.1
+main: main.java.plugin.sirlich.SkillScheme
+commands:
+   skill:
+     description: nothing here
+     usage: nothying here
