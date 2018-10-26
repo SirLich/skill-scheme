@@ -16,7 +16,7 @@ public class BlockUtils implements Listener
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event){
         if(event.getPlayer() != null){
-            Player player = (Player) event.getPlayer();
+            Player player = event.getPlayer();
             Block block = event.getBlock();
             System.out.println(block.getData());
         }

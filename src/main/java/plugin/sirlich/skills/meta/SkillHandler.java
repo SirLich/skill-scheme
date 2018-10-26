@@ -173,7 +173,7 @@ public class SkillHandler implements Listener
      */
     @EventHandler
     public void onPlayerSwapItemEvent(PlayerSwapHandItemsEvent event){
-        Player player = (Player) event.getPlayer();
+        Player player = event.getPlayer();
         RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(player);
         for(Skill skill : rpgPlayer.getSkillList().values()){
             if(skill instanceof ActiveSkill){

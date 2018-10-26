@@ -17,8 +17,9 @@ public enum SkillType {
     PoisonDarts(new PoisonDarts(null,0)),
     PhantomArrows(new PhantomArrows(null,0)),
     ArcherTower(new ArcherTower(null,0)),
-    AdamantineCalcaneus(new AdamantineCalcaneus(null,0)),
-    SatanicGamble(new SatanicGamble(null,0));
+    QualityClogs(new QualityClogs(null,0)),
+    SatanicGamble(new SatanicGamble(null,0)),
+    AxeOfPerun(new AxeOfPerun(null,0));
 
     private final Skill skill;
 

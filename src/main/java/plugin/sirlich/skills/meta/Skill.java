@@ -57,7 +57,8 @@ public class Skill
     {
         return this.id;
     }
-    public ArrayList<String> getDescription(){
+
+    public ArrayList<String> getDescription(int level){
         return this.description;
     }
 

@@ -1,11 +1,13 @@
 package main.java.plugin.sirlich.skills.active;
 
 import main.java.plugin.sirlich.core.RpgPlayer;
+import main.java.plugin.sirlich.core.c;
 import main.java.plugin.sirlich.skills.meta.Skill;
+import org.bukkit.ChatColor;
 
 import java.util.ArrayList;
 
-public class AdamantineCalcaneus extends Skill
+public class QualityClogs extends Skill
 {
 
     private static ArrayList<Double> damageReduction = new ArrayList<Double>();
@@ -19,16 +21,17 @@ public class AdamantineCalcaneus extends Skill
         damageReduction.add(0.0);
     }
 
-    public AdamantineCalcaneus(RpgPlayer rpgPlayer, int level){
+    public QualityClogs(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer,level);
         this.setCost(1);
         this.setMaxLevel(4);
-        this.setId("AdamantineCalcaneus");
-        this.setName("Adamantine Calcaneus");
+        this.setId("QualityClogs");
+        this.setName("Quality Clogs");
         clearDescription();
-        addLoreLine("Iron soles!");
+        addLoreLine("Summon the power of well constructed footwear.");
         addLoreLine("");
-        addLoreLine("Reduce fall damage!");
+        addLoreLine("Passively reduce fall damage by " + c.green + (int) ((1 - damageReduction.get(level)) * 100) + "%");
+        addLoreLine("");
     }
 
     public void onEnable(){

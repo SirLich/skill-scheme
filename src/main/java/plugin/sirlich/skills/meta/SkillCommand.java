@@ -2,32 +2,65 @@ package main.java.plugin.sirlich.skills.meta;
 
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.core.RpgPlayerList;
+import main.java.plugin.sirlich.core.c;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import main.java.plugin.sirlich.skills.meta.SkillType;
+import org.bukkit.inventory.Inventory;
 
 public class SkillCommand implements CommandExecutor
 {
     public boolean onCommand(CommandSender sender, Command command, String argv, String[] args){
         if(sender instanceof Player){
             Player player = (Player) sender;
-            String action = args[0];
             RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(player);
 
+            if(args.length < 1){
+                rpgPlayer.chat("Please include an argument: " + c.gray + "add, remove, list, have");
+                return true;
+            }
+
+            String action = args[0];
+
             if(action.equalsIgnoreCase("list")){
-                rpgPlayer.chat("Your main.java.plugin.sirlich.skills:");
-                for(SkillType skillType : rpgPlayer.getSkillList().keySet() ){
-                    rpgPlayer.chat(skillType.toString());
+                rpgPlayer.chat("All skills:");
+                for(SkillType skillType : SkillType.values()){
+                    rpgPlayer.chat(c.aqua + skillType.getSkill().getName() + ": " + c.gray + skillType.getSkill().getId());
                 }
-            } else if(action.equalsIgnoreCase("add")){
+            } else if(action.equalsIgnoreCase("have")){
+                rpgPlayer.chat("Your skills:");
+                for(SkillType skillType : rpgPlayer.getSkillList().keySet() ){
+                    rpgPlayer.chat(c.gray + skillType.toString() + " : " + c.aqua + rpgPlayer.getSkill(skillType).getLevel());
+                }
+            }else if(action.equalsIgnoreCase("add")){
+                if(args.length < 2){
+                    rpgPlayer.chat("Please include an argument: " + c.gray + "<skill>");
+                    return true;
+                }
                 SkillType skillType = SkillType.valueOf(args[1]);
-                int level = Integer.parseInt(args[2]);
+                int level = 1;
+                if(args.length >= 3){
+                    level = Integer.parseInt((args[2]));
+                }
                 rpgPlayer.addSkill(skillType,level);
+                rpgPlayer.chat("Added " + skillType.getSkill().getName());
             } else if(action.equalsIgnoreCase("remove")){
-                SkillType skillType = SkillType.valueOf(args[1]);
-                rpgPlayer.removeSkill(skillType);
+                if(args.length < 2){
+                    rpgPlayer.chat("Please include an argument: " + c.gray + "all, <skill>");
+                    return true;
+                }
+                if(args[1].equalsIgnoreCase("all")){
+                    rpgPlayer.chat("Skills cleared.");
+                    rpgPlayer.clearSkills();
+                } else {
+                    SkillType skillType = SkillType.valueOf(args[1]);
+                    rpgPlayer.removeSkill(skillType);
+                    rpgPlayer.chat("removed " + args[1]);
+                }
             }
         } else{
             System.out.println("Please only use this command from in-game!");

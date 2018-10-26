@@ -1,14 +1,16 @@
 package main.java.plugin.sirlich.core;
 
+import main.java.plugin.sirlich.skills.active.*;
+import main.java.plugin.sirlich.skills.meta.ClassType;
+import main.java.plugin.sirlich.skills.passive.HolyStrike;
+import main.java.plugin.sirlich.skills.passive.SpeedBuff;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import main.java.plugin.sirlich.skills.meta.Skill;
 import main.java.plugin.sirlich.skills.meta.SkillEditObject;
 import main.java.plugin.sirlich.skills.meta.SkillType;
-import main.java.plugin.sirlich.skills.active.*;
-import main.java.plugin.sirlich.skills.passive.HolyStrike;
-import main.java.plugin.sirlich.skills.passive.SpeedBuff;
 
+import java.lang.reflect.Constructor;
 import java.util.*;
 
 public class RpgPlayer
@@ -37,7 +39,7 @@ public class RpgPlayer
         }
     }
 
-    private static HashMap<SkillType, Skill> skillList = new HashMap<SkillType, Skill>();
+    private HashMap<SkillType, Skill> skillList = new HashMap<SkillType, Skill>();
 
     public HashMap<SkillType, Skill> getSkillList(){
         return skillList;
@@ -52,38 +54,19 @@ public class RpgPlayer
     }
 
     public void addSkill(SkillType skillType, int level){
-        Skill skill = null;
-
-        if(skillType.equals(SkillType.SpeedBuff)){
-            skill = new SpeedBuff(this, level);
-        } else if(skillType.equals(SkillType.Hop)){
-            skill = new Hop(this,level);
-        } else if(skillType.equals(SkillType.LeadAxe)){
-            skill = new LeadAxe(this,level);
-        } else if(skillType.equals(SkillType.ScorchedEarth)){
-            skill = new ScorchedEarth(this,level);
-        } else if(skillType.equals(SkillType.HolyStrike)){
-            skill = new HolyStrike(this,level);
-        } else if(skillType.equals(SkillType.WrathOfJupiter)){
-            skill = new WrathOfJupiter(this,level);
-        } else if(skillType.equals(SkillType.NimbleLeap)){
-            skill = new NimbleLeap(this,level);
-        } else if(skillType.equals(SkillType.PoisonDarts)){
-            skill = new PoisonDarts(this,level);
-        } else if(skillType.equals(SkillType.PhantomArrows)){
-            skill = new PhantomArrows(this,level);
-        } else if(skillType.equals(SkillType.ArcherTower)){
-            skill = new ArcherTower(this,level);
-        } else if(skillType.equals(SkillType.AdamantineCalcaneus)){
-            skill = new AdamantineCalcaneus(this,level);
-        } else if(skillType.equals(SkillType.SatanicGamble)){
-            skill = new SatanicGamble(this,level);
-        }else{
-            return;
+        try{
+            Class clazz = skillType.getSkillClass();
+            System.out.println(clazz.getName());
+            Constructor<Skill> constructor = clazz.getConstructor(RpgPlayer.class,int.class);
+            Skill skill = (Skill) constructor.newInstance(this,level);
+            skill.onEnable();
+            skillList.put(skillType,skill);
+            refreshPassiveModifiers();
+        } catch (Exception e){
+            System.out.println("WARNING! SOMETHING TERRIBLE HAPPENED IN THE REFLECTION. YAYYY");
         }
-        skill.onEnable();
-        skillList.put(skillType,skill);
-        refreshPassiveModifiers();
+
+
     }
 
     public void removeSkill(SkillType skillType){
@@ -96,6 +79,7 @@ public class RpgPlayer
 
     public void clearSkills(){
         for(Skill skill : skillList.values()){
+            System.out.println("Removing " + skill.getName());
             skill.onDisable();
         }
         refreshPassiveModifiers();
@@ -106,6 +90,7 @@ public class RpgPlayer
         getPlayer().playSound(getPlayer().getLocation(),sound,1,1);
     }
     public RpgPlayer(Player player){
+        this.skillEditObject = new SkillEditObject(ClassType.UNDEFINED, this);
         this.player = player;
     }
 
@@ -115,7 +100,7 @@ public class RpgPlayer
     }
 
     public void chat(String m){
-        getPlayer().sendMessage(m);
+        getPlayer().sendMessage(c.green + m);
     }
 
     private Player player;
@@ -223,8 +208,9 @@ public class RpgPlayer
         return skillEditObject;
     }
 
-    public void setSkillEditObject(SkillEditObject skillEditObject)
+    public void refreshSkillEditObject(ClassType classType)
     {
-        this.skillEditObject = skillEditObject;
+        this.getSkillEditObject().clearSkills();
+        this.getSkillEditObject().setClassType(classType);
     }
 }

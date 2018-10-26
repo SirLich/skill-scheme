@@ -1,7 +1,9 @@
 package main.java.plugin.sirlich.skills.active;
 
+import main.java.plugin.sirlich.SkillScheme;
 import main.java.plugin.sirlich.core.BlockUtils;
 import main.java.plugin.sirlich.core.RpgPlayer;
+import main.java.plugin.sirlich.core.c;
 import main.java.plugin.sirlich.skills.meta.ActiveSkill;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -9,6 +11,7 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
@@ -20,14 +23,34 @@ public class ArcherTower extends ActiveSkill
 
     static {
         cooldown.add(100);
-        cooldown.add(50);
-        cooldown.add(10);
+        cooldown.add(90);
+        cooldown.add(80);
+        cooldown.add(70);
 
         towerLifeSpan.add(100);
-        towerLifeSpan.add(500);
-        towerLifeSpan.add(100);
+        towerLifeSpan.add(200);
+        towerLifeSpan.add(300);
+        towerLifeSpan.add(400);
     }
 
+
+    public ArrayList<String> getDescription(int level){
+        ArrayList<String> lorelines = new ArrayList<String>();
+        lorelines.add(c.dgray + "Retreat from the battlefield for a few moment");
+        lorelines.add(c.dgray + "in this portable, temporary archer-tower");
+        lorelines.add("");
+        lorelines.add(c.dgray + "Press " + c.aqua + "F" + c.dgray + " to activate");
+        lorelines.add("");
+        if(level == 0 || level == getMaxLevel()){
+            lorelines.add(c.dgray + "Cooldown: " + c.green + cooldown.get(level)/20 + c.dgray + " seconds");
+            lorelines.add(c.dgray + "Lifespan: " + c.green + towerLifeSpan.get(level)/20 + c.dgray + " seconds");
+        } else {
+            lorelines.add(c.dgray + "Cooldown: " + c.yellow + cooldown.get(level)/20 + c.green + " (+" + (cooldown.get(level + 1)/20 - cooldown.get(level)/20) + ") " + c.dgray + " seconds");
+            lorelines.add(c.dgray + "Lifespan: " + c.yellow + towerLifeSpan.get(level)/20 + c.green + " (+" + (towerLifeSpan.get(level + 1)/20 - towerLifeSpan.get(level)/20) + ") " + c.dgray + " seconds");
+        }
+
+        return lorelines;
+    }
 
     public ArcherTower(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer,level,cooldown.get(level));
@@ -35,9 +58,6 @@ public class ArcherTower extends ActiveSkill
         setName("Archer Tower");
         clearDescription();
         setMaxLevel(3);
-        addLoreLine("Spawn a temporary archer tower.");
-        addLoreLine("");
-        addLoreLine(ChatColor.GRAY + "Click " + ChatColor.DARK_PURPLE + "F" + ChatColor.DARK_PURPLE + "to activate");
     }
 
     private boolean isAir(Location location){
@@ -47,7 +67,7 @@ public class ArcherTower extends ActiveSkill
     @Override
     public void onSwap(PlayerSwapHandItemsEvent event){
         if(isCooldown()){return;}
-        if(getRpgPlayer().getPlayer().isOnGround()){
+        if(!getRpgPlayer().getPlayer().isOnGround()){
             getRpgPlayer().chat(ChatColor.RED + "You have to be on the ground to use that skill.");
             getRpgPlayer().playSound(Sound.BLOCK_ANVIL_FALL);
             return;
@@ -101,6 +121,15 @@ public class ArcherTower extends ActiveSkill
                 isAir(fence_left) &&
                 isAir(fence_right)){
             player.teleport(top.clone().add(new Vector(0,1,0)));
+            new BukkitRunnable() {
+
+                @Override
+                public void run() {
+                    getRpgPlayer().playSound(Sound.BLOCK_WOOD_BREAK);
+                }
+
+            }.runTaskLater(SkillScheme.getInstance(), towerLifeSpan.get(getLevel()) - 40);
+
             BlockUtils.tempPlaceBlock(Material.LOG,base,towerLifeSpan.get(getLevel()));
             BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,base_front,towerLifeSpan.get(getLevel()), (byte) 0x1);
             BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,base_right,towerLifeSpan.get(getLevel()), (byte) 0x3);

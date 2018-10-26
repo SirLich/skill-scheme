@@ -1,5 +1,6 @@
 package main.java.plugin.sirlich.core;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.Collection;
@@ -9,8 +10,8 @@ import java.util.UUID;
 public class RpgPlayerList
 {
 
-    public static HashMap<Player, RpgPlayer> rpgPlayerHashMap = new HashMap<Player, RpgPlayer>();
-    public static HashMap<RpgPlayer, Player> playerHashMap = new HashMap<RpgPlayer, Player>();
+    public static HashMap<UUID, RpgPlayer> rpgPlayerHashMap = new HashMap<UUID, RpgPlayer>();
+    public static HashMap<RpgPlayer, UUID> playerHashMap = new HashMap<RpgPlayer, UUID>();
     public static HashMap<UUID, RpgPlayer> arrowMap = new HashMap<UUID, RpgPlayer>();
 
     public static RpgPlayer getRpgPlayer(UUID uuid){
@@ -33,21 +34,21 @@ public class RpgPlayerList
     public static void addPlayer(Player player)
     {
         RpgPlayer rpgPlayer = new RpgPlayer(player);
-        rpgPlayerHashMap.put(player, rpgPlayer);
-        playerHashMap.put(rpgPlayer, player);
+        rpgPlayerHashMap.put(player.getUniqueId(), rpgPlayer);
+        playerHashMap.put(rpgPlayer, player.getUniqueId());
     }
 
     public static void removePlayer(Player player)
     {
-        RpgPlayer rpgPlayer = rpgPlayerHashMap.get(player);
+        RpgPlayer rpgPlayer = rpgPlayerHashMap.get(player.getUniqueId());
         rpgPlayer.clearSkills();
         playerHashMap.remove(rpgPlayer);
-        rpgPlayerHashMap.remove(player);
+        rpgPlayerHashMap.remove(player.getUniqueId());
     }
 
     public static RpgPlayer getRpgPlayer(Player player)
     {
-        return rpgPlayerHashMap.get(player);
+        return rpgPlayerHashMap.get(player.getUniqueId());
     }
 
     public static Collection<RpgPlayer> getRpgPlayers()
@@ -57,13 +58,12 @@ public class RpgPlayerList
 
     public static Player getPlayer(RpgPlayer rpgPlayer)
     {
-        Player player = playerHashMap.get(rpgPlayer);
-        return player;
+        return Bukkit.getPlayer(playerHashMap.get(rpgPlayer));
     }
 
     public static boolean isPlayerOnline(Player player)
     {
-        return rpgPlayerHashMap.containsKey(player);
+        return rpgPlayerHashMap.containsKey(player.getUniqueId());
     }
 }
 
