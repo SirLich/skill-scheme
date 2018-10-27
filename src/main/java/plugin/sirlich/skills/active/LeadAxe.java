@@ -50,7 +50,7 @@ public class LeadAxe extends ActiveSkill
     }
 
     @Override
-    public void onAxeAttack(EntityDamageByEntityEvent event){
+    public void onAxeMeleeAttackOther(EntityDamageByEntityEvent event){
         if(primed){
             primed = false;
             getRpgPlayer().playSound(Sound.BLOCK_ANVIL_LAND);

@@ -2,47 +2,32 @@ package main.java.plugin.sirlich.skills.active;
 
 import main.java.plugin.sirlich.SkillScheme;
 import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.core.c;
+import main.java.plugin.sirlich.utilities.c;
 import main.java.plugin.sirlich.skills.meta.ActiveSkill;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
-import java.time.Instant;
 import java.util.ArrayList;
+import java.util.List;
 
 public class AxeOfPerun extends ActiveSkill
 {
-    private static ArrayList<Double> extraDamage = new ArrayList<Double>();
-    private static ArrayList<Integer> maxStack = new ArrayList<Integer>();
-    private static ArrayList<Integer> cooldown = new ArrayList<Integer>();
+    private static String id = "AxeOfPerun";
+    private static List<Double> bonusDamagePerHit = getYaml(id).getDoubleList("values.bonusDamagePerHit");
+    private static List<Integer> maxStack = getYaml(id).getIntegerList("values.maxStack");
+    private static List<Integer> cooldown = getYaml(id).getIntegerList("values.cooldown");
 
     private int schedularID;
     private long lastAttack;
     private int charges;
 
-    static {
-        extraDamage.add(0.1);
-        extraDamage.add(0.2);
-        extraDamage.add(0.3);
-        extraDamage.add(0.3);
-
-        maxStack.add(2);
-        maxStack.add(3);
-        maxStack.add(10);
-        maxStack.add(200);
-
-        cooldown.add(1);
-        cooldown.add(2);
-        cooldown.add(3);
-        cooldown.add(10);
-    }
-
     public AxeOfPerun(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer,level,-1);
         setId("AxeOfPerun");
         setName("Axe of Perun");
+        clearDescription();
         setMaxLevel(4);
     }
 
@@ -69,8 +54,8 @@ public class AxeOfPerun extends ActiveSkill
 
 
     @Override
-    public void onAxeAttack(EntityDamageByEntityEvent event){
-        event.setDamage(event.getDamage() + extraDamage.get(getLevel()) * charges);
+    public void onAxeMeleeAttackOther(EntityDamageByEntityEvent event){
+        event.setDamage(event.getDamage() + bonusDamagePerHit.get(getLevel()) * charges);
         lastAttack = System.currentTimeMillis();
         if(charges < maxStack.get(getLevel())){
             charges++;

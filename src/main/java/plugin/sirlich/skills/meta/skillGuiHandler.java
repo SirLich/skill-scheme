@@ -120,6 +120,7 @@ public class skillGuiHandler implements Listener
         rpgPlayer.refreshSkillEditObject(ClassType.PALADIN);
         Inventory inventory = getStandardKitsGui();
         inventory.setItem(28,getSkillItem(SkillType.WrathOfJupiter,0, SkillKind.SPECIAL));
+        inventory.setItem(29,getSkillItem(SkillType.Geronimo,0, SkillKind.SPECIAL));
         inventory.setItem(37,getSkillItem(SkillType.QualityClogs,0, SkillKind.PASSIVE_A));
 
         overfillLeftoverSlots(inventory);
@@ -167,6 +168,7 @@ public class skillGuiHandler implements Listener
         rpgPlayer.refreshSkillEditObject(ClassType.WARLOCK);
         Inventory inventory = getStandardKitsGui();
         inventory.setItem(37,getSkillItem(SkillType.QualityClogs,0, SkillKind.PASSIVE_A));
+        inventory.setItem(10,getSkillItem(SkillType.ClassicFireball,0, SkillKind.AXE));
         overfillLeftoverSlots(inventory);
         player.openInventory(inventory);
     }

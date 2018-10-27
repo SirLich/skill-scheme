@@ -1,9 +1,7 @@
 package main.java.plugin.sirlich.core;
 
-import main.java.plugin.sirlich.skills.active.*;
 import main.java.plugin.sirlich.skills.meta.ClassType;
-import main.java.plugin.sirlich.skills.passive.HolyStrike;
-import main.java.plugin.sirlich.skills.passive.SpeedBuff;
+import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import main.java.plugin.sirlich.skills.meta.Skill;
@@ -23,6 +21,8 @@ public class RpgPlayer
 
     private double fallDamageModifier = 1;
     private double fireDamageModifier = 1;
+
+    private double explosionDamageModifier = 1;
 
     private double walkSpeedModifier;
 
@@ -164,6 +164,16 @@ public class RpgPlayer
     public double getFallDamageModifier()
     {
         return fallDamageModifier;
+    }
+
+    public double getExplosionDamageModifier()
+    {
+        return explosionDamageModifier;
+    }
+
+    public void setExplosionDamageModifier(double explosionDamageModifier)
+    {
+        this.explosionDamageModifier = explosionDamageModifier;
     }
 
     public void setFallDamageModifier(double fallDamageModifier)

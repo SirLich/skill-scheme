@@ -16,7 +16,10 @@ public class PlayerJoinHandler implements Listener
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
+        initializePlayerData(player);
+    }
 
+    public static void initializePlayerData(Player player){
         //Make new RPGPlayer!
         RpgPlayerList.addPlayer(player);
         RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(player);
@@ -51,7 +54,7 @@ public class PlayerJoinHandler implements Listener
         }
     }
 
-    public Boolean createPlayerYml(Player player, File playerYml, Boolean online) {
+    public static Boolean createPlayerYml(Player player, File playerYml, Boolean online) {
         try {
             playerYml.createNewFile();
         } catch (IOException e) {

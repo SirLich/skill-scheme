@@ -19,7 +19,9 @@ public enum SkillType {
     ArcherTower(new ArcherTower(null,0)),
     QualityClogs(new QualityClogs(null,0)),
     SatanicGamble(new SatanicGamble(null,0)),
-    AxeOfPerun(new AxeOfPerun(null,0));
+    AxeOfPerun(new AxeOfPerun(null,0)),
+    ClassicFireball(new ClassicFireball(null,0)),
+    Geronimo(new Geronimo(null,0));
 
     private final Skill skill;
 

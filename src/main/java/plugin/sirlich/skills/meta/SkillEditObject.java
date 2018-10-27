@@ -10,8 +10,8 @@ public class SkillEditObject
     private ClassType classType;
     private RpgPlayer parent;
 
-    public HashMap<SkillKind, SkillType> skillMap = new HashMap<SkillKind, SkillType>();
-    public HashMap<SkillKind, Integer> levelMap = new HashMap<SkillKind, Integer>();
+    private HashMap<SkillKind, SkillType> skillMap = new HashMap<SkillKind, SkillType>();
+    private HashMap<SkillKind, Integer> levelMap = new HashMap<SkillKind, Integer>();
 
     public SkillEditObject(ClassType classType, RpgPlayer parent){
         this.classType = classType;
@@ -64,7 +64,7 @@ public class SkillEditObject
             }
 
             //Right clicks
-            else {
+            else if (clickType.equals(ClickType.RIGHT)){
                 //The skill kind we are editing has already been edited
                 if(skillMap.containsKey(skillKind)){
 
@@ -95,6 +95,8 @@ public class SkillEditObject
                     parent.chat("You can't select more than one skill from each category.");
                     return false;
                 }
+            } else {
+                return false;
             }
         }
         return true;
@@ -102,7 +104,7 @@ public class SkillEditObject
 
     public void addSkills(){
         for(SkillKind skillKind : skillMap.keySet()){
-            parent.addSkill(skillMap.get(skillKind), levelMap.get(skillKind));
+            parent.addSkill(skillMap.get(skillKind), levelMap.get(skillKind) - 1);
         }
     }
 

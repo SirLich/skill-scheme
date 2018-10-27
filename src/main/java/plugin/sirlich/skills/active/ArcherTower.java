@@ -1,9 +1,9 @@
 package main.java.plugin.sirlich.skills.active;
 
 import main.java.plugin.sirlich.SkillScheme;
-import main.java.plugin.sirlich.core.BlockUtils;
+import main.java.plugin.sirlich.utilities.BlockUtils;
 import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.core.c;
+import main.java.plugin.sirlich.utilities.c;
 import main.java.plugin.sirlich.skills.meta.ActiveSkill;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -15,25 +15,27 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ArcherTower extends ActiveSkill
 {
-    private static ArrayList<Integer> cooldown = new ArrayList<Integer>();
-    private static ArrayList<Integer> towerLifeSpan = new ArrayList<Integer>();
+    private static String id = "ArcherTower";
+    private static List<Integer> cooldown = getYaml(id).getIntegerList("values.cooldown");
+    private static List<Integer> towerLifeSpan = getYaml(id).getIntegerList("values.lifespan");
 
-    static {
-        cooldown.add(100);
-        cooldown.add(90);
-        cooldown.add(80);
-        cooldown.add(70);
-
-        towerLifeSpan.add(100);
-        towerLifeSpan.add(200);
-        towerLifeSpan.add(300);
-        towerLifeSpan.add(400);
+    public ArcherTower(RpgPlayer rpgPlayer, int level){
+        super(rpgPlayer,level,cooldown.get(level));
+        setId(id);
+        setName("Archer Tower");
+        clearDescription();
+        setMaxLevel(3);
     }
 
+    private boolean isAir(Location location){
+        return location.getWorld().getBlockAt(location).getType().equals(Material.AIR);
+    }
 
+    @Override
     public ArrayList<String> getDescription(int level){
         ArrayList<String> lorelines = new ArrayList<String>();
         lorelines.add(c.dgray + "Retreat from the battlefield for a few moment");
@@ -50,18 +52,6 @@ public class ArcherTower extends ActiveSkill
         }
 
         return lorelines;
-    }
-
-    public ArcherTower(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level,cooldown.get(level));
-        setId("ArcherTower");
-        setName("Archer Tower");
-        clearDescription();
-        setMaxLevel(3);
-    }
-
-    private boolean isAir(Location location){
-        return location.getWorld().getBlockAt(location).getType().equals(Material.AIR);
     }
 
     @Override

@@ -6,6 +6,7 @@ import main.java.plugin.sirlich.core.RpgPlayerList;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -33,6 +34,14 @@ public class ActiveSkill extends Skill
         setRechargeMessage(getName() + " has been recharged!");
     }
 
+    public void onFallDamageSelf(EntityDamageEvent event){
+
+    }
+
+    public void onExplosionDamageSelf(EntityDamageEvent event){
+
+    }
+
     public void onArrowHitEntity(ProjectileHitEvent event){
 
     }
@@ -45,12 +54,23 @@ public class ActiveSkill extends Skill
 
     }
 
-
-    public void onSwordAttack(EntityDamageByEntityEvent event){
+    public void onSwordMeleeAttackSelf(EntityDamageByEntityEvent event){
 
     }
 
-    public void onAxeAttack(EntityDamageByEntityEvent event){
+    public void onAxeMeleeAttackSelf(EntityDamageByEntityEvent event){
+
+    }
+
+    public void onMeleeAttackSelf(EntityDamageByEntityEvent event){
+
+    }
+
+    public void onSwordMeleeAttackOther(EntityDamageByEntityEvent event){
+
+    }
+
+    public void onAxeMeleeAttackOther(EntityDamageByEntityEvent event){
 
     }
 

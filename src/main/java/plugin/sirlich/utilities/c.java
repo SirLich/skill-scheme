@@ -1,4 +1,4 @@
-package main.java.plugin.sirlich.core;
+package main.java.plugin.sirlich.utilities;
 
 import org.bukkit.ChatColor;
 

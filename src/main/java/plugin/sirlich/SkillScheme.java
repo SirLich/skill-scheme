@@ -1,9 +1,12 @@
 package main.java.plugin.sirlich;
 
-import main.java.plugin.sirlich.core.BlockUtils;
+import main.java.plugin.sirlich.core.RpgPlayerList;
+import main.java.plugin.sirlich.utilities.BlockUtils;
 import main.java.plugin.sirlich.core.PlayerJoinHandler;
 import main.java.plugin.sirlich.core.PlayerLeaveHandler;
-import main.java.plugin.sirlich.skills.meta.SkillCommand;
+import main.java.plugin.sirlich.core.SkillSchemeCommand;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import main.java.plugin.sirlich.skills.meta.SkillHandler;
 import main.java.plugin.sirlich.skills.meta.skillGuiHandler;
@@ -18,11 +21,16 @@ public class SkillScheme extends JavaPlugin
         createDataFolder();
         registerEvents();
         registerCommands();
+        for(Player player : Bukkit.getOnlinePlayers()){
+            PlayerJoinHandler.initializePlayerData(player);
+        }
     }
 
     @Override
     public void onDisable(){
-
+        for(Player player : Bukkit.getOnlinePlayers()){
+            RpgPlayerList.removePlayer(player);
+        }
     }
 
 
@@ -55,6 +63,6 @@ public class SkillScheme extends JavaPlugin
     }
 
     private void registerCommands(){
-        this.getCommand("skill").setExecutor(new SkillCommand());
+        this.getCommand("skill").setExecutor(new SkillSchemeCommand());
     }
 }

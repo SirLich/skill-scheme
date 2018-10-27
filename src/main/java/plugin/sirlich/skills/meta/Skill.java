@@ -1,9 +1,13 @@
 package main.java.plugin.sirlich.skills.meta;
 
+import main.java.plugin.sirlich.SkillScheme;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class Skill
@@ -21,7 +25,7 @@ public class Skill
     private int level;
 
 
-    public Skill(RpgPlayer rpgPlayer, int level){
+    public Skill(RpgPlayer rpgPlayer, Integer level){
         this.rpgPlayer = rpgPlayer;
         this.level = level;
         this.cost = 1;
@@ -96,5 +100,10 @@ public class Skill
     public void setMaxLevel(int maxLevel)
     {
         this.maxLevel = maxLevel;
+    }
+
+    public static FileConfiguration getYaml(String id){
+        File playerYml = new File(SkillScheme.getInstance().getDataFolder() + "/skills/" + id + ".yml");
+        return YamlConfiguration.loadConfiguration(playerYml);
     }
 }

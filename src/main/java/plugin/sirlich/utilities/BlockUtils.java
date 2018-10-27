@@ -1,4 +1,4 @@
-package main.java.plugin.sirlich.core;
+package main.java.plugin.sirlich.utilities;
 
 import main.java.plugin.sirlich.SkillScheme;
 import org.bukkit.Location;

@@ -1,18 +1,15 @@
-package main.java.plugin.sirlich.skills.meta;
+package main.java.plugin.sirlich.core;
 
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.core.RpgPlayerList;
-import main.java.plugin.sirlich.core.c;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
+import main.java.plugin.sirlich.skills.meta.SkillType;
+import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 
-public class SkillCommand implements CommandExecutor
+public class SkillSchemeCommand implements CommandExecutor
 {
     public boolean onCommand(CommandSender sender, Command command, String argv, String[] args){
         if(sender instanceof Player){
