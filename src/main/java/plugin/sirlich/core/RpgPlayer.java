@@ -13,17 +13,6 @@ import java.util.*;
 
 public class RpgPlayer
 {
-    private double arrowAttackModifier = 1;
-    private double arrowDefendModifier = 1;
-
-    private double swordAttackModifier = 1;
-    private double swordDefendModifier = 1;
-
-    private double fallDamageModifier = 1;
-    private double fireDamageModifier = 1;
-
-    private double explosionDamageModifier = 1;
-
     private double walkSpeedModifier;
 
     private SkillEditObject skillEditObject;
@@ -104,100 +93,6 @@ public class RpgPlayer
     }
 
     private Player player;
-
-    public double getArrowAttackModifier()
-    {
-        return arrowAttackModifier;
-    }
-
-    public void setArrowAttackModifier(double arrowAttackModifier)
-    {
-        this.arrowAttackModifier = arrowAttackModifier;
-    }
-
-    public void editArrowAttackModifier(double change){
-        this.arrowAttackModifier += change;
-    }
-
-    public double getArrowDefendModifier()
-    {
-        return arrowDefendModifier;
-    }
-
-    public void setArrowDefendModifier(double arrowDefendModifier)
-    {
-        this.arrowDefendModifier = arrowDefendModifier;
-    }
-
-    public void editArrowDefendModifier(double change){
-        this.arrowDefendModifier += change;
-    }
-
-    public double getSwordAttackModifier()
-    {
-        return swordAttackModifier;
-    }
-
-    public void setSwordAttackModifier(double swordAttackModifier)
-    {
-        this.swordAttackModifier = swordAttackModifier;
-    }
-
-    public void editSwordAttackModifier(double change){
-        this.swordAttackModifier += change;
-    }
-
-    public double getSwordDefendModifier()
-    {
-        return swordDefendModifier;
-    }
-
-    public void setSwordDefendModifier(double swordDefendModifier)
-    {
-        this.swordDefendModifier = swordDefendModifier;
-    }
-
-    public void editSwordDefendModifier(double change){
-        this.swordDefendModifier += change;
-    }
-
-    public double getFallDamageModifier()
-    {
-        return fallDamageModifier;
-    }
-
-    public double getExplosionDamageModifier()
-    {
-        return explosionDamageModifier;
-    }
-
-    public void setExplosionDamageModifier(double explosionDamageModifier)
-    {
-        this.explosionDamageModifier = explosionDamageModifier;
-    }
-
-    public void setFallDamageModifier(double fallDamageModifier)
-    {
-        this.fallDamageModifier = fallDamageModifier;
-    }
-
-    public void editFallDamageModifier(double change){
-        this.fallDamageModifier += change;
-    }
-
-    public double getFireDamageModifier()
-    {
-        return fireDamageModifier;
-    }
-
-    public void setFireDamageModifier(double fireDamageModifier)
-    {
-        this.fireDamageModifier = fireDamageModifier;
-    }
-
-    public void editFireDamageModifier(double change){
-        this.fireDamageModifier += change;
-    }
 
     public double getWalkSpeedModifier()
     {
