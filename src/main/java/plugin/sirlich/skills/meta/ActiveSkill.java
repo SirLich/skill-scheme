@@ -42,6 +42,10 @@ public class ActiveSkill extends Skill
 
     }
 
+    public void onSuffocationDamageSelf(EntityDamageEvent event){
+
+    }
+
     public void onArrowHitEntity(ProjectileHitEvent event){
 
     }

@@ -10,6 +10,8 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
@@ -21,7 +23,9 @@ public class ArcherTower extends ActiveSkill
 {
     private static String id = "ArcherTower";
     private static List<Integer> cooldown = getYaml(id).getIntegerList("values.cooldown");
-    private static List<Integer> towerLifeSpan = getYaml(id).getIntegerList("values.lifespan");
+    private static List<Integer> duration = getYaml(id).getIntegerList("values.duration");
+
+    private static boolean deployed = false;
 
     public ArcherTower(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer,level,cooldown.get(level));
@@ -35,6 +39,7 @@ public class ArcherTower extends ActiveSkill
         return location.getWorld().getBlockAt(location).getType().equals(Material.AIR);
     }
 
+
     @Override
     public ArrayList<String> getDescription(int level){
         ArrayList<String> lorelines = new ArrayList<String>();
@@ -45,13 +50,21 @@ public class ArcherTower extends ActiveSkill
         lorelines.add("");
         if(level == 0 || level == getMaxLevel()){
             lorelines.add(c.dgray + "Cooldown: " + c.green + cooldown.get(level)/20 + c.dgray + " seconds");
-            lorelines.add(c.dgray + "Lifespan: " + c.green + towerLifeSpan.get(level)/20 + c.dgray + " seconds");
+            lorelines.add(c.dgray + "Lifespan: " + c.green + duration.get(level)/20 + c.dgray + " seconds");
         } else {
             lorelines.add(c.dgray + "Cooldown: " + c.yellow + cooldown.get(level)/20 + c.green + " (+" + (cooldown.get(level + 1)/20 - cooldown.get(level)/20) + ") " + c.dgray + " seconds");
-            lorelines.add(c.dgray + "Lifespan: " + c.yellow + towerLifeSpan.get(level)/20 + c.green + " (+" + (towerLifeSpan.get(level + 1)/20 - towerLifeSpan.get(level)/20) + ") " + c.dgray + " seconds");
+            lorelines.add(c.dgray + "Lifespan: " + c.yellow + duration.get(level)/20 + c.green + " (+" + (duration.get(level + 1)/20 - duration.get(level)/20) + ") " + c.dgray + " seconds");
         }
 
         return lorelines;
+    }
+
+    @Override
+    public void onFallDamageSelf(EntityDamageEvent event){
+        if(deployed){
+            event.setDamage(0);
+            deployed = false;
+        }
     }
 
     @Override
@@ -62,6 +75,16 @@ public class ArcherTower extends ActiveSkill
             getRpgPlayer().playSound(Sound.BLOCK_ANVIL_FALL);
             return;
         }
+        deployed = true;
+        new BukkitRunnable() {
+
+            @Override
+            public void run() {
+                deployed = false;
+            }
+
+        }.runTaskLater(SkillScheme.getInstance(), duration.get(getLevel()) +40);
+
         Player player = event.getPlayer();
         Location location = player.getLocation();
 
@@ -118,34 +141,34 @@ public class ArcherTower extends ActiveSkill
                     getRpgPlayer().playSound(Sound.BLOCK_WOOD_BREAK);
                 }
 
-            }.runTaskLater(SkillScheme.getInstance(), towerLifeSpan.get(getLevel()) - 40);
+            }.runTaskLater(SkillScheme.getInstance(), duration.get(getLevel()) - 40);
 
-            BlockUtils.tempPlaceBlock(Material.LOG,base,towerLifeSpan.get(getLevel()));
-            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,base_front,towerLifeSpan.get(getLevel()), (byte) 0x1);
-            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,base_right,towerLifeSpan.get(getLevel()), (byte) 0x3);
-            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,base_left,towerLifeSpan.get(getLevel()), (byte) 0x2);
-            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,base_back,towerLifeSpan.get(getLevel()), (byte) 0x0);
-            BlockUtils.tempPlaceBlock(Material.COBBLE_WALL,pole1,towerLifeSpan.get(getLevel()));
-            BlockUtils.tempPlaceBlock(Material.COBBLE_WALL,pole2,towerLifeSpan.get(getLevel()));
-            BlockUtils.tempPlaceBlock(Material.LOG,pole3,towerLifeSpan.get(getLevel()));
+            BlockUtils.tempPlaceBlock(Material.LOG,base, duration.get(getLevel()));
+            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,base_front, duration.get(getLevel()), (byte) 0x1);
+            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,base_right, duration.get(getLevel()), (byte) 0x3);
+            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,base_left, duration.get(getLevel()), (byte) 0x2);
+            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,base_back, duration.get(getLevel()), (byte) 0x0);
+            BlockUtils.tempPlaceBlock(Material.COBBLE_WALL,pole1, duration.get(getLevel()));
+            BlockUtils.tempPlaceBlock(Material.COBBLE_WALL,pole2, duration.get(getLevel()));
+            BlockUtils.tempPlaceBlock(Material.LOG,pole3, duration.get(getLevel()));
 
 
-            BlockUtils.tempPlaceBlock(Material.WALL_BANNER,flag_front,towerLifeSpan.get(getLevel()) - 5, (byte) 0x5);
-            BlockUtils.tempPlaceBlock(Material.WALL_BANNER,flag_left,towerLifeSpan.get(getLevel()) - 5, (byte) 0x6);
-            BlockUtils.tempPlaceBlock(Material.WALL_BANNER,flag_back,towerLifeSpan.get(getLevel()) - 5, (byte) 0x4);
-            BlockUtils.tempPlaceBlock(Material.WALL_BANNER,flag_right,towerLifeSpan.get(getLevel())- 5, (byte) 0x3);
+            BlockUtils.tempPlaceBlock(Material.WALL_BANNER,flag_front, duration.get(getLevel()) - 5, (byte) 0x5);
+            BlockUtils.tempPlaceBlock(Material.WALL_BANNER,flag_left, duration.get(getLevel()) - 5, (byte) 0x6);
+            BlockUtils.tempPlaceBlock(Material.WALL_BANNER,flag_back, duration.get(getLevel()) - 5, (byte) 0x4);
+            BlockUtils.tempPlaceBlock(Material.WALL_BANNER,flag_right, duration.get(getLevel())- 5, (byte) 0x3);
 
-            BlockUtils.tempPlaceBlock(Material.COBBLE_WALL,pole4,towerLifeSpan.get(getLevel()));
+            BlockUtils.tempPlaceBlock(Material.COBBLE_WALL,pole4, duration.get(getLevel()));
 
-            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,top_front,towerLifeSpan.get(getLevel()), (byte) 0x5);
-            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,top_left,towerLifeSpan.get(getLevel()), (byte) 0x6);
-            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,top_back,towerLifeSpan.get(getLevel()), (byte) 0x4);
-            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,top_right,towerLifeSpan.get(getLevel()), (byte) 0x7);
-            BlockUtils.tempPlaceBlock(Material.LOG,top,towerLifeSpan.get(getLevel()));
-            BlockUtils.tempPlaceBlock(Material.FENCE,fence_front,towerLifeSpan.get(getLevel()));
-            BlockUtils.tempPlaceBlock(Material.FENCE,fence_left,towerLifeSpan.get(getLevel()));
-            BlockUtils.tempPlaceBlock(Material.FENCE,fence_back,towerLifeSpan.get(getLevel()));
-            BlockUtils.tempPlaceBlock(Material.FENCE,fence_right,towerLifeSpan.get(getLevel()));
+            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,top_front, duration.get(getLevel()), (byte) 0x5);
+            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,top_left, duration.get(getLevel()), (byte) 0x6);
+            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,top_back, duration.get(getLevel()), (byte) 0x4);
+            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,top_right, duration.get(getLevel()), (byte) 0x7);
+            BlockUtils.tempPlaceBlock(Material.LOG,top, duration.get(getLevel()));
+            BlockUtils.tempPlaceBlock(Material.FENCE,fence_front, duration.get(getLevel()));
+            BlockUtils.tempPlaceBlock(Material.FENCE,fence_left, duration.get(getLevel()));
+            BlockUtils.tempPlaceBlock(Material.FENCE,fence_back, duration.get(getLevel()));
+            BlockUtils.tempPlaceBlock(Material.FENCE,fence_right, duration.get(getLevel()));
             refreshCooldown();
         } else {
             getRpgPlayer().chat(ChatColor.RED + "Something appears to be in the way!");

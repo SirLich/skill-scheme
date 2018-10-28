@@ -51,7 +51,6 @@ public class Geronimo extends ActiveSkill
         if(isCooldown()){return;}
         final Player player = event.getPlayer();
         enraged = true;
-        getRpgPlayer().setExplosionDamageModifier(0);
         player.chat("You become enraged !");
         headSave = player.getInventory().getHelmet();
         player.getInventory().setHelmet(new ItemStack(Material.TNT));
@@ -63,7 +62,6 @@ public class Geronimo extends ActiveSkill
                 player.getInventory().setHelmet(headSave);
                 getRpgPlayer().chat("You are no longer enraged.");
                 headSave = null;
-                getRpgPlayer().setExplosionDamageModifier(1);
             }
 
         }.runTaskLater(SkillScheme.getInstance(), duration.get(getLevel()));

@@ -21,7 +21,8 @@ public enum SkillType {
     SatanicGamble(new SatanicGamble(null,0)),
     AxeOfPerun(new AxeOfPerun(null,0)),
     ClassicFireball(new ClassicFireball(null,0)),
-    Geronimo(new Geronimo(null,0));
+    Geronimo(new Geronimo(null,0)),
+    Prism(new Prism(null,0));
 
     private final Skill skill;
 

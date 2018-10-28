@@ -1,12 +1,15 @@
 package main.java.plugin.sirlich.skills.meta;
 
 import de.tr7zw.itemnbtapi.NBTItem;
+import main.java.plugin.sirlich.SkillScheme;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.core.RpgPlayerList;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,8 +23,10 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class skillGuiHandler implements Listener
 {
@@ -70,7 +75,7 @@ public class skillGuiHandler implements Listener
         String buttonAction = nbtItem.getString("button_action");
         if(buttonAction.equalsIgnoreCase("open_paladin_gui")){
             player.closeInventory();
-            openPaladinGui(player);
+            openSkillGui(player,ClassType.PALADIN);
         } else if(buttonAction.equalsIgnoreCase("open_fighter_gui")){
             player.closeInventory();
             openFighterGui(player);
@@ -115,10 +120,53 @@ public class skillGuiHandler implements Listener
         return inventory;
     }
 
+    private void openSkillGui(Player player, ClassType classType){
+        RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(player);
+        rpgPlayer.refreshSkillEditObject(ClassType.PALADIN);
+        Inventory inventory = getStandardKitsGui();
+
+        File playerYml = new File(SkillScheme.getInstance().getDataFolder() + "/gui.yml");
+        FileConfiguration fileConfiguration =  YamlConfiguration.loadConfiguration(playerYml);
+
+        List<String> sword = fileConfiguration.getStringList("loadouts." + classType.toString().toLowerCase() + ".sword");
+        List<String> axe = fileConfiguration.getStringList("loadouts." + classType.toString().toLowerCase() + ".axe");
+        List<String> bow = fileConfiguration.getStringList("loadouts." + classType.toString().toLowerCase() + ".bow");
+        List<String> special = fileConfiguration.getStringList("loadouts." + classType.toString().toLowerCase() + ".special");
+        List<String> passiveA = fileConfiguration.getStringList("loadouts." + classType.toString().toLowerCase() + ".passiveA");
+        List<String> passiveB = fileConfiguration.getStringList("loadouts." + classType.toString().toLowerCase() + ".passiveB");
+
+        for(int i = 0; i < sword.size(); i ++){
+            inventory.setItem(1 + i, getSkillItem(SkillType.valueOf(sword.get(i)),0, SkillKind.SWORD));
+        }
+
+        for(int i = 0; i < axe.size(); i ++){
+            inventory.setItem(10 + i, getSkillItem(SkillType.valueOf(axe.get(i)),0, SkillKind.AXE));
+        }
+
+        for(int i = 0; i < bow.size(); i ++){
+            inventory.setItem(19 + i, getSkillItem(SkillType.valueOf(bow.get(i)),0, SkillKind.BOW));
+        }
+
+        for(int i = 0; i < special.size(); i ++){
+            inventory.setItem(28 + i, getSkillItem(SkillType.valueOf(special.get(i)),0, SkillKind.SPECIAL));
+        }
+
+        for(int i = 0; i < passiveA.size(); i ++){
+            inventory.setItem(37 + i, getSkillItem(SkillType.valueOf(passiveA.get(i)),0, SkillKind.PASSIVE_A));
+        }
+
+        for(int i = 0; i < passiveB.size(); i ++){
+            inventory.setItem(46 + i, getSkillItem(SkillType.valueOf(passiveB.get(i)),0, SkillKind.PASSIVE_B));
+        }
+
+    }
+
+
     private void openPaladinGui(Player player){
         RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(player);
         rpgPlayer.refreshSkillEditObject(ClassType.PALADIN);
         Inventory inventory = getStandardKitsGui();
+
         inventory.setItem(28,getSkillItem(SkillType.WrathOfJupiter,0, SkillKind.SPECIAL));
         inventory.setItem(29,getSkillItem(SkillType.Geronimo,0, SkillKind.SPECIAL));
         inventory.setItem(37,getSkillItem(SkillType.QualityClogs,0, SkillKind.PASSIVE_A));

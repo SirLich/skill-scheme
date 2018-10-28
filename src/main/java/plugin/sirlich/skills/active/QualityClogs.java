@@ -34,11 +34,9 @@ public class QualityClogs extends Skill
     }
 
     public void onEnable(){
-        getRpgPlayer().editFallDamageModifier(damageReduction.get(getLevel()));
     }
 
     public void onDisable(){
-        getRpgPlayer().editFallDamageModifier(damageReduction.get(getLevel()));
     }
 
 }
