@@ -4,6 +4,7 @@ import de.tr7zw.itemnbtapi.NBTItem;
 import main.java.plugin.sirlich.SkillScheme;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.core.RpgPlayerList;
+import main.java.plugin.sirlich.core.SkillType;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -25,7 +26,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class skillGuiHandler implements Listener
@@ -73,24 +73,10 @@ public class skillGuiHandler implements Listener
         System.out.println("1");
         RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(player);
         String buttonAction = nbtItem.getString("button_action");
-        if(buttonAction.equalsIgnoreCase("open_paladin_gui")){
+        if(buttonAction.equalsIgnoreCase("open_class_gui")){
+            String classGui = nbtItem.getString("class");
             player.closeInventory();
-            openSkillGui(player,ClassType.PALADIN);
-        } else if(buttonAction.equalsIgnoreCase("open_fighter_gui")){
-            player.closeInventory();
-            openFighterGui(player);
-        } else if(buttonAction.equalsIgnoreCase("open_ranger_gui")){
-            player.closeInventory();
-            openRangerGui(player);
-        } else if(buttonAction.equalsIgnoreCase("open_rogue_gui")){
-            player.closeInventory();
-            openRogueGui(player);
-        } else if(buttonAction.equalsIgnoreCase("open_warlock_gui")){
-            player.closeInventory();
-            openWalockGui(player);
-        } else if(buttonAction.equalsIgnoreCase("open_main_gui")){
-            player.closeInventory();
-            openMainGui(player);
+            openSkillGui(player, main.java.plugin.sirlich.skills.meta.ClassType.valueOf(classGui));
         } else if(buttonAction.equalsIgnoreCase("accept")){
             player.playSound(player.getLocation(),Sound.ENTITY_FIREWORK_LARGE_BLAST,1,1);
             player.closeInventory();
@@ -120,9 +106,9 @@ public class skillGuiHandler implements Listener
         return inventory;
     }
 
-    private void openSkillGui(Player player, ClassType classType){
+    private void openSkillGui(Player player, main.java.plugin.sirlich.skills.meta.ClassType classType){
         RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(player);
-        rpgPlayer.refreshSkillEditObject(ClassType.PALADIN);
+        rpgPlayer.refreshSkillEditObject(classType);
         Inventory inventory = getStandardKitsGui();
 
         File playerYml = new File(SkillScheme.getInstance().getDataFolder() + "/gui.yml");
@@ -136,90 +122,34 @@ public class skillGuiHandler implements Listener
         List<String> passiveB = fileConfiguration.getStringList("loadouts." + classType.toString().toLowerCase() + ".passiveB");
 
         for(int i = 0; i < sword.size(); i ++){
-            inventory.setItem(1 + i, getSkillItem(SkillType.valueOf(sword.get(i)),0, SkillKind.SWORD));
+            inventory.setItem(1 + i, getSkillItem(SkillType.valueOf(sword.get(i)),0, main.java.plugin.sirlich.skills.meta.SkillKind.SWORD));
         }
 
         for(int i = 0; i < axe.size(); i ++){
-            inventory.setItem(10 + i, getSkillItem(SkillType.valueOf(axe.get(i)),0, SkillKind.AXE));
+            inventory.setItem(10 + i, getSkillItem(SkillType.valueOf(axe.get(i)),0, main.java.plugin.sirlich.skills.meta.SkillKind.AXE));
         }
 
         for(int i = 0; i < bow.size(); i ++){
-            inventory.setItem(19 + i, getSkillItem(SkillType.valueOf(bow.get(i)),0, SkillKind.BOW));
+            inventory.setItem(19 + i, getSkillItem(SkillType.valueOf(bow.get(i)),0, main.java.plugin.sirlich.skills.meta.SkillKind.BOW));
         }
 
         for(int i = 0; i < special.size(); i ++){
-            inventory.setItem(28 + i, getSkillItem(SkillType.valueOf(special.get(i)),0, SkillKind.SPECIAL));
+            inventory.setItem(28 + i, getSkillItem(SkillType.valueOf(special.get(i)),0, main.java.plugin.sirlich.skills.meta.SkillKind.SPECIAL));
         }
 
         for(int i = 0; i < passiveA.size(); i ++){
-            inventory.setItem(37 + i, getSkillItem(SkillType.valueOf(passiveA.get(i)),0, SkillKind.PASSIVE_A));
+            inventory.setItem(37 + i, getSkillItem(SkillType.valueOf(passiveA.get(i)),0, main.java.plugin.sirlich.skills.meta.SkillKind.PASSIVE_A));
         }
 
         for(int i = 0; i < passiveB.size(); i ++){
-            inventory.setItem(46 + i, getSkillItem(SkillType.valueOf(passiveB.get(i)),0, SkillKind.PASSIVE_B));
+            inventory.setItem(46 + i, getSkillItem(SkillType.valueOf(passiveB.get(i)),0, main.java.plugin.sirlich.skills.meta.SkillKind.PASSIVE_B));
         }
 
-    }
-
-
-    private void openPaladinGui(Player player){
-        RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(player);
-        rpgPlayer.refreshSkillEditObject(ClassType.PALADIN);
-        Inventory inventory = getStandardKitsGui();
-
-        inventory.setItem(28,getSkillItem(SkillType.WrathOfJupiter,0, SkillKind.SPECIAL));
-        inventory.setItem(29,getSkillItem(SkillType.Geronimo,0, SkillKind.SPECIAL));
-        inventory.setItem(37,getSkillItem(SkillType.QualityClogs,0, SkillKind.PASSIVE_A));
-
         overfillLeftoverSlots(inventory);
         player.openInventory(inventory);
+
     }
 
-    private void openFighterGui(Player player){
-        RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(player);
-        rpgPlayer.refreshSkillEditObject(ClassType.FIGHTER);
-        Inventory inventory = getStandardKitsGui();
-        inventory.setItem(10,getSkillItem(SkillType.LeadAxe,0, SkillKind.AXE));
-        inventory.setItem(37,getSkillItem(SkillType.QualityClogs,0, SkillKind.PASSIVE_A));
-
-        overfillLeftoverSlots(inventory);
-        player.openInventory(inventory);
-    }
-
-    private void openRangerGui(Player player){
-        RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(player);
-        rpgPlayer.refreshSkillEditObject(ClassType.RANGER);
-        Inventory inventory = getStandardKitsGui();
-        inventory.setItem(28,getSkillItem(SkillType.ArcherTower,0, SkillKind.SPECIAL));
-        inventory.setItem(37,getSkillItem(SkillType.QualityClogs,0, SkillKind.PASSIVE_A));
-
-        overfillLeftoverSlots(inventory);
-        player.openInventory(inventory);
-    }
-
-    private void openRogueGui(Player player){
-        RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(player);
-        rpgPlayer.refreshSkillEditObject(ClassType.ROGUE);
-        Inventory inventory = getStandardKitsGui();
-        inventory.setItem(37,getSkillItem(SkillType.SpeedBuff,0, SkillKind.PASSIVE_A));
-        inventory.setItem(19,getSkillItem(SkillType.PoisonDarts,0, SkillKind.BOW));
-        inventory.setItem(20,getSkillItem(SkillType.PhantomArrows,0, SkillKind.BOW));
-        inventory.setItem(10,getSkillItem(SkillType.NimbleLeap,0, SkillKind.AXE));
-        inventory.setItem(38,getSkillItem(SkillType.QualityClogs,0, SkillKind.PASSIVE_A));
-        inventory.setItem(28,getSkillItem(SkillType.SatanicGamble,0, SkillKind.SPECIAL));
-        overfillLeftoverSlots(inventory);
-        player.openInventory(inventory);
-    }
-
-    private void openWalockGui(Player player){
-        RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(player);
-        rpgPlayer.refreshSkillEditObject(ClassType.WARLOCK);
-        Inventory inventory = getStandardKitsGui();
-        inventory.setItem(37,getSkillItem(SkillType.QualityClogs,0, SkillKind.PASSIVE_A));
-        inventory.setItem(10,getSkillItem(SkillType.ClassicFireball,0, SkillKind.AXE));
-        overfillLeftoverSlots(inventory);
-        player.openInventory(inventory);
-    }
     private void overfillLeftoverSlots(Inventory inventory){
         for(int slot = 0; slot < inventory.getSize(); slot++){
             if(inventory.getItem(slot) == null){
@@ -236,11 +166,11 @@ public class skillGuiHandler implements Listener
     {
         Inventory inventory = Bukkit.createInventory(null, 27, ChatColor.DARK_GRAY + "~ Select a class to edit:");
 
-        inventory.setItem(10, getStandardGuiButton(Material.DIAMOND_CHESTPLATE,"Paladin","open_paladin_gui"));
-        inventory.setItem(11, getStandardGuiButton(Material.IRON_CHESTPLATE,"Fighter","open_fighter_gui"));
-        inventory.setItem(13, getStandardGuiButton(Material.CHAINMAIL_CHESTPLATE,"Ranger","open_ranger_gui"));
-        inventory.setItem(14, getStandardGuiButton(Material.LEATHER_CHESTPLATE,"Rogue","open_rogue_gui"));
-        inventory.setItem(16, getStandardGuiButton(Material.GOLD_CHESTPLATE,"Warlock","open_warlock_gui"));
+        inventory.setItem(10, getStandardGuiButton(Material.DIAMOND_CHESTPLATE,"Paladin","open_class_gui","PALADIN"));
+        inventory.setItem(11, getStandardGuiButton(Material.IRON_CHESTPLATE,"Fighter","open_class_gui","FIGHTER"));
+        inventory.setItem(13, getStandardGuiButton(Material.CHAINMAIL_CHESTPLATE,"Ranger","open_class_gui","RANGER"));
+        inventory.setItem(14, getStandardGuiButton(Material.LEATHER_CHESTPLATE,"Rogue","open_class_gui","ROGUE"));
+        inventory.setItem(16, getStandardGuiButton(Material.GOLD_CHESTPLATE,"Warlock","open_class_gui","WARLOCK"));
 
         overfillLeftoverSlots(inventory);
         player.openInventory(inventory);
@@ -248,23 +178,28 @@ public class skillGuiHandler implements Listener
 
 
     public static ItemStack getSkillItem(SkillType skillType, int level, SkillKind skillKind){
+        int levelBalancer = 0;
         ItemStack itemStack = null;
         if(level > 0){
             itemStack = new ItemStack(Material.DIAMOND,level);
             itemStack.addUnsafeEnchantment(Enchantment.THORNS,2);
+            level--;
+            levelBalancer++;
         } else {
-            itemStack = new ItemStack(Material.INK_SACK,level + 1,(short)8);
+            itemStack = new ItemStack(Material.INK_SACK, 1,(short)8);
         }
         ItemMeta itemMeta = itemStack.getItemMeta();
-
 
         Skill skill = skillType.getSkill();
 
         if(skill == null){
             return new ItemStack(Material.RED_GLAZED_TERRACOTTA,1);
         }
-        itemMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.BOLD + skill.getName() + ChatColor.GRAY + " - " + " " +ChatColor.AQUA + level + "/" + skill.getMaxLevel());
+
+        itemMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.BOLD + skill.getName() + ChatColor.GRAY + " - " + " " +ChatColor.AQUA + (level + levelBalancer) + "/" + skill.getMaxLevel());
+
         ArrayList<String> loreLines = skill.getDescription(level);
+
         itemMeta.setLore(loreLines);
         itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
@@ -280,6 +215,21 @@ public class skillGuiHandler implements Listener
             nbtItem.setString("button_action","skill_item");
             nbtItem.setString("skill_type",skillId);
             nbtItem.setString("skill_kind",skillKind.toString());
+            itemStack = nbtItem.getItem();
+        }
+        return itemStack;
+    }
+
+    public static ItemStack getStandardGuiButton(Material material, String name, String button_action, String class_){
+        ItemStack itemStack = new ItemStack(material,1);
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.setDisplayName(ChatColor.GREEN + name);
+        itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        itemStack.setItemMeta(itemMeta);
+        if(button_action != null){
+            NBTItem nbtItem = new NBTItem(itemStack);
+            nbtItem.setString("button_action",button_action);
+            nbtItem.setString("class",class_);
             itemStack = nbtItem.getItem();
         }
         return itemStack;

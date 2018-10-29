@@ -28,15 +28,17 @@ public class AxeOfPerun extends ActiveSkill
         setId("AxeOfPerun");
         setName("Axe of Perun");
         clearDescription();
+        addLoreLine("mostly broke atm");
         setMaxLevel(4);
     }
+
 
     @Override
     public void onEnable(){
         schedularID = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(SkillScheme.getInstance(), new Runnable() {
             public void run() {
                 if(charges != 0){
-                    if(System.currentTimeMillis() > lastAttack + (cooldown.get(getLevel() * 1000))){
+                    if(System.currentTimeMillis() > lastAttack + (cooldown.get(getLevel())* 1000/20)){
                         charges = 0;
                         getRpgPlayer().playSound(Sound.BLOCK_FIRE_EXTINGUISH);
                         getRpgPlayer().chat(c.green +  "The bloodlust fades...");

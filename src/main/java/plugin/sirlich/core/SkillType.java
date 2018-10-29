@@ -1,7 +1,8 @@
-package main.java.plugin.sirlich.skills.meta;
+package main.java.plugin.sirlich.core;
 
 
 import main.java.plugin.sirlich.skills.active.*;
+import main.java.plugin.sirlich.skills.meta.Skill;
 import main.java.plugin.sirlich.skills.passive.HolyStrike;
 import main.java.plugin.sirlich.skills.passive.SpeedBuff;
 
@@ -22,7 +23,10 @@ public enum SkillType {
     AxeOfPerun(new AxeOfPerun(null,0)),
     ClassicFireball(new ClassicFireball(null,0)),
     Geronimo(new Geronimo(null,0)),
-    Prism(new Prism(null,0));
+    Prism(new Prism(null,0)),
+    Deflection(new Deflection(null,0)),
+    BowOfShiva(new BowOfShiva(null,0)),
+    BorimirsRevenge(new BorimirsRevenge(null,0));
 
     private final Skill skill;
 

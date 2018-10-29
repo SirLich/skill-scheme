@@ -50,6 +50,10 @@ public class ActiveSkill extends Skill
 
     }
 
+    public void onArrowHitSelf(EntityDamageByEntityEvent event){
+
+    }
+
     public void onArrowHitGround(ProjectileHitEvent event){
 
     }

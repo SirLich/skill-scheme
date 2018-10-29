@@ -7,7 +7,7 @@ import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -15,41 +15,40 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Geronimo extends ActiveSkill
+public class BorimirsRevenge extends ActiveSkill
 {
-    private static String id = "Geronimo";
-    private static List<Integer> cooldown = cooldown = getYaml(id).getIntegerList("values.cooldown");
-    private static List<Integer> duration = cooldown = getYaml(id).getIntegerList("values.duration");
-    private static List<Float> yield = getYaml(id).getFloatList("values.yield");
-    private static int PARTICLE_REFRESH;
+    private static String id = "BorimirsRevenge";
+    private static List<Integer> cooldown = getYaml(id).getIntegerList("values.cooldown");
+    private static List<Integer> duration = getYaml(id).getIntegerList("values.duration");
 
     private boolean enraged = false;
     private ItemStack headSave;
 
-    public Geronimo(RpgPlayer rpgPlayer, int level){
+    public BorimirsRevenge(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer,level,cooldown.get(level));
-        setId("Geronimo");
-        setName("Geronimo");
-        addLoreLine("Tnt protection?");
+        setId("BorimirsRevenge");
+        setName("Borimirs Revenge");
+        clearDescription();
+        addLoreLine("Become immune to arrows for a few seconds.");
     }
 
     @Override
-    public void onMeleeAttackSelf(EntityDamageByEntityEvent event){
+    public void onArrowHitSelf(EntityDamageByEntityEvent event){
         if(enraged){
-            Double x = event.getEntity().getLocation().getX();
-            Double y = event.getEntity().getLocation().getY();
-            Double z = event.getEntity().getLocation().getZ();
-            event.getEntity().getWorld().createExplosion(x,y,z,yield.get(getLevel()),false,false);
+            System.out.println("Deflection");
+            event.setCancelled(true);
+            event.getDamager().remove();
+            return;
         }
-    }
+        System.out.println("Hit");
 
+    }
 
     @Override
     public ArrayList<String> getDescription(int level){
         ArrayList<String> lorelines = new ArrayList<String>();
         lorelines.add(c.dgray + "Enter into a raged state. While raged,");
-        lorelines.add(c.dgray + "melee attacks will cause your body to explode");
-        lorelines.add(c.dgray + "dealing damage to your enemies, but not yourself.");
+        lorelines.add(c.dgray + "arrows deal 0 damage and 0 knock-back.");
         lorelines.add("");
         lorelines.add(c.dgray + "Press " + c.aqua + "F" + c.dgray + " to activate");
         lorelines.add("");
@@ -58,32 +57,29 @@ public class Geronimo extends ActiveSkill
         return lorelines;
     }
 
-    @Override
-    public void onExplosionDamageSelf(EntityDamageEvent event){
-        if(enraged){
-            event.setDamage(0);
-        }
-    }
+
     @Override
     public void onSwap(PlayerSwapHandItemsEvent event){
         if(isCooldown()){return;}
         final Player player = event.getPlayer();
         enraged = true;
-        player.chat("You become enraged !");
+        System.out.println("Enraged activated");
+        getRpgPlayer().chat("You are now immune to arrows !");
         headSave = player.getInventory().getHelmet();
-        player.getInventory().setHelmet(new ItemStack(Material.TNT));
+        player.getInventory().setHelmet(new ItemStack(Material.BEDROCK));
         new BukkitRunnable() {
 
             @Override
             public void run() {
                 enraged = false;
+                System.out.println("Enraged deactivated");
                 player.getInventory().setHelmet(headSave);
-                getRpgPlayer().chat("You are no longer enraged.");
+                getRpgPlayer().chat("You are no longer immune to arrows.");
                 headSave = null;
             }
 
         }.runTaskLater(SkillScheme.getInstance(), duration.get(getLevel()));
-
         refreshCooldown();
     }
+
 }

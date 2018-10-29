@@ -6,13 +6,13 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import main.java.plugin.sirlich.skills.meta.Skill;
 import main.java.plugin.sirlich.skills.meta.SkillEditObject;
-import main.java.plugin.sirlich.skills.meta.SkillType;
 
 import java.lang.reflect.Constructor;
 import java.util.*;
 
 public class RpgPlayer
 {
+    private String team;
     private double walkSpeedModifier;
 
     private SkillEditObject skillEditObject;
@@ -81,6 +81,7 @@ public class RpgPlayer
     public RpgPlayer(Player player){
         this.skillEditObject = new SkillEditObject(ClassType.UNDEFINED, this);
         this.player = player;
+        this.team = "Default";
     }
 
     public Player getPlayer()
@@ -117,5 +118,19 @@ public class RpgPlayer
     {
         this.getSkillEditObject().clearSkills();
         this.getSkillEditObject().setClassType(classType);
+    }
+
+    public static boolean sameTeam(RpgPlayer a, RpgPlayer b){
+        return a.getTeam().equals(b.getTeam());
+    }
+
+    public String getTeam()
+    {
+        return team;
+    }
+
+    public void setTeam(String team)
+    {
+        this.team = team;
     }
 }

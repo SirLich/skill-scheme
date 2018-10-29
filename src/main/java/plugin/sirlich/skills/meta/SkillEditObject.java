@@ -1,6 +1,7 @@
 package main.java.plugin.sirlich.skills.meta;
 
 import main.java.plugin.sirlich.core.RpgPlayer;
+import main.java.plugin.sirlich.core.SkillType;
 import org.bukkit.event.inventory.ClickType;
 
 import java.util.HashMap;

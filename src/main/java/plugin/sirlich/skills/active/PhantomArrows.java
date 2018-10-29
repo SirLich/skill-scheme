@@ -3,6 +3,7 @@ package main.java.plugin.sirlich.skills.active;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.core.RpgPlayerList;
 import main.java.plugin.sirlich.skills.meta.ActiveSkill;
+import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -44,6 +45,19 @@ public class PhantomArrows extends ActiveSkill
     }
 
     @Override
+    public ArrayList<String> getDescription(int level){
+        ArrayList<String> lorelines = new ArrayList<String>();
+        lorelines.add(c.dgray + "Confusion and turmoil are sure to follow");
+        lorelines.add(c.dgray + "the use of this teleportation bow.");
+        lorelines.add("");
+        lorelines.add(c.dgray + "Right-Click" + c.aqua + " axe " + c.dgray + "to prime.");
+        lorelines.add(c.dgray + "Shoot with the " + c.aqua + "bow" + c.dgray + " while primed, to swap places with your target.");
+        lorelines.add("");
+        lorelines.add(c.dgray + "Cooldown: " + c.green + cooldown.get(level)/20 + c.dgray + " seconds");
+        return lorelines;
+    }
+
+    @Override
     public void onArrowHitEntity(ProjectileHitEvent event){
         Entity entity = event.getHitEntity();
         Player player = (Player) event.getEntity().getShooter();
@@ -62,7 +76,7 @@ public class PhantomArrows extends ActiveSkill
     @Override
     public void onBowLeftClick(PlayerInteractEvent event){
         if(primed){
-            getRpgPlayer().chat("That skill is already meta");
+            getRpgPlayer().chat("That skill is already primed.");
         } else {
             if(isCooldown()){
                 playCooldownMedia();

@@ -51,6 +51,11 @@ public class RpgPlayerList
         return rpgPlayerHashMap.get(player.getUniqueId());
     }
 
+    public static RpgPlayer getRpgPlayer(String name)
+    {
+        return rpgPlayerHashMap.get(Bukkit.getPlayer(name).getUniqueId());
+    }
+
     public static Collection<RpgPlayer> getRpgPlayers()
     {
         return rpgPlayerHashMap.values();

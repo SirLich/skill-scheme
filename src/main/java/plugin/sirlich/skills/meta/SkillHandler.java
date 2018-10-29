@@ -4,6 +4,7 @@ import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.core.RpgPlayerList;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -68,6 +69,14 @@ public class SkillHandler implements Listener
                     if(skill instanceof ActiveSkill){
                         ActiveSkill activeSkill = (ActiveSkill) skill;
                         activeSkill.onAxeMeleeAttackSelf(event);
+                    }
+                }
+            }
+            if(event.getDamager() instanceof Projectile){
+                for(Skill skill : rpgPlayer.getSkillList().values()){
+                    if(skill instanceof ActiveSkill){
+                        ActiveSkill activeSkill = (ActiveSkill) skill;
+                        activeSkill.onArrowHitSelf(event);
                     }
                 }
             }

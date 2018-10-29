@@ -4,6 +4,7 @@ import main.java.plugin.sirlich.SkillScheme;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.skills.meta.ActiveSkill;
 import main.java.plugin.sirlich.utilities.BlockUtils;
+import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -11,6 +12,7 @@ import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Prism extends ActiveSkill
@@ -41,6 +43,20 @@ public class Prism extends ActiveSkill
 
         }.runTaskLater(SkillScheme.getInstance(), duration.get(getLevel()));
         refreshCooldown();
+    }
+
+
+    @Override
+    public ArrayList<String> getDescription(int level){
+        ArrayList<String> lorelines = new ArrayList<String>();
+        lorelines.add(c.dgray + "Retreat from the fighting in this quick-deploy");
+        lorelines.add(c.dgray + "crystal prism.");
+        lorelines.add("");
+        lorelines.add(c.dgray + "Press " + c.aqua + "F" + c.dgray + " to activate");
+        lorelines.add("");
+        lorelines.add(c.dgray + "Cooldown: " + c.green + cooldown.get(level)/20 + c.dgray + " seconds");
+        lorelines.add(c.dgray + "Duration: " + c.green + duration.get(level)/20 + c.dgray + " seconds");
+        return lorelines;
     }
 
     @Override

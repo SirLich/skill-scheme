@@ -63,6 +63,6 @@ public class SkillScheme extends JavaPlugin
     }
 
     private void registerCommands(){
-        this.getCommand("skill").setExecutor(new SkillSchemeCommand());
+        this.getCommand("ss").setExecutor(new SkillSchemeCommand());
     }
 }

@@ -1,36 +1,42 @@
 package main.java.plugin.sirlich.skills.active;
 
 import main.java.plugin.sirlich.core.RpgPlayer;
+import main.java.plugin.sirlich.skills.meta.ActiveSkill;
 import main.java.plugin.sirlich.utilities.c;
 import main.java.plugin.sirlich.skills.meta.Skill;
+import org.bukkit.event.entity.EntityDamageEvent;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class QualityClogs extends Skill
+public class QualityClogs extends ActiveSkill
 {
-
-    private static ArrayList<Double> damageReduction = new ArrayList<Double>();
-
-    private boolean primed;
-
-    static {
-        damageReduction.add(0.7);
-        damageReduction.add(0.3);
-        damageReduction.add(0.1);
-        damageReduction.add(0.0);
-    }
+    private static String id = "QualityClogs";
+    private static List<Float> damageReduction = getYaml(id).getFloatList("values.damageReduction");
 
     public QualityClogs(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level);
+        super(rpgPlayer,level,-1);
         this.setCost(1);
-        this.setMaxLevel(4);
+        this.setMaxLevel(3);
         this.setId("QualityClogs");
         this.setName("Quality Clogs");
-        clearDescription();
-        addLoreLine("Summon the power of well constructed footwear.");
-        addLoreLine("");
-        addLoreLine("Passively reduce fall damage by " + c.green + (int) ((1 - damageReduction.get(level)) * 100) + "%");
-        addLoreLine("");
+    }
+
+    @Override
+    public ArrayList<String> getDescription(int level){
+        ArrayList<String> lorelines = new ArrayList<String>();
+        lorelines.add(c.dgray + "Summon the power of well constructed");
+        lorelines.add(c.dgray + "footwear");
+        lorelines.add("");
+        lorelines.add(c.dgray + "Passively reduce fall damage by " + c.green + (int) ((1 - damageReduction.get(level)) * 100) + "%");
+
+        return lorelines;
+    }
+
+
+    @Override
+    public void onFallDamageSelf(EntityDamageEvent event){
+        event.setDamage(event.getDamage() * damageReduction.get(getLevel()));
     }
 
     public void onEnable(){

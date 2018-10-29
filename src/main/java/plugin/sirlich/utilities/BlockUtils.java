@@ -1,6 +1,7 @@
 package main.java.plugin.sirlich.utilities;
 
 import main.java.plugin.sirlich.SkillScheme;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -21,8 +22,17 @@ public class BlockUtils implements Listener
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event){
-        System.out.println("Broke: " + event.getBlock().getLocation().toString());
         if(event.getPlayer() != null && dontBreak.contains(event.getBlock().getLocation())){
+            event.setCancelled(true);
+        }
+        if(event.getPlayer() != null &&
+                event.getPlayer().getGameMode() == GameMode.CREATIVE &&
+                event.getPlayer().getInventory().getItemInMainHand() != null &&
+                (event.getPlayer().getInventory().getItemInMainHand().getType() == Material.WOOD_AXE||
+                event.getPlayer().getInventory().getItemInMainHand().getType() == Material.STONE_AXE ||
+                event.getPlayer().getInventory().getItemInMainHand().getType() == Material.IRON_AXE ||
+                event.getPlayer().getInventory().getItemInMainHand().getType() == Material.GOLD_AXE ||
+                event.getPlayer().getInventory().getItemInMainHand().getType() == Material.DIAMOND_AXE)){
             event.setCancelled(true);
         }
     }
@@ -35,7 +45,6 @@ public class BlockUtils implements Listener
         final Material oldMaterial = location.getWorld().getBlockAt(location).getType();
         final Location oldLocation = new Location(location.getWorld(),location.getBlockX(),location.getBlockY(),location.getBlockZ());
         dontBreak.add(oldLocation);
-        System.out.println("Added: " + oldLocation.toString());
         location.getWorld().getBlockAt(location).setType(material);
         location.getWorld().getBlockAt(location).setData(direction);
         new BukkitRunnable() {
@@ -43,7 +52,6 @@ public class BlockUtils implements Listener
             public void run() {
                 oldLocation.getWorld().getBlockAt(oldLocation).setType(oldMaterial);
                 dontBreak.remove(oldLocation);
-                System.out.println("Removed: " + oldLocation.toString());
 
             }
 
