@@ -29,10 +29,7 @@ public class PoisonDarts extends ActiveSkill
 
     public PoisonDarts(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer,level, ticksPerDart.get(level));
-        setCooldownMessage("You don't have enough charges");
         setCooldownSound(Sound.BLOCK_COMPARATOR_CLICK);
-
-        setRechargeMessage("Charges: " + charges);
         setRechargeSound(Sound.BLOCK_NOTE_BELL);
         setName("Poison Darts");
         setId("PoisonDarts");
@@ -77,7 +74,7 @@ public class PoisonDarts extends ActiveSkill
     @Override
     public void onBowLeftClick(PlayerInteractEvent event){
         if(charges <= 0){
-            playCooldownMedia();
+            getRpgPlayer().chat("You don't enough enough darts.");
         } else {
             Arrow arrow = event.getPlayer().launchProjectile(Arrow.class);
             arrow.setVelocity(arrow.getVelocity().multiply(0.5));

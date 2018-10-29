@@ -18,8 +18,8 @@ public class ClassicFireball extends ActiveSkill
     public ClassicFireball(RpgPlayer rpgPlayer,int level){
         super(rpgPlayer,level,cooldown.get(level));
         setId("ClassicFireball");
+        setMaxLevel(3);
         setName("Classic Fireball");
-        addLoreLine("Blow up your enimies pew-pew");
     }
 
     @Override

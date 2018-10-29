@@ -21,6 +21,7 @@ public class Deflection extends ActiveSkill
     public Deflection(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer,level,cooldown.get(level));
         setId("Deflection");
+        setMaxLevel(3);
         setName("Deflection");
     }
 

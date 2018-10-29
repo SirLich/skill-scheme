@@ -33,11 +33,8 @@ public class LeadAxe extends ActiveSkill
         super(rpgPlayer, level,cooldown.get(level));
         this.setName("Lead Axe");
         this.setId("LeadAxe");
+        setRechargeSound(Sound.ENTITY_ENDERMEN_SCREAM);
         setMaxLevel(4);
-        clearDescription();
-        addLoreLine("Right-click to prime.");
-        addLoreLine("");
-        addLoreLine("Your next attack will deal massive knock-back.");
     }
 
 
@@ -57,6 +54,10 @@ public class LeadAxe extends ActiveSkill
 
     @Override
     public void onAxeRightClick(PlayerInteractEvent event){
+        if(primed){
+            getRpgPlayer().chat(c.red + getName() + " has already been primed.");
+            return;
+        }
         if(isCooldown()){return;}
         Player player = getRpgPlayer().getPlayer();
         getRpgPlayer().chat(ChatColor.GREEN + "You ready your axe...");

@@ -36,10 +36,6 @@ public class PhantomArrows extends ActiveSkill
         super(rpgPlayer,level,cooldown.get(level));
         setName("Phantom Arrows");
         setId("PhantomArrows");
-        clearDescription();
-        addLoreLine("Switch places with a target.");
-        addLoreLine("");
-        addLoreLine(ChatColor.DARK_PURPLE + "Right Click" + ChatColor.GRAY + " the bow to prime.");
         setMaxLevel(3);
         primed = false;
     }
@@ -50,8 +46,8 @@ public class PhantomArrows extends ActiveSkill
         lorelines.add(c.dgray + "Confusion and turmoil are sure to follow");
         lorelines.add(c.dgray + "the use of this teleportation bow.");
         lorelines.add("");
-        lorelines.add(c.dgray + "Right-Click" + c.aqua + " axe " + c.dgray + "to prime.");
-        lorelines.add(c.dgray + "Shoot with the " + c.aqua + "bow" + c.dgray + " while primed, to swap places with your target.");
+        lorelines.add(c.dgray + "Left-Click" + c.aqua + " bow " + c.dgray + "to prime.");
+        lorelines.add(c.dgray + "Shoot with the " + c.aqua + "bow" + c.dgray + " while primed to swap places with your target.");
         lorelines.add("");
         lorelines.add(c.dgray + "Cooldown: " + c.green + cooldown.get(level)/20 + c.dgray + " seconds");
         return lorelines;

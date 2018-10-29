@@ -21,6 +21,11 @@ import java.util.UUID;
 public class SkillHandler implements Listener
 {
 
+    /*
+     HANDLES: Self-damage causes for:
+        - Explosion
+        - Fall damage
+     */
     @EventHandler
     public void onFallDamage(EntityDamageEvent event){
         if(event.getEntity() instanceof Player){

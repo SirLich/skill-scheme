@@ -28,6 +28,7 @@ public class Geronimo extends ActiveSkill
 
     public Geronimo(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer,level,cooldown.get(level));
+        setMaxLevel(3);
         setId("Geronimo");
         setName("Geronimo");
         addLoreLine("Tnt protection?");

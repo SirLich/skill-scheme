@@ -4,7 +4,6 @@ import de.tr7zw.itemnbtapi.NBTItem;
 import main.java.plugin.sirlich.SkillScheme;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.core.RpgPlayerList;
-import main.java.plugin.sirlich.core.SkillType;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -122,27 +121,27 @@ public class skillGuiHandler implements Listener
         List<String> passiveB = fileConfiguration.getStringList("loadouts." + classType.toString().toLowerCase() + ".passiveB");
 
         for(int i = 0; i < sword.size(); i ++){
-            inventory.setItem(1 + i, getSkillItem(SkillType.valueOf(sword.get(i)),0, main.java.plugin.sirlich.skills.meta.SkillKind.SWORD));
+            inventory.setItem(1 + i, getSkillItem(SkillType.valueOf(sword.get(i)),0, SkillKind.SWORD));
         }
 
         for(int i = 0; i < axe.size(); i ++){
-            inventory.setItem(10 + i, getSkillItem(SkillType.valueOf(axe.get(i)),0, main.java.plugin.sirlich.skills.meta.SkillKind.AXE));
+            inventory.setItem(10 + i, getSkillItem(SkillType.valueOf(axe.get(i)),0, SkillKind.AXE));
         }
 
         for(int i = 0; i < bow.size(); i ++){
-            inventory.setItem(19 + i, getSkillItem(SkillType.valueOf(bow.get(i)),0, main.java.plugin.sirlich.skills.meta.SkillKind.BOW));
+            inventory.setItem(19 + i, getSkillItem(SkillType.valueOf(bow.get(i)),0, SkillKind.BOW));
         }
 
         for(int i = 0; i < special.size(); i ++){
-            inventory.setItem(28 + i, getSkillItem(SkillType.valueOf(special.get(i)),0, main.java.plugin.sirlich.skills.meta.SkillKind.SPECIAL));
+            inventory.setItem(28 + i, getSkillItem(SkillType.valueOf(special.get(i)),0, SkillKind.SPECIAL));
         }
 
         for(int i = 0; i < passiveA.size(); i ++){
-            inventory.setItem(37 + i, getSkillItem(SkillType.valueOf(passiveA.get(i)),0, main.java.plugin.sirlich.skills.meta.SkillKind.PASSIVE_A));
+            inventory.setItem(37 + i, getSkillItem(SkillType.valueOf(passiveA.get(i)),0, SkillKind.PASSIVE_A));
         }
 
         for(int i = 0; i < passiveB.size(); i ++){
-            inventory.setItem(46 + i, getSkillItem(SkillType.valueOf(passiveB.get(i)),0, main.java.plugin.sirlich.skills.meta.SkillKind.PASSIVE_B));
+            inventory.setItem(46 + i, getSkillItem(SkillType.valueOf(passiveB.get(i)),0, SkillKind.PASSIVE_B));
         }
 
         overfillLeftoverSlots(inventory);

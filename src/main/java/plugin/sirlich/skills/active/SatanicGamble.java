@@ -24,12 +24,9 @@ public class SatanicGamble extends ActiveSkill
         clearDescription();
         addLoreLine(ChatColor.ITALIC + "" + ChatColor.DARK_RED + "A penny for your soul?");
         setMaxLevel(3);
-        setRechargeMessage(ChatColor.RED + "Take a gamble?");
         setName("Satanic Gamble");
         setId("SatanicGamble");
         setRechargeSound(Sound.ENTITY_ENDERMEN_SCREAM);
-        setRechargeMessage("Take a gamble my friend!");
-        setCooldownMessage(ChatColor.RED + "Too soon!");
     }
 
     @Override

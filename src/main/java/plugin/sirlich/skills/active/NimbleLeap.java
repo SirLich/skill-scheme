@@ -34,7 +34,6 @@ public class NimbleLeap extends ActiveSkill
         setMaxLevel(3);
         clearDescription();
         addLoreLine(ChatColor.DARK_GRAY + "Right click axe to leap forward with great force.");
-        setCooldownMessage("Nope!");
         setCooldownSound(Sound.BLOCK_ANVIL_LAND);
     }
 

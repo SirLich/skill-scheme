@@ -1,5 +1,6 @@
 package main.java.plugin.sirlich.core;
 
+import main.java.plugin.sirlich.skills.meta.SkillType;
 import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.Material;
 import org.bukkit.command.Command;

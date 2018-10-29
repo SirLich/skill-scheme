@@ -1,8 +1,7 @@
-package main.java.plugin.sirlich.core;
+package main.java.plugin.sirlich.skills.meta;
 
 
 import main.java.plugin.sirlich.skills.active.*;
-import main.java.plugin.sirlich.skills.meta.Skill;
 import main.java.plugin.sirlich.skills.passive.HolyStrike;
 import main.java.plugin.sirlich.skills.passive.SpeedBuff;
 
@@ -26,7 +25,8 @@ public enum SkillType {
     Prism(new Prism(null,0)),
     Deflection(new Deflection(null,0)),
     BowOfShiva(new BowOfShiva(null,0)),
-    BorimirsRevenge(new BorimirsRevenge(null,0));
+    BorimirsRevenge(new BorimirsRevenge(null,0)),
+    WebShot(new WebShot(null,0));
 
     private final Skill skill;
 

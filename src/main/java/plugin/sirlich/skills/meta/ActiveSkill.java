@@ -2,8 +2,7 @@ package main.java.plugin.sirlich.skills.meta;
 
 import main.java.plugin.sirlich.SkillScheme;
 import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.core.RpgPlayerList;
-import org.bukkit.ChatColor;
+import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.Sound;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -18,9 +17,8 @@ public class ActiveSkill extends Skill
     private int cooldownTimer;
     private boolean cooldown;
     private Sound cooldownSound;
-    private String cooldownMessage;
     private Sound rechargeSound;
-    private String rechargeMessage;
+
 
     public ActiveSkill(RpgPlayer rpgPlayer, int level, int cooldown){
         super(rpgPlayer,level);
@@ -28,10 +26,8 @@ public class ActiveSkill extends Skill
         this.cooldown = false;
         setName("Default Primed Skill");
         setId("ActiveSkill");
-        setCooldownMessage("That skill is still on cooldown!");
         setCooldownSound(Sound.BLOCK_COMPARATOR_CLICK);
         setRechargeSound(Sound.BLOCK_ENDERCHEST_OPEN);
-        setRechargeMessage(getName() + " has been recharged!");
     }
 
     public void onFallDamageSelf(EntityDamageEvent event){
@@ -116,14 +112,15 @@ public class ActiveSkill extends Skill
     public void playCooldownMedia(){
         if(rechargeSound != null){
             getRpgPlayer().getPlayer().playSound(getRpgPlayer().getPlayer().getLocation(),cooldownSound,1,1);
-        }        getRpgPlayer().chat(cooldownMessage);
+        }
+        getRpgPlayer().chat(c.red + getName() + c.dgray + " is still on cooldown.");
     }
 
     public void playRechargeMedia(){
         if(rechargeSound != null){
             getRpgPlayer().getPlayer().playSound(getRpgPlayer().getPlayer().getLocation(),rechargeSound,1,1);
         }
-        getRpgPlayer().chat(rechargeMessage);
+        getRpgPlayer().chat(c.green + getName() + c.dgray + " has been recharged.");
     }
 
     public void setCooldown(boolean state){
@@ -136,8 +133,7 @@ public class ActiveSkill extends Skill
             @Override
             public void run() {
                 cooldown = false;
-                getRpgPlayer().chat(ChatColor.GREEN + getName() + " has recharged!");
-                getRpgPlayer().getPlayer().playSound(getRpgPlayer().getPlayer().getLocation(), Sound.BLOCK_ENDERCHEST_OPEN,1,1);
+                playRechargeMedia();
             }
 
         }.runTaskLater(SkillScheme.getInstance(), cooldownTimer);
@@ -153,15 +149,6 @@ public class ActiveSkill extends Skill
         this.cooldownSound = cooldownSound;
     }
 
-    public String getCooldownMessage()
-    {
-        return cooldownMessage;
-    }
-
-    public void setCooldownMessage(String cooldownMessage)
-    {
-        this.cooldownMessage = cooldownMessage;
-    }
 
     public Sound getRechargeSound()
     {
@@ -173,13 +160,5 @@ public class ActiveSkill extends Skill
         this.rechargeSound = rechargeSound;
     }
 
-    public String getRechargeMessage()
-    {
-        return rechargeMessage;
-    }
 
-    public void setRechargeMessage(String rechargeMessage)
-    {
-        this.rechargeMessage = rechargeMessage;
-    }
 }

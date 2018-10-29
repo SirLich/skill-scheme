@@ -41,6 +41,8 @@ public class BlockUtils implements Listener
     public static void tempPlaceBlock(Material material, Location location, int ticks){
         tempPlaceBlock(material,location,ticks,(byte)0x0);
     }
+
+
     public static void tempPlaceBlock(Material material, Location location, int ticks,byte direction){
         final Material oldMaterial = location.getWorld().getBlockAt(location).getType();
         final Location oldLocation = new Location(location.getWorld(),location.getBlockX(),location.getBlockY(),location.getBlockZ());
