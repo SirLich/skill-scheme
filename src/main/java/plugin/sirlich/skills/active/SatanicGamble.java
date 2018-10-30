@@ -20,12 +20,7 @@ public class SatanicGamble extends ActiveSkill
     }
 
     public SatanicGamble(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level,cooldown.get(level));
-        clearDescription();
-        addLoreLine(ChatColor.ITALIC + "" + ChatColor.DARK_RED + "A penny for your soul?");
-        setMaxLevel(3);
-        setName("Satanic Gamble");
-        setId("SatanicGamble");
+        super(rpgPlayer,level,"SatanicGamble");
         setRechargeSound(Sound.ENTITY_ENDERMEN_SCREAM);
     }
 

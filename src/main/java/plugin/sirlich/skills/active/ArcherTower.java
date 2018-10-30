@@ -21,17 +21,12 @@ import java.util.List;
 public class ArcherTower extends ActiveSkill
 {
     private static String id = "ArcherTower";
-    private static List<Integer> cooldown = getYaml(id).getIntegerList("values.cooldown");
     private static List<Integer> duration = getYaml(id).getIntegerList("values.duration");
 
     private static boolean deployed = false;
 
     public ArcherTower(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level,cooldown.get(level));
-        setId(id);
-        setName("Archer Tower");
-        clearDescription();
-        setMaxLevel(3);
+        super(rpgPlayer,level,"ArcherTower");
     }
 
     private boolean isAir(Location location){
@@ -47,13 +42,8 @@ public class ArcherTower extends ActiveSkill
         lorelines.add("");
         lorelines.add(c.dgray + "Press " + c.aqua + "F" + c.dgray + " to activate");
         lorelines.add("");
-        if(level == 0 || level == getMaxLevel()){
-            lorelines.add(c.dgray + "Cooldown: " + c.green + cooldown.get(level)/20 + c.dgray + " seconds");
-            lorelines.add(c.dgray + "Lifespan: " + c.green + duration.get(level)/20 + c.dgray + " seconds");
-        } else {
-            lorelines.add(c.dgray + "Cooldown: " + c.yellow + cooldown.get(level)/20 + c.green + " (+" + (cooldown.get(level + 1)/20 - cooldown.get(level)/20) + ") " + c.dgray + " seconds");
-            lorelines.add(c.dgray + "Lifespan: " + c.yellow + duration.get(level)/20 + c.green + " (+" + (duration.get(level + 1)/20 - duration.get(level)/20) + ") " + c.dgray + " seconds");
-        }
+        lorelines.add(c.dgray + "Cooldown: " + c.green + getCooldown()/20 + c.dgray + " seconds");
+        lorelines.add(c.dgray + "Lifespan: " + c.green + duration.get(level)/20 + c.dgray + " seconds");
 
         return lorelines;
     }

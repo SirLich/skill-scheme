@@ -18,20 +18,14 @@ import java.util.List;
 public class Geronimo extends ActiveSkill
 {
     private static String id = "Geronimo";
-    private static List<Integer> cooldown = cooldown = getYaml(id).getIntegerList("values.cooldown");
-    private static List<Integer> duration = cooldown = getYaml(id).getIntegerList("values.duration");
+    private static List<Integer> duration = getYaml(id).getIntegerList("values.duration");
     private static List<Float> yield = getYaml(id).getFloatList("values.yield");
-    private static int PARTICLE_REFRESH;
 
     private boolean enraged = false;
     private ItemStack headSave;
 
     public Geronimo(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level,cooldown.get(level));
-        setMaxLevel(3);
-        setId("Geronimo");
-        setName("Geronimo");
-        addLoreLine("Tnt protection?");
+        super(rpgPlayer,level,"Geronimo");
     }
 
     @Override
@@ -54,7 +48,7 @@ public class Geronimo extends ActiveSkill
         lorelines.add("");
         lorelines.add(c.dgray + "Press " + c.aqua + "F" + c.dgray + " to activate");
         lorelines.add("");
-        lorelines.add(c.dgray + "Cooldown: " + c.green + cooldown.get(level)/20 + c.dgray + " seconds");
+        lorelines.add(c.dgray + "Cooldown: " + c.green + getCooldown()/20 + c.dgray + " seconds");
         lorelines.add(c.dgray + "Duration: " + c.green + duration.get(level)/20 + c.dgray + " seconds");
         return lorelines;
     }

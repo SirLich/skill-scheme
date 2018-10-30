@@ -14,7 +14,6 @@ import java.util.ArrayList;
 public class LeadAxe extends ActiveSkill
 {
     private static ArrayList<Double> power = new ArrayList<Double>();
-    private static ArrayList<Integer> cooldown = new ArrayList<Integer>();
 
     private boolean primed;
     static {
@@ -22,19 +21,10 @@ public class LeadAxe extends ActiveSkill
         power.add(2.5);
         power.add(3.0);
         power.add(6.2);
-
-        cooldown.add(200);
-        cooldown.add(150);
-        cooldown.add(100);
-        cooldown.add(40);
     }
 
     public LeadAxe(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer, level,cooldown.get(level));
-        this.setName("Lead Axe");
-        this.setId("LeadAxe");
-        setRechargeSound(Sound.ENTITY_ENDERMEN_SCREAM);
-        setMaxLevel(4);
+        super(rpgPlayer, level,"LeadAxe");
     }
 
 
@@ -47,7 +37,7 @@ public class LeadAxe extends ActiveSkill
         lorelines.add(c.dgray + "Right-Click" + c.aqua + " axe " + c.dgray + "to prime");
         lorelines.add(c.aqua + "Melee-Attack" + c.dgray + " while primed, to deal massive knock-back");
         lorelines.add("");
-        lorelines.add(c.dgray + "Cooldown: " + c.green + cooldown.get(level)/20 + c.dgray + " seconds");
+        lorelines.add(c.dgray + "Cooldown: " + c.green + getCooldown()/20 + c.dgray + " seconds");
         lorelines.add(c.dgray + "Power: " + c.green + power.get(level) + c.dgray);
         return lorelines;
     }

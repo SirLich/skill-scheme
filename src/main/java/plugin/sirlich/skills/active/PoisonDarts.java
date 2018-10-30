@@ -28,13 +28,9 @@ public class PoisonDarts extends ActiveSkill
     private int schedularID;
 
     public PoisonDarts(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level, ticksPerDart.get(level));
+        super(rpgPlayer,level, "PoisonDarts");
         setCooldownSound(Sound.BLOCK_COMPARATOR_CLICK);
         setRechargeSound(Sound.BLOCK_NOTE_BELL);
-        setName("Poison Darts");
-        setId("PoisonDarts");
-        setMaxLevel(4);
-        setCost(1);
         charges = 0;
     }
 

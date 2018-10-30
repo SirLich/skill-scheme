@@ -17,12 +17,7 @@ public class SpeedBuff extends Skill
     }
 
     public SpeedBuff(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level);
-        setName("Speed Buff");
-        setId("SpeedBuff");
-        setMaxLevel(3);
-        clearDescription();
-        addLoreLine(ChatColor.DARK_GRAY + "Super speed!");
+        super(rpgPlayer,level,"SpeedBuff");
     }
 
     @Override

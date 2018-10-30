@@ -12,14 +12,10 @@ import java.util.List;
 public class ClassicFireball extends ActiveSkill
 {
     private static String id = "ClassicFireball";
-    private static List<Integer> cooldown = getYaml(id).getIntegerList("values.cooldown");
     private static List<Float> yield = getYaml(id).getFloatList("values.yield");
 
     public ClassicFireball(RpgPlayer rpgPlayer,int level){
-        super(rpgPlayer,level,cooldown.get(level));
-        setId("ClassicFireball");
-        setMaxLevel(3);
-        setName("Classic Fireball");
+        super(rpgPlayer,level,"ClassicFireball");
     }
 
     @Override
@@ -30,7 +26,7 @@ public class ClassicFireball extends ActiveSkill
         lorelines.add("");
         lorelines.add(c.dgray + "Right-Click" + c.aqua + " axe " + c.dgray + "to fire");
         lorelines.add("");
-        lorelines.add(c.dgray + "Cooldown: " + c.green + cooldown.get(level)/20 + c.dgray + " seconds");
+        lorelines.add(c.dgray + "Cooldown: " + c.green + getCooldown()/20 + c.dgray + " seconds");
         lorelines.add(c.dgray + "Yield: " + c.green + yield.get(level) + c.dgray);
         return lorelines;
     }

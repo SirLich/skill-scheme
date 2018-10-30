@@ -10,22 +10,8 @@ import java.util.ArrayList;
 
 public class WrathOfJupiter extends ActiveSkill
 {
-    private static ArrayList<Integer> cooldown = new ArrayList<Integer>();
-
-
-    static {
-        cooldown.add(400);
-        cooldown.add(300);
-        cooldown.add(10);
-    }
-
     public WrathOfJupiter(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level,cooldown.get(level));
-        setName("Wrath of Jupiter");
-        setId("WrathOfJupiter");
-        setMaxLevel(3);
-        clearDescription();
-        addLoreLine(ChatColor.DARK_GRAY + "Strike your enemies with electrifying forces!");
+        super(rpgPlayer,level,"WrathOfJupiter");
     }
 
     @Override

@@ -6,11 +6,8 @@ import main.java.plugin.sirlich.skills.passive.HolyStrike;
 import main.java.plugin.sirlich.skills.passive.SpeedBuff;
 
 public enum SkillType {
-    Basic(new Skill(null,0)),
     SpeedBuff(new SpeedBuff(null,0)),
-    Hop(new Hop(null,0)),
     LeadAxe(new LeadAxe(null,0)),
-    ScorchedEarth(new ScorchedEarth(null,0)),
     HolyStrike(new HolyStrike(null,0)),
     WrathOfJupiter(new WrathOfJupiter(null,0)),
     NimbleLeap(new NimbleLeap(null,0)),

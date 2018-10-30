@@ -17,19 +17,13 @@ public class AxeOfPerun extends ActiveSkill
     private static String id = "AxeOfPerun";
     private static List<Double> bonusDamagePerHit = getYaml(id).getDoubleList("values.bonusDamagePerHit");
     private static List<Integer> maxStack = getYaml(id).getIntegerList("values.maxStack");
-    private static List<Integer> cooldown = getYaml(id).getIntegerList("values.cooldown");
 
     private int schedularID;
     private long lastAttack;
     private int charges;
 
     public AxeOfPerun(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level,-1);
-        setId("AxeOfPerun");
-        setName("Axe of Perun");
-        clearDescription();
-        addLoreLine("mostly broke atm");
-        setMaxLevel(4);
+        super(rpgPlayer,level,"AxeOfPerun");
     }
 
 
@@ -38,7 +32,7 @@ public class AxeOfPerun extends ActiveSkill
         schedularID = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(SkillScheme.getInstance(), new Runnable() {
             public void run() {
                 if(charges != 0){
-                    if(System.currentTimeMillis() > lastAttack + (cooldown.get(getLevel())* 1000/20)){
+                    if(System.currentTimeMillis() > lastAttack + (getCooldown()* 1000/20)){
                         charges = 0;
                         getRpgPlayer().playSound(Sound.BLOCK_FIRE_EXTINGUISH);
                         getRpgPlayer().chat(c.green +  "The bloodlust fades...");

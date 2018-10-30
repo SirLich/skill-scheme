@@ -15,14 +15,10 @@ import java.util.List;
 public class Deflection extends ActiveSkill
 {
     private static String id = "Deflection";
-    private static List<Integer> cooldown = getYaml(id).getIntegerList("values.cooldown");
     private static List<Integer> power = getYaml(id).getIntegerList("values.cooldown");
 
     public Deflection(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level,cooldown.get(level));
-        setId("Deflection");
-        setMaxLevel(3);
-        setName("Deflection");
+        super(rpgPlayer,level,"Deflection");
     }
 
     @Override
@@ -33,7 +29,7 @@ public class Deflection extends ActiveSkill
         lorelines.add("");
         lorelines.add(c.aqua + "Sword-Block" + c.dgray + " melee attacks to fire");
         lorelines.add("");
-        lorelines.add(c.dgray + "Cooldown: " + c.green + cooldown.get(level)/20 + c.dgray + " seconds");
+        lorelines.add(c.dgray + "Cooldown: " + c.green + getCooldown()/20 + c.dgray + " seconds");
         lorelines.add(c.dgray + "Power: " + c.green + power.get(level) + c.dgray);
         return lorelines;
     }

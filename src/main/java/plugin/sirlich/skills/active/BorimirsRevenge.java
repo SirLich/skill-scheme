@@ -18,18 +18,13 @@ import java.util.List;
 public class BorimirsRevenge extends ActiveSkill
 {
     private static String id = "BorimirsRevenge";
-    private static List<Integer> cooldown = getYaml(id).getIntegerList("values.cooldown");
     private static List<Integer> duration = getYaml(id).getIntegerList("values.duration");
 
     private boolean enraged = false;
     private ItemStack headSave;
 
     public BorimirsRevenge(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level,cooldown.get(level));
-        setId("BorimirsRevenge");
-        setName("Borimirs Revenge");
-        clearDescription();
-        addLoreLine("Become immune to arrows for a few seconds.");
+        super(rpgPlayer,level,"BorimirsRevenge");
     }
 
     @Override
@@ -52,7 +47,7 @@ public class BorimirsRevenge extends ActiveSkill
         lorelines.add("");
         lorelines.add(c.dgray + "Press " + c.aqua + "F" + c.dgray + " to activate");
         lorelines.add("");
-        lorelines.add(c.dgray + "Cooldown: " + c.green + cooldown.get(level)/20 + c.dgray + " seconds");
+        lorelines.add(c.dgray + "Cooldown: " + c.green + getCooldown()/20 + c.dgray + " seconds");
         lorelines.add(c.dgray + "Duration: " + c.green + duration.get(level)/20 + c.dgray + " seconds");
         return lorelines;
     }

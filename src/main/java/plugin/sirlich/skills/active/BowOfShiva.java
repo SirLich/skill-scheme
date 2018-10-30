@@ -2,7 +2,7 @@ package main.java.plugin.sirlich.skills.active;
 
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.core.RpgPlayerList;
-import main.java.plugin.sirlich.skills.meta.ActiveSkill;
+import main.java.plugin.sirlich.skills.meta.Skill;
 import org.bukkit.Location;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
@@ -14,7 +14,7 @@ import org.bukkit.util.Vector;
 
 import java.util.List;
 
-public class BowOfShiva extends ActiveSkill
+public class BowOfShiva extends Skill
 {
     private static String id = "BowOfShiva";
     private static List<Integer> radius = getYaml(id).getIntegerList("values.radius");
@@ -22,12 +22,7 @@ public class BowOfShiva extends ActiveSkill
     private static List<Integer> velocity = getYaml(id).getIntegerList("values.velocity");
 
     public BowOfShiva(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level,-1);
-        setId("BowOfShiva");
-        setName("Bow of Shiva");
-        clearDescription();
-        addLoreLine("mostly broken atm");
-        setMaxLevel(3);
+        super(rpgPlayer,level,"BowOfShiva");
     }
 
     @Override

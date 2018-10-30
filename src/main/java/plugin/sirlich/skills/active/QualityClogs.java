@@ -9,17 +9,13 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QualityClogs extends ActiveSkill
+public class QualityClogs extends Skill
 {
     private static String id = "QualityClogs";
     private static List<Float> damageReduction = getYaml(id).getFloatList("values.damageReduction");
 
     public QualityClogs(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level,-1);
-        this.setCost(1);
-        this.setMaxLevel(3);
-        this.setId("QualityClogs");
-        this.setName("Quality Clogs");
+        super(rpgPlayer,level,"QualityClogs");
     }
 
     @Override

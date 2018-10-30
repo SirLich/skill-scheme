@@ -4,102 +4,25 @@ import main.java.plugin.sirlich.SkillScheme;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.Sound;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityShootBowEvent;
-import org.bukkit.event.entity.ProjectileHitEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class ActiveSkill extends Skill
 {
     private int cooldownTimer;
     private boolean cooldown;
+    private int cooldownValue;
+
     private Sound cooldownSound;
     private Sound rechargeSound;
 
 
-    public ActiveSkill(RpgPlayer rpgPlayer, int level, int cooldown){
-        super(rpgPlayer,level);
-        this.cooldownTimer = cooldown;
+    public ActiveSkill(RpgPlayer rpgPlayer, int level, String id){
+        super(rpgPlayer,level,id);
+        this.cooldownTimer = getYaml(id).getInt("values.cooldown");
+        this.cooldownValue = cooldownTimer;
         this.cooldown = false;
-        setName("Default Primed Skill");
-        setId("ActiveSkill");
         setCooldownSound(Sound.BLOCK_COMPARATOR_CLICK);
         setRechargeSound(Sound.BLOCK_ENDERCHEST_OPEN);
-    }
-
-    public void onFallDamageSelf(EntityDamageEvent event){
-
-    }
-
-    public void onExplosionDamageSelf(EntityDamageEvent event){
-
-    }
-
-    public void onSuffocationDamageSelf(EntityDamageEvent event){
-
-    }
-
-    public void onArrowHitEntity(ProjectileHitEvent event){
-
-    }
-
-    public void onArrowHitSelf(EntityDamageByEntityEvent event){
-
-    }
-
-    public void onArrowHitGround(ProjectileHitEvent event){
-
-    }
-
-    public void onBowFire(EntityShootBowEvent event){
-
-    }
-
-    public void onSwordMeleeAttackSelf(EntityDamageByEntityEvent event){
-
-    }
-
-    public void onAxeMeleeAttackSelf(EntityDamageByEntityEvent event){
-
-    }
-
-    public void onMeleeAttackSelf(EntityDamageByEntityEvent event){
-
-    }
-
-    public void onSwordMeleeAttackOther(EntityDamageByEntityEvent event){
-
-    }
-
-    public void onAxeMeleeAttackOther(EntityDamageByEntityEvent event){
-
-    }
-
-    public void onBowMeleeAttack(EntityDamageByEntityEvent event){
-
-    }
-
-    public void onBowLeftClick(PlayerInteractEvent event){
-
-    }
-
-    public void onBowRightClickEvent(PlayerInteractEvent event){
-
-    }
-
-    public void onSwordRightClick(PlayerInteractEvent event){
-
-    }
-
-    public void onAxeRightClick(PlayerInteractEvent event){
-
-    }
-
-    public void onSwap(PlayerSwapHandItemsEvent event){
-
     }
 
     public boolean isCooldown(){
@@ -160,5 +83,8 @@ public class ActiveSkill extends Skill
         this.rechargeSound = rechargeSound;
     }
 
-
+    public int getCooldown()
+    {
+        return cooldownValue;
+    }
 }

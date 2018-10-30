@@ -33,10 +33,7 @@ public class PhantomArrows extends ActiveSkill
     private boolean primed;
 
     public PhantomArrows(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level,cooldown.get(level));
-        setName("Phantom Arrows");
-        setId("PhantomArrows");
-        setMaxLevel(3);
+        super(rpgPlayer,level,"PhantomArrows");
         primed = false;
     }
 

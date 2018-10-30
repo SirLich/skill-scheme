@@ -22,16 +22,12 @@ import java.util.List;
 public class WebShot extends ActiveSkill
 {
     private static String id = "WebShot";
-    private static List<Integer> cooldown = getYaml(id).getIntegerList("values.cooldown");
     private static List<Integer> duration = getYaml(id).getIntegerList("values.duration");
     private boolean primed;
 
 
     public WebShot(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level,cooldown.get(level));
-        setId("WebShot");
-        setName("Web Shot");
-        setMaxLevel(3);
+        super(rpgPlayer,level,"WebShot");
     }
 
     @Override
@@ -56,7 +52,7 @@ public class WebShot extends ActiveSkill
         lorelines.add("");
         lorelines.add(c.dgray + "Left-Click" + c.aqua + " bow " + c.dgray + "to prime.");
         lorelines.add("");
-        lorelines.add(c.dgray + "Cooldown: " + c.green + cooldown.get(level)/20 + c.dgray + " seconds");
+        lorelines.add(c.dgray + "Cooldown: " + c.green + getCooldown()/20 + c.dgray + " seconds");
         lorelines.add(c.dgray + "Duration: " + c.green + duration.get(level)/20 + c.dgray + " seconds");
         return lorelines;
     }

@@ -13,27 +13,17 @@ import java.util.ArrayList;
 
 public class NimbleLeap extends ActiveSkill
 {
-    private static ArrayList<Integer> cooldown = new ArrayList<Integer>();
     private static ArrayList<Double> power = new ArrayList<Double>();
 
 
     static {
-        cooldown.add(200);
-        cooldown.add(150);
-        cooldown.add(100);
-
         power.add(1.0);
         power.add(2.0);
         power.add(2.5);
     }
 
     public NimbleLeap(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level,cooldown.get(level));
-        setName("Nimble Leap");
-        setId("NimbleLeap");
-        setMaxLevel(3);
-        clearDescription();
-        addLoreLine(ChatColor.DARK_GRAY + "Right click axe to leap forward with great force.");
+        super(rpgPlayer,level,"NimbleLeap");
         setCooldownSound(Sound.BLOCK_ANVIL_LAND);
     }
 
@@ -45,7 +35,7 @@ public class NimbleLeap extends ActiveSkill
         lorelines.add("");
         lorelines.add(c.dgray + "Right-Click" + c.aqua + " axe " + c.dgray + "to leap");
         lorelines.add("");
-        lorelines.add(c.dgray + "Cooldown: " + c.green + cooldown.get(level)/20 + c.dgray + " seconds");
+        lorelines.add(c.dgray + "Cooldown: " + c.green + getCooldown()/20 + c.dgray + " seconds");
         lorelines.add(c.dgray + "Power: " + c.green + power.get(level) + c.dgray);
         return lorelines;
     }

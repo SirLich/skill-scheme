@@ -18,13 +18,12 @@ import java.util.List;
 public class Prism extends ActiveSkill
 {
     private static String id = "Prism";
-    private static List<Integer> cooldown = getYaml(id).getIntegerList("values.cooldown");
     private static List<Integer> duration = getYaml(id).getIntegerList("values.duration");
 
     private boolean deployed = false;
 
     public Prism(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level,cooldown.get(level));
+        super(rpgPlayer,level,"Prism");
     }
 
     @Override
@@ -54,7 +53,7 @@ public class Prism extends ActiveSkill
         lorelines.add("");
         lorelines.add(c.dgray + "Press " + c.aqua + "F" + c.dgray + " to activate");
         lorelines.add("");
-        lorelines.add(c.dgray + "Cooldown: " + c.green + cooldown.get(level)/20 + c.dgray + " seconds");
+        lorelines.add(c.dgray + "Cooldown: " + c.green + getCooldown()/20 + c.dgray + " seconds");
         lorelines.add(c.dgray + "Duration: " + c.green + duration.get(level)/20 + c.dgray + " seconds");
         return lorelines;
     }
