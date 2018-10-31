@@ -1,7 +1,7 @@
 package main.java.plugin.sirlich.skills.active;
 
 import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.skills.meta.ActiveSkill;
+import main.java.plugin.sirlich.skills.meta.CooldownSkill;
 import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.entity.Fireball;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -9,7 +9,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClassicFireball extends ActiveSkill
+public class ClassicFireball extends CooldownSkill
 {
     private static String id = "ClassicFireball";
     private static List<Float> yield = getYaml(id).getFloatList("values.yield");

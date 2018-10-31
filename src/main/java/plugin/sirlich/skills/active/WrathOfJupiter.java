@@ -1,14 +1,11 @@
 package main.java.plugin.sirlich.skills.active;
 
-import main.java.plugin.sirlich.skills.meta.ActiveSkill;
+import main.java.plugin.sirlich.skills.meta.CooldownSkill;
 import main.java.plugin.sirlich.core.RpgPlayer;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
-import java.util.ArrayList;
-
-public class WrathOfJupiter extends ActiveSkill
+public class WrathOfJupiter extends CooldownSkill
 {
     public WrathOfJupiter(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer,level,"WrathOfJupiter");

@@ -17,7 +17,7 @@ public class SkillSchemeCommand implements CommandExecutor
             RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(player);
 
             if(args.length < 1){
-                rpgPlayer.chat("Please include an argument: " + c.gray + "[s]kill, [c]lass, [t]eam");
+                rpgPlayer.chat("Please include an argument: " + c.gray + "[s]kill, [c]lass, [t]eam, [p]layerState");
                 return true;
             }
 
@@ -183,8 +183,44 @@ public class SkillSchemeCommand implements CommandExecutor
                 } else {
                     rpgPlayer.chat("Please include an argument: " + c.gray + "[g]et, [s]et, [l]ist, [r]eset");
                 }
-            }else {
-                rpgPlayer.chat("Please include an argument: " + c.gray + "[s]kill, [c]lass, [t]eam");
+            } else if(action.equalsIgnoreCase("p") || action.equalsIgnoreCase("playerstate")){
+                if(args.length < 2){
+                    rpgPlayer.chat("Please include an argument: " + c.gray + "[g]et, [s]et, [l]ist, [r]eset");
+                    return true;
+                }
+                action = args[1];
+
+                if(action.equalsIgnoreCase("get") || action.equalsIgnoreCase("g")){
+                    if(args.length < 3){
+                        rpgPlayer.chat("Current playerState: " + c.dgray + rpgPlayer.getPlayerState().toString());
+                    } else {
+                        action = args[2];
+                        rpgPlayer.chat("name: " + c.dgray + RpgPlayerList.getRpgPlayer(action).getPlayerState().toString());
+                    }
+                } else if(action.equalsIgnoreCase("set") || action.equalsIgnoreCase("s")){
+                    if(args.length < 3){
+                        rpgPlayer.chat("Please use like: /ss p [PlayerState] <playername>");
+                        return true;
+                    }
+                    action = args[2];
+
+                    if(args.length < 4){
+                        rpgPlayer.setPlayerState(PlayerState.valueOf(action));
+                        rpgPlayer.chat("name: " + c.dgray + action);
+                    } else {
+                        RpgPlayerList.getRpgPlayer(args[3]).setPlayerState(PlayerState.valueOf(action));
+                        rpgPlayer.chat(args[3] + c.dgray + action);
+                    }
+                } else if(action.equalsIgnoreCase("list") || action.equalsIgnoreCase("l")){
+                    rpgPlayer.chat("All playerState values:");
+                    for(PlayerState s : PlayerState.values()){
+                        rpgPlayer.chat(s.toString());
+                    }
+                } else {
+                    rpgPlayer.chat("Please include an argument: " + c.gray + "[g]et, [s]et, [l]ist, [r]eset");
+                }
+            } else {
+                rpgPlayer.chat("Please include an argument: " + c.gray + "[s]kill, [c]lass, [t]eam, [p]layer state");
             }
         }
         return true;

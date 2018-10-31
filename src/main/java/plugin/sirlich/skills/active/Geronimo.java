@@ -2,7 +2,7 @@ package main.java.plugin.sirlich.skills.active;
 
 import main.java.plugin.sirlich.SkillScheme;
 import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.skills.meta.ActiveSkill;
+import main.java.plugin.sirlich.skills.meta.CooldownSkill;
 import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -15,7 +15,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Geronimo extends ActiveSkill
+public class Geronimo extends CooldownSkill
 {
     private static String id = "Geronimo";
     private static List<Integer> duration = getYaml(id).getIntegerList("values.duration");

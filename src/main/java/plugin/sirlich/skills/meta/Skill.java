@@ -29,6 +29,7 @@ public class Skill
 
 
     public Skill(RpgPlayer rpgPlayer, int level, String id){
+        this.id = id;
         this.rpgPlayer = rpgPlayer;
         this.level = level;
         this.cost = getYaml(id).getInt("values.cost");

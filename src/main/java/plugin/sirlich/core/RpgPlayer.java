@@ -1,20 +1,28 @@
 package main.java.plugin.sirlich.core;
 
+import de.tr7zw.itemnbtapi.NBTItem;
+import main.java.plugin.sirlich.SkillScheme;
 import main.java.plugin.sirlich.skills.meta.ClassType;
 import main.java.plugin.sirlich.skills.meta.SkillType;
 import main.java.plugin.sirlich.utilities.c;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import main.java.plugin.sirlich.skills.meta.Skill;
 import main.java.plugin.sirlich.skills.meta.SkillEditObject;
+import org.bukkit.inventory.ItemStack;
 
 import java.lang.reflect.Constructor;
 import java.util.*;
 
 public class RpgPlayer
 {
+    private PlayerState playerState;
     private String team;
     private double walkSpeedModifier;
+    private String home;
 
     private SkillEditObject skillEditObject;
 
@@ -59,6 +67,12 @@ public class RpgPlayer
 
     }
 
+    public void teleport(Location location){
+        location.setWorld(getPlayer().getLocation().getWorld());
+
+        System.out.println(location.toString());
+        getPlayer().teleport(location);
+    }
     public void removeSkill(SkillType skillType){
         if(skillList.containsKey(skillType)){
             skillList.get(skillType).onDisable();
@@ -83,6 +97,7 @@ public class RpgPlayer
         this.skillEditObject = new SkillEditObject(ClassType.UNDEFINED, this);
         this.player = player;
         this.team = "Default";
+        this.playerState = PlayerState.TESTING;
     }
 
     public Player getPlayer()
@@ -121,6 +136,39 @@ public class RpgPlayer
         this.getSkillEditObject().setClassType(classType);
     }
 
+    public PlayerState getPlayerState()
+    {
+        return playerState;
+    }
+
+    public void setPlayerState(PlayerState playerState)
+    {
+        this.playerState = playerState;
+        if(playerState == PlayerState.LOBBY){
+            getPlayer().getInventory().clear();
+
+            ItemStack itemStack = new ItemStack(Material.DIAMOND);
+            NBTItem item = new NBTItem(itemStack);
+            item.addCompound("QUEUE");
+            itemStack = item.getItem();
+            getPlayer().getInventory().setItem(0,itemStack);
+
+        } else if(playerState == PlayerState.HUB){
+            getPlayer().getInventory().clear();
+            getPlayer().teleport(SkillScheme.getWorldSpawn());
+
+            ItemStack itemStack = new ItemStack(Material.COMPASS);
+            NBTItem item = new NBTItem(itemStack);
+            item.addCompound("GOTO_LOBBY");
+            itemStack = item.getItem();
+            getPlayer().getInventory().setItem(0,itemStack);
+
+        } else if(playerState == PlayerState.GAME){
+            getPlayer().getInventory().clear();
+            getSkillEditObject().addSkills();
+        }
+    }
+
     public static boolean sameTeam(RpgPlayer a, RpgPlayer b){
         return a.getTeam().equals(b.getTeam());
     }
@@ -128,6 +176,16 @@ public class RpgPlayer
     public String getTeam()
     {
         return team;
+    }
+
+    public String getHome()
+    {
+        return home;
+    }
+
+    public void setHome(String home)
+    {
+        this.home = home;
     }
 
     public void setTeam(String team)

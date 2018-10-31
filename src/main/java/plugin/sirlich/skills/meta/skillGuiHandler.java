@@ -2,6 +2,7 @@ package main.java.plugin.sirlich.skills.meta;
 
 import de.tr7zw.itemnbtapi.NBTItem;
 import main.java.plugin.sirlich.SkillScheme;
+import main.java.plugin.sirlich.core.PlayerState;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.core.RpgPlayerList;
 import org.bukkit.Bukkit;
@@ -37,6 +38,11 @@ public class skillGuiHandler implements Listener
     @EventHandler
     public void clickEnchantTable(PlayerInteractEvent event)
     {
+        RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(event.getPlayer());
+        if(rpgPlayer.getPlayerState() == PlayerState.HUB){
+            rpgPlayer.chat("You can't do that in that mode");
+            return;
+        }
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (event.getClickedBlock().getType() == Material.ENCHANTMENT_TABLE) {
                 event.setCancelled(true);
@@ -79,8 +85,12 @@ public class skillGuiHandler implements Listener
         } else if(buttonAction.equalsIgnoreCase("accept")){
             player.playSound(player.getLocation(),Sound.ENTITY_FIREWORK_LARGE_BLAST,1,1);
             player.closeInventory();
-            rpgPlayer.clearSkills();
-            rpgPlayer.getSkillEditObject().addSkills();
+            if(rpgPlayer.getPlayerState() == PlayerState.TESTING){
+                rpgPlayer.clearSkills();
+                rpgPlayer.getSkillEditObject().addSkills();
+            } else {
+                rpgPlayer.chat("Your skills have been saved. They will be applied when the game starts. ");
+            }
         } else if(buttonAction.equalsIgnoreCase("skill_item")) {
             //Setup
             SkillType skillType = SkillType.valueOf(nbtItem.getString("skill_type"));
@@ -105,7 +115,7 @@ public class skillGuiHandler implements Listener
         return inventory;
     }
 
-    private void openSkillGui(Player player, main.java.plugin.sirlich.skills.meta.ClassType classType){
+    private void openSkillGui(Player player, ClassType classType){
         RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(player);
         rpgPlayer.refreshSkillEditObject(classType);
         Inventory inventory = getStandardKitsGui();

@@ -32,7 +32,8 @@ public class BlockUtils implements Listener
                 event.getPlayer().getInventory().getItemInMainHand().getType() == Material.STONE_AXE ||
                 event.getPlayer().getInventory().getItemInMainHand().getType() == Material.IRON_AXE ||
                 event.getPlayer().getInventory().getItemInMainHand().getType() == Material.GOLD_AXE ||
-                event.getPlayer().getInventory().getItemInMainHand().getType() == Material.DIAMOND_AXE)){
+                event.getPlayer().getInventory().getItemInMainHand().getType() == Material.DIAMOND_AXE) ||
+                event.getPlayer().getInventory().getItemInMainHand().getType() == Material.BOW){
             event.setCancelled(true);
         }
     }

@@ -2,7 +2,7 @@ package main.java.plugin.sirlich.skills.active;
 
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.core.RpgPlayerList;
-import main.java.plugin.sirlich.skills.meta.ActiveSkill;
+import main.java.plugin.sirlich.skills.meta.CooldownSkill;
 import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -12,10 +12,10 @@ import org.bukkit.util.Vector;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Deflection extends ActiveSkill
+public class Deflection extends CooldownSkill
 {
     private static String id = "Deflection";
-    private static List<Integer> power = getYaml(id).getIntegerList("values.cooldown");
+    private static List<Integer> power = getYaml(id).getIntegerList("values.power");
 
     public Deflection(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer,level,"Deflection");

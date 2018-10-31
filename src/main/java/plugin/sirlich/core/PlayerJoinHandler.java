@@ -1,6 +1,8 @@
 package main.java.plugin.sirlich.core;
 
 import main.java.plugin.sirlich.SkillScheme;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -20,6 +22,9 @@ public class PlayerJoinHandler implements Listener
     }
 
     public static void initializePlayerData(Player player){
+
+        player.teleport(SkillScheme.getWorldSpawn());
+
         //Make new RPGPlayer!
         RpgPlayerList.addPlayer(player);
         RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(player);

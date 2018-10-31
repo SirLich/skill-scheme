@@ -3,16 +3,15 @@ package main.java.plugin.sirlich.skills.active;
 import main.java.plugin.sirlich.SkillScheme;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.utilities.c;
-import main.java.plugin.sirlich.skills.meta.ActiveSkill;
+import main.java.plugin.sirlich.skills.meta.CooldownSkill;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class AxeOfPerun extends ActiveSkill
+public class AxeOfPerun extends CooldownSkill
 {
     private static String id = "AxeOfPerun";
     private static List<Double> bonusDamagePerHit = getYaml(id).getDoubleList("values.bonusDamagePerHit");

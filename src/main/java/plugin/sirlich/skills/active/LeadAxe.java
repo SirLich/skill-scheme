@@ -1,6 +1,6 @@
 package main.java.plugin.sirlich.skills.active;
 
-import main.java.plugin.sirlich.skills.meta.ActiveSkill;
+import main.java.plugin.sirlich.skills.meta.CooldownSkill;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.ChatColor;
@@ -10,18 +10,14 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class LeadAxe extends ActiveSkill
+public class LeadAxe extends CooldownSkill
 {
-    private static ArrayList<Double> power = new ArrayList<Double>();
+    private static String id = "LeadAxe";
+    private static List<Double> power = getYaml(id).getDoubleList("values.power");
 
     private boolean primed;
-    static {
-        power.add(1.0);
-        power.add(2.5);
-        power.add(3.0);
-        power.add(6.2);
-    }
 
     public LeadAxe(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer, level,"LeadAxe");
@@ -41,6 +37,7 @@ public class LeadAxe extends ActiveSkill
         lorelines.add(c.dgray + "Power: " + c.green + power.get(level) + c.dgray);
         return lorelines;
     }
+
 
     @Override
     public void onAxeRightClick(PlayerInteractEvent event){

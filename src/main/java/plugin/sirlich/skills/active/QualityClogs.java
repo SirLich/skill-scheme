@@ -1,7 +1,6 @@
 package main.java.plugin.sirlich.skills.active;
 
 import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.skills.meta.ActiveSkill;
 import main.java.plugin.sirlich.utilities.c;
 import main.java.plugin.sirlich.skills.meta.Skill;
 import org.bukkit.event.entity.EntityDamageEvent;

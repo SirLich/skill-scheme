@@ -3,7 +3,7 @@ package main.java.plugin.sirlich.skills.active;
 import main.java.plugin.sirlich.SkillScheme;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.core.RpgPlayerList;
-import main.java.plugin.sirlich.skills.meta.ActiveSkill;
+import main.java.plugin.sirlich.skills.meta.Skill;
 import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.*;
 import org.bukkit.entity.Arrow;
@@ -17,7 +17,7 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PoisonDarts extends ActiveSkill
+public class PoisonDarts extends Skill
 {
     private static String id = "PoisonDarts";
     private static List<Integer> ticksPerDart = getYaml(id).getIntegerList("values.ticksPerDart");
@@ -29,8 +29,6 @@ public class PoisonDarts extends ActiveSkill
 
     public PoisonDarts(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer,level, "PoisonDarts");
-        setCooldownSound(Sound.BLOCK_COMPARATOR_CLICK);
-        setRechargeSound(Sound.BLOCK_NOTE_BELL);
         charges = 0;
     }
 

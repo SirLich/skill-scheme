@@ -1,26 +1,20 @@
 package main.java.plugin.sirlich.skills.active;
 
-import main.java.plugin.sirlich.skills.meta.ActiveSkill;
+import main.java.plugin.sirlich.skills.meta.CooldownSkill;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.utilities.c;
-import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class NimbleLeap extends ActiveSkill
+public class NimbleLeap extends CooldownSkill
 {
-    private static ArrayList<Double> power = new ArrayList<Double>();
+    private static List<Double> power = getYaml("NimbleLeap").getDoubleList("values.power");
 
-
-    static {
-        power.add(1.0);
-        power.add(2.0);
-        power.add(2.5);
-    }
 
     public NimbleLeap(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer,level,"NimbleLeap");

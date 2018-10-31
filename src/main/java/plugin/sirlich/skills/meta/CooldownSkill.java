@@ -6,7 +6,7 @@ import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.Sound;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class ActiveSkill extends Skill
+public class CooldownSkill extends Skill
 {
     private int cooldownTimer;
     private boolean cooldown;
@@ -16,9 +16,9 @@ public class ActiveSkill extends Skill
     private Sound rechargeSound;
 
 
-    public ActiveSkill(RpgPlayer rpgPlayer, int level, String id){
+    public CooldownSkill(RpgPlayer rpgPlayer, int level, String id){
         super(rpgPlayer,level,id);
-        this.cooldownTimer = getYaml(id).getInt("values.cooldown");
+        this.cooldownTimer = getYaml(id).getIntegerList("values.cooldown").get(level);
         this.cooldownValue = cooldownTimer;
         this.cooldown = false;
         setCooldownSound(Sound.BLOCK_COMPARATOR_CLICK);

@@ -4,27 +4,17 @@ import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.skills.meta.Skill;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HolyStrike extends Skill
 {
-    private static ArrayList<Double> chance = new ArrayList<Double>();
-    private static ArrayList<Double> knockback = new ArrayList<Double>();
+    private static String id = "HolyStrike";
+    private static List<Double> chance = getYaml(id).getDoubleList("values.chance");
+    private static List<Double> knockback = getYaml(id).getDoubleList("values.knockback");
 
-
-    static {
-        chance.add(0.1);
-        chance.add(0.2);
-        chance.add(0.5);
-        chance.add(0.5);
-
-        knockback.add(1.0);
-        knockback.add(2.0);
-        knockback.add(5.0);
-        knockback.add(5.0);
-    }
 
     public HolyStrike(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level,"Holy Strike");
+        super(rpgPlayer,level,"HolyStrike");
     }
 
     public double getChance(){

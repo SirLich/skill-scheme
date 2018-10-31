@@ -2,7 +2,7 @@ package main.java.plugin.sirlich.skills.active;
 
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.core.RpgPlayerList;
-import main.java.plugin.sirlich.skills.meta.ActiveSkill;
+import main.java.plugin.sirlich.skills.meta.CooldownSkill;
 import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -18,18 +18,8 @@ import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 
-public class PhantomArrows extends ActiveSkill
+public class PhantomArrows extends CooldownSkill
 {
-
-    private static ArrayList<Integer> cooldown = new ArrayList<Integer>();
-
-
-    static {
-        cooldown.add(200);
-        cooldown.add(150);
-        cooldown.add(100);
-    }
-
     private boolean primed;
 
     public PhantomArrows(RpgPlayer rpgPlayer, int level){
@@ -46,7 +36,7 @@ public class PhantomArrows extends ActiveSkill
         lorelines.add(c.dgray + "Left-Click" + c.aqua + " bow " + c.dgray + "to prime.");
         lorelines.add(c.dgray + "Shoot with the " + c.aqua + "bow" + c.dgray + " while primed to swap places with your target.");
         lorelines.add("");
-        lorelines.add(c.dgray + "Cooldown: " + c.green + cooldown.get(level)/20 + c.dgray + " seconds");
+        lorelines.add(c.dgray + "Cooldown: " + c.green + getCooldown()/20 + c.dgray + " seconds");
         return lorelines;
     }
 
@@ -72,7 +62,7 @@ public class PhantomArrows extends ActiveSkill
             getRpgPlayer().chat("That skill is already primed.");
         } else {
             if(isCooldown()){
-                playCooldownMedia();
+                return;
             } else {
                 primed = true;
                 getRpgPlayer().chat(ChatColor.AQUA + "You ready your bow...");

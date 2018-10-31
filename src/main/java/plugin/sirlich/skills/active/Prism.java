@@ -2,7 +2,7 @@ package main.java.plugin.sirlich.skills.active;
 
 import main.java.plugin.sirlich.SkillScheme;
 import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.skills.meta.ActiveSkill;
+import main.java.plugin.sirlich.skills.meta.CooldownSkill;
 import main.java.plugin.sirlich.utilities.BlockUtils;
 import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.Material;
@@ -15,7 +15,7 @@ import org.bukkit.util.Vector;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Prism extends ActiveSkill
+public class Prism extends CooldownSkill
 {
     private static String id = "Prism";
     private static List<Integer> duration = getYaml(id).getIntegerList("values.duration");
