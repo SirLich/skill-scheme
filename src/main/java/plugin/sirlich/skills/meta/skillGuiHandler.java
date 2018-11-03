@@ -39,7 +39,7 @@ public class skillGuiHandler implements Listener
     public void clickEnchantTable(PlayerInteractEvent event)
     {
         RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(event.getPlayer());
-        if(rpgPlayer.getPlayerState() == PlayerState.HUB){
+        if(rpgPlayer.getPlayerState() == PlayerState.LOBBY){
             rpgPlayer.chat("You can't do that in that mode");
             return;
         }

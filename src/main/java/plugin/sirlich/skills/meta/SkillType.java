@@ -3,6 +3,7 @@ package main.java.plugin.sirlich.skills.meta;
 
 import main.java.plugin.sirlich.skills.active.*;
 import main.java.plugin.sirlich.skills.passive.HolyStrike;
+import main.java.plugin.sirlich.skills.passive.MagmaBow;
 import main.java.plugin.sirlich.skills.passive.SpeedBuff;
 
 public enum SkillType {
@@ -25,7 +26,8 @@ public enum SkillType {
     BorimirsRevenge(new BorimirsRevenge(null,0)),
     WebShot(new WebShot(null,0)),
     EscapeArtist(new EscapeArtist(null,0)),
-    StrikeTheEarth(new StrikeTheEarth(null,0));
+    StrikeTheEarth(new StrikeTheEarth(null,0)),
+    MagmaBow(new MagmaBow(null, 0));
 
     private final Skill skill;
 

@@ -153,7 +153,7 @@ public class RpgPlayer
             itemStack = item.getItem();
             getPlayer().getInventory().setItem(0,itemStack);
 
-        } else if(playerState == PlayerState.HUB){
+        /*} else if(playerState == PlayerState.HUB){
             getPlayer().getInventory().clear();
             getPlayer().teleport(SkillScheme.getWorldSpawn());
 
@@ -161,7 +161,7 @@ public class RpgPlayer
             NBTItem item = new NBTItem(itemStack);
             item.addCompound("GOTO_LOBBY");
             itemStack = item.getItem();
-            getPlayer().getInventory().setItem(0,itemStack);
+            getPlayer().getInventory().setItem(0,itemStack);*/
 
         } else if(playerState == PlayerState.GAME){
             getPlayer().getInventory().clear();
