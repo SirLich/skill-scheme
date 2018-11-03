@@ -50,10 +50,6 @@ public class ArenaManager implements Listener
                 lobby.queuePlayer(rpgPlayer);
             }
         }
-        if(RpgPlayerList.getRpgPlayer(event.getPlayer()).getPlayerState() == PlayerState.LOBBY ||
-                RpgPlayerList.getRpgPlayer(event.getPlayer()).getPlayerState() == PlayerState.HUB){
-            event.setCancelled(true);
-        }
     }
 
     public static void loadLobbies(){
@@ -109,7 +105,7 @@ public class ArenaManager implements Listener
 
 
     public static void sendPlayerToHub(RpgPlayer rpgPlayer){
-        rpgPlayer.setPlayerState(PlayerState.HUB);
+        rpgPlayer.setPlayerState(PlayerState.LOBBY);
         rpgPlayer.setHome(null);
     }
 
