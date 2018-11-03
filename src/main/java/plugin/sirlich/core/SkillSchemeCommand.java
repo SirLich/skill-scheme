@@ -1,5 +1,7 @@
 package main.java.plugin.sirlich.core;
 
+import main.java.plugin.sirlich.skills.meta.ClassType;
+import main.java.plugin.sirlich.skills.meta.SkillEditObject;
 import main.java.plugin.sirlich.skills.meta.SkillType;
 import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.Material;
@@ -94,56 +96,17 @@ public class SkillSchemeCommand implements CommandExecutor
                 }
 
                 action = args[1];
+                player.getInventory().clear();
                 if(action.equalsIgnoreCase("paladin") || action.equalsIgnoreCase("p")){
-                    player.getInventory().clear();
-                    player.getInventory().setHelmet(new ItemStack(Material.DIAMOND_HELMET));
-                    player.getInventory().setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE));
-                    player.getInventory().setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS));
-                    player.getInventory().setBoots(new ItemStack(Material.DIAMOND_BOOTS));
-                    player.getInventory().addItem(new ItemStack(Material.IRON_SWORD));
-                    player.getInventory().addItem(new ItemStack(Material.IRON_AXE));
-                    player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF,64));
-                } if(action.equalsIgnoreCase("fighter") || action.equalsIgnoreCase("f")){
-                    player.getInventory().clear();
-                    player.getInventory().setHelmet(new ItemStack(Material.IRON_HELMET));
-                    player.getInventory().setChestplate(new ItemStack(Material.IRON_CHESTPLATE));
-                    player.getInventory().setLeggings(new ItemStack(Material.IRON_LEGGINGS));
-                    player.getInventory().setBoots(new ItemStack(Material.IRON_BOOTS));
-                    player.getInventory().addItem(new ItemStack(Material.IRON_SWORD));
-                    player.getInventory().addItem(new ItemStack(Material.IRON_AXE));
-                    player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF,64));
-                } if(action.equalsIgnoreCase("ranger") || action.equalsIgnoreCase("ra")){
-                    player.getInventory().clear();
-                    player.getInventory().setHelmet(new ItemStack(Material.CHAINMAIL_HELMET));
-                    player.getInventory().setChestplate(new ItemStack(Material.CHAINMAIL_CHESTPLATE));
-                    player.getInventory().setLeggings(new ItemStack(Material.CHAINMAIL_LEGGINGS));
-                    player.getInventory().setBoots(new ItemStack(Material.CHAINMAIL_BOOTS));
-                    player.getInventory().addItem(new ItemStack(Material.IRON_SWORD));
-                    player.getInventory().addItem(new ItemStack(Material.BOW));
-                    player.getInventory().addItem(new ItemStack(Material.ARROW,64));
-                    player.getInventory().addItem(new ItemStack(Material.IRON_AXE));
-                    player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF,64));
-
-                } if(action.equalsIgnoreCase("rogue") || action.equalsIgnoreCase("ro")){
-                    player.getInventory().clear();
-                    player.getInventory().setHelmet(new ItemStack(Material.LEATHER_HELMET));
-                    player.getInventory().setChestplate(new ItemStack(Material.LEATHER_CHESTPLATE));
-                    player.getInventory().setLeggings(new ItemStack(Material.LEATHER_LEGGINGS));
-                    player.getInventory().setBoots(new ItemStack(Material.LEATHER_BOOTS));
-                    player.getInventory().addItem(new ItemStack(Material.IRON_SWORD));
-                    player.getInventory().addItem(new ItemStack(Material.BOW));
-                    player.getInventory().addItem(new ItemStack(Material.ARROW,64));
-                    player.getInventory().addItem(new ItemStack(Material.IRON_AXE));
-                    player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF,64));
-                } if(action.equalsIgnoreCase("warlock") || action.equalsIgnoreCase("w")){
-                    player.getInventory().clear();
-                    player.getInventory().setHelmet(new ItemStack(Material.GOLD_HELMET));
-                    player.getInventory().setChestplate(new ItemStack(Material.GOLD_CHESTPLATE));
-                    player.getInventory().setLeggings(new ItemStack(Material.GOLD_LEGGINGS));
-                    player.getInventory().setBoots(new ItemStack(Material.GOLD_BOOTS));
-                    player.getInventory().addItem(new ItemStack(Material.IRON_SWORD));
-                    player.getInventory().addItem(new ItemStack(Material.IRON_AXE));
-                    player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF,64));
+                    SkillEditObject.giveLoadout(rpgPlayer,ClassType.PALADIN);
+                } else if(action.equalsIgnoreCase("fighter") || action.equalsIgnoreCase("f")){
+                    SkillEditObject.giveLoadout(rpgPlayer,ClassType.FIGHTER);
+                }  else if(action.equalsIgnoreCase("ranger") || action.equalsIgnoreCase("ra")){
+                    SkillEditObject.giveLoadout(rpgPlayer,ClassType.RANGER);
+                } else if(action.equalsIgnoreCase("rogue") || action.equalsIgnoreCase("ro")){
+                    SkillEditObject.giveLoadout(rpgPlayer,ClassType.ROGUE);
+                } else if(action.equalsIgnoreCase("warlock") || action.equalsIgnoreCase("w")){
+                    SkillEditObject.giveLoadout(rpgPlayer,ClassType.WARLOCK);
                 } else {
                     rpgPlayer.chat("Please include an argument: " + c.gray + "[p]aladin, [f]ighter, [ra]nger, [ro]gue, [w]arlock");
                 }

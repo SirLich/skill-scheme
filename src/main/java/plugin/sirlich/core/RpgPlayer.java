@@ -166,6 +166,7 @@ public class RpgPlayer
         } else if(playerState == PlayerState.GAME){
             getPlayer().getInventory().clear();
             getSkillEditObject().addSkills();
+            getSkillEditObject().giveLoadout();
         }
     }
 

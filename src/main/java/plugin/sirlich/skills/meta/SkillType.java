@@ -23,7 +23,9 @@ public enum SkillType {
     Deflection(new Deflection(null,0)),
     BowOfShiva(new BowOfShiva(null,0)),
     BorimirsRevenge(new BorimirsRevenge(null,0)),
-    WebShot(new WebShot(null,0));
+    WebShot(new WebShot(null,0)),
+    EscapeArtist(new EscapeArtist(null,0)),
+    StrikeTheEarth(new StrikeTheEarth(null,0));
 
     private final Skill skill;
 

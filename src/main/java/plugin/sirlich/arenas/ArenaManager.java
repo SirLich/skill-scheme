@@ -7,13 +7,15 @@ import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.core.RpgPlayerList;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.io.File;
+import java.util.*;
 
 public class ArenaManager implements Listener
 {
@@ -33,6 +35,7 @@ public class ArenaManager implements Listener
         return lobbyMap.get(lobby);
     }
 
+
     @EventHandler
     public void onClick(PlayerInteractEvent event){
         if(event.getHand() == EquipmentSlot.HAND && event.getItem() != null){
@@ -47,13 +50,29 @@ public class ArenaManager implements Listener
                 lobby.queuePlayer(rpgPlayer);
             }
         }
+        if(RpgPlayerList.getRpgPlayer(event.getPlayer()).getPlayerState() == PlayerState.LOBBY ||
+                RpgPlayerList.getRpgPlayer(event.getPlayer()).getPlayerState() == PlayerState.HUB){
+            event.setCancelled(true);
+        }
     }
 
     public static void loadLobbies(){
+
+
+        File playerYml = new File(SkillScheme.getInstance().getDataFolder() + "/lobbies.yml");
+        FileConfiguration config = YamlConfiguration.loadConfiguration(playerYml);
         ArrayList<String> arenas = new ArrayList<String>();
         arenas.add("test_1");
-        Lobby lobby = new Lobby("test",new Location(SkillScheme.getWorld(),228,61,313,-90,0),arenas,1,90);
-        lobbyMap.put("test",lobby);
+        List<Map<?,?>> lobbies = config.getMapList( "lobbies");
+        for(Map<?,?> lobby2 : lobbies){
+            String id = (String) lobby2.get("id");
+            int minPlayers = (Integer) lobby2.get("minPlayers");
+            int maxPlayers = (Integer) lobby2.get("maxPlayers");
+            Lobby lobby = new Lobby(id,new Location(SkillScheme.getWorld(),228,61,313,-90,0),arenas,minPlayers,maxPlayers);
+            lobbyMap.put("test",lobby);
+        }
+
+
     }
 
     public static void loadArenas(){

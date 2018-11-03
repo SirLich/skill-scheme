@@ -13,6 +13,7 @@ public class Lobby
     private int minPlayers;
     private int maxPlayers;
     private ArrayList<RpgPlayer> lobbyPlayers = new ArrayList<RpgPlayer>();
+
     private ArrayList<RpgPlayer> queuedPlayers = new ArrayList<RpgPlayer>();
 
     public Lobby(String id, Location spawnLocation, ArrayList<String> arenas, int minPlayers, int maxPlayers){

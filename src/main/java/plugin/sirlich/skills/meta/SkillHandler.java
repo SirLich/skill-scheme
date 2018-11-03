@@ -34,15 +34,13 @@ public class SkillHandler implements Listener
             if(event.getCause() == EntityDamageEvent.DamageCause.FALL){
                 for(Skill skill : rpgPlayer.getSkillList().values()){
                     if(skill instanceof CooldownSkill){
-                        CooldownSkill cooldownSkill = (CooldownSkill) skill;
-                        cooldownSkill.onFallDamageSelf(event);
+                        skill.onFallDamageSelf(event);
                     }
                 }
             } else if(event.getCause() == EntityDamageEvent.DamageCause.BLOCK_EXPLOSION || event.getCause() == EntityDamageEvent.DamageCause.ENTITY_EXPLOSION){
                 for(Skill skill : rpgPlayer.getSkillList().values()){
                     if(skill instanceof CooldownSkill){
-                        CooldownSkill cooldownSkill = (CooldownSkill) skill;
-                        cooldownSkill.onExplosionDamageSelf(event);
+                        skill.onExplosionDamageSelf(event);
                     }
                 }
             }
@@ -63,8 +61,7 @@ public class SkillHandler implements Listener
             if(isSword(itemType)){
                 for(Skill skill : rpgPlayer.getSkillList().values()){
                     if(skill instanceof CooldownSkill){
-                        CooldownSkill cooldownSkill = (CooldownSkill) skill;
-                        cooldownSkill.onSwordMeleeAttackSelf(event);
+                        skill.onSwordMeleeAttackSelf(event);
                     }
                 }
             }
@@ -72,24 +69,21 @@ public class SkillHandler implements Listener
             else if(isAxe(itemType)){
                 for(Skill skill : rpgPlayer.getSkillList().values()){
                     if(skill instanceof CooldownSkill){
-                        CooldownSkill cooldownSkill = (CooldownSkill) skill;
-                        cooldownSkill.onAxeMeleeAttackSelf(event);
+                        skill.onAxeMeleeAttackSelf(event);
                     }
                 }
             }
             if(event.getDamager() instanceof Projectile){
                 for(Skill skill : rpgPlayer.getSkillList().values()){
                     if(skill instanceof CooldownSkill){
-                        CooldownSkill cooldownSkill = (CooldownSkill) skill;
-                        cooldownSkill.onArrowHitSelf(event);
+                        skill.onArrowHitSelf(event);
                     }
                 }
             }
 
             for(Skill skill : rpgPlayer.getSkillList().values()){
                 if(skill instanceof CooldownSkill){
-                    CooldownSkill cooldownSkill = (CooldownSkill) skill;
-                    cooldownSkill.onMeleeAttackSelf(event);
+                    skill.onMeleeAttackSelf(event);
                 }
             }
 
@@ -101,8 +95,7 @@ public class SkillHandler implements Listener
             if(isSword(itemType)){
                 for(Skill skill : rpgPlayer.getSkillList().values()){
                     if(skill instanceof CooldownSkill){
-                        CooldownSkill cooldownSkill = (CooldownSkill) skill;
-                        cooldownSkill.onSwordMeleeAttackOther(event);
+                        skill.onSwordMeleeAttackOther(event);
                     }
                 }
             }
@@ -110,8 +103,7 @@ public class SkillHandler implements Listener
             else if(isAxe(itemType)){
                 for(Skill skill : rpgPlayer.getSkillList().values()){
                     if(skill instanceof CooldownSkill){
-                        CooldownSkill cooldownSkill = (CooldownSkill) skill;
-                        cooldownSkill.onAxeMeleeAttackOther(event);
+                        skill.onAxeMeleeAttackOther(event);
                     }
                 }
             }
@@ -119,8 +111,7 @@ public class SkillHandler implements Listener
             else if(itemType == Material.BOW){
                 for(Skill skill : rpgPlayer.getSkillList().values()){
                     if(skill instanceof CooldownSkill){
-                        CooldownSkill cooldownSkill = (CooldownSkill) skill;
-                        cooldownSkill.onBowMeleeAttack(event);
+                        skill.onBowMeleeAttack(event);
                     }
                 }
             }
@@ -134,8 +125,7 @@ public class SkillHandler implements Listener
             RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(player);
             for(Skill skill : rpgPlayer.getSkillList().values()){
                 if(skill instanceof CooldownSkill){
-                    CooldownSkill cooldownSkill = (CooldownSkill) skill;
-                    cooldownSkill.onBowFire(event);
+                    skill.onBowFire(event);
                 }
             }
         }
@@ -148,8 +138,7 @@ public class SkillHandler implements Listener
                 RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(uuid);
                 for(Skill skill : rpgPlayer.getSkillList().values()){
                     if(skill instanceof CooldownSkill){
-                        CooldownSkill cooldownSkill = (CooldownSkill) skill;
-                        cooldownSkill.onArrowHitEntity(event);
+                        skill.onArrowHitEntity(event);
                     }
                 }
                 RpgPlayerList.removeArrow(uuid);
@@ -160,8 +149,7 @@ public class SkillHandler implements Listener
                 RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(uuid);
                 for(Skill skill : rpgPlayer.getSkillList().values()){
                     if(skill instanceof CooldownSkill){
-                        CooldownSkill cooldownSkill = (CooldownSkill) skill;
-                        cooldownSkill.onArrowHitGround(event);
+                        skill.onArrowHitGround(event);
                     }
                 }
                 RpgPlayerList.removeArrow(uuid);
@@ -187,8 +175,7 @@ public class SkillHandler implements Listener
                         event.getAction() == Action.LEFT_CLICK_BLOCK )&&
                 event.getMaterial().equals(Material.BOW)){
             for(Skill skill : rpgPlayer.getSkillList().values()){
-                CooldownSkill cooldownSkill = (CooldownSkill) skill;
-                cooldownSkill.onBowLeftClick(event);
+                skill.onBowLeftClick(event);
             }
         }
 
@@ -199,22 +186,19 @@ public class SkillHandler implements Listener
             Material itemType = event.getMaterial();
             if(isAxe(itemType)){
                 for(Skill skill : rpgPlayer.getSkillList().values()){
-                    CooldownSkill cooldownSkill = (CooldownSkill) skill;
-                    cooldownSkill.onAxeRightClick(event);
+                    skill.onAxeRightClick(event);
                 }
             }
 
             else if(isSword(itemType)){
                 for(Skill skill : rpgPlayer.getSkillList().values()){
-                    CooldownSkill cooldownSkill = (CooldownSkill) skill;
-                    cooldownSkill.onSwordRightClick(event);
+                    skill.onSwordRightClick(event);
                 }
             }
 
             else if(itemType == Material.BOW){
                 for(Skill skill : rpgPlayer.getSkillList().values()){
-                    CooldownSkill cooldownSkill = (CooldownSkill) skill;
-                    cooldownSkill.onBowRightClickEvent(event);
+                    skill.onBowRightClickEvent(event);
                 }
             }
         }
@@ -228,8 +212,7 @@ public class SkillHandler implements Listener
         Player player = event.getPlayer();
         RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(player);
         for(Skill skill : rpgPlayer.getSkillList().values()){
-            CooldownSkill cooldownSkill = (CooldownSkill) skill;
-            cooldownSkill.onSwap(event);
+            skill.onSwap(event);
         }
     }
 
