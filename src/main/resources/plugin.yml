@@ -5,3 +5,9 @@ commands:
    ss:
      description: nothing here
      usage: nothying here
+   server:
+     description: yeah
+     usage: yeah
+   leave:
+     description: yeah
+     usage: ueah

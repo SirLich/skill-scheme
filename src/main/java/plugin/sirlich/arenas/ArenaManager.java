@@ -5,13 +5,18 @@ import main.java.plugin.sirlich.SkillScheme;
 import main.java.plugin.sirlich.core.PlayerState;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.core.RpgPlayerList;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
+import org.bukkit.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
 import java.io.File;
@@ -19,108 +24,166 @@ import java.util.*;
 
 public class ArenaManager implements Listener
 {
-    private static int TICKER_TIMER = 100;
-    private static int lobbySchedular;
-    private static int arenaShedular;
+    private static int TICKER_TIMER = 20;
+    private static int lobbyScheduler;
+    private static Location hubSpawn;
+    private static int arenaScheduler;
+
+    public static HashMap<String, Arena> arenaMap = new HashMap<String, Arena>();
+
+    public static Stack<RpgPlayer> teamDeathMatchQueue = new Stack<RpgPlayer>();
 
 
-    public static HashMap<String,Lobby> lobbyMap = new HashMap<String, Lobby>();
-    public static HashMap<String,Arena> arenaMap = new HashMap<String, Arena>();
 
-    public static Arena getArena(String arena){
-        return arenaMap.get(arena);
+    private static Location getLocationFromConfig(FileConfiguration config, String base){
+        System.out.println(config.getString(base + ".x"));
+        World world = Bukkit.getWorld(config.getString(base + ".world"));
+        Double x = config.getDouble(base + ".x");
+        Double y = config.getDouble( base + ".y");
+        Double z = config.getDouble(base + ".z");
+        Float yaw = (float) config.getDouble(base + ".yaw");
+        Float pitch = (float) config.getDouble(base + ".pitch");
+
+        return new Location(world,x,y,z,yaw,pitch);
     }
 
-    public static Lobby getLobby(String lobby){
-        return lobbyMap.get(lobby);
+
+    public static Arena getArena(String id){
+        return arenaMap.get(id);
     }
 
+    public static Arena getArena(RpgPlayer rpgPlayer){
+        return arenaMap.get(rpgPlayer.getArena());
+    }
+
+
+    @EventHandler
+    public void onPlayerDamage(EntityDamageEvent event){
+        if(event.getEntity() instanceof Player){
+            Player player = (Player) event.getEntity();
+            RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(player);
+            if(player.getHealth() - event.getDamage() <= 0){
+                if(rpgPlayer.getPlayerState() == PlayerState.GAME){
+                    Arena arena = getArena(rpgPlayer);
+                    arena.onPlayerDeath(event);
+                }
+            }
+
+            if(rpgPlayer.getPlayerState() == PlayerState.LOBBY || rpgPlayer.getPlayerState() == PlayerState.HUB){
+                event.setCancelled(true);
+            }
+        }
+    }
+
+
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent event){
+        if(event.getWhoClicked() instanceof Player){
+            Player player = (Player) event.getWhoClicked();
+            RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(player);
+            if(rpgPlayer.getPlayerState() == PlayerState.HUB || rpgPlayer.getPlayerState()==PlayerState.LOBBY){
+                event.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onInventoryClick(PlayerDropItemEvent event){
+        Player player = event.getPlayer();
+        RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(player);
+        if(rpgPlayer.getPlayerState() == PlayerState.HUB || rpgPlayer.getPlayerState()==PlayerState.LOBBY){
+            event.setCancelled(true);
+        }
+    }
 
     @EventHandler
     public void onClick(PlayerInteractEvent event){
         if(event.getHand() == EquipmentSlot.HAND && event.getItem() != null){
             RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(event.getPlayer());
             NBTItem nbtItem = new NBTItem(event.getItem());
-            if(nbtItem.hasKey("GOTO_LOBBY")){
-                sendPlayerToLobby(RpgPlayerList.getRpgPlayer(event.getPlayer()));
-            } else if(nbtItem.hasKey("GOTO_HUB")){
-                sendPlayerToHub(RpgPlayerList.getRpgPlayer(event.getPlayer()));
-            } else if(nbtItem.hasKey("QUEUE")){
-                Lobby lobby = lobbyMap.get(rpgPlayer.getHome());
-                lobby.queuePlayer(rpgPlayer);
+            if(nbtItem.hasKey("GOTO_HUB")){
+                sendPlayerToHub(rpgPlayer);
+            } else if(nbtItem.hasKey("TEAM_DEATH_MATCH_QUEUE")){
+                if(teamDeathMatchQueue.contains(rpgPlayer)){
+                    rpgPlayer.chat("You are no longer queued for Team Death Match games.");
+                    event.getItem().removeEnchantment(Enchantment.THORNS);
+                    teamDeathMatchQueue.remove(rpgPlayer);
+                } else {
+                    rpgPlayer.chat("You are now queued for Team Death Match games.");
+                    event.getItem().addUnsafeEnchantment(Enchantment.THORNS,1);
+                    teamDeathMatchQueue.push(rpgPlayer);
+                }
             }
         }
     }
 
-    public static void loadLobbies(){
-
-
-        File playerYml = new File(SkillScheme.getInstance().getDataFolder() + "/lobbies.yml");
-        FileConfiguration config = YamlConfiguration.loadConfiguration(playerYml);
-        ArrayList<String> arenas = new ArrayList<String>();
-        arenas.add("test_1");
-        List<Map<?,?>> lobbies = config.getMapList( "lobbies");
-        for(Map<?,?> lobby2 : lobbies){
-            String id = (String) lobby2.get("id");
-            int minPlayers = (Integer) lobby2.get("minPlayers");
-            int maxPlayers = (Integer) lobby2.get("maxPlayers");
-            Lobby lobby = new Lobby(id,new Location(SkillScheme.getWorld(),228,61,313,-90,0),arenas,minPlayers,maxPlayers);
-            lobbyMap.put("test",lobby);
-        }
-
-
+    public static void performSetup(){
+        File yml = new File(SkillScheme.getInstance().getDataFolder() + "/hub.yml");
+        FileConfiguration config = YamlConfiguration.loadConfiguration(yml);
+        hubSpawn = getLocationFromConfig(config,"spawnLocation");
+        loadArenas();
     }
 
-    public static void loadArenas(){
-        Arena arena = new Arena("test_1", new Location(SkillScheme.getWorld(),259,59,332));
-        arenaMap.put("test_1",arena);
-    }
-
-    public static void sendPlayerToLobby(RpgPlayer rpgPlayer){
-        String bestLobby = null;
-        int players = 0;
-        for(Lobby lobby : lobbyMap.values()){
-            if(lobby.getPlayerCount() >= players){
-                bestLobby = lobby.getId();
-                players = lobby.getPlayerCount();
+    private static void loadArenas(){
+        File dir = new File(SkillScheme.getInstance().getDataFolder().toString() + "/arenas/tdm");
+        System.out.println("Loading arenas ....");
+        File[] directoryListing = dir.listFiles();
+        if (directoryListing != null) {
+            for (File arenaYml : directoryListing) {
+                FileConfiguration config = YamlConfiguration.loadConfiguration(arenaYml);
+                Arena arena = new TeamDeathMatch(config.getString("id"),
+                        config.getInt("minPlayers"),
+                        config.getInt("maxPlayers"),
+                        config.getInt("lives"),
+                        getLocationFromConfig(config,"lobbySpawn"),
+                        getLocationFromConfig(config,"spectatorSpawn"),
+                        getLocationFromConfig(config,"blueSpawn"),
+                        getLocationFromConfig(config,"redSpawn"));
+                arenaMap.put(config.getString("id"),arena);
             }
         }
-        sendPlayerToLobby(rpgPlayer, bestLobby);
-    }
-
-    public static void sendPlayerToLobby(RpgPlayer rpgPlayer, String lobbyId){
-        System.out.println(lobbyId);
-        Lobby lobby = getLobby(lobbyId);
-        System.out.println(1);
-        lobby.addPlayer(rpgPlayer);
-        System.out.println(3);
-        rpgPlayer.teleport(lobby.getSpawnLocation());
-        System.out.println(4);
-        rpgPlayer.setHome(lobbyId);
-        System.out.println(5);
-        rpgPlayer.setPlayerState(PlayerState.LOBBY);
-        lobby.runLobbyTick();
-        System.out.println(6);
     }
 
 
     public static void sendPlayerToHub(RpgPlayer rpgPlayer){
-        rpgPlayer.setPlayerState(PlayerState.LOBBY);
-        rpgPlayer.setHome(null);
+        if(rpgPlayer.getArena() != null){
+            Arena arena = ArenaManager.getArena(rpgPlayer);
+            arena.removePlayer(rpgPlayer);
+        }
+        rpgPlayer.wipe();
+        rpgPlayer.setPlayerState(PlayerState.HUB);
+        rpgPlayer.teleport(hubSpawn);
+        rpgPlayer.setArena(null);
+    }
+
+
+    private static void runHubTick(){
+        System.out.println("Hub tick!");
+        for(Arena arena : arenaMap.values()){
+            System.out.println("Testing for: " + arena.getId());
+            while(arena.acceptingPlayers() && !teamDeathMatchQueue.empty()){
+                System.out.println("Adding player to server.");
+                arena.addPlayer(teamDeathMatchQueue.pop());
+            }
+            System.out.println(teamDeathMatchQueue.size());
+            System.out.println(arena.acceptingPlayers());
+        }
+    }
+
+
+
+    public static void startHubTicker(){
+        System.out.println("Starting hub ticker.....");
+        lobbyScheduler = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(SkillScheme.getInstance(), new Runnable() {
+            public void run() {
+                runHubTick();
+            }
+        }, 0L, TICKER_TIMER);
     }
 
 
     public static void startArenaTicker(){
-        arenaShedular = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(SkillScheme.getInstance(), new Runnable() {
-            public void run() {
-                for(Lobby lobby : lobbyMap.values()){
-                    lobby.runLobbyTick();
-                }
-            }
-        }, 0L, TICKER_TIMER);
-    }
-    public static void startLobbyTicker(){
-        lobbySchedular = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(SkillScheme.getInstance(), new Runnable() {
+        arenaScheduler = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(SkillScheme.getInstance(), new Runnable() {
             public void run() {
                 for(Arena arena : arenaMap.values()){
                     arena.runArenaTick();
@@ -130,11 +193,16 @@ public class ArenaManager implements Listener
     }
 
     public static void stopArenaTicker(){
-        Bukkit.getServer().getScheduler().cancelTask(arenaShedular);
+        Bukkit.getServer().getScheduler().cancelTask(arenaScheduler);
     }
 
 
     public static void stopLobbyTicker(){
-        Bukkit.getServer().getScheduler().cancelTask(lobbySchedular);
+        Bukkit.getServer().getScheduler().cancelTask(lobbyScheduler);
+    }
+
+    public static Location getHubSpawn()
+    {
+        return hubSpawn;
     }
 }

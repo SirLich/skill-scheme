@@ -1,18 +1,19 @@
 package main.java.plugin.sirlich.core;
 
 import de.tr7zw.itemnbtapi.NBTItem;
-import main.java.plugin.sirlich.SkillScheme;
 import main.java.plugin.sirlich.skills.meta.ClassType;
 import main.java.plugin.sirlich.skills.meta.SkillType;
 import main.java.plugin.sirlich.utilities.c;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import main.java.plugin.sirlich.skills.meta.Skill;
 import main.java.plugin.sirlich.skills.meta.SkillEditObject;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.lang.reflect.Constructor;
 import java.util.*;
@@ -22,7 +23,7 @@ public class RpgPlayer
     private PlayerState playerState;
     private String team;
     private double walkSpeedModifier;
-    private String home;
+    private String arena;
 
     private SkillEditObject skillEditObject;
 
@@ -65,6 +66,13 @@ public class RpgPlayer
         }
 
 
+    }
+
+    public void wipe(){
+        getPlayer().getInventory().clear();
+        getPlayer().setHealth(20);
+        getPlayer().setExp(0);
+        getPlayer().setFoodLevel(20);
     }
 
     public void teleport(Location location){
@@ -144,29 +152,26 @@ public class RpgPlayer
     public void setPlayerState(PlayerState playerState)
     {
         this.playerState = playerState;
-        if(playerState == PlayerState.LOBBY){
-            getPlayer().getInventory().clear();
-
-            ItemStack itemStack = new ItemStack(Material.DIAMOND);
+        wipe();
+        if(playerState == PlayerState.HUB){
+            clearSkills();
+            getPlayer().setGameMode(GameMode.ADVENTURE);
+            ItemStack itemStack = new ItemStack(Material.IRON_AXE);
+            ItemMeta itemMeta = itemStack.getItemMeta();
+            itemMeta.setDisplayName(c.red  + "Team Death Match");
+            itemStack.setItemMeta(itemMeta);
             NBTItem item = new NBTItem(itemStack);
-            item.addCompound("QUEUE");
+            item.addCompound("TEAM_DEATH_MATCH_QUEUE");
             itemStack = item.getItem();
-            getPlayer().getInventory().setItem(0,itemStack);
-
-        /*} else if(playerState == PlayerState.HUB){
-            getPlayer().getInventory().clear();
-            getPlayer().teleport(SkillScheme.getWorldSpawn());
-
-            ItemStack itemStack = new ItemStack(Material.COMPASS);
-            NBTItem item = new NBTItem(itemStack);
-            item.addCompound("GOTO_LOBBY");
-            itemStack = item.getItem();
-            getPlayer().getInventory().setItem(0,itemStack);*/
-
+            getPlayer().getInventory().setItem(4,itemStack);
+        } else if(playerState == PlayerState.SPECTATOR){
+            getPlayer().setGameMode(GameMode.SPECTATOR);
+            clearSkills();
+        } else if(playerState == PlayerState.LOBBY){
+            clearSkills();
+            getPlayer().setGameMode(GameMode.ADVENTURE);
         } else if(playerState == PlayerState.GAME){
-            getPlayer().getInventory().clear();
-            getSkillEditObject().addSkills();
-            getSkillEditObject().giveLoadout();
+            getPlayer().setGameMode(GameMode.SURVIVAL);
         }
     }
 
@@ -179,14 +184,14 @@ public class RpgPlayer
         return team;
     }
 
-    public String getHome()
+    public String getArena()
     {
-        return home;
+        return arena;
     }
 
-    public void setHome(String home)
+    public void setArena(String arena)
     {
-        this.home = home;
+        this.arena = arena;
     }
 
     public void setTeam(String team)

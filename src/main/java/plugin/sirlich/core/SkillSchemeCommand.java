@@ -1,5 +1,7 @@
 package main.java.plugin.sirlich.core;
 
+import main.java.plugin.sirlich.arenas.Arena;
+import main.java.plugin.sirlich.arenas.ArenaManager;
 import main.java.plugin.sirlich.skills.meta.ClassType;
 import main.java.plugin.sirlich.skills.meta.SkillEditObject;
 import main.java.plugin.sirlich.skills.meta.SkillType;
@@ -177,7 +179,7 @@ public class SkillSchemeCommand implements CommandExecutor
                 } else if(action.equalsIgnoreCase("list") || action.equalsIgnoreCase("l")){
                     rpgPlayer.chat("All playerState values:");
                     for(PlayerState s : PlayerState.values()){
-                        rpgPlayer.chat(s.toString());
+                        rpgPlayer.chat(c.dgray + s.toString());
                     }
                 } else {
                     rpgPlayer.chat("Please include an argument: " + c.gray + "[g]et, [s]et, [l]ist, [r]eset");

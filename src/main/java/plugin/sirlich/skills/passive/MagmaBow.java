@@ -46,7 +46,7 @@ public class MagmaBow extends Skill {
     @Override
     public void onArrowHitEntity(ProjectileHitEvent event){
         Entity entity = event.getHitEntity();
-        
+
         //We can directly cast, since the method we override already does a lot of error checking for us.
         LivingEntity livingEntity = (LivingEntity) entity;
 
