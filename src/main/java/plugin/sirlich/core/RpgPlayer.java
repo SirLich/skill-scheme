@@ -7,7 +7,6 @@ import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import main.java.plugin.sirlich.skills.meta.Skill;
-import main.java.plugin.sirlich.skills.meta.SkillEditObject;
 import org.bukkit.potion.PotionEffect;
 
 import java.lang.reflect.Constructor;
@@ -18,10 +17,7 @@ public class RpgPlayer
     private PlayerState playerState;
     private double walkSpeedModifier;
 
-    private SkillEditObject skillEditObject;
-
     public RpgPlayer(Player player){
-        this.skillEditObject = new SkillEditObject(ClassType.UNDEFINED, this);
         this.player = player;
         this.playerState = PlayerState.DEFAULT;
     }
@@ -137,16 +133,6 @@ public class RpgPlayer
         this.walkSpeedModifier += change;
     }
 
-    public SkillEditObject getSkillEditObject()
-    {
-        return skillEditObject;
-    }
-
-    public void refreshSkillEditObject(ClassType classType)
-    {
-        this.getSkillEditObject().clearSkills();
-        this.getSkillEditObject().setClassType(classType);
-    }
 
     public PlayerState getPlayerState()
     {
