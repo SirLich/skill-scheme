@@ -16,11 +16,15 @@ import java.util.*;
 public class RpgPlayer
 {
     private PlayerState playerState;
-    private String team;
     private double walkSpeedModifier;
-    private String arena;
 
     private SkillEditObject skillEditObject;
+
+    public RpgPlayer(Player player){
+        this.skillEditObject = new SkillEditObject(ClassType.UNDEFINED, this);
+        this.player = player;
+        this.playerState = PlayerState.DEFAULT;
+    }
 
     public void refreshPassiveModifiers(){
         float walkSpeed = (float) walkSpeedModifier + 0.2f;
@@ -106,12 +110,7 @@ public class RpgPlayer
     public void playSound(Sound sound){
         getPlayer().playSound(getPlayer().getLocation(),sound,1,1);
     }
-    public RpgPlayer(Player player){
-        this.skillEditObject = new SkillEditObject(ClassType.UNDEFINED, this);
-        this.player = player;
-        this.team = "Default";
-        this.playerState = PlayerState.TEST;
-    }
+
 
     public Player getPlayer()
     {
@@ -157,51 +156,5 @@ public class RpgPlayer
     public void setPlayerState(PlayerState playerState)
     {
         this.playerState = playerState;
-//        wipe();
-//        if(playerState == PlayerState.HUB){
-//            clearSkills();
-//            getPlayer().setGameMode(GameMode.ADVENTURE);
-//            ItemStack itemStack = new ItemStack(Material.IRON_AXE);
-//            ItemMeta itemMeta = itemStack.getItemMeta();
-//            itemMeta.setDisplayName(c.red  + "Team Death Match");
-//            itemStack.setItemMeta(itemMeta);
-//            NBTItem item = new NBTItem(itemStack);
-//            item.addCompound("TEAM_DEATH_MATCH_QUEUE");
-//            itemStack = item.getItem();
-//            getPlayer().getInventory().setItem(4,itemStack);
-//        } else if(playerState == PlayerState.SPECTATE){
-//            getPlayer().setGameMode(GameMode.SPECTATE);
-//            clearSkills();
-//        } else if(playerState == PlayerState.LOBBY){
-//            clearSkills();
-//            getPlayer().setGameMode(GameMode.ADVENTURE);
-//        } else if(playerState == PlayerState.PLAY){
-//            getPlayer().setGameMode(GameMode.SURVIVAL);
-//        }
     }
-
-    public static boolean sameTeam(RpgPlayer a, RpgPlayer b){
-        return a.getTeam().equals(b.getTeam());
-    }
-
-    public String getTeam()
-    {
-        return team;
-    }
-
-    public String getArena()
-    {
-        return arena;
-    }
-
-    public void setArena(String arena)
-    {
-        this.arena = arena;
-    }
-
-    public void setTeam(String team)
-    {
-        this.team = team;
-    }
-
 }
