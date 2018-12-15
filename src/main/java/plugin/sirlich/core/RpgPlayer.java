@@ -110,7 +110,7 @@ public class RpgPlayer
         this.skillEditObject = new SkillEditObject(ClassType.UNDEFINED, this);
         this.player = player;
         this.team = "Default";
-        this.playerState = PlayerState.TESTING;
+        this.playerState = PlayerState.TEST;
     }
 
     public Player getPlayer()
@@ -169,13 +169,13 @@ public class RpgPlayer
 //            item.addCompound("TEAM_DEATH_MATCH_QUEUE");
 //            itemStack = item.getItem();
 //            getPlayer().getInventory().setItem(4,itemStack);
-//        } else if(playerState == PlayerState.SPECTATOR){
-//            getPlayer().setGameMode(GameMode.SPECTATOR);
+//        } else if(playerState == PlayerState.SPECTATE){
+//            getPlayer().setGameMode(GameMode.SPECTATE);
 //            clearSkills();
 //        } else if(playerState == PlayerState.LOBBY){
 //            clearSkills();
 //            getPlayer().setGameMode(GameMode.ADVENTURE);
-//        } else if(playerState == PlayerState.GAME){
+//        } else if(playerState == PlayerState.PLAY){
 //            getPlayer().setGameMode(GameMode.SURVIVAL);
 //        }
     }

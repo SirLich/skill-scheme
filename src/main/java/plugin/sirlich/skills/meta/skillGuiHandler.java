@@ -81,7 +81,7 @@ public class skillGuiHandler implements Listener
         } else if(buttonAction.equalsIgnoreCase("accept")){
             player.playSound(player.getLocation(),Sound.ENTITY_FIREWORK_LARGE_BLAST,1,1);
             player.closeInventory();
-            if(rpgPlayer.getPlayerState() == PlayerState.TESTING){
+            if(rpgPlayer.getPlayerState() == PlayerState.TEST){
                 rpgPlayer.clearSkills();
                 rpgPlayer.getSkillEditObject().addSkills();
             } else {
