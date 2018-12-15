@@ -1,9 +1,6 @@
 package main.java.plugin.sirlich.core;
 
 import main.java.plugin.sirlich.SkillScheme;
-import main.java.plugin.sirlich.arenas.ArenaManager;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -27,7 +24,6 @@ public class PlayerJoinHandler implements Listener
         //Make new RPGPlayer!
         RpgPlayerList.addPlayer(player);
         RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(player);
-        rpgPlayer.teleport(ArenaManager.getHubSpawn());
         rpgPlayer.setPlayerState(PlayerState.HUB);
 
         String playerUuid = player.getUniqueId().toString();

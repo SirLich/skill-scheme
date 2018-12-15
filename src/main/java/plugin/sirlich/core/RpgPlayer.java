@@ -1,19 +1,13 @@
 package main.java.plugin.sirlich.core;
 
-import de.tr7zw.itemnbtapi.NBTItem;
-import main.java.plugin.sirlich.arenas.Hub;
 import main.java.plugin.sirlich.skills.meta.ClassType;
 import main.java.plugin.sirlich.skills.meta.SkillType;
 import main.java.plugin.sirlich.utilities.c;
-import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import main.java.plugin.sirlich.skills.meta.Skill;
 import main.java.plugin.sirlich.skills.meta.SkillEditObject;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 
 import java.lang.reflect.Constructor;
@@ -25,7 +19,6 @@ public class RpgPlayer
     private String team;
     private double walkSpeedModifier;
     private String arena;
-    private Hub hub;
 
     private SkillEditObject skillEditObject;
 
@@ -211,13 +204,4 @@ public class RpgPlayer
         this.team = team;
     }
 
-    public Hub getHub()
-    {
-        return hub;
-    }
-
-    public void setHub(Hub hub)
-    {
-        this.hub = hub;
-    }
 }
