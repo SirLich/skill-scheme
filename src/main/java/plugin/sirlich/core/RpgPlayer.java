@@ -1,6 +1,7 @@
 package main.java.plugin.sirlich.core;
 
 import de.tr7zw.itemnbtapi.NBTItem;
+import main.java.plugin.sirlich.arenas.Hub;
 import main.java.plugin.sirlich.skills.meta.ClassType;
 import main.java.plugin.sirlich.skills.meta.SkillType;
 import main.java.plugin.sirlich.utilities.c;
@@ -11,9 +12,9 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import main.java.plugin.sirlich.skills.meta.Skill;
 import main.java.plugin.sirlich.skills.meta.SkillEditObject;
-import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffect;
 
 import java.lang.reflect.Constructor;
 import java.util.*;
@@ -24,6 +25,7 @@ public class RpgPlayer
     private String team;
     private double walkSpeedModifier;
     private String arena;
+    private Hub hub;
 
     private SkillEditObject skillEditObject;
 
@@ -68,13 +70,23 @@ public class RpgPlayer
 
     }
 
+    public void removeAllPotionEffects(){
+        for (PotionEffect effect : player.getActivePotionEffects()){
+            player.removePotionEffect(effect.getType());
+        }
+    }
     public void wipe(){
         getPlayer().getInventory().clear();
         getPlayer().setHealth(20);
         getPlayer().setExp(0);
         getPlayer().setFoodLevel(20);
+        removeAllPotionEffects();
+        clearSkills();
     }
 
+    public String getName(){
+        return getPlayer().getName();
+    }
     public void teleport(Location location){
         location.setWorld(getPlayer().getLocation().getWorld());
 
@@ -152,27 +164,27 @@ public class RpgPlayer
     public void setPlayerState(PlayerState playerState)
     {
         this.playerState = playerState;
-        wipe();
-        if(playerState == PlayerState.HUB){
-            clearSkills();
-            getPlayer().setGameMode(GameMode.ADVENTURE);
-            ItemStack itemStack = new ItemStack(Material.IRON_AXE);
-            ItemMeta itemMeta = itemStack.getItemMeta();
-            itemMeta.setDisplayName(c.red  + "Team Death Match");
-            itemStack.setItemMeta(itemMeta);
-            NBTItem item = new NBTItem(itemStack);
-            item.addCompound("TEAM_DEATH_MATCH_QUEUE");
-            itemStack = item.getItem();
-            getPlayer().getInventory().setItem(4,itemStack);
-        } else if(playerState == PlayerState.SPECTATOR){
-            getPlayer().setGameMode(GameMode.SPECTATOR);
-            clearSkills();
-        } else if(playerState == PlayerState.LOBBY){
-            clearSkills();
-            getPlayer().setGameMode(GameMode.ADVENTURE);
-        } else if(playerState == PlayerState.GAME){
-            getPlayer().setGameMode(GameMode.SURVIVAL);
-        }
+//        wipe();
+//        if(playerState == PlayerState.HUB){
+//            clearSkills();
+//            getPlayer().setGameMode(GameMode.ADVENTURE);
+//            ItemStack itemStack = new ItemStack(Material.IRON_AXE);
+//            ItemMeta itemMeta = itemStack.getItemMeta();
+//            itemMeta.setDisplayName(c.red  + "Team Death Match");
+//            itemStack.setItemMeta(itemMeta);
+//            NBTItem item = new NBTItem(itemStack);
+//            item.addCompound("TEAM_DEATH_MATCH_QUEUE");
+//            itemStack = item.getItem();
+//            getPlayer().getInventory().setItem(4,itemStack);
+//        } else if(playerState == PlayerState.SPECTATOR){
+//            getPlayer().setGameMode(GameMode.SPECTATOR);
+//            clearSkills();
+//        } else if(playerState == PlayerState.LOBBY){
+//            clearSkills();
+//            getPlayer().setGameMode(GameMode.ADVENTURE);
+//        } else if(playerState == PlayerState.GAME){
+//            getPlayer().setGameMode(GameMode.SURVIVAL);
+//        }
     }
 
     public static boolean sameTeam(RpgPlayer a, RpgPlayer b){
@@ -197,5 +209,15 @@ public class RpgPlayer
     public void setTeam(String team)
     {
         this.team = team;
+    }
+
+    public Hub getHub()
+    {
+        return hub;
+    }
+
+    public void setHub(Hub hub)
+    {
+        this.hub = hub;
     }
 }

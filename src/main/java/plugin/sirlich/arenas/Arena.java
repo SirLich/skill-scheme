@@ -21,17 +21,6 @@ public class Arena implements Listener
 
     private ArrayList<RpgPlayer> players = new ArrayList<RpgPlayer>();
     private ArrayList<RpgPlayer> spectators = new ArrayList<RpgPlayer>();
-
-    public ArrayList<RpgPlayer> getLobbyists()
-    {
-        return lobbyists;
-    }
-
-    public void setLobbyists(ArrayList<RpgPlayer> lobbyists)
-    {
-        this.lobbyists = lobbyists;
-    }
-
     private ArrayList<RpgPlayer> lobbyists = new ArrayList<RpgPlayer>();
 
     private Location lobbySpawn;
@@ -257,4 +246,15 @@ public class Arena implements Listener
     {
         this.spectatorSpawn = spectatorSpawn;
     }
+
+    public ArrayList<RpgPlayer> getLobbyists()
+    {
+        return lobbyists;
+    }
+
+    public void setLobbyists(ArrayList<RpgPlayer> lobbyists)
+    {
+        this.lobbyists = lobbyists;
+    }
+
 }
