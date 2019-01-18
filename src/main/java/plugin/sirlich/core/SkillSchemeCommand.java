@@ -1,12 +1,17 @@
 package main.java.plugin.sirlich.core;
 
+import main.java.plugin.sirlich.arenas.Arena;
+import main.java.plugin.sirlich.arenas.ArenaManager;
 import main.java.plugin.sirlich.skills.meta.ClassType;
+import main.java.plugin.sirlich.skills.meta.SkillEditObject;
 import main.java.plugin.sirlich.skills.meta.SkillType;
 import main.java.plugin.sirlich.utilities.c;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 public class SkillSchemeCommand implements CommandExecutor
 {

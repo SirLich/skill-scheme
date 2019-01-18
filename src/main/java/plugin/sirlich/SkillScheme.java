@@ -1,5 +1,8 @@
 package main.java.plugin.sirlich;
 
+import main.java.plugin.sirlich.arenas.ArenaManager;
+import main.java.plugin.sirlich.arenas.LeaveCommand;
+import main.java.plugin.sirlich.arenas.ServerCommand;
 import main.java.plugin.sirlich.core.RpgPlayerList;
 import main.java.plugin.sirlich.utilities.BlockUtils;
 import main.java.plugin.sirlich.core.PlayerJoinHandler;
@@ -26,6 +29,7 @@ public class SkillScheme extends JavaPlugin
     @Override
     public void onEnable(){
         instance = this;
+        setupArenaManager();
         createDataFolder();
         initDataFields();
         registerEvents();
@@ -42,6 +46,11 @@ public class SkillScheme extends JavaPlugin
         }
     }
 
+    private void setupArenaManager(){
+        ArenaManager.performSetup();
+        ArenaManager.startArenaTicker();
+        ArenaManager.startHubTicker();
+    }
 
     public static SkillScheme getInstance()
     {
@@ -69,6 +78,7 @@ public class SkillScheme extends JavaPlugin
         getServer().getPluginManager().registerEvents(new PlayerLeaveHandler(),this);
         getServer().getPluginManager().registerEvents(new SkillHandler(),this);
         getServer().getPluginManager().registerEvents(new BlockUtils(), this);
+        getServer().getPluginManager().registerEvents(new ArenaManager(),this);
     }
 
     private static void initDataFields(){
@@ -102,5 +112,7 @@ public class SkillScheme extends JavaPlugin
 
     private void registerCommands(){
         this.getCommand("ss").setExecutor(new SkillSchemeCommand());
+        this.getCommand("server").setExecutor(new ServerCommand());
+        this.getCommand("leave").setExecutor(new LeaveCommand());
     }
 }
