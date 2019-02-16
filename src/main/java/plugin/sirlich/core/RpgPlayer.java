@@ -18,7 +18,6 @@ public class RpgPlayer
     private PlayerState playerState;
     private String team;
     private double walkSpeedModifier;
-    private String arena;
 
     private SkillEditObject skillEditObject;
 
@@ -189,15 +188,6 @@ public class RpgPlayer
         return team;
     }
 
-    public String getArena()
-    {
-        return arena;
-    }
-
-    public void setArena(String arena)
-    {
-        this.arena = arena;
-    }
 
     public void setTeam(String team)
     {

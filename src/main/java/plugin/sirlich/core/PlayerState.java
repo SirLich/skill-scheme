@@ -32,7 +32,7 @@ public enum PlayerState
     /*
     This is a special mode for players who died during a skillScheme game.
     - No access to skills
-    - Placed into spectator mode on enter. 
+    - Placed into spectator mode on enter.
      */
     SPECTATOR
 }
