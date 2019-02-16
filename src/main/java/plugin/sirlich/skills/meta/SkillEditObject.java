@@ -1,6 +1,5 @@
 package main.java.plugin.sirlich.skills.meta;
 
-import main.java.plugin.sirlich.core.PlayerState;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
