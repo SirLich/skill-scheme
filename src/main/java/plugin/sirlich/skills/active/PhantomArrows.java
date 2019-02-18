@@ -1,5 +1,6 @@
 package main.java.plugin.sirlich.skills.active;
 
+import main.java.plugin.sirlich.core.RpgArrow;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.core.RpgPlayerList;
 import main.java.plugin.sirlich.skills.meta.CooldownSkill;
@@ -42,18 +43,20 @@ public class PhantomArrows extends CooldownSkill
 
     @Override
     public void onArrowHitEntity(ProjectileHitEvent event){
-        Entity entity = event.getHitEntity();
-        Player player = (Player) event.getEntity().getShooter();
-        System.out.println(entity.getScoreboardTags().toString());
-        if(entity instanceof LivingEntity && event.getEntity().getScoreboardTags().contains("PHANTOM_ARROW")){
-            LivingEntity livingEntity = (LivingEntity) entity;
+        Entity hitEntity = event.getHitEntity();
+        RpgArrow rpgArrow = RpgArrow.getArrow((Arrow) event.getEntity());
+        RpgPlayer rpgShooter = rpgArrow.getShooter();
+        Player shooter = rpgShooter.getPlayer();
+
+        if(hitEntity instanceof LivingEntity && rpgArrow.containsTag("PHANTOM_ARROW")){
+            LivingEntity livingEntity = (LivingEntity) hitEntity;
             Location location = livingEntity.getLocation();
-            livingEntity.teleport(player.getLocation());
-            player.teleport(location);
+            livingEntity.teleport(shooter.getLocation());
+            shooter.teleport(location);
             getRpgPlayer().playSound(Sound.BLOCK_END_PORTAL_SPAWN);
         }
         event.getHitEntity().setVelocity(new Vector(0,0,0));
-        player.setVelocity(new Vector(0,0,0));
+        shooter.setVelocity(new Vector(0,0,0));
     }
 
     @Override
@@ -74,13 +77,10 @@ public class PhantomArrows extends CooldownSkill
     @Override
     public void onBowFire(EntityShootBowEvent event){
         if(primed){
+            Arrow arrow = (Arrow) event.getProjectile();
             primed = false;
             event.setCancelled(true);
-            Vector velocity = event.getProjectile().getVelocity();
-            Arrow arrow = event.getEntity().launchProjectile(Arrow.class);
-            arrow.setVelocity(velocity);
-            arrow.addScoreboardTag("PHANTOM_ARROW");
-            RpgPlayerList.addArrow(arrow.getUniqueId(),getRpgPlayer());
+            RpgArrow.registerArrow(arrow,getRpgPlayer(),"PHANTOM_ARROW");
             refreshCooldown();
         }
     }
