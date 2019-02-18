@@ -15,6 +15,15 @@ import java.util.*;
 
 public class RpgPlayer
 {
+
+    public RpgPlayer(Player player){
+        this.skillEditObject = new SkillEditObject(ClassType.UNDEFINED, this);
+        this.player = player;
+        this.team = "Default";
+        this.playerState = PlayerState.TESTING;
+    }
+
+
     private PlayerState playerState;
     private String team;
     private double walkSpeedModifier;
@@ -105,12 +114,7 @@ public class RpgPlayer
     public void playSound(Sound sound){
         getPlayer().playSound(getPlayer().getLocation(),sound,1,1);
     }
-    public RpgPlayer(Player player){
-        this.skillEditObject = new SkillEditObject(ClassType.UNDEFINED, this);
-        this.player = player;
-        this.team = "Default";
-        this.playerState = PlayerState.TESTING;
-    }
+
 
     public Player getPlayer()
     {

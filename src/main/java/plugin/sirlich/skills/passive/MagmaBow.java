@@ -45,6 +45,7 @@ public class MagmaBow extends Skill {
      */
     @Override
     public void onArrowHitEntity(ProjectileHitEvent event){
+        System.out.println("An entity was hit with a flaming arrow!");
         Entity entity = event.getHitEntity();
 
         //We can directly cast, since the method we override already does a lot of error checking for us.
@@ -55,7 +56,7 @@ public class MagmaBow extends Skill {
 
         //simplified if, based on comments above
         if(rand.nextInt() <= chance.get(getLevel())){
-
+            System.out.println("The entity started on fire!");
             //We are ADDING fire ticks, so you have to get fire ticks first, then add the new ones.
             livingEntity.setFireTicks(livingEntity.getFireTicks() + fireTicks.get(getLevel()));
         }

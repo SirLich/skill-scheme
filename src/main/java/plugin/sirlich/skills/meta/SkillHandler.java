@@ -137,9 +137,8 @@ public class SkillHandler implements Listener
             if(RpgPlayerList.hasArrow(uuid)){
                 RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(uuid);
                 for(Skill skill : rpgPlayer.getSkillList().values()){
-                    if(skill instanceof CooldownSkill){
-                        skill.onArrowHitEntity(event);
-                    }
+                    System.out.println("Arrow hit!");
+                    skill.onArrowHitEntity(event);
                 }
                 RpgPlayerList.removeArrow(uuid);
             }
@@ -148,9 +147,7 @@ public class SkillHandler implements Listener
             if(RpgPlayerList.hasArrow(uuid)){
                 RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(uuid);
                 for(Skill skill : rpgPlayer.getSkillList().values()){
-                    if(skill instanceof CooldownSkill){
-                        skill.onArrowHitGround(event);
-                    }
+                    skill.onArrowHitGround(event);
                 }
                 RpgPlayerList.removeArrow(uuid);
             }
