@@ -157,15 +157,15 @@ public class RpgPlayer
     {
         this.playerState = playerState;
 
-        wipe();
         if(playerState == PlayerState.HUB){
-            clearSkills();
+            wipe();
         } else if(playerState == PlayerState.SPECTATOR){
-            clearSkills();
+            wipe();
         } else if(playerState == PlayerState.LOBBY){
-            clearSkills();
-        } else if(playerState == PlayerState.GAME){
-            RpgPlayerList.getRpgPlayer(getPlayer());
+            wipe();
+        } else if(playerState == PlayerState.GAME || playerState == PlayerState.TESTING){
+            RpgPlayerList.getRpgPlayer(getPlayer()).getSkillEditObject().addSkills();
+            RpgPlayerList.getRpgPlayer(getPlayer()).getSkillEditObject().giveLoadout();
         }
     }
 
