@@ -156,27 +156,17 @@ public class RpgPlayer
     public void setPlayerState(PlayerState playerState)
     {
         this.playerState = playerState;
-//        wipe();
-//        if(playerState == PlayerState.HUB){
-//            clearSkills();
-//            getPlayer().setGameMode(GameMode.ADVENTURE);
-//            ItemStack itemStack = new ItemStack(Material.IRON_AXE);
-//            ItemMeta itemMeta = itemStack.getItemMeta();
-//            itemMeta.setDisplayName(c.red  + "Team Death Match");
-//            itemStack.setItemMeta(itemMeta);
-//            NBTItem item = new NBTItem(itemStack);
-//            item.addCompound("TEAM_DEATH_MATCH_QUEUE");
-//            itemStack = item.getItem();
-//            getPlayer().getInventory().setItem(4,itemStack);
-//        } else if(playerState == PlayerState.SPECTATOR){
-//            getPlayer().setGameMode(GameMode.SPECTATOR);
-//            clearSkills();
-//        } else if(playerState == PlayerState.LOBBY){
-//            clearSkills();
-//            getPlayer().setGameMode(GameMode.ADVENTURE);
-//        } else if(playerState == PlayerState.GAME){
-//            getPlayer().setGameMode(GameMode.SURVIVAL);
-//        }
+
+        wipe();
+        if(playerState == PlayerState.HUB){
+            clearSkills();
+        } else if(playerState == PlayerState.SPECTATOR){
+            clearSkills();
+        } else if(playerState == PlayerState.LOBBY){
+            clearSkills();
+        } else if(playerState == PlayerState.GAME){
+            RpgPlayerList.getRpgPlayer(getPlayer());
+        }
     }
 
     public static boolean sameTeam(RpgPlayer a, RpgPlayer b){

@@ -167,7 +167,7 @@ public class SkillSchemeCommand implements CommandExecutor
 
                     if(args.length < 4){
                         rpgPlayer.setPlayerState(PlayerState.valueOf(action));
-                        rpgPlayer.chat("name: " + c.dgray + action);
+                        rpgPlayer.chat("Player State: " + c.dgray + action);
                     } else {
                         RpgPlayerList.getRpgPlayer(args[3]).setPlayerState(PlayerState.valueOf(action));
                         rpgPlayer.chat(args[3] + c.dgray + action);

@@ -41,8 +41,10 @@ public class skillGuiHandler implements Listener
         RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(event.getPlayer());
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (event.getClickedBlock().getType() == Material.ENCHANTMENT_TABLE) {
-                event.setCancelled(true);
-                openMainGui(event.getPlayer());
+                if(rpgPlayer.getPlayerState().canUseEditor()){
+                    event.setCancelled(true);
+                    openMainGui(event.getPlayer());
+                }
             }
         }
     }
