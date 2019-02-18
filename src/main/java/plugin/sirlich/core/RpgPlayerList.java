@@ -12,23 +12,6 @@ public class RpgPlayerList
 
     public static HashMap<UUID, RpgPlayer> rpgPlayerHashMap = new HashMap<UUID, RpgPlayer>();
     public static HashMap<RpgPlayer, UUID> playerHashMap = new HashMap<RpgPlayer, UUID>();
-    public static HashMap<UUID, RpgPlayer> arrowMap = new HashMap<UUID, RpgPlayer>();
-
-    public static RpgPlayer getRpgPlayer(UUID uuid){
-        return arrowMap.get(uuid);
-    }
-
-    public static void addArrow(UUID uuid, RpgPlayer rpgPlayer){
-        arrowMap.put(uuid,rpgPlayer);
-    }
-
-    public static void removeArrow(UUID uuid){
-        arrowMap.remove(uuid);
-    }
-
-    public static boolean hasArrow(UUID uuid){
-        return  arrowMap.containsKey(uuid);
-    }
 
 
     public static void addPlayer(Player player)
