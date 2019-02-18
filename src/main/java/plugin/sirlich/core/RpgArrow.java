@@ -20,11 +20,11 @@ public class RpgArrow {
     }
 
     private ArrayList<String> tags;
-    private Player shooter;
+    private RpgPlayer shooter;
     private UUID id;
 
     //Add arrow with one tag
-    public static void addArrow(Arrow arrow, Player shooter, String tag){
+    public static void addArrow(Arrow arrow, RpgPlayer shooter, String tag){
         ArrayList<String> tags = new ArrayList<String>();
         tags.add(tag);
         RpgArrow rpgArrow = new RpgArrow(arrow.getUniqueId(),shooter,tags);
@@ -32,7 +32,7 @@ public class RpgArrow {
     }
 
     //Add arrow with multiple tags
-    public static void addArrow(Arrow arrow, Player shooter, ArrayList<String> tags){
+    public static void addArrow(Arrow arrow, RpgPlayer shooter, ArrayList<String> tags){
         RpgArrow rpgArrow = new RpgArrow(arrow.getUniqueId(),shooter,tags);
         arrowMap.put(arrow.getUniqueId(),rpgArrow);
     }
@@ -47,10 +47,28 @@ public class RpgArrow {
         arrowMap.remove(this.id);
     }
 
+    public static boolean hasArrow(Arrow arrow){
+        return arrowMap.containsKey(arrow.getUniqueId());
+    }
 
+    public RpgPlayer getShooter(){
+        return this.shooter;
+    }
+
+    public ArrayList<String> getTags(){
+        return tags;
+    }
+
+    public UUID getId(){
+        return this.id;
+    }
+
+    public boolean containsTag(String tag){
+        return tags.contains(tag);
+    }
 
     //Handle constructor from both addArrow types
-    public RpgArrow(UUID arrowID,Player shooter, ArrayList<String> tags){
+    public RpgArrow(UUID arrowID,RpgPlayer shooter, ArrayList<String> tags){
         this.id = arrowID;
         this.tags = tags;
         this.shooter = shooter;

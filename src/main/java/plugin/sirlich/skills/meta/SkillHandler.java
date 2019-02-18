@@ -1,8 +1,10 @@
 package main.java.plugin.sirlich.skills.meta;
 
+import main.java.plugin.sirlich.core.RpgArrow;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.core.RpgPlayerList;
 import org.bukkit.Material;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
@@ -133,23 +135,25 @@ public class SkillHandler implements Listener
     @EventHandler
     public void onArrow(ProjectileHitEvent event){
         if(event.getHitEntity() != null){
-            UUID uuid = event.getEntity().getUniqueId();
-            if(RpgPlayerList.hasArrow(uuid)){
-                RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(uuid);
+            Arrow arrow = (Arrow) event.getEntity();
+            if(RpgArrow.hasArrow(arrow)){
+                RpgArrow rpgArrow = RpgArrow.getArrow(arrow);
+                RpgPlayer rpgPlayer = rpgArrow.getShooter();
                 for(Skill skill : rpgPlayer.getSkillList().values()){
                     System.out.println("Arrow hit!");
                     skill.onArrowHitEntity(event);
                 }
-                RpgPlayerList.removeArrow(uuid);
+                rpgArrow.removeSelf();
             }
         } else {
-            UUID uuid = event.getEntity().getUniqueId();
-            if(RpgPlayerList.hasArrow(uuid)){
-                RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(uuid);
+            Arrow arrow = (Arrow) event.getEntity();
+            if(RpgArrow.hasArrow(arrow)){
+                RpgArrow rpgArrow = RpgArrow.getArrow(arrow);
+                RpgPlayer rpgPlayer = rpgArrow.getShooter();
                 for(Skill skill : rpgPlayer.getSkillList().values()){
                     skill.onArrowHitGround(event);
                 }
-                RpgPlayerList.removeArrow(uuid);
+                rpgArrow.removeSelf();
             }
         }
     }
