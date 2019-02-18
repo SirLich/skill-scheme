@@ -3,7 +3,6 @@ package main.java.plugin.sirlich.skills.active;
 import main.java.plugin.sirlich.SkillScheme;
 import main.java.plugin.sirlich.core.RpgArrow;
 import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.core.RpgPlayerList;
 import main.java.plugin.sirlich.skills.meta.Skill;
 import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.*;

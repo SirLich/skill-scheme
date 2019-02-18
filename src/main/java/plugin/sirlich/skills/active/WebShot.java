@@ -1,5 +1,6 @@
 package main.java.plugin.sirlich.skills.active;
 
+import main.java.plugin.sirlich.core.RpgArrow;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.core.RpgPlayerList;
 import main.java.plugin.sirlich.skills.meta.CooldownSkill;
@@ -60,7 +61,8 @@ public class WebShot extends CooldownSkill
 
     @Override
     public void onArrowHitEntity(ProjectileHitEvent event){
-        if(event.getHitEntity() instanceof LivingEntity && event.getEntity().getScoreboardTags().contains("WEB_SHOT")){
+        RpgArrow rpgArrow = RpgArrow.getArrow((Arrow) event.getEntity());
+        if(event.getHitEntity() instanceof LivingEntity && rpgArrow.containsTag("WEB_SHOT")){
             Location loc = event.getHitEntity().getLocation();
             if(event.getHitEntity().getWorld().getBlockAt(loc).getType() == Material.AIR){
                 BlockUtils.tempPlaceBlock(Material.WEB,loc,duration.get(getLevel()));
@@ -70,7 +72,8 @@ public class WebShot extends CooldownSkill
 
     @Override
     public void onArrowHitGround(ProjectileHitEvent event){
-        if(event.getEntity().getScoreboardTags().contains("WEB_SHOT")){
+        RpgArrow rpgArrow = RpgArrow.getArrow((Arrow) event.getEntity());
+        if(rpgArrow.containsTag("WEB_SHOT")){
             Location loc = event.getHitBlock().getLocation();
             loc.add(0,1,0);
             if(event.getHitBlock().getWorld().getBlockAt(loc).getType() == Material.AIR){
@@ -85,12 +88,8 @@ public class WebShot extends CooldownSkill
     public void onBowFire(EntityShootBowEvent event){
         if(primed){
             primed = false;
-            event.setCancelled(true);
-            Vector velocity = event.getProjectile().getVelocity();
-            Arrow arrow = event.getEntity().launchProjectile(Arrow.class);
-            arrow.setVelocity(velocity);
-            arrow.addScoreboardTag("WEB_SHOT");
-            RpgPlayerList.addArrow(arrow.getUniqueId(),getRpgPlayer());
+            Arrow arrow = (Arrow) event.getProjectile();
+            RpgArrow.registerArrow(arrow,getRpgPlayer(),"WEB_SHOT");
             refreshCooldown();
         }
     }
