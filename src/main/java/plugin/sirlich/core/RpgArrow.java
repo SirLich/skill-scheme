@@ -24,7 +24,7 @@ public class RpgArrow {
     private UUID id;
 
     //Add arrow with one tag
-    public static void addArrow(Arrow arrow, RpgPlayer shooter, String tag){
+    public static void registerArrow(Arrow arrow, RpgPlayer shooter, String tag){
         ArrayList<String> tags = new ArrayList<String>();
         tags.add(tag);
         RpgArrow rpgArrow = new RpgArrow(arrow.getUniqueId(),shooter,tags);
@@ -32,7 +32,7 @@ public class RpgArrow {
     }
 
     //Add arrow with multiple tags
-    public static void addArrow(Arrow arrow, RpgPlayer shooter, ArrayList<String> tags){
+    public static void registerArrow(Arrow arrow, RpgPlayer shooter, ArrayList<String> tags){
         RpgArrow rpgArrow = new RpgArrow(arrow.getUniqueId(),shooter,tags);
         arrowMap.put(arrow.getUniqueId(),rpgArrow);
     }
@@ -67,7 +67,7 @@ public class RpgArrow {
         return tags.contains(tag);
     }
 
-    //Handle constructor from both addArrow types
+    //Handle constructor from both registerArrow types
     public RpgArrow(UUID arrowID,RpgPlayer shooter, ArrayList<String> tags){
         this.id = arrowID;
         this.tags = tags;

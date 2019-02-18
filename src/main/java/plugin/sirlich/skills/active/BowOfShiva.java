@@ -1,5 +1,6 @@
 package main.java.plugin.sirlich.skills.active;
 
+import main.java.plugin.sirlich.core.RpgArrow;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.core.RpgPlayerList;
 import main.java.plugin.sirlich.skills.meta.Skill;
@@ -27,7 +28,7 @@ public class BowOfShiva extends Skill
 
     @Override
     public void onArrowHitGround(ProjectileHitEvent event){
-        event.getEntity().removeScoreboardTag("CHAIN_ARROW");
+        RpgArrow.removeArrow((Arrow)event.getEntity());
     }
 
 
@@ -69,8 +70,7 @@ public class BowOfShiva extends Skill
                     Vector v = from.subtract(to).normalize().multiply(-velocity.get(getLevel()));
                     Arrow arrow = livingEntity.launchProjectile(Arrow.class);
                     arrow.setVelocity(v);
-                    arrow.addScoreboardTag("CHAIN_ARROW");
-                    RpgPlayerList.addArrow(arrow.getUniqueId(),getRpgPlayer());
+                    RpgArrow.registerArrow(arrow,getRpgPlayer(),"CHAIN_ARROW");
                 }
             }
         }
@@ -79,11 +79,7 @@ public class BowOfShiva extends Skill
 
     @Override
     public void onBowFire(EntityShootBowEvent event){
-        event.setCancelled(true);
-        Vector velocity = event.getProjectile().getVelocity();
-        Arrow arrow = event.getEntity().launchProjectile(Arrow.class);
-        arrow.setVelocity(velocity);
-        arrow.addScoreboardTag("CHAIN_ARROW");
-        RpgPlayerList.addArrow(arrow.getUniqueId(),getRpgPlayer());
+        Arrow arrow = (Arrow) event.getProjectile();
+        RpgArrow.registerArrow(arrow,getRpgPlayer(),"CHAIN_ARROW");
     }
 }
