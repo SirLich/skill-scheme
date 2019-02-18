@@ -1,6 +1,7 @@
 package main.java.plugin.sirlich.utilities;
 
 import main.java.plugin.sirlich.SkillScheme;
+import main.java.plugin.sirlich.core.RpgPlayerList;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -25,6 +26,13 @@ public class BlockUtils implements Listener
         if(event.getPlayer() != null && dontBreak.contains(event.getBlock().getLocation())){
             event.setCancelled(true);
         }
+
+        //PlayerState denies block breaking.
+        if(event.getPlayer() != null && !RpgPlayerList.getRpgPlayer(event.getPlayer()).getPlayerState().canBreakBlocks()){
+            event.setCancelled(true);
+        }
+
+        //Deny block breaking during testing (creative mode). This behavior replicates the no-sword thing in Vanilla.
         if(event.getPlayer() != null &&
                 event.getPlayer().getGameMode() == GameMode.CREATIVE &&
                 event.getPlayer().getInventory().getItemInMainHand() != null &&
