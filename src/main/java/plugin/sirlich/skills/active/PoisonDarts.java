@@ -1,6 +1,7 @@
 package main.java.plugin.sirlich.skills.active;
 
 import main.java.plugin.sirlich.SkillScheme;
+import main.java.plugin.sirlich.core.RpgArrow;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.core.RpgPlayerList;
 import main.java.plugin.sirlich.skills.meta.Skill;
@@ -58,8 +59,8 @@ public class PoisonDarts extends Skill
     @Override
     public void onArrowHitEntity(ProjectileHitEvent event){
         Entity entity = event.getHitEntity();
-        System.out.println(event.getEntity().getScoreboardTags().toString());
-        if(entity instanceof LivingEntity && event.getEntity().getScoreboardTags().contains("ASSASSIN_POISON")){
+        RpgArrow rpgArrow = RpgArrow.getArrow((Arrow) event.getEntity());
+        if(entity instanceof LivingEntity && rpgArrow.containsTag("POISON_DART")){
             LivingEntity livingEntity = (LivingEntity) entity;
             livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.POISON,poisonDuration.get(getLevel()),1),true);
         }
@@ -72,8 +73,7 @@ public class PoisonDarts extends Skill
         } else {
             Arrow arrow = event.getPlayer().launchProjectile(Arrow.class);
             arrow.setVelocity(arrow.getVelocity().multiply(0.5));
-            arrow.addScoreboardTag("ASSASSIN_POISON");
-            RpgPlayerList.addArrow(arrow.getUniqueId(),getRpgPlayer());
+            RpgArrow.registerArrow(arrow,getRpgPlayer(),"POISON_DART");
             charges--;
             getRpgPlayer().chat(ChatColor.GREEN + "Poison Darts: " + ChatColor.GRAY + charges);
         }
