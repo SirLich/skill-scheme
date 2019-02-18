@@ -79,7 +79,6 @@ public class PhantomArrows extends CooldownSkill
         if(primed){
             Arrow arrow = (Arrow) event.getProjectile();
             primed = false;
-            event.setCancelled(true);
             RpgArrow.registerArrow(arrow,getRpgPlayer(),"PHANTOM_ARROW");
             refreshCooldown();
         }
