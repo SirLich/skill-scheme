@@ -127,7 +127,7 @@ public class SkillHandler implements Listener
             RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(player);
             for(Skill skill : rpgPlayer.getSkillList().values()){
                 if(skill instanceof CooldownSkill){
-                    skill.onBowFire(event);
+                    skill.onBowFirePRE_EVENT(event);
                 }
             }
         }

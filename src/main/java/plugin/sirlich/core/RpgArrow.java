@@ -23,6 +23,12 @@ public class RpgArrow {
     private RpgPlayer shooter;
     private UUID id;
 
+    //Add arrow with no tags
+    public static void registerArrow(Arrow arrow, RpgPlayer shooter){
+        ArrayList<String> tags = new ArrayList<String>();
+        RpgArrow rpgArrow = new RpgArrow(arrow.getUniqueId(),shooter,tags);
+        arrowMap.put(arrow.getUniqueId(),rpgArrow);
+    }
     //Add arrow with one tag
     public static void registerArrow(Arrow arrow, RpgPlayer shooter, String tag){
         ArrayList<String> tags = new ArrayList<String>();
