@@ -72,7 +72,7 @@ public class PoisonDarts extends Skill
         } else {
             Arrow arrow = event.getPlayer().launchProjectile(Arrow.class);
             arrow.setVelocity(arrow.getVelocity().multiply(0.5));
-            RpgArrow.registerArrow(arrow,getRpgPlayer(),"POISON_DART");
+            RpgArrow.addTag(arrow.getUniqueId(),"POISON_DART");
             charges--;
             getRpgPlayer().chat(ChatColor.GREEN + "Poison Darts: " + ChatColor.GRAY + charges);
         }
