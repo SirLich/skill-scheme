@@ -27,7 +27,8 @@ public enum SkillType {
     WebShot(new WebShot(null,0)),
     EscapeArtist(new EscapeArtist(null,0)),
     StrikeTheEarth(new StrikeTheEarth(null,0)),
-    MagmaBow(new MagmaBow(null, 0));
+    MagmaBow(new MagmaBow(null, 0)),
+    ElfSpeed(new ElfSpeed(null,0));
 
     private final Skill skill;
 

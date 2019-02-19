@@ -156,7 +156,6 @@ public class SkillHandler implements Listener
                 RpgArrow rpgArrow = RpgArrow.getArrow(arrow);
                 RpgPlayer rpgPlayer = rpgArrow.getShooter();
                 for(Skill skill : rpgPlayer.getSkillList().values()){
-                    System.out.println("Arrow hit!");
                     skill.onArrowHitEntity(event);
                 }
                 rpgArrow.deregisterSelf();
