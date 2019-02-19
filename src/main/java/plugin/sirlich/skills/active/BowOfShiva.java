@@ -69,7 +69,7 @@ public class BowOfShiva extends Skill
                     Vector v = from.subtract(to).normalize().multiply(-velocity.get(getLevel()));
                     Arrow arrow = livingEntity.launchProjectile(Arrow.class);
                     arrow.setVelocity(v);
-                    RpgArrow.registerArrow(arrow,getRpgPlayer(),"CHAIN_ARROW");
+                    RpgArrow.addTag(arrow.getUniqueId(),"CHAIN_ARROW");
                 }
             }
         }
@@ -79,6 +79,6 @@ public class BowOfShiva extends Skill
     @Override
     public void onBowFire(EntityShootBowEvent event){
         Arrow arrow = (Arrow) event.getProjectile();
-        RpgArrow.registerArrow(arrow,getRpgPlayer(),"CHAIN_ARROW");
+        RpgArrow.addTag(arrow.getUniqueId(),"CHAIN_ARROW");
     }
 }
