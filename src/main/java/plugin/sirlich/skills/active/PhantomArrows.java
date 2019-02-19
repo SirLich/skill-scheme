@@ -2,7 +2,6 @@ package main.java.plugin.sirlich.skills.active;
 
 import main.java.plugin.sirlich.core.RpgArrow;
 import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.core.RpgPlayerList;
 import main.java.plugin.sirlich.skills.meta.CooldownSkill;
 import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.ChatColor;
@@ -48,7 +47,7 @@ public class PhantomArrows extends CooldownSkill
         RpgPlayer rpgShooter = rpgArrow.getShooter();
         Player shooter = rpgShooter.getPlayer();
 
-        if(hitEntity instanceof LivingEntity && rpgArrow.containsTag("PHANTOM_ARROW")){
+        if(hitEntity instanceof LivingEntity && rpgArrow.hasTag("PHANTOM_ARROW")){
             LivingEntity livingEntity = (LivingEntity) hitEntity;
             Location location = livingEntity.getLocation();
             livingEntity.teleport(shooter.getLocation());

@@ -18,8 +18,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
-import java.util.UUID;
-
 public class SkillHandler implements Listener
 {
 
@@ -126,9 +124,8 @@ public class SkillHandler implements Listener
             Player player = (Player) event.getEntity();
             RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(player);
             for(Skill skill : rpgPlayer.getSkillList().values()){
-                if(skill instanceof CooldownSkill){
-                    skill.onBowFirePRE_EVENT(event);
-                }
+                RpgArrow.registerArrow((Arrow)event.getProjectile(), RpgPlayerList.getRpgPlayer((Player)event.getEntity()));
+                skill.onBowFire(event);
             }
         }
     }
@@ -143,7 +140,7 @@ public class SkillHandler implements Listener
                     System.out.println("Arrow hit!");
                     skill.onArrowHitEntity(event);
                 }
-                rpgArrow.removeSelf();
+                rpgArrow.deregisterSelf();
             }
         } else {
             Arrow arrow = (Arrow) event.getEntity();
@@ -153,7 +150,7 @@ public class SkillHandler implements Listener
                 for(Skill skill : rpgPlayer.getSkillList().values()){
                     skill.onArrowHitGround(event);
                 }
-                rpgArrow.removeSelf();
+                rpgArrow.deregisterSelf();
             }
         }
     }

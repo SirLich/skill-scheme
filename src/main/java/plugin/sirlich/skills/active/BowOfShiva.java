@@ -2,7 +2,6 @@ package main.java.plugin.sirlich.skills.active;
 
 import main.java.plugin.sirlich.core.RpgArrow;
 import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.core.RpgPlayerList;
 import main.java.plugin.sirlich.skills.meta.Skill;
 import org.bukkit.Location;
 import org.bukkit.entity.Arrow;
@@ -28,7 +27,7 @@ public class BowOfShiva extends Skill
 
     @Override
     public void onArrowHitGround(ProjectileHitEvent event){
-        RpgArrow.removeArrow((Arrow)event.getEntity());
+        RpgArrow.deregisterArrow((Arrow)event.getEntity());
     }
 
 

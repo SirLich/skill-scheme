@@ -1,7 +1,6 @@
 package main.java.plugin.sirlich.core;
 
 import org.bukkit.entity.Arrow;
-import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,36 +22,30 @@ public class RpgArrow {
     private RpgPlayer shooter;
     private UUID id;
 
-    //Add arrow with no tags
+    //Add arrow
     public static void registerArrow(Arrow arrow, RpgPlayer shooter){
         ArrayList<String> tags = new ArrayList<String>();
         RpgArrow rpgArrow = new RpgArrow(arrow.getUniqueId(),shooter,tags);
         arrowMap.put(arrow.getUniqueId(),rpgArrow);
     }
-    //Add arrow with one tag
-    public static void registerArrow(Arrow arrow, RpgPlayer shooter, String tag){
-        ArrayList<String> tags = new ArrayList<String>();
-        tags.add(tag);
-        RpgArrow rpgArrow = new RpgArrow(arrow.getUniqueId(),shooter,tags);
-        arrowMap.put(arrow.getUniqueId(),rpgArrow);
-    }
-
-    //Add arrow with multiple tags
-    public static void registerArrow(Arrow arrow, RpgPlayer shooter, ArrayList<String> tags){
-        RpgArrow rpgArrow = new RpgArrow(arrow.getUniqueId(),shooter,tags);
-        arrowMap.put(arrow.getUniqueId(),rpgArrow);
-    }
 
     //Remove arrow
-    public static void removeArrow(Arrow arrow){
+    public static void deregisterArrow(Arrow arrow){
         arrowMap.remove(arrow.getUniqueId());
     }
 
     //Remove arrow
-    public void removeSelf(){
+    public void deregisterSelf(){
         arrowMap.remove(this.id);
     }
 
+    public static void addTag(UUID uuid,String tag){
+        RpgArrow.getArrow(uuid).tags.add(tag);
+    }
+
+    public void addTag(String tag){
+        this.tags.add(tag);
+    }
     public static boolean hasArrow(Arrow arrow){
         return arrowMap.containsKey(arrow.getUniqueId());
     }
@@ -69,7 +62,7 @@ public class RpgArrow {
         return this.id;
     }
 
-    public boolean containsTag(String tag){
+    public boolean hasTag(String tag){
         return tags.contains(tag);
     }
 

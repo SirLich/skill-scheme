@@ -115,11 +115,6 @@ public class Skill
 
     }
 
-    public void onBowFirePRE_EVENT(EntityShootBowEvent event){
-        RpgArrow.registerArrow((Arrow)event.getProjectile(), RpgPlayerList.getRpgPlayer((Player)event.getEntity()));
-        onBowFire(event);
-    }
-
     public void onBowFire(EntityShootBowEvent event){
 
     }

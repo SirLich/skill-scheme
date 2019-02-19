@@ -2,7 +2,6 @@ package main.java.plugin.sirlich.skills.active;
 
 import main.java.plugin.sirlich.core.RpgArrow;
 import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.core.RpgPlayerList;
 import main.java.plugin.sirlich.skills.meta.CooldownSkill;
 import main.java.plugin.sirlich.utilities.BlockUtils;
 import main.java.plugin.sirlich.utilities.c;
@@ -15,7 +14,6 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +60,7 @@ public class WebShot extends CooldownSkill
     @Override
     public void onArrowHitEntity(ProjectileHitEvent event){
         RpgArrow rpgArrow = RpgArrow.getArrow((Arrow) event.getEntity());
-        if(event.getHitEntity() instanceof LivingEntity && rpgArrow.containsTag("WEB_SHOT")){
+        if(event.getHitEntity() instanceof LivingEntity && rpgArrow.hasTag("WEB_SHOT")){
             Location loc = event.getHitEntity().getLocation();
             if(event.getHitEntity().getWorld().getBlockAt(loc).getType() == Material.AIR){
                 BlockUtils.tempPlaceBlock(Material.WEB,loc,duration.get(getLevel()));
@@ -73,7 +71,7 @@ public class WebShot extends CooldownSkill
     @Override
     public void onArrowHitGround(ProjectileHitEvent event){
         RpgArrow rpgArrow = RpgArrow.getArrow((Arrow) event.getEntity());
-        if(rpgArrow.containsTag("WEB_SHOT")){
+        if(rpgArrow.hasTag("WEB_SHOT")){
             Location loc = event.getHitBlock().getLocation();
             loc.add(0,1,0);
             if(event.getHitBlock().getWorld().getBlockAt(loc).getType() == Material.AIR){

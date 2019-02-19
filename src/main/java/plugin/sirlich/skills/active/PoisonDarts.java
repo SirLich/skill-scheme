@@ -59,7 +59,7 @@ public class PoisonDarts extends Skill
     public void onArrowHitEntity(ProjectileHitEvent event){
         Entity entity = event.getHitEntity();
         RpgArrow rpgArrow = RpgArrow.getArrow((Arrow) event.getEntity());
-        if(entity instanceof LivingEntity && rpgArrow.containsTag("POISON_DART")){
+        if(entity instanceof LivingEntity && rpgArrow.hasTag("POISON_DART")){
             LivingEntity livingEntity = (LivingEntity) entity;
             livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.POISON,poisonDuration.get(getLevel()),1),true);
         }
