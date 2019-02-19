@@ -87,7 +87,7 @@ public class WebShot extends CooldownSkill
         if(primed){
             primed = false;
             Arrow arrow = (Arrow) event.getProjectile();
-            RpgArrow.registerArrow(arrow,getRpgPlayer(),"WEB_SHOT");
+            RpgArrow.addTag(arrow.getUniqueId(),"WEB_SHOT");
             refreshCooldown();
         }
     }
