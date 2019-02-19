@@ -3,6 +3,7 @@ package main.java.plugin.sirlich.skills.active;
 import main.java.plugin.sirlich.core.RpgArrow;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.skills.meta.CooldownSkill;
+import main.java.plugin.sirlich.skills.meta.PrimedSkill;
 import main.java.plugin.sirlich.utilities.BlockUtils;
 import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.ChatColor;
@@ -18,7 +19,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WebShot extends CooldownSkill
+public class WebShot extends PrimedSkill
 {
     private static String id = "WebShot";
     private static List<Integer> duration = getYaml(id).getIntegerList("values.duration");
@@ -31,17 +32,7 @@ public class WebShot extends CooldownSkill
 
     @Override
     public void onBowLeftClick(PlayerInteractEvent event){
-        if(primed){
-            getRpgPlayer().chat("That skill is already primed.");
-        } else {
-            if(isCooldown()){
-                return;
-            } else {
-                primed = true;
-                getRpgPlayer().chat(ChatColor.AQUA + "You ready your bow...");
-                getRpgPlayer().playSound(Sound.BLOCK_PISTON_EXTEND);
-            }
-        }
+        attemptPrime();
     }
 
     @Override
