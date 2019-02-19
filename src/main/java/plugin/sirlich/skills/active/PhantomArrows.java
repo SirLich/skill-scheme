@@ -3,6 +3,7 @@ package main.java.plugin.sirlich.skills.active;
 import main.java.plugin.sirlich.core.RpgArrow;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.skills.meta.CooldownSkill;
+import main.java.plugin.sirlich.skills.meta.PrimedSkill;
 import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -18,7 +19,7 @@ import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 
-public class PhantomArrows extends CooldownSkill
+public class PhantomArrows extends PrimedSkill
 {
     private boolean primed;
 
@@ -60,17 +61,7 @@ public class PhantomArrows extends CooldownSkill
 
     @Override
     public void onBowLeftClick(PlayerInteractEvent event){
-        if(primed){
-            getRpgPlayer().chat("That skill is already primed.");
-        } else {
-            if(isCooldown()){
-                return;
-            } else {
-                primed = true;
-                getRpgPlayer().chat(ChatColor.AQUA + "You ready your bow...");
-                getRpgPlayer().playSound(Sound.BLOCK_PISTON_EXTEND);
-            }
-        }
+        attemptPrime();
     }
 
     @Override
