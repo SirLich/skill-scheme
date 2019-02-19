@@ -2,6 +2,7 @@ package main.java.plugin.sirlich.skills.active;
 
 import main.java.plugin.sirlich.skills.meta.CooldownSkill;
 import main.java.plugin.sirlich.core.RpgPlayer;
+import main.java.plugin.sirlich.skills.meta.PrimedSkill;
 import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
@@ -12,12 +13,10 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LeadAxe extends CooldownSkill
+public class LeadAxe extends PrimedSkill
 {
     private static String id = "LeadAxe";
     private static List<Double> power = getYaml(id).getDoubleList("values.power");
-
-    private boolean primed;
 
     public LeadAxe(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer, level,"LeadAxe");
@@ -41,16 +40,7 @@ public class LeadAxe extends CooldownSkill
 
     @Override
     public void onAxeRightClick(PlayerInteractEvent event){
-        if(primed){
-            getRpgPlayer().chat(c.red + getName() + " has already been primed.");
-            return;
-        }
-        if(isCooldown()){return;}
-        Player player = getRpgPlayer().getPlayer();
-        getRpgPlayer().chat(ChatColor.GREEN + "You ready your axe...");
-        getRpgPlayer().playSound(Sound.ENTITY_HORSE_ARMOR);
-        primed = true;
-        setCooldown(true);
+        attemptPrime();
     }
 
     @Override
