@@ -163,7 +163,7 @@ public class SkillSchemeCommand implements CommandExecutor
                         rpgPlayer.chat("Please use like: /ss p [PlayerState] <playername>");
                         return true;
                     }
-                    action = args[2];
+                    action = args[2].toUpperCase();
 
                     if(args.length < 4){
                         rpgPlayer.setPlayerState(PlayerState.valueOf(action));
