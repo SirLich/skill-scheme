@@ -6,39 +6,42 @@ public enum PlayerState
     This is used for testing the plugin:
     - Skills are automatically applied
      */
-    TESTING(true,true),
+    TESTING(true,true,true),
 
     /*
     This is for players who are not playing skill-scheme related games at all:
     - No ability to use skills
     - No ability to interact with enchantment tables
      */
-    HUB(false,false),
+    HUB(false,false,false),
 
     /*
     This is for players who are currently inside a skill-scheme game:
     - Skills can be used, if useSkill is turned on
     - Skills should be auto-applied when entering this game-mode
      */
-    GAME(false,false),
+    GAME(false,false, true),
 
     /*
     This is for players who are waiting in a skillScheme lobby:
     - Can use the skills editor
     - Skills are "saved", and can be applied when the game starts
      */
-    LOBBY(true,false),
+    LOBBY(true,false, false),
 
     /*
     This is a special mode for players who died during a skillScheme game.
     - No access to skills
     - Placed into spectator mode on enter.
      */
-    SPECTATOR(false,false);
+    SPECTATOR(false,false, false);
 
     private final boolean canUseEditor;
     private final boolean canBreakBlocks;
-    PlayerState(boolean canUseEditor, boolean canBreakBlocks){
+    private final boolean canInstantlyEquipSkills;
+
+    PlayerState(boolean canUseEditor, boolean canBreakBlocks, boolean canInstantlyEquipSkills){
+        this.canInstantlyEquipSkills = canInstantlyEquipSkills;
         this.canUseEditor = canUseEditor;
         this.canBreakBlocks = canBreakBlocks;
     }
@@ -49,6 +52,10 @@ public enum PlayerState
 
     public static boolean canUseEditor(PlayerState playerState){
         return playerState.canUseEditor;
+    }
+
+    public boolean canInstantlyEquipSkills(){
+        return this.canInstantlyEquipSkills;
     }
 
     public boolean canBreakBlocks(){

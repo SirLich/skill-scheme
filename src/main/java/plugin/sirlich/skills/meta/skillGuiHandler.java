@@ -99,6 +99,17 @@ public class skillGuiHandler implements Listener
         }
     }
 
+    private static void acceptSkills(Player player, RpgPlayer rpgPlayer){
+        player.playSound(player.getLocation(),Sound.ENTITY_FIREWORK_LARGE_BLAST,1,1);
+        player.closeInventory();
+        if(rpgPlayer.getPlayerState().canInstantlyEquipSkills()){
+            rpgPlayer.clearSkills();
+            rpgPlayer.getSkillEditObject().addSkills();
+        } else {
+            rpgPlayer.chat("Your skills have been saved. They will be applied when the game starts. ");
+        }
+    }
+
 
     private static Inventory getStandardKitsGui(){
         Inventory inventory = Bukkit.createInventory(null, 54, ChatColor.DARK_GRAY + "~ Select your skills:");

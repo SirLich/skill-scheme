@@ -1,6 +1,7 @@
 package main.java.plugin.sirlich.skills.meta;
 
 import main.java.plugin.sirlich.core.RpgPlayer;
+import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -106,8 +107,16 @@ public class SkillEditObject
     }
 
     public void addSkills(){
+        this.parent.chat("Your skills have been added:");
         for(SkillKind skillKind : skillMap.keySet()){
-            parent.addSkill(skillMap.get(skillKind), levelMap.get(skillKind) - 1);
+            SkillType skill = skillMap.get(skillKind);
+            int level = levelMap.get(skillKind) - 1;
+
+            //Announce
+            this.parent.chat(c.dgray + " - " + c.green + skill.getSkill().getName() + " " + c.gray + level);
+
+            //Add skills
+            parent.addSkill(skill,level);
         }
     }
 
