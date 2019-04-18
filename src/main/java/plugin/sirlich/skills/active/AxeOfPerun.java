@@ -9,6 +9,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AxeOfPerun extends CooldownSkill
@@ -25,6 +26,11 @@ public class AxeOfPerun extends CooldownSkill
         super(rpgPlayer,level,"AxeOfPerun");
     }
 
+    public ArrayList<String> getDescription(int level){
+        ArrayList<String> lorelines = new ArrayList<String>();
+        lorelines.add(c.dgray + "Chain hits together to become bloodlusted, and do extra damage each hit.");
+        return lorelines;
+    }
 
     @Override
     public void onEnable(){

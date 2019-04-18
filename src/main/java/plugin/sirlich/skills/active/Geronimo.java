@@ -53,6 +53,7 @@ public class Geronimo extends CooldownSkill
         return lorelines;
     }
 
+
     @Override
     public void onExplosionDamageSelf(EntityDamageEvent event){
         if(enraged){
