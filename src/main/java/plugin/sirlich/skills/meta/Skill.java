@@ -1,15 +1,9 @@
 package main.java.plugin.sirlich.skills.meta;
 
 import main.java.plugin.sirlich.SkillScheme;
-import main.java.plugin.sirlich.core.RpgArrow;
 import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.core.RpgPlayerList;
-import org.bukkit.ChatColor;
-import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Arrow;
-import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;

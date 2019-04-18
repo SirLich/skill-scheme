@@ -10,7 +10,7 @@ public class PlayerLeaveHandler implements Listener
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent event){
         Player player = event.getPlayer();
-        RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(player);
-        RpgPlayerList.removePlayer(player);
+        RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
+        RpgPlayer.removePlayer(player);
     }
 }

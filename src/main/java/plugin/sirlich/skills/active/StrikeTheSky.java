@@ -11,7 +11,7 @@ import java.util.List;
 
 public class StrikeTheSky extends CooldownSkill
 {
-    private static String id = "StrikeTheEarth";
+    private static String id = "StrikeTheSky";
     private List<Double> power = getYaml(id).getDoubleList("values.power");
     private List<Double> range = getYaml(id).getDoubleList("values.range");
 

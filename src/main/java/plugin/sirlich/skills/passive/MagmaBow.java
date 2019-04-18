@@ -1,22 +1,8 @@
 package main.java.plugin.sirlich.skills.passive;
 
 import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.core.RpgPlayerList;
-import main.java.plugin.sirlich.skills.meta.CooldownSkill;
 import main.java.plugin.sirlich.skills.meta.Skill;
-import main.java.plugin.sirlich.skills.meta.SkillType;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
-import org.bukkit.event.entity.ProjectileHitEvent;
-import org.bukkit.util.Vector;
 
 import java.util.List;
 import java.util.Random;

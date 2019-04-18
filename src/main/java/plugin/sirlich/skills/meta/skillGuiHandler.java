@@ -4,7 +4,6 @@ import de.tr7zw.itemnbtapi.NBTItem;
 import main.java.plugin.sirlich.SkillScheme;
 import main.java.plugin.sirlich.core.PlayerState;
 import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.core.RpgPlayerList;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -38,7 +37,7 @@ public class skillGuiHandler implements Listener
     @EventHandler
     public void clickEnchantTable(PlayerInteractEvent event)
     {
-        RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(event.getPlayer());
+        RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(event.getPlayer());
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (event.getClickedBlock().getType() == Material.ENCHANTMENT_TABLE) {
                 if(rpgPlayer.getPlayerState().canUseEditor()){
@@ -74,7 +73,7 @@ public class skillGuiHandler implements Listener
 
     private void handleButtonAction(Player player, Inventory oldInventory, NBTItem nbtItem, ClickType clickType, int slot){
         System.out.println("1");
-        RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(player);
+        RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
         String buttonAction = nbtItem.getString("button_action");
         if(buttonAction.equalsIgnoreCase("open_class_gui")){
             String classGui = nbtItem.getString("class");
@@ -125,7 +124,7 @@ public class skillGuiHandler implements Listener
     }
 
     private void openSkillGui(Player player, ClassType classType){
-        RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(player);
+        RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
         rpgPlayer.refreshSkillEditObject(classType);
         Inventory inventory = getStandardKitsGui();
 

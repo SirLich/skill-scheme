@@ -22,8 +22,8 @@ public class PlayerJoinHandler implements Listener
     public static void initializePlayerData(Player player){
 
         //Make new RPGPlayer!
-        RpgPlayerList.addPlayer(player);
-        RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(player);
+        RpgPlayer.addPlayer(player);
+        RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
         rpgPlayer.setPlayerState(PlayerState.HUB);
 
         String playerUuid = player.getUniqueId().toString();

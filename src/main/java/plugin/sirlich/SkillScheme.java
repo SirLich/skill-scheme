@@ -1,10 +1,7 @@
 package main.java.plugin.sirlich;
 
-import main.java.plugin.sirlich.core.RpgPlayerList;
+import main.java.plugin.sirlich.core.*;
 import main.java.plugin.sirlich.utilities.BlockUtils;
-import main.java.plugin.sirlich.core.PlayerJoinHandler;
-import main.java.plugin.sirlich.core.PlayerLeaveHandler;
-import main.java.plugin.sirlich.core.SkillSchemeCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -38,7 +35,7 @@ public class SkillScheme extends JavaPlugin
     @Override
     public void onDisable(){
         for(Player player : Bukkit.getOnlinePlayers()){
-            RpgPlayerList.removePlayer(player);
+            RpgPlayer.removePlayer(player);
         }
     }
 

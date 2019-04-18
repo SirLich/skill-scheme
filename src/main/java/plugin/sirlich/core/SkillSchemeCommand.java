@@ -14,7 +14,7 @@ public class SkillSchemeCommand implements CommandExecutor
     public boolean onCommand(CommandSender sender, Command command, String argv, String[] args){
         if(sender instanceof Player){
             Player player = (Player) sender;
-            RpgPlayer rpgPlayer = RpgPlayerList.getRpgPlayer(player);
+            RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
 
             if(args.length < 1){
                 rpgPlayer.chat("Please include an argument: " + c.gray + "[s]kill, [c]lass, [t]eam, [p]layerState");
@@ -120,7 +120,7 @@ public class SkillSchemeCommand implements CommandExecutor
                         rpgPlayer.chat("Current team: " + c.dgray + rpgPlayer.getTeam());
                     } else {
                         action = args[2];
-                        rpgPlayer.chat("name: " + c.dgray + RpgPlayerList.getRpgPlayer(action).getTeam());
+                        rpgPlayer.chat("name: " + c.dgray + RpgPlayer.getRpgPlayer(action).getTeam());
                     }
                 } else if(action.equalsIgnoreCase("set") || action.equalsIgnoreCase("s")){
                     if(args.length < 3){
@@ -133,12 +133,12 @@ public class SkillSchemeCommand implements CommandExecutor
                         rpgPlayer.setTeam(action);
                         rpgPlayer.chat("name: " + c.dgray + action);
                     } else {
-                        RpgPlayerList.getRpgPlayer(args[3]).setTeam(action);
+                        RpgPlayer.getRpgPlayer(args[3]).setTeam(action);
                         rpgPlayer.chat(args[3] + c.dgray + action);
                     }
                 } else if(action.equalsIgnoreCase("list") || action.equalsIgnoreCase("l")){
                     rpgPlayer.chat("All skills:");
-                    for(RpgPlayer r : RpgPlayerList.getRpgPlayers()){
+                    for(RpgPlayer r : RpgPlayer.getRpgPlayers()){
                         rpgPlayer.chat(r.getPlayer().getDisplayName() + c.dgray + " : " + r.getTeam());
                     }
                 } else {
@@ -156,7 +156,7 @@ public class SkillSchemeCommand implements CommandExecutor
                         rpgPlayer.chat("Current playerState: " + c.dgray + rpgPlayer.getPlayerState().toString());
                     } else {
                         action = args[2];
-                        rpgPlayer.chat("name: " + c.dgray + RpgPlayerList.getRpgPlayer(action).getPlayerState().toString());
+                        rpgPlayer.chat("name: " + c.dgray + RpgPlayer.getRpgPlayer(action).getPlayerState().toString());
                     }
                 } else if(action.equalsIgnoreCase("set") || action.equalsIgnoreCase("s")){
                     if(args.length < 3){
@@ -169,7 +169,7 @@ public class SkillSchemeCommand implements CommandExecutor
                         rpgPlayer.setPlayerState(PlayerState.valueOf(action));
                         rpgPlayer.chat("Player State: " + c.dgray + action);
                     } else {
-                        RpgPlayerList.getRpgPlayer(args[3]).setPlayerState(PlayerState.valueOf(action));
+                        RpgPlayer.getRpgPlayer(args[3]).setPlayerState(PlayerState.valueOf(action));
                         rpgPlayer.chat(args[3] + c.dgray + action);
                     }
                 } else if(action.equalsIgnoreCase("list") || action.equalsIgnoreCase("l")){

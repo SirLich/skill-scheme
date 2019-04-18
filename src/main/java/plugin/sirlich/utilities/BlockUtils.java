@@ -1,19 +1,15 @@
 package main.java.plugin.sirlich.utilities;
 
 import main.java.plugin.sirlich.SkillScheme;
-import main.java.plugin.sirlich.core.RpgPlayerList;
+import main.java.plugin.sirlich.core.RpgPlayer;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 
 public class BlockUtils implements Listener
@@ -28,7 +24,7 @@ public class BlockUtils implements Listener
         }
 
         //PlayerState denies block breaking.
-        if(event.getPlayer() != null && !RpgPlayerList.getRpgPlayer(event.getPlayer()).getPlayerState().canBreakBlocks()){
+        if(event.getPlayer() != null && !RpgPlayer.getRpgPlayer(event.getPlayer()).getPlayerState().canBreakBlocks()){
             event.setCancelled(true);
         }
 

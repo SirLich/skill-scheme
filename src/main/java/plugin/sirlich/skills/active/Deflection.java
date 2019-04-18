@@ -1,7 +1,6 @@
 package main.java.plugin.sirlich.skills.active;
 
 import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.core.RpgPlayerList;
 import main.java.plugin.sirlich.skills.meta.CooldownSkill;
 import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.Sound;
@@ -41,7 +40,7 @@ public class Deflection extends CooldownSkill
         Player attacker = (Player) event.getEntity();
         if(self.isBlocking()){
             if(isCooldown()){return;}
-            RpgPlayerList.getRpgPlayer(self).playSound(Sound.BLOCK_ANVIL_PLACE);
+            RpgPlayer.getRpgPlayer(self).playSound(Sound.BLOCK_ANVIL_PLACE);
             self.setVelocity(new Vector(self.getLocation().getDirection().multiply(-power.get(getLevel())).getX(), 0.4, self.getLocation().getDirection().multiply(-power.get(getLevel())).getZ()));
             refreshCooldown();
         }
