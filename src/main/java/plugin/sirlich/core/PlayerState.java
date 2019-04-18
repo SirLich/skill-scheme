@@ -13,7 +13,7 @@ public enum PlayerState
     - No ability to use skills
     - No ability to interact with enchantment tables
      */
-    HUB(true,false),
+    HUB(false,false),
 
     /*
     This is for players who are currently inside a skill-scheme game:
