@@ -17,11 +17,11 @@ public class RageSkill extends CooldownSkill{
 
     //Defaults
     private Material headBlock;
-    private boolean raged;
-    private Sound currentlyRagingSound;
-    private String currentlyRagingText;
-    private Sound becomeRagedSound;
-    private String becomeRagedText;
+    private boolean enraged;
+    private Sound currentlyEnragedSound;
+    private String currentlyEnragedText;
+    private Sound becomeEnragedSound;
+    private String becomeEnragedText;
     private Sound stoppedRagingSound;
     private String stoppedRagingText;
 
@@ -30,24 +30,24 @@ public class RageSkill extends CooldownSkill{
         super(rpgPlayer,level,id);
         this.duration = getYaml(id).getIntegerList("values.duration");
         this.headBlock = headBlock;
-        this.raged = false;
-        this.currentlyRagingSound = null;
-        this.currentlyRagingText = null;
-        this.becomeRagedSound = null;
-        this.becomeRagedText = null;
+        this.enraged = false;
+        this.currentlyEnragedSound = null;
+        this.currentlyEnragedText = null;
+        this.becomeEnragedSound = null;
+        this.becomeEnragedText = null;
         this.stoppedRagingSound = null;
         this.stoppedRagingText = null;
     }
 
     public void attemptRage(){
-        if(raged){
-            if(currentlyRagingText != null){
-                getRpgPlayer().chat(currentlyRagingText);
+        if(enraged){
+            if(currentlyEnragedText != null){
+                getRpgPlayer().chat(currentlyEnragedText);
             } else {
                 getRpgPlayer().chat(c.red + getName() + c.dgray + "  is already active.");
             }
-            if(currentlyRagingSound != null){
-                getRpgPlayer().playSound(currentlyRagingSound);
+            if(currentlyEnragedSound != null){
+                getRpgPlayer().playSound(currentlyEnragedSound);
             } else {
                 getRpgPlayer().playSound(Sound.BLOCK_ANVIL_DESTROY);
             }
@@ -57,17 +57,17 @@ public class RageSkill extends CooldownSkill{
             } else {
 
                 //Set rage
-                raged = true;
+                enraged = true;
 
                 //Play media
-                if(becomeRagedText != null){
-                    getRpgPlayer().chat(becomeRagedText);
+                if(becomeEnragedText != null){
+                    getRpgPlayer().chat(becomeEnragedText);
                 } else {
                     getRpgPlayer().chat(c.dgray + "You activate "+ c.green + this.getName());
                 }
 
-                if(becomeRagedSound != null){
-                    getRpgPlayer().playSound(becomeRagedSound);
+                if(becomeEnragedSound != null){
+                    getRpgPlayer().playSound(becomeEnragedSound);
                 } else {
                     getRpgPlayer().playSound(Sound.ENTITY_COW_DEATH);
                 }
@@ -75,13 +75,13 @@ public class RageSkill extends CooldownSkill{
                 //Set Helmet
                 getRpgPlayer().getPlayer().getInventory().setHelmet(new ItemStack(headBlock));
 
-                //Set raged countdown
+                //Set enraged countdown
                 new BukkitRunnable() {
 
                     @Override
                     public void run() {
                         //Set Raging
-                        raged = false;
+                        enraged = false;
 
                         //Set Helmet
                         getRpgPlayer().getPlayer().getInventory().setHelmet(new ItemStack(Material.AIR));
@@ -112,20 +112,20 @@ public class RageSkill extends CooldownSkill{
         this.headBlock = headBlock;
     }
 
-    public void setCurrentlyRagingSound(Sound currentlyRagingSound) {
-        this.currentlyRagingSound = currentlyRagingSound;
+    public void setCurrentlyEnragedSound(Sound currentlyEnragedSound) {
+        this.currentlyEnragedSound = currentlyEnragedSound;
     }
 
-    public void setCurrentlyRagingText(String currentlyRagingText) {
-        this.currentlyRagingText = currentlyRagingText;
+    public void setCurrentlyEnragedText(String currentlyEnragedText) {
+        this.currentlyEnragedText = currentlyEnragedText;
     }
 
-    public void setBecomeRagedSound(Sound becomeRagedSound) {
-        this.becomeRagedSound = becomeRagedSound;
+    public void setBecomeEnragedSound(Sound becomeEnragedSound) {
+        this.becomeEnragedSound = becomeEnragedSound;
     }
 
-    public void setBecomeRagedText(String becomeRagedText) {
-        this.becomeRagedText = becomeRagedText;
+    public void setBecomeEnragedText(String becomeEnragedText) {
+        this.becomeEnragedText = becomeEnragedText;
     }
 
     public void setStoppedRagingSound(Sound stoppedRagingSound) {
