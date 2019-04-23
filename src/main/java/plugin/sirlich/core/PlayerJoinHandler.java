@@ -17,14 +17,16 @@ public class PlayerJoinHandler implements Listener
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         initializePlayerData(player);
+
+        //Set (now that we are sure the RpgPlayer has been created!)
+        RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
+        rpgPlayer.setPlayerState(SkillScheme.getPlayerStateOnJoin());
     }
 
     public static void initializePlayerData(Player player){
 
         //Make new RPGPlayer!
         RpgPlayer.addPlayer(player);
-        RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
-        rpgPlayer.setPlayerState(PlayerState.HUB);
 
         String playerUuid = player.getUniqueId().toString();
         File playerYml = new File(SkillScheme.getInstance().getDataFolder() + "/players/" + playerUuid + ".yml");

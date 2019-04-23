@@ -65,6 +65,10 @@ public class Skill
         return this.description;
     }
 
+    public void setDescription(ArrayList<String> lore){
+        this.description = lore;
+    }
+
     public int getLevel()
     {
         return this.level;

@@ -19,12 +19,13 @@ public class SkillScheme extends JavaPlugin
     private static World world;
     private static Location WORLD_SPAWN;
     private static SkillScheme instance;
+    private static PlayerState PLAYER_STATE_ON_JOIN;
 
     @Override
     public void onEnable(){
         instance = this;
         createDataFolder();
-        initDataFields();
+        loadServerConfigFromYML();
         registerEvents();
         registerCommands();
         for(Player player : Bukkit.getOnlinePlayers()){
@@ -68,13 +69,14 @@ public class SkillScheme extends JavaPlugin
         getServer().getPluginManager().registerEvents(new BlockUtils(), this);
     }
 
-    private static void initDataFields(){
+    private static void loadServerConfigFromYML(){
 
         File arenaYml = new File(SkillScheme.getInstance().getDataFolder() + "/main.yml");
         FileConfiguration config = YamlConfiguration.loadConfiguration(arenaYml);
 
         world = Bukkit.getWorld(config.getString("world"));
         WORLD_SPAWN = new Location(world,config.getDouble("spawn_location.x"), config.getDouble("spawn_location.y"),config.getDouble("spawn_location.z"),Float.parseFloat(config.getString("spawn_location.pitch")),Float.parseFloat(config.getString("spawn_location.yaw")));
+        PLAYER_STATE_ON_JOIN = PlayerState.valueOf(config.getString("playerStateOnJoin"));
     }
 
     public static World getWorld()
@@ -90,6 +92,10 @@ public class SkillScheme extends JavaPlugin
     public static Location getWorldSpawn()
     {
         return WORLD_SPAWN;
+    }
+
+    public static PlayerState getPlayerStateOnJoin(){
+        return PLAYER_STATE_ON_JOIN;
     }
 
     public static void setWorldSpawn(Location worldSpawn)
