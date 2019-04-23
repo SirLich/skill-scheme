@@ -51,7 +51,10 @@ public class PoisonDarts extends Skill
 
     @Override
     public void onArrowHitGround(ProjectileHitEvent event){
-        event.getEntity().remove();
+        RpgArrow rpgArrow = RpgArrow.getArrow(event.getEntity().getUniqueId());
+        if(rpgArrow.hasTag("POISON_DART")){
+            event.getEntity().remove();
+        }
     }
 
 
@@ -72,7 +75,9 @@ public class PoisonDarts extends Skill
         } else {
             Arrow arrow = event.getPlayer().launchProjectile(Arrow.class);
             arrow.setVelocity(arrow.getVelocity().multiply(0.5));
-            RpgArrow.addTag(arrow.getUniqueId(),"POISON_DART");
+            RpgArrow.registerArrow(arrow,RpgPlayer.getRpgPlayer(event.getPlayer()));
+            RpgArrow rpgArrow = RpgArrow.getArrow(arrow.getUniqueId());
+            rpgArrow.addTag("POISON_DART");
             charges--;
             getRpgPlayer().chat(ChatColor.GREEN + "Poison Darts: " + ChatColor.GRAY + charges);
         }
