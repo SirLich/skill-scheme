@@ -4,6 +4,9 @@ import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.skills.meta.CooldownSkill;
 import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Monster;
+import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
 import java.util.ArrayList;
@@ -40,7 +43,9 @@ public class StrikeTheEarth extends CooldownSkill
         if(isCooldown()){return;}
         Double r = range.get(getLevel());
         for(Entity entity : event.getPlayer().getNearbyEntities(r,r,r)){
-            entity.setVelocity(getRpgPlayer().getPlayer().getLocation().getDirection().setY(0.6).normalize().multiply(power.get(getLevel())));
+            if(entity instanceof LivingEntity){
+                entity.setVelocity(getRpgPlayer().getPlayer().getLocation().toVector().subtract(entity.getLocation().toVector()).multiply(-1).setY(0.6).normalize().multiply(Math.min(power.get(getLevel()) / ((getRpgPlayer().getPlayer().getLocation().distance(entity.getLocation()) + 1)/3),power.get(getLevel())/2)));
+            }
         }
         refreshCooldown();
     }
