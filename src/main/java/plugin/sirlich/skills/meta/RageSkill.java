@@ -25,35 +25,18 @@ public class RageSkill extends CooldownSkill{
     private Sound stoppedRagingSound;
     private String stoppedRagingText;
 
-    public RageSkill(RpgPlayer rpgPlayer, int level, String id, Material headBlock,
-                     Sound currentlyRagingSound,
-                     String currentlyRagingText,
-                     Sound becomeRagedSound,
-                     String becomeRagedText,
-                     Sound stoppedRagingSound,
-                     String stoppedRagingText){
-        super(rpgPlayer,level,id);
-
-        this.duration = getYaml(id).getIntegerList("values.duration");
-
-        this.headBlock = headBlock;
-        this.raged = false;
-        this.currentlyRagingSound = currentlyRagingSound;
-        this.currentlyRagingText = currentlyRagingText;
-        this.becomeRagedSound = becomeRagedSound;
-        this.becomeRagedText = becomeRagedText;
-        this.stoppedRagingSound = stoppedRagingSound;
-        this.stoppedRagingText = stoppedRagingText;
-    }
 
     public RageSkill(RpgPlayer rpgPlayer, int level, String id, Material headBlock){
         super(rpgPlayer,level,id);
+        this.duration = getYaml(id).getIntegerList("values.duration");
         this.headBlock = headBlock;
         this.raged = false;
         this.currentlyRagingSound = null;
         this.currentlyRagingText = null;
         this.becomeRagedSound = null;
         this.becomeRagedText = null;
+        this.stoppedRagingSound = null;
+        this.stoppedRagingText = null;
     }
 
     public void attemptRage(){
@@ -88,6 +71,7 @@ public class RageSkill extends CooldownSkill{
                 } else {
                     getRpgPlayer().playSound(Sound.ENTITY_COW_DEATH);
                 }
+
                 //Set Helmet
                 getRpgPlayer().getPlayer().getInventory().setHelmet(new ItemStack(headBlock));
 
@@ -106,7 +90,7 @@ public class RageSkill extends CooldownSkill{
                         if(stoppedRagingText != null){
                             getRpgPlayer().chat(stoppedRagingText);
                         } else {
-                            getRpgPlayer().chat(c.dgray + "You activate "+ c.green + getName());
+                            getRpgPlayer().chat(c.green + getName() + c.dgray + " has expired.");
                         }
 
                         if(stoppedRagingSound != null){
@@ -122,5 +106,33 @@ public class RageSkill extends CooldownSkill{
                 }.runTaskLater(SkillScheme.getInstance(), duration.get(getLevel()));
             }
         }
+    }
+
+    public void setHeadBlock(Material headBlock) {
+        this.headBlock = headBlock;
+    }
+
+    public void setCurrentlyRagingSound(Sound currentlyRagingSound) {
+        this.currentlyRagingSound = currentlyRagingSound;
+    }
+
+    public void setCurrentlyRagingText(String currentlyRagingText) {
+        this.currentlyRagingText = currentlyRagingText;
+    }
+
+    public void setBecomeRagedSound(Sound becomeRagedSound) {
+        this.becomeRagedSound = becomeRagedSound;
+    }
+
+    public void setBecomeRagedText(String becomeRagedText) {
+        this.becomeRagedText = becomeRagedText;
+    }
+
+    public void setStoppedRagingSound(Sound stoppedRagingSound) {
+        this.stoppedRagingSound = stoppedRagingSound;
+    }
+
+    public void setStoppedRagingText(String stoppedRagingText) {
+        this.stoppedRagingText = stoppedRagingText;
     }
 }
