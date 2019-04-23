@@ -2,6 +2,7 @@ package main.java.plugin.sirlich.skills.meta;
 
 
 import main.java.plugin.sirlich.skills.active.*;
+import main.java.plugin.sirlich.skills.passive.CinderStrike;
 import main.java.plugin.sirlich.skills.passive.HolyStrike;
 import main.java.plugin.sirlich.skills.passive.MagmaBow;
 import main.java.plugin.sirlich.skills.passive.SpeedBuff;
@@ -29,7 +30,8 @@ public enum SkillType {
     StrikeTheEarth(new StrikeTheEarth(null,0)),
     MagmaBow(new MagmaBow(null, 0)),
     ElfSpeed(new ElfSpeed(null,0)),
-    BladeOfConfusion(new BladeOfConfusion(null,0));
+    BladeOfConfusion(new BladeOfConfusion(null,0)),
+    CinderStrike(new CinderStrike(null,0));
 
     private final Skill skill;
 

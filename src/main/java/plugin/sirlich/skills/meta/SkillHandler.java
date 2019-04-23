@@ -161,6 +161,7 @@ public class SkillHandler implements Listener
             }
         }
 
+
         //Arrow hit ground
         else {
             Arrow arrow = (Arrow) event.getEntity();
