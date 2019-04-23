@@ -236,13 +236,18 @@ public class SkillHandler implements Listener
      */
     @EventHandler
     public void onPlayerSwapItemEvent(PlayerSwapHandItemsEvent event){
-        Player player = event.getPlayer();
-        RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
-        for(Skill skill : rpgPlayer.getSkillList().values()){
-            skill.onSwap(event);
+        if(isMeleeWeapon(event.getOffHandItem().getType())){
+            Player player = event.getPlayer();
+            RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
+            for(Skill skill : rpgPlayer.getSkillList().values()){
+                skill.onSwap(event);
+            }
         }
     }
 
+    private boolean isMeleeWeapon(Material material){
+        return isSword(material) || isAxe(material);
+    }
     private boolean isSword(Material material){
         return material.equals(Material.WOOD_SWORD) ||
                 material.equals(Material.STONE_SWORD) ||
