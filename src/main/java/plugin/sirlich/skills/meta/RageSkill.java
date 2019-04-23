@@ -39,7 +39,7 @@ public class RageSkill extends CooldownSkill{
         this.stoppedRagingText = null;
     }
 
-    public void attemptRage(){
+    public boolean attemptRage(){
         if(enraged){
             if(currentlyEnragedText != null){
                 getRpgPlayer().chat(currentlyEnragedText);
@@ -51,9 +51,10 @@ public class RageSkill extends CooldownSkill{
             } else {
                 getRpgPlayer().playSound(Sound.BLOCK_ANVIL_DESTROY);
             }
+            return false;
         } else {
             if(isCooldown()){
-                return;
+                return false;
             } else {
 
                 //Set rage
@@ -90,7 +91,7 @@ public class RageSkill extends CooldownSkill{
                         if(stoppedRagingText != null){
                             getRpgPlayer().chat(stoppedRagingText);
                         } else {
-                            getRpgPlayer().chat(c.green + getName() + c.dgray + " has expired.");
+                            getRpgPlayer().chat(c.red + getName() + c.dgray + " has expired.");
                         }
 
                         if(stoppedRagingSound != null){
@@ -104,6 +105,7 @@ public class RageSkill extends CooldownSkill{
                     }
 
                 }.runTaskLater(SkillScheme.getInstance(), duration.get(getLevel()));
+                return true;
             }
         }
     }
