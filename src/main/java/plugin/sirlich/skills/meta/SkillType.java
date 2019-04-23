@@ -28,7 +28,8 @@ public enum SkillType {
     EscapeArtist(new EscapeArtist(null,0)),
     StrikeTheEarth(new StrikeTheEarth(null,0)),
     MagmaBow(new MagmaBow(null, 0)),
-    ElfSpeed(new ElfSpeed(null,0));
+    ElfSpeed(new ElfSpeed(null,0)),
+    BladeOfConfusion(new BladeOfConfusion(null,0));
 
     private final Skill skill;
 
