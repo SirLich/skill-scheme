@@ -21,11 +21,8 @@ import java.util.ArrayList;
 
 public class PhantomArrows extends PrimedSkill
 {
-    private boolean primed;
-
     public PhantomArrows(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer,level,"PhantomArrows");
-        primed = false;
     }
 
     @Override
