@@ -96,10 +96,12 @@ public class RageSkill extends CooldownSkill{
 
                     @Override
                     public void run() {
+                        //Set Raging
                         raged = false;
+
+                        //Set Helmet
                         getRpgPlayer().getPlayer().getInventory().setHelmet(new ItemStack(Material.AIR));
 
-                        //Play media
                         //Play media
                         if(stoppedRagingText != null){
                             getRpgPlayer().chat(stoppedRagingText);
@@ -112,6 +114,9 @@ public class RageSkill extends CooldownSkill{
                         } else {
                             getRpgPlayer().playSound(Sound.BLOCK_FIRE_EXTINGUISH);
                         }
+
+                        //Refresh cooldown:
+                        refreshCooldown();
                     }
 
                 }.runTaskLater(SkillScheme.getInstance(), duration.get(getLevel()));

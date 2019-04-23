@@ -3,6 +3,7 @@ package main.java.plugin.sirlich.skills.active;
 import main.java.plugin.sirlich.SkillScheme;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.skills.meta.CooldownSkill;
+import main.java.plugin.sirlich.skills.meta.RageSkill;
 import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -15,7 +16,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Geronimo extends CooldownSkill
+public class Geronimo extends RageSkill
 {
     private static String id = "Geronimo";
     private static List<Integer> duration = getYaml(id).getIntegerList("values.duration");
@@ -25,7 +26,7 @@ public class Geronimo extends CooldownSkill
     private ItemStack headSave;
 
     public Geronimo(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level,"Geronimo");
+        super(rpgPlayer,level,"Geronimo", Material.TNT);
     }
 
     @Override
@@ -62,24 +63,6 @@ public class Geronimo extends CooldownSkill
     }
     @Override
     public void onSwap(PlayerSwapHandItemsEvent event){
-        if(isCooldown()){return;}
-        final Player player = event.getPlayer();
-        enraged = true;
-        player.chat("You become enraged !");
-        headSave = player.getInventory().getHelmet();
-        player.getInventory().setHelmet(new ItemStack(Material.TNT));
-        new BukkitRunnable() {
-
-            @Override
-            public void run() {
-                enraged = false;
-                player.getInventory().setHelmet(headSave);
-                getRpgPlayer().chat("You are no longer enraged.");
-                headSave = null;
-            }
-
-        }.runTaskLater(SkillScheme.getInstance(), duration.get(getLevel()));
-
-        refreshCooldown();
+        attemptRage();
     }
 }
