@@ -10,7 +10,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import main.java.plugin.sirlich.skills.meta.SkillHandler;
-import main.java.plugin.sirlich.skills.meta.skillGuiHandler;
+import main.java.plugin.sirlich.skills.meta.SkillGuiHandler;
 
 import java.io.File;
 
@@ -63,7 +63,7 @@ public class SkillScheme extends JavaPlugin
 
     private void registerEvents(){
         getServer().getPluginManager().registerEvents(new PlayerJoinHandler(), this);
-        getServer().getPluginManager().registerEvents(new skillGuiHandler(), this);
+        getServer().getPluginManager().registerEvents(new SkillGuiHandler(), this);
         getServer().getPluginManager().registerEvents(new PlayerLeaveHandler(),this);
         getServer().getPluginManager().registerEvents(new SkillHandler(),this);
         getServer().getPluginManager().registerEvents(new BlockUtils(), this);

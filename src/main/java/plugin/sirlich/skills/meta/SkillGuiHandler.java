@@ -27,7 +27,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class skillGuiHandler implements Listener
+public class SkillGuiHandler implements Listener
 {
 
     //Inventory names
@@ -167,7 +167,7 @@ public class skillGuiHandler implements Listener
 
     }
 
-    private void overfillLeftoverSlots(Inventory inventory){
+    private static void overfillLeftoverSlots(Inventory inventory){
         for(int slot = 0; slot < inventory.getSize(); slot++){
             if(inventory.getItem(slot) == null){
                 ItemStack itemStack = new ItemStack(Material.STAINED_GLASS_PANE,1,(short)15);
@@ -179,7 +179,7 @@ public class skillGuiHandler implements Listener
         }
     }
 
-    private void openMainGui(Player player)
+    public static void openMainGui(Player player)
     {
         Inventory inventory = Bukkit.createInventory(null, 27, ChatColor.DARK_GRAY + "~ Select a class to edit:");
 

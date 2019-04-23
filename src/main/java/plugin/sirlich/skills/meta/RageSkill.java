@@ -13,7 +13,7 @@ import java.util.List;
 public class RageSkill extends CooldownSkill{
 
     //Default getters
-    private List<Integer> duration;
+    public List<Integer> duration;
 
     //Defaults
     private Material headBlock;
@@ -39,6 +39,14 @@ public class RageSkill extends CooldownSkill{
         this.stoppedRagingText = null;
     }
 
+    public void onEnrage(){
+
+    }
+
+    public void onRageExpire(){
+
+    }
+
     public boolean attemptRage(){
         if(enraged){
             if(currentlyEnragedText != null){
@@ -59,6 +67,7 @@ public class RageSkill extends CooldownSkill{
 
                 //Set rage
                 enraged = true;
+                onEnrage();
 
                 //Play media
                 if(becomeEnragedText != null){
@@ -83,6 +92,7 @@ public class RageSkill extends CooldownSkill{
                     public void run() {
                         //Set Raging
                         enraged = false;
+                        onRageExpire();
 
                         //Set Helmet
                         getRpgPlayer().getPlayer().getInventory().setHelmet(new ItemStack(Material.AIR));

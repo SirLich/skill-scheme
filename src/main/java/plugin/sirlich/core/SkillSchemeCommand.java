@@ -1,8 +1,6 @@
 package main.java.plugin.sirlich.core;
 
-import main.java.plugin.sirlich.skills.meta.ClassType;
-import main.java.plugin.sirlich.skills.meta.SkillEditObject;
-import main.java.plugin.sirlich.skills.meta.SkillType;
+import main.java.plugin.sirlich.skills.meta.*;
 import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -17,7 +15,7 @@ public class SkillSchemeCommand implements CommandExecutor
             RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
 
             if(args.length < 1){
-                rpgPlayer.chat("Please include an argument: " + c.gray + "[s]kill, [c]lass, [t]eam, [p]layerState");
+                rpgPlayer.chat("Please include an argument: " + c.gray + "[s]kill, [c]lass, [t]eam, [p]layer state, [g]ui");
                 return true;
             }
 
@@ -87,6 +85,8 @@ public class SkillSchemeCommand implements CommandExecutor
                 } else {
                     rpgPlayer.chat("Please include an argument: " + c.gray + "[l]ist, [h]ave, [c]lear, [r]emove, [a]dd");
                 }
+            } else if(action.equalsIgnoreCase("gui") || action.equalsIgnoreCase("g")){
+                SkillGuiHandler.openMainGui(player);
             } else if(action.equalsIgnoreCase("class") || action.equalsIgnoreCase("c")){
                 if(args.length < 2){
                     rpgPlayer.chat("Please include an argument: " + c.gray + "[p]aladin, [f]ighter, [ra]nger, [ro]gue, [w]arlock");
@@ -181,7 +181,7 @@ public class SkillSchemeCommand implements CommandExecutor
                     rpgPlayer.chat("Please include an argument: " + c.gray + "[g]et, [s]et, [l]ist, [r]eset");
                 }
             } else {
-                rpgPlayer.chat("Please include an argument: " + c.gray + "[s]kill, [c]lass, [t]eam, [p]layer state");
+                rpgPlayer.chat("Please include an argument: " + c.gray + "[s]kill, [c]lass, [t]eam, [p]layer state, [g]ui");
             }
         }
         return true;
