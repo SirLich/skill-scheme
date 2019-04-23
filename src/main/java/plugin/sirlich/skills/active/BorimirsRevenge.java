@@ -3,6 +3,7 @@ package main.java.plugin.sirlich.skills.active;
 import main.java.plugin.sirlich.SkillScheme;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.skills.meta.CooldownSkill;
+import main.java.plugin.sirlich.skills.meta.RageSkill;
 import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -14,7 +15,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BorimirsRevenge extends CooldownSkill
+public class BorimirsRevenge extends RageSkill
 {
     private static String id = "BorimirsRevenge";
     private static List<Integer> duration = getYaml(id).getIntegerList("values.duration");
@@ -23,19 +24,16 @@ public class BorimirsRevenge extends CooldownSkill
     private ItemStack headSave;
 
     public BorimirsRevenge(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level,"BorimirsRevenge");
+        super(rpgPlayer,level,"BorimirsRevenge", Material.BEDROCK);
+
     }
 
     @Override
     public void onArrowHitSelf(EntityDamageByEntityEvent event){
         if(enraged){
-            System.out.println("Deflection");
             event.setCancelled(true);
             event.getDamager().remove();
-            return;
         }
-        System.out.println("Hit");
-
     }
 
     @Override
@@ -54,26 +52,27 @@ public class BorimirsRevenge extends CooldownSkill
 
     @Override
     public void onSwap(PlayerSwapHandItemsEvent event){
-        if(isCooldown()){return;}
-        final Player player = event.getPlayer();
-        enraged = true;
-        System.out.println("Enraged activated");
-        getRpgPlayer().chat("You are now immune to arrows !");
-        headSave = player.getInventory().getHelmet();
-        player.getInventory().setHelmet(new ItemStack(Material.BEDROCK));
-        new BukkitRunnable() {
-
-            @Override
-            public void run() {
-                enraged = false;
-                System.out.println("Enraged deactivated");
-                player.getInventory().setHelmet(headSave);
-                getRpgPlayer().chat("You are no longer immune to arrows.");
-                headSave = null;
-            }
-
-        }.runTaskLater(SkillScheme.getInstance(), duration.get(getLevel()));
-        refreshCooldown();
+        attemptRage();
+//        if(isCooldown()){return;}
+//        final Player player = event.getPlayer();
+//        enraged = true;
+//        System.out.println("Enraged activated");
+//        getRpgPlayer().chat("You are now immune to arrows !");
+//        headSave = player.getInventory().getHelmet();
+//        player.getInventory().setHelmet(new ItemStack(Material.BEDROCK));
+//        new BukkitRunnable() {
+//
+//            @Override
+//            public void run() {
+//                enraged = false;
+//                System.out.println("Enraged deactivated");
+//                player.getInventory().setHelmet(headSave);
+//                getRpgPlayer().chat("You are no longer immune to arrows.");
+//                headSave = null;
+//            }
+//
+//        }.runTaskLater(SkillScheme.getInstance(), duration.get(getLevel()));
+//        refreshCooldown();
     }
 
 }
