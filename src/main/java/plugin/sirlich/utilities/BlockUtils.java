@@ -5,12 +5,15 @@ import main.java.plugin.sirlich.core.RpgPlayer;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 public class BlockUtils implements Listener
 {
@@ -47,6 +50,17 @@ public class BlockUtils implements Listener
         tempPlaceBlock(material,location,ticks,(byte)0x0);
     }
 
+    public static List<Block> getNearbyBlocks(Location location, int radius) {
+        List<Block> blocks = new ArrayList<Block>();
+        for(int x = location.getBlockX() - radius; x <= location.getBlockX() + radius; x++) {
+            for(int y = location.getBlockY() - radius; y <= location.getBlockY() + radius; y++) {
+                for(int z = location.getBlockZ() - radius; z <= location.getBlockZ() + radius; z++) {
+                    blocks.add(location.getWorld().getBlockAt(x, y, z));
+                }
+            }
+        }
+        return blocks;
+    }
 
     public static void tempPlaceBlock(Material material, Location location, int ticks,byte direction){
         final Material oldMaterial = location.getWorld().getBlockAt(location).getType();

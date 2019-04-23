@@ -44,7 +44,7 @@ public class PrimedSkill extends CooldownSkill {
                 if(primeText != null){
                     getRpgPlayer().chat(primeText);
                 } else {
-                    getRpgPlayer().chat(c.dgray + "You ready your "+ c.daqua + getRpgPlayer().getPlayer().getInventory().getItemInMainHand().getType().toString() + c.dgray + "...");
+                    getRpgPlayer().chat(c.dgray + "You ready your "+ c.green + getRpgPlayer().getPlayer().getInventory().getItemInMainHand().getType().toString() + c.dgray + "...");
                 }
 
                 if(primeSound != null){

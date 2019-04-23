@@ -31,7 +31,8 @@ public enum SkillType {
     MagmaBow(new MagmaBow(null, 0)),
     ElfSpeed(new ElfSpeed(null,0)),
     BladeOfConfusion(new BladeOfConfusion(null,0)),
-    CinderStrike(new CinderStrike(null,0));
+    CinderStrike(new CinderStrike(null,0)),
+    IceRink(new IceRink(null,0));
 
     private final Skill skill;
 
