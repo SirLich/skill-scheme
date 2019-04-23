@@ -23,8 +23,6 @@ public class WebShot extends PrimedSkill
 {
     private static String id = "WebShot";
     private static List<Integer> duration = getYaml(id).getIntegerList("values.duration");
-    private boolean primed;
-
 
     public WebShot(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer,level,"WebShot");
@@ -78,7 +76,8 @@ public class WebShot extends PrimedSkill
         if(primed){
             primed = false;
             Arrow arrow = (Arrow) event.getProjectile();
-            RpgArrow.addTag(arrow.getUniqueId(),"WEB_SHOT");
+            RpgArrow rpgArrow = RpgArrow.getArrow(arrow.getUniqueId());
+            rpgArrow.addTag("WEB_SHOT");
             refreshCooldown();
         }
     }
