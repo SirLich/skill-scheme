@@ -117,6 +117,14 @@ public class Skill
 
     }
 
+    public void onAxeMiss(PlayerInteractEvent event){
+
+    }
+
+    public void onSwordMiss(PlayerInteractEvent event){
+
+    }
+
     public void onSwordMeleeAttackSelf(EntityDamageByEntityEvent event){
 
     }

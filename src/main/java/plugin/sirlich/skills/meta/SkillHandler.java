@@ -187,6 +187,20 @@ public class SkillHandler implements Listener
         Player player = event.getPlayer();
         RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
 
+        //Whif!
+        if(event.getHand() == EquipmentSlot.HAND &&
+                event.getMaterial() != Material.AIR &&
+                (event.getAction() == Action.LEFT_CLICK_AIR)){
+            if(isAxe(event.getMaterial())){
+                for(Skill skill : rpgPlayer.getSkillList().values()){
+                    skill.onAxeMiss(event);
+                }
+            } else if(isSword(event.getMaterial())){
+                for(Skill skill : rpgPlayer.getSkillList().values()){
+                    skill.onSwordMiss(event);
+                }
+            }
+        }
         //Left click
         if(event.getHand() == EquipmentSlot.HAND &&
                 event.getMaterial() != Material.AIR &&

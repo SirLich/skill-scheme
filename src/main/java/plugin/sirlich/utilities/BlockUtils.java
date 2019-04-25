@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -55,7 +56,10 @@ public class BlockUtils implements Listener
         for(int x = location.getBlockX() - radius; x <= location.getBlockX() + radius; x++) {
             for(int y = location.getBlockY() - radius; y <= location.getBlockY() + radius; y++) {
                 for(int z = location.getBlockZ() - radius; z <= location.getBlockZ() + radius; z++) {
-                    blocks.add(location.getWorld().getBlockAt(x, y, z));
+                    Vector blockLoc = new Vector(x,y,z);
+                    if(blockLoc.distance(location.toVector()) <= radius){
+                        blocks.add(location.getWorld().getBlockAt(x, y, z));
+                    }
                 }
             }
         }

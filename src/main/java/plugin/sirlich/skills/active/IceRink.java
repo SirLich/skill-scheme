@@ -29,7 +29,12 @@ public class IceRink extends RageSkill
     @Override
     public ArrayList<String> getDescription(int level){
         ArrayList<String> lorelines = new ArrayList<String>();
-        lorelines.add(c.aqua + "Icy Icy!");
+        lorelines.add(c.gray + c.italic + "Freeze the world!");
+        lorelines.add("");
+        lorelines.add(c.dgray + "Create an icy circle around you while active.");
+        lorelines.add(c.dgray + "Good for crossing water.");
+        lorelines.add("");
+        lorelines.add(c.dgray + "Radius: " + c.green + radius.get(level) + c.dgray + " blocks");
         return lorelines;
     }
 
