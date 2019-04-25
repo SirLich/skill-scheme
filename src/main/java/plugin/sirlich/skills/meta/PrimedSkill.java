@@ -33,4 +33,35 @@ public class PrimedSkill extends CooldownSkill {
         }
     }
 
+    public Sound getAlreadyPrimedSound() {
+        return alreadyPrimedSound;
+    }
+
+    public void setAlreadyPrimedSound(Sound alreadyPrimedSound) {
+        this.alreadyPrimedSound = alreadyPrimedSound;
+    }
+
+    public Sound getPrimeSound() {
+        return primeSound;
+    }
+
+    public void setPrimeSound(Sound primeSound) {
+        this.primeSound = primeSound;
+    }
+
+    public String getPrimeText() {
+        return primeText;
+    }
+
+    public void setPrimeText(String primeText) {
+        this.primeText = primeText;
+    }
+
+    public String getAlreadyPrimedText() {
+        return alreadyPrimedText;
+    }
+
+    public void setAlreadyPrimedText(String alreadyPrimedText) {
+        this.alreadyPrimedText = alreadyPrimedText;
+    }
 }
