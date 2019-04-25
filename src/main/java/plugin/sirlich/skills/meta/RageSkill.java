@@ -20,12 +20,13 @@ public class RageSkill extends CooldownSkill{
     private boolean enraged;
     private boolean endRageEarly = false;
 
-    private Sound currentlyEnragedSound;
-    private String currentlyEnragedText;
-    private Sound becomeEnragedSound;
-    private String becomeEnragedText;
-    private Sound stoppedRagingSound;
-    private String stoppedRagingText;
+    private Sound currentlyEnragedSound = Sound.BLOCK_ANVIL_DESTROY;
+    private String currentlyEnragedText = c.red + getName() + c.dgray + "  is already active.";
+    private Sound becomeEnragedSound = Sound.ENTITY_COW_DEATH;
+    private String becomeEnragedText = c.dgray + "You activate "+ c.green + this.getName();
+
+    private Sound stoppedRagingSound = Sound.BLOCK_FIRE_EXTINGUISH;
+    private String stoppedRagingText = c.red + getName() + c.dgray + " has expired.";
 
 
     public RageSkill(RpgPlayer rpgPlayer, int level, String id, Material headBlock){
@@ -33,12 +34,6 @@ public class RageSkill extends CooldownSkill{
         this.duration = getYaml(id).getIntegerList("values.duration");
         this.headBlock = headBlock;
         this.enraged = false;
-        this.currentlyEnragedSound = null;
-        this.currentlyEnragedText = null;
-        this.becomeEnragedSound = null;
-        this.becomeEnragedText = null;
-        this.stoppedRagingSound = null;
-        this.stoppedRagingText = null;
     }
 
     public void onEnrage(){
@@ -51,16 +46,8 @@ public class RageSkill extends CooldownSkill{
 
     public boolean attemptRage(){
         if(enraged){
-            if(currentlyEnragedText != null){
-                getRpgPlayer().chat(currentlyEnragedText);
-            } else {
-                getRpgPlayer().chat(c.red + getName() + c.dgray + "  is already active.");
-            }
-            if(currentlyEnragedSound != null){
-                getRpgPlayer().playSound(currentlyEnragedSound);
-            } else {
-                getRpgPlayer().playSound(Sound.BLOCK_ANVIL_DESTROY);
-            }
+            getRpgPlayer().chat(currentlyEnragedText);
+            getRpgPlayer().playSound(currentlyEnragedSound);
             return false;
         } else {
             if(isCooldown()){
@@ -72,17 +59,8 @@ public class RageSkill extends CooldownSkill{
                 onEnrage();
 
                 //Play media
-                if(becomeEnragedText != null){
-                    getRpgPlayer().chat(becomeEnragedText);
-                } else {
-                    getRpgPlayer().chat(c.dgray + "You activate "+ c.green + this.getName());
-                }
-
-                if(becomeEnragedSound != null){
-                    getRpgPlayer().playSound(becomeEnragedSound);
-                } else {
-                    getRpgPlayer().playSound(Sound.ENTITY_COW_DEATH);
-                }
+                getRpgPlayer().chat(becomeEnragedText);
+                getRpgPlayer().playSound(becomeEnragedSound);
 
                 //Set Helmet
                 getRpgPlayer().getPlayer().getInventory().setHelmet(new ItemStack(headBlock));
@@ -119,17 +97,8 @@ public class RageSkill extends CooldownSkill{
         getRpgPlayer().getPlayer().getInventory().setHelmet(new ItemStack(Material.AIR));
 
         //Play media
-        if(stoppedRagingText != null){
-            getRpgPlayer().chat(stoppedRagingText);
-        } else {
-            getRpgPlayer().chat(c.red + getName() + c.dgray + " has expired.");
-        }
-
-        if(stoppedRagingSound != null){
-            getRpgPlayer().playSound(stoppedRagingSound);
-        } else {
-            getRpgPlayer().playSound(Sound.BLOCK_FIRE_EXTINGUISH);
-        }
+        getRpgPlayer().chat(stoppedRagingText);
+        getRpgPlayer().playSound(stoppedRagingSound);
 
         //Refresh cooldown:
         refreshCooldown();
