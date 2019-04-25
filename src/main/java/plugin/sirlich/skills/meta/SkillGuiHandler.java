@@ -88,7 +88,10 @@ public class SkillGuiHandler implements Listener
             } else {
                 rpgPlayer.chat("Your skills have been saved. They will be applied when the game starts. ");
             }
-        } else if(buttonAction.equalsIgnoreCase("skill_item")) {
+        } else if(buttonAction.equalsIgnoreCase("open_main_gui")){
+            player.closeInventory();
+            openMainGui(player);
+        }else if(buttonAction.equalsIgnoreCase("skill_item")) {
             //Setup
             SkillType skillType = SkillType.valueOf(nbtItem.getString("skill_type"));
             SkillKind skillKind = SkillKind.valueOf(nbtItem.getString("skill_kind"));

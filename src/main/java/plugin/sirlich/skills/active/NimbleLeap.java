@@ -18,7 +18,6 @@ public class NimbleLeap extends CooldownSkill
 
     public NimbleLeap(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer,level,"NimbleLeap");
-        setCooldownSound(Sound.BLOCK_ANVIL_LAND);
     }
 
     @Override
