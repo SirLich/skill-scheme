@@ -11,23 +11,25 @@ import java.util.List;
 
 public class CooldownSkill extends Skill
 {
-    private int cooldownTimer;
-    private boolean cooldown;
+    //List of all cooldown values. This is used for Inventory Displays.
+    private List<Integer> cooldownValues;
+
+    //Current cooldown by level
     private int cooldownValue;
 
-    private List<Integer> cooldownValues;
-    private Sound cooldownSound;
-    private Sound rechargeSound;
+    private boolean cooldown;
+
+    private Sound cooldownSound = Sound.BLOCK_COMPARATOR_CLICK;
+    private Sound rechargeSound = Sound.BLOCK_ENDERCHEST_OPEN;
+    private String cooldownText = c.red + getName() + c.dgray + " is still on cooldown.";
+    private String rechargeText = c.green + getName() + c.dgray + " has been recharged.";
 
 
     public CooldownSkill(RpgPlayer rpgPlayer, int level, String id){
         super(rpgPlayer,level,id);
         this.cooldownValues = getYaml(id).getIntegerList("values.cooldown");
-        this.cooldownTimer = cooldownValues.get(getLevel());
-        this.cooldownValue = cooldownTimer;
+        this.cooldownValue = cooldownValues.get(getLevel());
         this.cooldown = false;
-        setCooldownSound(Sound.BLOCK_COMPARATOR_CLICK);
-        setRechargeSound(Sound.BLOCK_ENDERCHEST_OPEN);
     }
 
     public boolean isCooldown(){
@@ -38,17 +40,13 @@ public class CooldownSkill extends Skill
     }
 
     public void playCooldownMedia(){
-        if(rechargeSound != null){
-            getRpgPlayer().playSound(cooldownSound);
-        }
-        getRpgPlayer().chat(c.red + getName() + c.dgray + " is still on cooldown.");
+        getRpgPlayer().playSound(cooldownSound);
+        getRpgPlayer().chat(cooldownText);
     }
 
     public void playRechargeMedia(){
-        if(rechargeSound != null){
-            getRpgPlayer().playSound(rechargeSound);
-        }
-        getRpgPlayer().chat(c.green + getName() + c.dgray + " has been recharged.");
+        getRpgPlayer().playSound(rechargeSound);
+        getRpgPlayer().chat(rechargeText);
     }
 
     public void setCooldown(boolean state){
@@ -64,7 +62,7 @@ public class CooldownSkill extends Skill
                 playRechargeMedia();
             }
 
-        }.runTaskLater(SkillScheme.getInstance(), cooldownTimer);
+        }.runTaskLater(SkillScheme.getInstance(), cooldownValue);
     }
 
     public Sound getCooldownSound()
@@ -95,5 +93,21 @@ public class CooldownSkill extends Skill
 
     public int getCooldown(int level){
         return cooldownValues.get(level);
+    }
+
+    public String getCooldownText() {
+        return cooldownText;
+    }
+
+    public void setCooldownText(String cooldownText) {
+        this.cooldownText = cooldownText;
+    }
+
+    public String getRechargeText() {
+        return rechargeText;
+    }
+
+    public void setRechargeText(String rechargeText) {
+        this.rechargeText = rechargeText;
     }
 }
