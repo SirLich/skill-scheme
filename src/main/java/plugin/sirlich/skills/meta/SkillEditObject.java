@@ -108,6 +108,10 @@ public class SkillEditObject
 
     public void addSkills(){
         this.parent.chat("Your skills have been added:");
+        System.out.println(classType.toString());
+        if(this.classType == ClassType.WARLOCK){
+            parent.addSkill(SkillType.ManaCharger,1);
+        }
         for(SkillKind skillKind : skillMap.keySet()){
             SkillType skill = skillMap.get(skillKind);
             int level = levelMap.get(skillKind) - 1;

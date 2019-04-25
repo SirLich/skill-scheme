@@ -32,7 +32,8 @@ public enum SkillType {
     ElfSpeed(new ElfSpeed(null,0)),
     BladeOfConfusion(new BladeOfConfusion(null,0)),
     CinderStrike(new CinderStrike(null,0)),
-    IceRink(new IceRink(null,0));
+    IceRink(new IceRink(null,0)),
+    ManaCharger(new ManaCharger(null, 0));
 
     private final Skill skill;
 

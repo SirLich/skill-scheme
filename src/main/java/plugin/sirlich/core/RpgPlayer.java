@@ -68,6 +68,24 @@ public class RpgPlayer
     /*
     END RPGPLAYER LIST STUFF
      */
+
+    public int getMana(){
+        return Math.round(getPlayer().getExp() * 100);
+    }
+
+    public void addMana(int mana){
+        System.out.println(mana);
+        float newMana = getPlayer().getExp() + ((float)mana)/100;
+        System.out.println(newMana);
+        if(newMana < 0){
+            newMana = 0;
+        } else if(newMana > 1.0f){
+            newMana = 1.0f;
+        }
+        System.out.println(newMana);
+        getPlayer().setExp(newMana);
+    }
+
     public RpgPlayer(Player player){
         this.skillEditObject = new SkillEditObject(ClassType.UNDEFINED, this);
         this.player = player;
