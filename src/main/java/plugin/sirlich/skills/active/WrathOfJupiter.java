@@ -23,9 +23,19 @@ public class WrathOfJupiter extends CooldownSkill
     }
 
 
+    @Override
     public ArrayList<String> getDescription(int level){
         ArrayList<String> lorelines = new ArrayList<String>();
-        lorelines.add(c.dgray + "Press F to strike your enemies with lighting");
+        lorelines.add(c.dgray + "The gods themselves fight for you!");
+        lorelines.add(c.dgray + "Summon the destructive power of");
+        lorelines.add(c.dgray + "lightning and smite your enemies.");
+        lorelines.add("");
+        lorelines.add(c.dgray + "Press " + c.aqua + "F" + c.dgray + " to activate");
+        lorelines.add("");
+        lorelines.add(c.dgray + "Cooldown: " + c.green + getCooldown(level)/20 + c.dgray + " seconds");
+        lorelines.add(c.dgray + "Range: " + c.green + range.get(level) + c.dgray + " blocks");
+        lorelines.add(c.dgray + "Damage: " + c.green + damageOnStrike.get(level)/2 + c.dgray + " hearts");
+        lorelines.add(c.dgray + "Fire: " + c.green + fireTicks.get(level)/20 + c.dgray + " seconds");
         return lorelines;
     }
 
