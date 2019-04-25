@@ -31,6 +31,10 @@ public class RpgPlayer
         return rpgPlayerHashMap.get(Bukkit.getPlayer(name).getUniqueId());
     }
 
+    public static RpgPlayer getRpgPlayer(UUID uuid) {
+        return rpgPlayerHashMap.get(uuid);
+    }
+
     public static Collection<RpgPlayer> getRpgPlayers() {
         return rpgPlayerHashMap.values();
     }
@@ -39,8 +43,12 @@ public class RpgPlayer
         return Bukkit.getPlayer(playerHashMap.get(rpgPlayer));
     }
 
-    public static boolean isPlayerOnline(Player player) {
+    public static boolean isPlayer(Player player) {
         return rpgPlayerHashMap.containsKey(player.getUniqueId());
+    }
+
+    public static boolean isPlayer(UUID uuid) {
+        return rpgPlayerHashMap.containsKey(uuid);
     }
 
     public static void addPlayer(Player player) {

@@ -18,6 +18,8 @@ public class RageSkill extends CooldownSkill{
     //Defaults
     private Material headBlock;
     private boolean enraged;
+    private boolean endRageEarly = false;
+
     private Sound currentlyEnragedSound;
     private String currentlyEnragedText;
     private Sound becomeEnragedSound;
@@ -90,34 +92,47 @@ public class RageSkill extends CooldownSkill{
 
                     @Override
                     public void run() {
-                        //Set Raging
-                        enraged = false;
-                        onRageExpire();
-
-                        //Set Helmet
-                        getRpgPlayer().getPlayer().getInventory().setHelmet(new ItemStack(Material.AIR));
-
-                        //Play media
-                        if(stoppedRagingText != null){
-                            getRpgPlayer().chat(stoppedRagingText);
+                        if(endRageEarly){
+                            endRageEarly = false;
                         } else {
-                            getRpgPlayer().chat(c.red + getName() + c.dgray + " has expired.");
+                            endRage();
                         }
-
-                        if(stoppedRagingSound != null){
-                            getRpgPlayer().playSound(stoppedRagingSound);
-                        } else {
-                            getRpgPlayer().playSound(Sound.BLOCK_FIRE_EXTINGUISH);
-                        }
-
-                        //Refresh cooldown:
-                        refreshCooldown();
                     }
 
                 }.runTaskLater(SkillScheme.getInstance(), duration.get(getLevel()));
                 return true;
             }
         }
+    }
+
+    public void endRageEarly(){
+        this.endRageEarly = true;
+        endRage();
+    }
+
+    private void endRage(){
+        //Set Raging
+        enraged = false;
+        onRageExpire();
+
+        //Set Helmet
+        getRpgPlayer().getPlayer().getInventory().setHelmet(new ItemStack(Material.AIR));
+
+        //Play media
+        if(stoppedRagingText != null){
+            getRpgPlayer().chat(stoppedRagingText);
+        } else {
+            getRpgPlayer().chat(c.red + getName() + c.dgray + " has expired.");
+        }
+
+        if(stoppedRagingSound != null){
+            getRpgPlayer().playSound(stoppedRagingSound);
+        } else {
+            getRpgPlayer().playSound(Sound.BLOCK_FIRE_EXTINGUISH);
+        }
+
+        //Refresh cooldown:
+        refreshCooldown();
     }
 
     public void setHeadBlock(Material headBlock) {

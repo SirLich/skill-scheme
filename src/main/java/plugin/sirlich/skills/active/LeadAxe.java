@@ -29,7 +29,7 @@ public class LeadAxe extends PrimedSkill
         lorelines.add(c.dgray + "Right-Click" + c.aqua + " axe " + c.dgray + "to prime");
         lorelines.add(c.aqua + "Melee-Attack" + c.dgray + " while primed, to deal massive knock-back");
         lorelines.add("");
-        lorelines.add(c.dgray + "Cooldown: " + c.green + getCooldown()/20 + c.dgray + " seconds");
+        lorelines.add(c.dgray + "Cooldown: " + c.green + getCooldown(level)/20 + c.dgray + " seconds");
         lorelines.add(c.dgray + "Power: " + c.green + power.get(level) + c.dgray);
         return lorelines;
     }

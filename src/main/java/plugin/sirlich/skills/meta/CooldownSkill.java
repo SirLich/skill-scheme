@@ -6,19 +6,24 @@ import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.Sound;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CooldownSkill extends Skill
 {
     private int cooldownTimer;
     private boolean cooldown;
     private int cooldownValue;
 
+    private List<Integer> cooldownValues;
     private Sound cooldownSound;
     private Sound rechargeSound;
 
 
     public CooldownSkill(RpgPlayer rpgPlayer, int level, String id){
         super(rpgPlayer,level,id);
-        this.cooldownTimer = getYaml(id).getIntegerList("values.cooldown").get(level);
+        this.cooldownValues = getYaml(id).getIntegerList("values.cooldown");
+        this.cooldownTimer = cooldownValues.get(getLevel());
         this.cooldownValue = cooldownTimer;
         this.cooldown = false;
         setCooldownSound(Sound.BLOCK_COMPARATOR_CLICK);
@@ -34,14 +39,14 @@ public class CooldownSkill extends Skill
 
     public void playCooldownMedia(){
         if(rechargeSound != null){
-            getRpgPlayer().getPlayer().playSound(getRpgPlayer().getPlayer().getLocation(),cooldownSound,1,1);
+            getRpgPlayer().playSound(cooldownSound);
         }
         getRpgPlayer().chat(c.red + getName() + c.dgray + " is still on cooldown.");
     }
 
     public void playRechargeMedia(){
         if(rechargeSound != null){
-            getRpgPlayer().getPlayer().playSound(getRpgPlayer().getPlayer().getLocation(),rechargeSound,1,1);
+            getRpgPlayer().playSound(rechargeSound);
         }
         getRpgPlayer().chat(c.green + getName() + c.dgray + " has been recharged.");
     }
@@ -86,5 +91,9 @@ public class CooldownSkill extends Skill
     public int getCooldown()
     {
         return cooldownValue;
+    }
+
+    public int getCooldown(int level){
+        return cooldownValues.get(level);
     }
 }
