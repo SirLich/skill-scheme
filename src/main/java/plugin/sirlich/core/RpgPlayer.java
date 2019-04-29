@@ -69,6 +69,16 @@ public class RpgPlayer
     END RPGPLAYER LIST STUFF
      */
 
+    private boolean modifierActive = false;
+
+    public boolean isModifierActive(){
+        return modifierActive;
+    }
+
+    public void setModifierActive(boolean a){
+        modifierActive = a;
+    }
+
     public int getMana(){
         return Math.round(getPlayer().getExp() * 100);
     }
@@ -82,7 +92,6 @@ public class RpgPlayer
         } else if(newMana > 1.0f){
             newMana = 1.0f;
         }
-        System.out.println(newMana);
         getPlayer().setExp(newMana);
     }
 

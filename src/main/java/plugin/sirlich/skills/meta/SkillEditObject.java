@@ -96,7 +96,7 @@ public class SkillEditObject
 
                 //The skill kind we are editing is fresh!
                 else {
-                    parent.chat("You can't select more than one skill from each category.");
+                    parent.chat("That skill is already at the min level.");
                     return false;
                 }
             } else {

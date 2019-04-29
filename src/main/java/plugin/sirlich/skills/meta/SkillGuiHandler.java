@@ -72,7 +72,6 @@ public class SkillGuiHandler implements Listener
     }
 
     private void handleButtonAction(Player player, Inventory oldInventory, NBTItem nbtItem, ClickType clickType, int slot){
-        System.out.println("1");
         RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
         String buttonAction = nbtItem.getString("button_action");
         if(buttonAction.equalsIgnoreCase("open_class_gui")){

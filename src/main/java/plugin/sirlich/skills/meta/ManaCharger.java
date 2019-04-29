@@ -16,14 +16,30 @@ public class ManaCharger extends Skill {
 
     @Override
     public void onEnable(){
+        this.getRpgPlayer().addMana(100);
+        startTicker();
+    }
+
+    private void startTicker(){
         schedularID = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(SkillScheme.getInstance(), new Runnable() {
             public void run() {
-                getRpgPlayer().addMana(manaPerSecond/(ticksPerCycle * 20));
+                //If the player is "resting", than give some mana
+                if(!getRpgPlayer().isModifierActive()){
+                    System.out.println("Adding mana:");
+                    System.out.println(manaPerSecond);
+                    System.out.println(ticksPerCycle);
+                    float manaPerTick = (float)manaPerSecond/20;
+                    System.out.println(manaPerTick);
+
+                    getRpgPlayer().addMana(Math.round(manaPerTick * ticksPerCycle));
+                } else {
+                    System.out.println("FALSWE");
+                }
             }
         }, 0L, ticksPerCycle);
     }
-
     public void onDisable(){
+        this.getRpgPlayer().addMana(-100);
         Bukkit.getServer().getScheduler().cancelTask(schedularID);
     }
 }
