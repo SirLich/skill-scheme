@@ -7,12 +7,13 @@ import org.bukkit.event.entity.EntityDeathEvent;
 
 public class Cancelor implements Listener {
 
-    //Cancel XP
+    //Cancel mob XP
     @EventHandler
     public void onExpSpawn(EntityDeathEvent event) {
         event.setDroppedExp(0);
     }
 
+    //Cancel block XP
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event){
         event.setExpToDrop(0);

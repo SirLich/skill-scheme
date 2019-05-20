@@ -137,7 +137,7 @@ public class SkillSchemeCommand implements CommandExecutor
                         rpgPlayer.chat(args[3] + c.dgray + action);
                     }
                 } else if(action.equalsIgnoreCase("list") || action.equalsIgnoreCase("l")){
-                    rpgPlayer.chat("All skills:");
+                    rpgPlayer.chat("All teams:");
                     for(RpgPlayer r : RpgPlayer.getRpgPlayers()){
                         rpgPlayer.chat(r.getPlayer().getDisplayName() + c.dgray + " : " + r.getTeam());
                     }
