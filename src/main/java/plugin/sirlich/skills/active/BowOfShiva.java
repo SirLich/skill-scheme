@@ -3,7 +3,9 @@ package main.java.plugin.sirlich.skills.active;
 import main.java.plugin.sirlich.core.RpgArrow;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.skills.meta.Skill;
+import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -31,24 +33,34 @@ public class BowOfShiva extends Skill
     }
 
 
-    private boolean isEntityClose(LivingEntity entity, int range){
-        if(entity.getNearbyEntities(range,range,range).size() > 0){
-            return true;
-        } else {
-            return false;
+    private boolean isEntityClose(LivingEntity arrow, int range){
+        for(Entity entity : arrow.getNearbyEntities(range,range,range)){
+            if(entity instanceof LivingEntity && entity.getUniqueId() != getRpgPlayer().getPlayer().getUniqueId()){
+                return true;
+            }
         }
+        System.out.println("NO!");
+        return false;
     }
 
 
     private Location getClosestEntityLocation(LivingEntity entity, int range){
+        double closestDistance = Double.MAX_VALUE;
+        Entity closestEntity = null;
         for(Entity e : entity.getNearbyEntities(range,range,range)){
-            if(e.getUniqueId() != getRpgPlayer().getPlayer().getUniqueId()){
-                return e.getLocation();
+            if(e.getUniqueId() != getRpgPlayer().getPlayer().getUniqueId() && e instanceof LivingEntity){
+                if(entity.getLocation().distance(e.getLocation()) < closestDistance){
+                    closestDistance = entity.getLocation().distance(e.getLocation());
+                    closestEntity = e;
+                }
             }
         }
-        return null;
+        return closestEntity.getLocation();
     }
 
+    private boolean randomArrowChainChance(){
+        return chance.get(getLevel()) >= Math.random();
+    }
 
 
     @Override
@@ -56,20 +68,22 @@ public class BowOfShiva extends Skill
         RpgArrow rpgArrow = RpgArrow.getArrow((Arrow) event.getEntity());
         RpgPlayer rpgShooter = rpgArrow.getShooter();
         Entity entity = event.getHitEntity();
-        if(chance.get(getLevel()) >= Math.random()){
+        if(rpgArrow.hasTag("CHAIN_ARROW") && event.getHitEntity() instanceof  LivingEntity){
+            LivingEntity livingEntity = (LivingEntity) entity;
+            rpgShooter.playSound(Sound.ENTITY_ARMORSTAND_HIT);
+            rpgShooter.chat(c.daqua + "*Zing!*");
 
-            if(event.getHitEntity() instanceof  LivingEntity){
-                LivingEntity livingEntity = (LivingEntity) entity;
+            if(isEntityClose(livingEntity,radius.get(getLevel()))){
 
-                if(isEntityClose(livingEntity,radius.get(getLevel()))){
+                Vector from = livingEntity.getLocation().toVector();
+                Vector to = getClosestEntityLocation(livingEntity,radius.get(getLevel())).toVector();
 
-                    Vector from = livingEntity.getLocation().toVector();
-                    Vector to = getClosestEntityLocation(livingEntity,radius.get(getLevel())).toVector();
+                Vector v = from.subtract(to).normalize().multiply(-velocity.get(getLevel()));
+                Arrow arrow = livingEntity.launchProjectile(Arrow.class);
+                arrow.setVelocity(v);
+                RpgArrow.registerArrow(arrow,rpgShooter);
 
-                    Vector v = from.subtract(to).normalize().multiply(-velocity.get(getLevel()));
-                    Arrow arrow = livingEntity.launchProjectile(Arrow.class);
-                    arrow.setVelocity(v);
-                    RpgArrow.registerArrow(arrow,rpgShooter);
+                if(randomArrowChainChance()){
                     RpgArrow.addTag(arrow.getUniqueId(),"CHAIN_ARROW");
                 }
             }
@@ -80,6 +94,8 @@ public class BowOfShiva extends Skill
     @Override
     public void onBowFire(EntityShootBowEvent event){
         Arrow arrow = (Arrow) event.getProjectile();
-        RpgArrow.addTag(arrow.getUniqueId(),"CHAIN_ARROW");
+        if(randomArrowChainChance()){
+            RpgArrow.addTag(arrow.getUniqueId(),"CHAIN_ARROW");
+        }
     }
 }
