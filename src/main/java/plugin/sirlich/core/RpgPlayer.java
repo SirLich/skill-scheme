@@ -219,6 +219,7 @@ public class RpgPlayer
 
     public void editWalkSpeedModifier(double change){
         this.walkSpeedModifier += change;
+        refreshPassiveModifiers();
     }
 
     public SkillEditObject getSkillEditObject()
