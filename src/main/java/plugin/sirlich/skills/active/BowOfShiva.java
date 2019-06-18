@@ -32,12 +32,11 @@ public class BowOfShiva extends Skill
 
 
     private boolean isEntityClose(LivingEntity entity, int range){
-        if(entity.getNearbyEntities(range,range,range).size() >= 0){
+        if(entity.getNearbyEntities(range,range,range).size() > 0){
             return true;
         } else {
             return false;
         }
-
     }
 
 
@@ -54,12 +53,13 @@ public class BowOfShiva extends Skill
 
     @Override
     public void onArrowHitEntity(ProjectileHitEvent event){
+        RpgArrow rpgArrow = RpgArrow.getArrow((Arrow) event.getEntity());
+        RpgPlayer rpgShooter = rpgArrow.getShooter();
         Entity entity = event.getHitEntity();
-        Player player = (Player) event.getEntity().getShooter();
         if(chance.get(getLevel()) >= Math.random()){
 
             if(event.getHitEntity() instanceof  LivingEntity){
-                LivingEntity livingEntity = (LivingEntity) event.getHitEntity();
+                LivingEntity livingEntity = (LivingEntity) entity;
 
                 if(isEntityClose(livingEntity,radius.get(getLevel()))){
 
@@ -69,6 +69,7 @@ public class BowOfShiva extends Skill
                     Vector v = from.subtract(to).normalize().multiply(-velocity.get(getLevel()));
                     Arrow arrow = livingEntity.launchProjectile(Arrow.class);
                     arrow.setVelocity(v);
+                    RpgArrow.registerArrow(arrow,rpgShooter);
                     RpgArrow.addTag(arrow.getUniqueId(),"CHAIN_ARROW");
                 }
             }
