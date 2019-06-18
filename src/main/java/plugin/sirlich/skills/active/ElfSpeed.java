@@ -2,7 +2,7 @@ package main.java.plugin.sirlich.skills.active;
 
 import main.java.plugin.sirlich.SkillScheme;
 import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.skills.meta.Skill;
+import main.java.plugin.sirlich.skills.meta.TickingSkill;
 import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.Sound;
 import org.bukkit.event.entity.ProjectileHitEvent;
@@ -10,7 +10,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
 
-public class ElfSpeed extends Skill {
+public class ElfSpeed extends TickingSkill {
 
     private static String id = "ElfSpeed";
     private int charges;
@@ -34,9 +34,11 @@ public class ElfSpeed extends Skill {
     @Override
     public void onArrowHitEntity(ProjectileHitEvent event){
         charges++;
+        RpgPlayer rpgPlayer = getRpgPlayer();
         if(charges > chargesNeeded.get(getLevel())){
-            getRpgPlayer().playSound(Sound.BLOCK_NOTE_HARP);
-            getRpgPlayer().editWalkSpeedModifier(speedModifier.get(getLevel()));
+            rpgPlayer.playSound(Sound.BLOCK_NOTE_HARP);
+            rpgPlayer.editWalkSpeedModifier(speedModifier.get(getLevel()));
+            rpgPlayer.chat(c.green + "ElfSpeed " + c.dgray + "has been activated!");
             charges = 0;
             new BukkitRunnable() {
 
@@ -47,7 +49,30 @@ public class ElfSpeed extends Skill {
 
             }.runTaskLater(SkillScheme.getInstance(), Math.round(20 * duration.get(getLevel())));
         }
-        getRpgPlayer().chat(c.aqua + "Elf Speed " + c.dgray + "charges: " + c.green + charges);
+        chargeReportChat(getRpgPlayer());
+    }
+
+    private void chargeReportChat(RpgPlayer rpgPlayer){
+        rpgPlayer.chat(c.green + "Elf Speed " + c.dgray + "charges: " + c.green + charges);
+
+    }
+
+    @Override
+    public void onTick(){
+        if(charges > 0){
+            charges--;
+            chargeReportChat(getRpgPlayer());
+        }
+    }
+
+    @Override
+    public void onEnable(){
+        startTicker();
+    }
+
+    @Override
+    public void onDisable(){
+        stopTicker();
     }
 
 }

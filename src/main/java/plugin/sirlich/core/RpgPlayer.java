@@ -201,8 +201,8 @@ public class RpgPlayer
         return player;
     }
 
-    public void chat(String m){
-        getPlayer().sendMessage(c.green + m);
+    public void chat(String message){
+        getPlayer().sendMessage(c.green + message);
     }
 
     private Player player;
