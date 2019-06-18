@@ -8,6 +8,7 @@ import org.bukkit.Sound;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ElfSpeed extends TickingSkill {
@@ -32,6 +33,19 @@ public class ElfSpeed extends TickingSkill {
     }
 
     @Override
+    public ArrayList<String> getDescription(int level){
+        ArrayList<String> lorelines = new ArrayList<String>();
+        lorelines.add(c.gray + c.italic + "\"Fly, you fools!\"");
+        lorelines.add("");
+        lorelines.add(c.dgray + "Land consecutive successful arrow");
+        lorelines.add(c.dgray + "shots for a temporary boost of speed.");
+        lorelines.add("");
+        lorelines.add(c.dgray + "Decay: " + c.gold + 20/(double)getTicks(level) + c.dgray + " charges per second.");
+        lorelines.add(c.dgray + "Activates on " + c.green + chargesNeeded.get(level) + c.dgray + " charges");
+        return lorelines;
+    }
+
+    @Override
     public void onArrowHitEntity(ProjectileHitEvent event){
         charges++;
         RpgPlayer rpgPlayer = getRpgPlayer();
@@ -45,6 +59,8 @@ public class ElfSpeed extends TickingSkill {
                 @Override
                 public void run() {
                     getRpgPlayer().editWalkSpeedModifier(-speedModifier.get(getLevel()));
+                    getRpgPlayer().playSound(Sound.BLOCK_FIRE_EXTINGUISH);
+                    getRpgPlayer().chat(c.red  + "ElfSpeed has worn off");
                 }
 
             }.runTaskLater(SkillScheme.getInstance(), Math.round(20 * duration.get(getLevel())));

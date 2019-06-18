@@ -35,4 +35,8 @@ public class TickingSkill extends Skill {
     public int getTicks(){
         return ticks.get(getLevel());
     }
+
+    public int getTicks(int level){
+        return ticks.get(level);
+    }
 }
