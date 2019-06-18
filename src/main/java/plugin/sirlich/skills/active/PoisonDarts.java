@@ -1,9 +1,8 @@
 package main.java.plugin.sirlich.skills.active;
 
-import main.java.plugin.sirlich.SkillScheme;
 import main.java.plugin.sirlich.core.RpgArrow;
 import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.skills.meta.Skill;
+import main.java.plugin.sirlich.skills.meta.TickingSkill;
 import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.*;
 import org.bukkit.entity.Arrow;
@@ -17,15 +16,13 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PoisonDarts extends Skill
+public class PoisonDarts extends TickingSkill
 {
     private static String id = "PoisonDarts";
-    private static List<Integer> ticksPerDart = getYaml(id).getIntegerList("values.ticksPerDart");
     private static List<Integer> maxDarts = getYaml(id).getIntegerList("values.maxDarts");
     private static List<Integer> poisonDuration = getYaml(id).getIntegerList("values.poisonDuration");
 
     private static int charges;
-    private int schedularID;
 
     public PoisonDarts(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer,level, "PoisonDarts");
@@ -40,7 +37,7 @@ public class PoisonDarts extends Skill
         lorelines.add("");
         lorelines.add(c.dgray + "Right-Click" + c.aqua + " bow " + c.dgray + "to activate");
         lorelines.add("");
-        lorelines.add(c.dgray + "1 arrow per " + c.green + ticksPerDart.get(level)/20 + c.dgray + " seconds");
+        lorelines.add(c.dgray + "1 arrow per " + c.green + getTicks()/20 + c.dgray + " seconds");
         double duration = (double) poisonDuration.get(level)/20;
 
         lorelines.add(c.dgray + "Poison lasts for " + c.green + duration + c.dgray + " seconds");
@@ -84,18 +81,18 @@ public class PoisonDarts extends Skill
     }
 
     @Override
+    public void onTick(){
+        if(charges < maxDarts.get(getLevel())){
+            charges ++;
+            getRpgPlayer().chat(ChatColor.GREEN + "Poison Darts: " + ChatColor.GRAY + charges);
+        }
+    }
+    @Override
     public void onEnable(){
-        schedularID = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(SkillScheme.getInstance(), new Runnable() {
-            public void run() {
-                if(charges < maxDarts.get(getLevel())){
-                    charges ++;
-                    getRpgPlayer().chat(ChatColor.GREEN + "Poison Darts: " + ChatColor.GRAY + charges);
-                }
-            }
-        }, 0L, ticksPerDart.get(getLevel()));
+        startTicker();
     }
 
     public void onDisable(){
-        Bukkit.getServer().getScheduler().cancelTask(schedularID);
+        stopTicker();
     }
 }

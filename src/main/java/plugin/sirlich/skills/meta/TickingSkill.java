@@ -31,4 +31,8 @@ public class TickingSkill extends Skill {
     public void stopTicker(){
         Bukkit.getServer().getScheduler().cancelTask(schedularID);
     }
+
+    public int getTicks(){
+        return ticks.get(getLevel());
+    }
 }
