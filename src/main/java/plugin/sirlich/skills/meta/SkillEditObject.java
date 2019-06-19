@@ -3,9 +3,11 @@ package main.java.plugin.sirlich.skills.meta;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.Material;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SpawnEggMeta;
 
 import java.util.HashMap;
 
@@ -152,56 +154,53 @@ public class SkillEditObject
 
     public static void giveLoadout(RpgPlayer rpgPlayer, ClassType classType){
         Player player = rpgPlayer.getPlayer();
+        player.getInventory().clear();
         if(classType == ClassType.PALADIN){
-            player.getInventory().clear();
             player.getInventory().setHelmet(new ItemStack(Material.DIAMOND_HELMET));
             player.getInventory().setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE));
             player.getInventory().setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS));
             player.getInventory().setBoots(new ItemStack(Material.DIAMOND_BOOTS));
             player.getInventory().addItem(new ItemStack(Material.IRON_SWORD));
             player.getInventory().addItem(new ItemStack(Material.IRON_AXE));
-            player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF,64));
         } else if(classType == ClassType.FIGHTER){
-            player.getInventory().clear();
             player.getInventory().setHelmet(new ItemStack(Material.IRON_HELMET));
             player.getInventory().setChestplate(new ItemStack(Material.IRON_CHESTPLATE));
             player.getInventory().setLeggings(new ItemStack(Material.IRON_LEGGINGS));
             player.getInventory().setBoots(new ItemStack(Material.IRON_BOOTS));
             player.getInventory().addItem(new ItemStack(Material.IRON_SWORD));
             player.getInventory().addItem(new ItemStack(Material.IRON_AXE));
-            player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF,64));
         }  else if(classType == ClassType.RANGER){
-            player.getInventory().clear();
             player.getInventory().setHelmet(new ItemStack(Material.CHAINMAIL_HELMET));
             player.getInventory().setChestplate(new ItemStack(Material.CHAINMAIL_CHESTPLATE));
             player.getInventory().setLeggings(new ItemStack(Material.CHAINMAIL_LEGGINGS));
             player.getInventory().setBoots(new ItemStack(Material.CHAINMAIL_BOOTS));
             player.getInventory().addItem(new ItemStack(Material.IRON_SWORD));
+            player.getInventory().addItem(new ItemStack(Material.IRON_AXE));
             player.getInventory().addItem(new ItemStack(Material.BOW));
             player.getInventory().addItem(new ItemStack(Material.ARROW,64));
-            player.getInventory().addItem(new ItemStack(Material.IRON_AXE));
-            player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF,64));
 
         } else if(classType == ClassType.ROGUE){
-            player.getInventory().clear();
             player.getInventory().setHelmet(new ItemStack(Material.LEATHER_HELMET));
             player.getInventory().setChestplate(new ItemStack(Material.LEATHER_CHESTPLATE));
             player.getInventory().setLeggings(new ItemStack(Material.LEATHER_LEGGINGS));
             player.getInventory().setBoots(new ItemStack(Material.LEATHER_BOOTS));
             player.getInventory().addItem(new ItemStack(Material.IRON_SWORD));
+            player.getInventory().addItem(new ItemStack(Material.IRON_AXE));
             player.getInventory().addItem(new ItemStack(Material.BOW));
             player.getInventory().addItem(new ItemStack(Material.ARROW,64));
-            player.getInventory().addItem(new ItemStack(Material.IRON_AXE));
-            player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF,64));
         } else if(classType == ClassType.WARLOCK){
-            player.getInventory().clear();
             player.getInventory().setHelmet(new ItemStack(Material.GOLD_HELMET));
             player.getInventory().setChestplate(new ItemStack(Material.GOLD_CHESTPLATE));
             player.getInventory().setLeggings(new ItemStack(Material.GOLD_LEGGINGS));
             player.getInventory().setBoots(new ItemStack(Material.GOLD_BOOTS));
             player.getInventory().addItem(new ItemStack(Material.IRON_SWORD));
             player.getInventory().addItem(new ItemStack(Material.IRON_AXE));
-            player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF,64));
         }
+        ItemStack stack = new ItemStack(Material.MONSTER_EGG, 64);
+
+        SpawnEggMeta meta = (SpawnEggMeta) stack.getItemMeta();
+        meta.setSpawnedType(EntityType.POLAR_BEAR);
+        stack.setItemMeta(meta);
+        player.getInventory().addItem(stack);
     }
 }
