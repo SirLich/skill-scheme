@@ -104,6 +104,10 @@ public class RageSkill extends CooldownSkill{
         refreshCooldown();
     }
 
+    public boolean isEnraged() {
+        return enraged;
+    }
+
     public void setHeadBlock(Material headBlock) {
         this.headBlock = headBlock;
     }
