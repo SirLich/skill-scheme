@@ -1,11 +1,9 @@
 package main.java.plugin.sirlich.skills.active;
 
-import main.java.plugin.sirlich.core.RpgArrow;
+import main.java.plugin.sirlich.core.RpgProjectile;
 import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.skills.meta.CooldownSkill;
 import main.java.plugin.sirlich.skills.meta.PrimedSkill;
 import main.java.plugin.sirlich.utilities.c;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Arrow;
@@ -41,7 +39,7 @@ public class PhantomArrows extends PrimedSkill
     @Override
     public void onArrowHitEntity(ProjectileHitEvent event){
         Entity hitEntity = event.getHitEntity();
-        RpgArrow rpgArrow = RpgArrow.getArrow((Arrow) event.getEntity());
+        RpgProjectile rpgArrow = RpgProjectile.getProjectile((Arrow) event.getEntity());
         RpgPlayer rpgShooter = rpgArrow.getShooter();
         Player shooter = rpgShooter.getPlayer();
 
@@ -66,7 +64,7 @@ public class PhantomArrows extends PrimedSkill
         if(primed){
             Arrow arrow = (Arrow) event.getProjectile();
             primed = false;
-            RpgArrow.addTag(arrow.getUniqueId(),"PHANTOM_ARROW");
+            RpgProjectile.addTag(arrow.getUniqueId(),"PHANTOM_ARROW");
             refreshCooldown();
         }
     }

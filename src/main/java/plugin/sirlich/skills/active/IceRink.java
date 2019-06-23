@@ -51,7 +51,7 @@ public class IceRink extends ManaSkill
                     getRpgPlayer().addMana(- (manaLossPerSecond.get(getLevel())/20 * refreshRate));
 
                     for(Block block : BlockUtils.getNearbyBlocks(getRpgPlayer().getPlayer().getLocation(), radius.get(getLevel()))){
-                        if(block.getType() != Material.AIR && block.getType() != Material.ICE){
+                        if(block.getType() != Material.AIR && block.getType() != Material.ICE && block.getLightLevel() >= 0){
                             BlockUtils.tempPlaceBlock(Material.ICE,block.getLocation(),iceDuration.get(getLevel()));
                         }
                     }

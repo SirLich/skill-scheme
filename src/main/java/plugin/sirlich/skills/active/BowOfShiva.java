@@ -1,6 +1,6 @@
 package main.java.plugin.sirlich.skills.active;
 
-import main.java.plugin.sirlich.core.RpgArrow;
+import main.java.plugin.sirlich.core.RpgProjectile;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.skills.meta.Skill;
 import main.java.plugin.sirlich.utilities.c;
@@ -9,7 +9,6 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.util.Vector;
@@ -44,7 +43,7 @@ public class BowOfShiva extends Skill
 
     @Override
     public void onArrowHitGround(ProjectileHitEvent event){
-        RpgArrow.deregisterArrow((Arrow)event.getEntity());
+        RpgProjectile.deregisterProjectile((Arrow)event.getEntity());
     }
 
 
@@ -79,7 +78,7 @@ public class BowOfShiva extends Skill
 
     @Override
     public void onArrowHitEntity(ProjectileHitEvent event){
-        RpgArrow rpgArrow = RpgArrow.getArrow((Arrow) event.getEntity());
+        RpgProjectile rpgArrow = RpgProjectile.getProjectile((Arrow) event.getEntity());
         RpgPlayer rpgShooter = rpgArrow.getShooter();
         Entity entity = event.getHitEntity();
         if(rpgArrow.hasTag("CHAIN_ARROW") && event.getHitEntity() instanceof  LivingEntity){
@@ -95,10 +94,10 @@ public class BowOfShiva extends Skill
                 Vector v = from.subtract(to).normalize().multiply(-velocity.get(getLevel()));
                 Arrow arrow = livingEntity.launchProjectile(Arrow.class);
                 arrow.setVelocity(v);
-                RpgArrow.registerArrow(arrow,rpgShooter);
+                RpgProjectile.registerProjectile(arrow,rpgShooter);
 
                 if(randomArrowChainChance()){
-                    RpgArrow.addTag(arrow.getUniqueId(),"CHAIN_ARROW");
+                    RpgProjectile.addTag(arrow.getUniqueId(),"CHAIN_ARROW");
                 }
             }
         }
@@ -109,7 +108,7 @@ public class BowOfShiva extends Skill
     public void onBowFire(EntityShootBowEvent event){
         Arrow arrow = (Arrow) event.getProjectile();
         if(randomArrowChainChance()){
-            RpgArrow.addTag(arrow.getUniqueId(),"CHAIN_ARROW");
+            RpgProjectile.addTag(arrow.getUniqueId(),"CHAIN_ARROW");
         }
     }
 }

@@ -1,6 +1,6 @@
 package main.java.plugin.sirlich.skills.meta;
 
-import main.java.plugin.sirlich.core.RpgArrow;
+import main.java.plugin.sirlich.core.RpgProjectile;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import org.bukkit.Material;
 import org.bukkit.entity.Arrow;
@@ -140,7 +140,7 @@ public class SkillHandler implements Listener
             Player player = (Player) event.getEntity();
             RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
             for(Skill skill : rpgPlayer.getSkillList().values()){
-                RpgArrow.registerArrow((Arrow)event.getProjectile(), RpgPlayer.getRpgPlayer((Player)event.getEntity()));
+                RpgProjectile.registerProjectile((Arrow)event.getProjectile(), RpgPlayer.getRpgPlayer((Player)event.getEntity()));
                 skill.onBowFire(event);
             }
         }
@@ -153,13 +153,13 @@ public class SkillHandler implements Listener
         //Arrow hit entity
         if(event.getHitEntity() != null){
             Arrow arrow = (Arrow) event.getEntity();
-            if(RpgArrow.hasArrow(arrow)){
-                RpgArrow rpgArrow = RpgArrow.getArrow(arrow);
-                RpgPlayer rpgPlayer = rpgArrow.getShooter();
+            if(RpgProjectile.hasArrow(arrow)){
+                RpgProjectile rpgProjectile = RpgProjectile.getProjectile(arrow);
+                RpgPlayer rpgPlayer = rpgProjectile.getShooter();
                 for(Skill skill : rpgPlayer.getSkillList().values()){
                     skill.onArrowHitEntity(event);
                 }
-                rpgArrow.deregisterSelf();
+                rpgProjectile.deregisterSelf();
             }
         }
 
@@ -167,8 +167,8 @@ public class SkillHandler implements Listener
         //Arrow hit ground
         else {
             Arrow arrow = (Arrow) event.getEntity();
-            if(RpgArrow.hasArrow(arrow)){
-                RpgArrow rpgArrow = RpgArrow.getArrow(arrow);
+            if(RpgProjectile.hasArrow(arrow)){
+                RpgProjectile rpgArrow = RpgProjectile.getProjectile(arrow);
                 RpgPlayer rpgPlayer = rpgArrow.getShooter();
                 for(Skill skill : rpgPlayer.getSkillList().values()){
                     skill.onArrowHitGround(event);

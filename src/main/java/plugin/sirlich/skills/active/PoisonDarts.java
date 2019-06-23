@@ -1,6 +1,6 @@
 package main.java.plugin.sirlich.skills.active;
 
-import main.java.plugin.sirlich.core.RpgArrow;
+import main.java.plugin.sirlich.core.RpgProjectile;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.skills.meta.TickingSkill;
 import main.java.plugin.sirlich.utilities.c;
@@ -48,7 +48,7 @@ public class PoisonDarts extends TickingSkill
 
     @Override
     public void onArrowHitGround(ProjectileHitEvent event){
-        RpgArrow rpgArrow = RpgArrow.getArrow(event.getEntity().getUniqueId());
+        RpgProjectile rpgArrow = RpgProjectile.getProjectile(event.getEntity().getUniqueId());
         if(rpgArrow.hasTag("POISON_DART")){
             event.getEntity().remove();
         }
@@ -58,7 +58,7 @@ public class PoisonDarts extends TickingSkill
     @Override
     public void onArrowHitEntity(ProjectileHitEvent event){
         Entity entity = event.getHitEntity();
-        RpgArrow rpgArrow = RpgArrow.getArrow((Arrow) event.getEntity());
+        RpgProjectile rpgArrow = RpgProjectile.getProjectile((Arrow) event.getEntity());
         if(entity instanceof LivingEntity && rpgArrow.hasTag("POISON_DART")){
             LivingEntity livingEntity = (LivingEntity) entity;
             livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.POISON,poisonDuration.get(getLevel()),1),true);
@@ -72,8 +72,8 @@ public class PoisonDarts extends TickingSkill
         } else {
             Arrow arrow = event.getPlayer().launchProjectile(Arrow.class);
             arrow.setVelocity(arrow.getVelocity().multiply(0.5));
-            RpgArrow.registerArrow(arrow,RpgPlayer.getRpgPlayer(event.getPlayer()));
-            RpgArrow rpgArrow = RpgArrow.getArrow(arrow.getUniqueId());
+            RpgProjectile.registerProjectile(arrow,RpgPlayer.getRpgPlayer(event.getPlayer()));
+            RpgProjectile rpgArrow = RpgProjectile.getProjectile(arrow.getUniqueId());
             rpgArrow.addTag("POISON_DART");
             charges--;
             getRpgPlayer().chat(ChatColor.GREEN + "Poison Darts: " + ChatColor.GRAY + charges);
