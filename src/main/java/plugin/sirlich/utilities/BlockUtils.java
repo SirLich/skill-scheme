@@ -23,6 +23,7 @@ public class BlockUtils implements Listener
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event){
+        //Deny block breaking if the block is placed as part of a temporary block placement.
         if(event.getPlayer() != null && dontBreak.contains(event.getBlock().getLocation())){
             event.setCancelled(true);
         }
@@ -36,12 +37,7 @@ public class BlockUtils implements Listener
         if(event.getPlayer() != null &&
                 event.getPlayer().getGameMode() == GameMode.CREATIVE &&
                 event.getPlayer().getInventory().getItemInMainHand() != null &&
-                (event.getPlayer().getInventory().getItemInMainHand().getType() == Material.WOOD_AXE||
-                event.getPlayer().getInventory().getItemInMainHand().getType() == Material.STONE_AXE ||
-                event.getPlayer().getInventory().getItemInMainHand().getType() == Material.IRON_AXE ||
-                event.getPlayer().getInventory().getItemInMainHand().getType() == Material.GOLD_AXE ||
-                event.getPlayer().getInventory().getItemInMainHand().getType() == Material.DIAMOND_AXE) ||
-                event.getPlayer().getInventory().getItemInMainHand().getType() == Material.BOW){
+                WeaponUtils.isWeapon(event.getPlayer().getInventory().getItemInMainHand().getType())){
             event.setCancelled(true);
         }
     }

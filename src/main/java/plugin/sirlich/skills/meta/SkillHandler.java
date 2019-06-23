@@ -17,6 +17,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
+import static main.java.plugin.sirlich.utilities.WeaponUtils.*;
+
 public class SkillHandler implements Listener
 {
 
@@ -258,24 +260,5 @@ public class SkillHandler implements Listener
                 skill.onSwap(event);
             }
         }
-    }
-
-    private boolean isMeleeWeapon(Material material){
-        return isSword(material) || isAxe(material);
-    }
-    private boolean isSword(Material material){
-        return material.equals(Material.WOOD_SWORD) ||
-                material.equals(Material.STONE_SWORD) ||
-                material.equals(Material.IRON_SWORD) ||
-                material.equals(Material.DIAMOND_SWORD)||
-                material.equals(Material.GOLD_SWORD);
-    }
-
-    private boolean isAxe(Material material){
-        return material.equals(Material.WOOD_AXE) ||
-                material.equals(Material.STONE_AXE) ||
-                material.equals(Material.IRON_AXE) ||
-                material.equals(Material.DIAMOND_AXE) ||
-                material.equals(Material.GOLD_AXE);
     }
 }
