@@ -25,15 +25,8 @@ public class ManaCharger extends Skill {
             public void run() {
                 //If the player is "resting", than give some mana
                 if(!getRpgPlayer().isModifierActive()){
-                    System.out.println("Adding mana:");
-                    System.out.println(manaPerSecond);
-                    System.out.println(ticksPerCycle);
                     float manaPerTick = (float)manaPerSecond/20;
-                    System.out.println(manaPerTick);
-
                     getRpgPlayer().addMana(Math.round(manaPerTick * ticksPerCycle));
-                } else {
-                    System.out.println("FALSWE");
                 }
             }
         }, 0L, ticksPerCycle);

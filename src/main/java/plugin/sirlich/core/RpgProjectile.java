@@ -53,8 +53,8 @@ public class RpgProjectile {
     public void addTag(String tag){
         this.tags.add(tag);
     }
-    public static boolean hasArrow(Arrow arrow){
-        return projectileMap.containsKey(arrow.getUniqueId());
+    public static boolean hasProjectile(Projectile projectile){
+        return projectileMap.containsKey(projectile.getUniqueId());
     }
 
     public RpgPlayer getShooter(){

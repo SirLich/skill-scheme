@@ -60,6 +60,7 @@ public class RpgPlayer
     public static void removePlayer(Player player) {
         RpgPlayer rpgPlayer = rpgPlayerHashMap.get(player.getUniqueId());
         rpgPlayer.clearSkills();
+        rpgPlayer.setWalkSpeedModifier(0.2);
         playerHashMap.remove(rpgPlayer);
         rpgPlayerHashMap.remove(player.getUniqueId());
     }
@@ -84,9 +85,7 @@ public class RpgPlayer
     }
 
     public void addMana(int mana){
-        System.out.println(mana);
         float newMana = getPlayer().getExp() + ((float)mana)/100;
-        System.out.println(newMana);
         if(newMana < 0){
             newMana = 0;
         } else if(newMana > 1.0f){
