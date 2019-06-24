@@ -162,6 +162,11 @@ public class SkillEditObject
             player.getInventory().setBoots(new ItemStack(Material.DIAMOND_BOOTS));
             player.getInventory().addItem(new ItemStack(Material.IRON_SWORD));
             player.getInventory().addItem(new ItemStack(Material.IRON_AXE));
+            ItemStack stack = new ItemStack(Material.MONSTER_EGG, 64);
+            SpawnEggMeta meta = (SpawnEggMeta) stack.getItemMeta();
+            meta.setSpawnedType(EntityType.POLAR_BEAR);
+            stack.setItemMeta(meta);
+            player.getInventory().addItem(stack);
         } else if(classType == ClassType.FIGHTER){
             player.getInventory().setHelmet(new ItemStack(Material.IRON_HELMET));
             player.getInventory().setChestplate(new ItemStack(Material.IRON_CHESTPLATE));
@@ -169,6 +174,11 @@ public class SkillEditObject
             player.getInventory().setBoots(new ItemStack(Material.IRON_BOOTS));
             player.getInventory().addItem(new ItemStack(Material.IRON_SWORD));
             player.getInventory().addItem(new ItemStack(Material.IRON_AXE));
+            ItemStack stack = new ItemStack(Material.MONSTER_EGG, 64);
+            SpawnEggMeta meta = (SpawnEggMeta) stack.getItemMeta();
+            meta.setSpawnedType(EntityType.POLAR_BEAR);
+            stack.setItemMeta(meta);
+            player.getInventory().addItem(stack);
         }  else if(classType == ClassType.RANGER){
             player.getInventory().setHelmet(new ItemStack(Material.CHAINMAIL_HELMET));
             player.getInventory().setChestplate(new ItemStack(Material.CHAINMAIL_CHESTPLATE));
@@ -178,6 +188,11 @@ public class SkillEditObject
             player.getInventory().addItem(new ItemStack(Material.IRON_AXE));
             player.getInventory().addItem(new ItemStack(Material.BOW));
             player.getInventory().addItem(new ItemStack(Material.ARROW,64));
+            ItemStack stack = new ItemStack(Material.MONSTER_EGG, 64);
+            SpawnEggMeta meta = (SpawnEggMeta) stack.getItemMeta();
+            meta.setSpawnedType(EntityType.POLAR_BEAR);
+            stack.setItemMeta(meta);
+            player.getInventory().addItem(stack);
 
         } else if(classType == ClassType.ROGUE){
             player.getInventory().setHelmet(new ItemStack(Material.LEATHER_HELMET));
@@ -188,6 +203,11 @@ public class SkillEditObject
             player.getInventory().addItem(new ItemStack(Material.IRON_AXE));
             player.getInventory().addItem(new ItemStack(Material.BOW));
             player.getInventory().addItem(new ItemStack(Material.ARROW,64));
+            ItemStack stack = new ItemStack(Material.MONSTER_EGG, 64);
+            SpawnEggMeta meta = (SpawnEggMeta) stack.getItemMeta();
+            meta.setSpawnedType(EntityType.POLAR_BEAR);
+            stack.setItemMeta(meta);
+            player.getInventory().addItem(stack);
         } else if(classType == ClassType.WARLOCK){
             player.getInventory().setHelmet(new ItemStack(Material.GOLD_HELMET));
             player.getInventory().setChestplate(new ItemStack(Material.GOLD_CHESTPLATE));
@@ -195,12 +215,11 @@ public class SkillEditObject
             player.getInventory().setBoots(new ItemStack(Material.GOLD_BOOTS));
             player.getInventory().addItem(new ItemStack(Material.IRON_SWORD));
             player.getInventory().addItem(new ItemStack(Material.IRON_AXE));
+            ItemStack stack = new ItemStack(Material.MONSTER_EGG, 64);
+            SpawnEggMeta meta = (SpawnEggMeta) stack.getItemMeta();
+            meta.setSpawnedType(EntityType.POLAR_BEAR);
+            stack.setItemMeta(meta);
+            player.getInventory().addItem(stack);
         }
-        ItemStack stack = new ItemStack(Material.MONSTER_EGG, 64);
-
-        SpawnEggMeta meta = (SpawnEggMeta) stack.getItemMeta();
-        meta.setSpawnedType(EntityType.POLAR_BEAR);
-        stack.setItemMeta(meta);
-        player.getInventory().addItem(stack);
     }
 }

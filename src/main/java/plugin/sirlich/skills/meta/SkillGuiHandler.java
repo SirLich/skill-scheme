@@ -219,6 +219,10 @@ public class SkillGuiHandler implements Listener
 
         ArrayList<String> loreLines = skill.getDescription(level);
 
+        for(int i = 0; i < loreLines.size(); i ++){
+            loreLines.set(i, ChatColor.translateAlternateColorCodes('&', loreLines.get(i)));
+        }
+
         itemMeta.setLore(loreLines);
         itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);

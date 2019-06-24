@@ -2,6 +2,7 @@ package main.java.plugin.sirlich.skills.meta;
 
 import main.java.plugin.sirlich.SkillScheme;
 import main.java.plugin.sirlich.core.RpgPlayer;
+import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -27,6 +28,7 @@ public class Skill
 
 
     public Skill(RpgPlayer rpgPlayer, int level, String id){
+        description.add(c.dgray + "This skill does not have a description!");
         this.id = id;
         this.rpgPlayer = rpgPlayer;
         this.level = level;
@@ -62,12 +64,13 @@ public class Skill
     }
 
     public ArrayList<String> getDescription(int level){
-        return this.description;
+        if(getYaml(id).contains("values.description")){
+            return (ArrayList<String>) getYaml(id).getStringList("values.description");
+        } else {
+            return description;
+        }
     }
 
-    public void setDescription(ArrayList<String> lore){
-        this.description = lore;
-    }
 
     public int getLevel()
     {
@@ -163,7 +166,7 @@ public class Skill
     }
 
     public void onAxeRightClick(PlayerInteractEvent event){
-
+        System.out.println("AXE");
     }
 
     public void onSwap(PlayerSwapHandItemsEvent event){

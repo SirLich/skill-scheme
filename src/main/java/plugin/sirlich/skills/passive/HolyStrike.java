@@ -17,8 +17,8 @@ public class HolyStrike extends Skill
     private static List<Double> chance = getYaml(id).getDoubleList("values.chance");
     private static List<Double> knockback = getYaml(id).getDoubleList("values.knockback");
 
-    @Override
-    public ArrayList<String> getDescription(int level){
+
+    public ArrayList<String> getDDescription(int level){
         ArrayList<String> lorelines = new ArrayList<String>();
         lorelines.add(c.dgray + "Smack your opponents down with the ");
         lorelines.add(c.dgray + "righteous sword of good! Gain a passive knockback");
