@@ -24,7 +24,6 @@ public class ArcherTower extends CooldownSkill
     private static List<Integer> duration = getYaml(id).getIntegerList("values.duration");
 
     private static boolean deployed = false;
-
     public ArcherTower(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer,level,"ArcherTower");
     }
@@ -33,20 +32,6 @@ public class ArcherTower extends CooldownSkill
         return location.getWorld().getBlockAt(location).getType().equals(Material.AIR);
     }
 
-
-    @Override
-    public ArrayList<String> getDescription(int level){
-        ArrayList<String> lorelines = new ArrayList<String>();
-        lorelines.add(c.dgray + "Retreat from the battlefield for a few moment");
-        lorelines.add(c.dgray + "in this portable, temporary archer-tower");
-        lorelines.add("");
-        lorelines.add(c.dgray + "Press " + c.aqua + "F" + c.dgray + " to activate");
-        lorelines.add("");
-        lorelines.add(c.dgray + "Cooldown: " + c.green + getCooldown()/20 + c.dgray + " seconds");
-        lorelines.add(c.dgray + "Lifespan: " + c.green + duration.get(level)/20 + c.dgray + " seconds");
-
-        return lorelines;
-    }
 
     @Override
     public void onFallDamageSelf(EntityDamageEvent event){

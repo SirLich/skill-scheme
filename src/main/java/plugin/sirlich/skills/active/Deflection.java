@@ -21,23 +21,8 @@ public class Deflection extends CooldownSkill
     }
 
     @Override
-    public ArrayList<String> getDescription(int level){
-        ArrayList<String> lorelines = new ArrayList<String>();
-        lorelines.add(c.dgray + "Retreat from fights at high velocity");
-        lorelines.add(c.dgray + "by blocking melee attacks.");
-        lorelines.add("");
-        lorelines.add(c.aqua + "Sword-Block" + c.dgray + " melee attacks to fire");
-        lorelines.add("");
-        lorelines.add(c.dgray + "Cooldown: " + c.green + getCooldown()/20 + c.dgray + " seconds");
-        lorelines.add(c.dgray + "Power: " + c.green + power.get(level) + c.dgray);
-        return lorelines;
-    }
-
-
-    @Override
     public void onMeleeAttackSelf(EntityDamageByEntityEvent event){
         Player self = (Player) event.getEntity();
-        Player attacker = (Player) event.getEntity();
         if(self.isBlocking()){
             if(isCooldown()){return;}
             RpgPlayer.getRpgPlayer(self).playSound(Sound.BLOCK_ANVIL_PLACE);

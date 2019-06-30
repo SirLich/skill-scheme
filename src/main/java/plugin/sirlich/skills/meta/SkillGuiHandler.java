@@ -4,6 +4,7 @@ import de.tr7zw.itemnbtapi.NBTItem;
 import main.java.plugin.sirlich.SkillScheme;
 import main.java.plugin.sirlich.core.PlayerState;
 import main.java.plugin.sirlich.core.RpgPlayer;
+import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -219,8 +220,9 @@ public class SkillGuiHandler implements Listener
 
         ArrayList<String> loreLines = skill.getDescription(level);
 
+        //Polish the lorelines before display!
         for(int i = 0; i < loreLines.size(); i ++){
-            loreLines.set(i, ChatColor.translateAlternateColorCodes('&', loreLines.get(i)));
+            loreLines.set(i, ChatColor.translateAlternateColorCodes('&', c.dgray + loreLines.get(i)));
         }
 
         itemMeta.setLore(loreLines);

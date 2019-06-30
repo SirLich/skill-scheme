@@ -5,6 +5,9 @@ import main.java.plugin.sirlich.skills.meta.Skill;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import java.lang.ref.SoftReference;
+import java.util.ArrayList;
+
 public class ChatUtilities
 {
     public void basicChat(Player p, String m){

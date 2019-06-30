@@ -30,20 +30,6 @@ public class AxeOfPerun extends Skill
     }
 
     @Override
-    public ArrayList<String> getDescription(int level){
-        ArrayList<String> lorelines = new ArrayList<String>();
-        lorelines.add(c.gray + c.italic + "Rage with the power of the ancient gods!");
-        lorelines.add("");
-        lorelines.add(c.dgray + "Chain axe attacks together to become bloodlusted.");
-        lorelines.add(c.dgray + "When bloodlusted, you deal extra damage.");
-        lorelines.add("");
-        lorelines.add(c.dgray + "Gain bloodlust after: " + c.green + maxStack.get(level)/2 + c.dgray + " hits");
-        lorelines.add(c.dgray + "Must chain within: " + c.green + cooldown.get(level)/20 + c.dgray + " seconds, or lose bloodlust");
-        lorelines.add(c.dgray + "Bonus Damage: " + c.green + bonusDamagePerHit.get(level)/2 + c.dgray + " hearts");
-        return lorelines;
-    }
-
-    @Override
     public void onEnable(){
         schedularID = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(SkillScheme.getInstance(), new Runnable() {
             public void run() {

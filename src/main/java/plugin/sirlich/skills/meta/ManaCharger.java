@@ -7,8 +7,8 @@ import org.bukkit.Bukkit;
 public class ManaCharger extends Skill {
     private int schedularID;
     private static String id = "ManaCharger";
-    private static Integer manaPerSecond = getYaml(id).getInt("values.manaPerSecond");
-    private static Integer ticksPerCycle = getYaml(id).getInt("values.ticksPerCycle");
+    private static Integer manaPerSecond = getYaml(id).getInt("manaPerSecond");
+    private static Integer ticksPerCycle = getYaml(id).getInt("ticksPerCycle");
 
     public ManaCharger(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer,level,"ManaCharger");

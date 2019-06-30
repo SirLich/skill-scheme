@@ -19,20 +19,6 @@ public class ClassicFireball extends CooldownSkill
     }
 
     @Override
-    public ArrayList<String> getDescription(int level){
-        ArrayList<String> lorelines = new ArrayList<String>();
-        lorelines.add(c.dgray + "Fire and brimstone!");
-        lorelines.add(c.dgray + "Shoot fire-balls at unsuspecting foes.");
-        lorelines.add("");
-        lorelines.add(c.dgray + "Right-Click" + c.aqua + " axe " + c.dgray + "to fire");
-        lorelines.add("");
-        lorelines.add(c.dgray + "Cooldown: " + c.green + getCooldown()/20 + c.dgray + " seconds");
-        lorelines.add(c.dgray + "Yield: " + c.green + yield.get(level) + c.dgray);
-        return lorelines;
-    }
-
-
-    @Override
     public void onAxeRightClick(PlayerInteractEvent entityEvent){
         if(isCooldown()){return;}
         Fireball f = getRpgPlayer().getPlayer().launchProjectile(Fireball.class);

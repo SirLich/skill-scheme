@@ -1,6 +1,7 @@
 package main.java.plugin.sirlich;
 
 import main.java.plugin.sirlich.core.*;
+import main.java.plugin.sirlich.skills.meta.SkillData;
 import main.java.plugin.sirlich.utilities.BlockUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -31,6 +32,7 @@ public class SkillScheme extends JavaPlugin
         for(Player player : Bukkit.getOnlinePlayers()){
             PlayerJoinHandler.initializePlayerData(player);
         }
+        SkillData.initializeSkillData();
     }
 
     @Override

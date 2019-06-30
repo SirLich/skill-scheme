@@ -30,18 +30,6 @@ public class WebShot extends PrimedSkill
         attemptPrime();
     }
 
-    @Override
-    public ArrayList<String> getDescription(int level){
-        ArrayList<String> lorelines = new ArrayList<String>();
-        lorelines.add(c.dgray + "Shoot webs from bow. ");
-        lorelines.add("");
-        lorelines.add(c.dgray + "Left-Click" + c.aqua + " bow " + c.dgray + "to prime.");
-        lorelines.add("");
-        lorelines.add(c.dgray + "Cooldown: " + c.green + getCooldown()/20 + c.dgray + " seconds");
-        lorelines.add(c.dgray + "Duration: " + c.green + duration.get(level)/20 + c.dgray + " seconds");
-        return lorelines;
-    }
-
 
     @Override
     public void onArrowHitEntity(ProjectileHitEvent event){

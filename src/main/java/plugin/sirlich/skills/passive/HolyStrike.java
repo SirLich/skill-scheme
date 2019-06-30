@@ -19,6 +19,7 @@ public class HolyStrike extends Skill
 
 
     public ArrayList<String> getDDescription(int level){
+
         ArrayList<String> lorelines = new ArrayList<String>();
         lorelines.add(c.dgray + "Smack your opponents down with the ");
         lorelines.add(c.dgray + "righteous sword of good! Gain a passive knockback");

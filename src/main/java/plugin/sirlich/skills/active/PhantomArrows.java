@@ -24,19 +24,6 @@ public class PhantomArrows extends PrimedSkill
     }
 
     @Override
-    public ArrayList<String> getDescription(int level){
-        ArrayList<String> lorelines = new ArrayList<String>();
-        lorelines.add(c.dgray + "Confusion and turmoil are sure to follow");
-        lorelines.add(c.dgray + "the use of this teleportation bow.");
-        lorelines.add("");
-        lorelines.add(c.dgray + "Left-Click" + c.aqua + " bow " + c.dgray + "to prime.");
-        lorelines.add(c.dgray + "Shoot with the " + c.aqua + "bow" + c.dgray + " while primed to swap places with your target.");
-        lorelines.add("");
-        lorelines.add(c.dgray + "Cooldown: " + c.green + getCooldown()/20 + c.dgray + " seconds");
-        return lorelines;
-    }
-
-    @Override
     public void onArrowHitEntity(ProjectileHitEvent event){
         Entity hitEntity = event.getHitEntity();
         RpgProjectile rpgArrow = RpgProjectile.getProjectile((Arrow) event.getEntity());

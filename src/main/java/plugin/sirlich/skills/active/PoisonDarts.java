@@ -29,22 +29,6 @@ public class PoisonDarts extends TickingSkill
         charges = 0;
     }
 
-    @Override
-    public ArrayList<String> getDescription(int level){
-        ArrayList<String> lorelines = new ArrayList<String>();
-        lorelines.add(c.dgray + "Distract your enemies with instant-fire");
-        lorelines.add(c.dgray + "poison-tipped arrows.");
-        lorelines.add("");
-        lorelines.add(c.dgray + "Right-Click" + c.aqua + " bow " + c.dgray + "to activate");
-        lorelines.add("");
-        lorelines.add(c.dgray + "1 arrow per " + c.green + getTicks()/20 + c.dgray + " seconds");
-        double duration = (double) poisonDuration.get(level)/20;
-
-        lorelines.add(c.dgray + "Poison lasts for " + c.green + duration + c.dgray + " seconds");
-        lorelines.add(c.dgray + "Max of " + c.green + maxDarts.get(level) + c.dgray + " darts");
-        return lorelines;
-    }
-
 
     @Override
     public void onArrowHitGround(ProjectileHitEvent event){

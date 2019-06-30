@@ -26,19 +26,6 @@ public class EscapeArtist extends CooldownSkill
         super(rpgPlayer,level, id);
     }
 
-    @Override
-    public ArrayList<String> getDescription(int level){
-        ArrayList<String> lorelines = new ArrayList<String>();
-        lorelines.add(c.dgray + "Instantly disengage from sticky situations");
-        lorelines.add(c.dgray + "by going back in time.");
-        lorelines.add("");
-        lorelines.add(c.dgray + "Press " + c.aqua + "F" + c.dgray + " to activate");
-        lorelines.add("");
-        lorelines.add(c.dgray + "Cooldown: " + c.green + getCooldown()/20 + c.dgray + " seconds");
-        lorelines.add(c.dgray + "Time-travel: " + c.green + ticks.get(level)/20 + c.dgray + " seconds");
-        return lorelines;
-    }
-
 
     @Override
     public void onEnable(){

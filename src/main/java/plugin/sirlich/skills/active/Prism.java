@@ -46,19 +46,6 @@ public class Prism extends CooldownSkill
 
 
     @Override
-    public ArrayList<String> getDescription(int level){
-        ArrayList<String> lorelines = new ArrayList<String>();
-        lorelines.add(c.dgray + "Retreat from the fighting in this quick-deploy");
-        lorelines.add(c.dgray + "crystal prism.");
-        lorelines.add("");
-        lorelines.add(c.dgray + "Press " + c.aqua + "F" + c.dgray + " to activate");
-        lorelines.add("");
-        lorelines.add(c.dgray + "Cooldown: " + c.green + getCooldown()/20 + c.dgray + " seconds");
-        lorelines.add(c.dgray + "Duration: " + c.green + duration.get(level)/20 + c.dgray + " seconds");
-        return lorelines;
-    }
-
-    @Override
     public void onSuffocationDamageSelf(EntityDamageEvent event){
         if(deployed){
             event.setDamage(0);

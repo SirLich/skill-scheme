@@ -16,13 +16,6 @@ public class BladeOfConfusion extends PrimedSkill {
     }
 
     @Override
-    public ArrayList<String> getDescription(int level){
-        ArrayList<String> lorelines = new ArrayList<String>();
-        lorelines.add(c.dgray + "Blade of confusion sets pitch/yaw random");
-        return lorelines;
-    }
-
-    @Override
     public void onSwordRightClick(PlayerInteractEvent event){
         attemptPrime();
     }

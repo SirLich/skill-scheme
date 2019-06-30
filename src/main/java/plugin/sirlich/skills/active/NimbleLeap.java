@@ -21,20 +21,6 @@ public class NimbleLeap extends CooldownSkill
     }
 
     @Override
-    public ArrayList<String> getDescription(int level){
-        ArrayList<String> lorelines = new ArrayList<String>();
-        lorelines.add(c.dgray + "Leap around the map at high-speeds with");
-        lorelines.add(c.dgray + "this mobility focused skill.");
-        lorelines.add("");
-        lorelines.add(c.dgray + "Right-Click" + c.aqua + " axe " + c.dgray + "to leap");
-        lorelines.add("");
-        lorelines.add(c.dgray + "Cooldown: " + c.green + getCooldown()/20 + c.dgray + " seconds");
-        lorelines.add(c.dgray + "Power: " + c.green + power.get(level) + c.dgray);
-        return lorelines;
-    }
-
-
-    @Override
     public void onAxeRightClick(PlayerInteractEvent event){
         if(isCooldown()){return;}
         Player player = getRpgPlayer().getPlayer();

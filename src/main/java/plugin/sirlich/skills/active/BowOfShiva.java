@@ -13,7 +13,6 @@ import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.util.Vector;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BowOfShiva extends Skill
@@ -26,20 +25,6 @@ public class BowOfShiva extends Skill
     public BowOfShiva(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer,level,"BowOfShiva");
     }
-
-    @Override
-    public ArrayList<String> getDescription(int level){
-        ArrayList<String> lorelines = new ArrayList<String>();
-        lorelines.add(c.gray + c.italic + "\"Enough nonsense, Ravager! Time to die.\"");
-        lorelines.add("");
-        lorelines.add(c.dgray + "Arrows have a chance to chain on hit.");
-        lorelines.add(c.dgray + "Arrows can chain multiple times.");
-        lorelines.add("");
-        lorelines.add(c.dgray + "Radius: " + c.green + radius.get(getLevel()) + c.dgray + " blocks");
-        lorelines.add(c.dgray + "Chance: " + c.green + chance.get(getLevel()) * 100 + c.dgray + "%");
-        return lorelines;
-    }
-
 
     @Override
     public void onArrowHitGround(ProjectileHitEvent event){

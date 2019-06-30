@@ -29,18 +29,6 @@ public class IceRink extends ManaSkill
     }
 
     @Override
-    public ArrayList<String> getDescription(int level){
-        ArrayList<String> lorelines = new ArrayList<String>();
-        lorelines.add(c.gray + c.italic + "Freeze the world!");
-        lorelines.add("");
-        lorelines.add(c.dgray + "Create an icy circle around you while active.");
-        lorelines.add(c.dgray + "Good for crossing water.");
-        lorelines.add("");
-        lorelines.add(c.dgray + "Radius: " + c.green + radius.get(level) + c.dgray + " blocks");
-        return lorelines;
-    }
-
-    @Override
     public void onEnable(){
         schedularID = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(SkillScheme.getInstance(), new Runnable() {
             public void run() {

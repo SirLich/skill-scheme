@@ -23,22 +23,6 @@ public class StrikeTheEarth extends CooldownSkill
     }
 
     @Override
-    public ArrayList<String> getDescription(int level){
-        ArrayList<String> lorelines = new ArrayList<String>();
-        lorelines.add(c.dgray + "Strike the earth to Provide strong knockback force to enemies");
-        lorelines.add(c.dgray + "within range. Perfect for mixing up the battle-field and keeping");
-        lorelines.add(c.dgray + "your foes on their toes!");
-        lorelines.add("");
-        lorelines.add(c.dgray + "Press " + c.aqua + "F" + c.dgray + " to activate.");
-        lorelines.add("");
-        lorelines.add(c.dgray + "Cooldown: " + c.green + getCooldown()/20 + c.dgray + " seconds");
-        lorelines.add(c.dgray + "Cooldown: " + c.green + range.get(level)/20 + c.dgray + " seconds");
-        lorelines.add(c.dgray + "Power: " + c.green + power.get(level) + c.dgray);
-        return lorelines;
-    }
-
-
-    @Override
     public void onSwap(PlayerSwapHandItemsEvent event){
         if(isCooldown()){return;}
         Double r = range.get(getLevel());

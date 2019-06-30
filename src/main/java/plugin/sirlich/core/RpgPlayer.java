@@ -167,10 +167,9 @@ public class RpgPlayer
     public String getName(){
         return getPlayer().getName();
     }
+
     public void teleport(Location location){
         location.setWorld(getPlayer().getLocation().getWorld());
-
-        System.out.println(location.toString());
         getPlayer().teleport(location);
     }
     public void removeSkill(SkillType skillType){

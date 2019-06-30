@@ -14,6 +14,8 @@ import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Skill
 {
@@ -32,9 +34,9 @@ public class Skill
         this.id = id;
         this.rpgPlayer = rpgPlayer;
         this.level = level;
-        this.cost = getYaml(id).getInt("values.cost");
-        this.maxLevel = getYaml(id).getInt("values.maxLevel");
-        this.name = getYaml(id).getString("values.name");
+        this.cost = getYaml(id).getInt("cost");
+        this.maxLevel = getYaml(id).getInt("maxLevel");
+        this.name = getYaml(id).getString("name");
     }
 
 
@@ -63,9 +65,44 @@ public class Skill
         return this.id;
     }
 
+
+    private static ArrayList<String> processDescription(ArrayList<String> description, String id, int level){
+        ArrayList<String> newDescription = new ArrayList<String>();
+        for(int i = 0; i < description.size(); i ++){
+            newDescription.add(processDescriptionLine(description.get(i), id, level));
+        }
+        return newDescription;
+    }
+
+
+    private static String processDescriptionLine(String line, String id, int level){
+        FileConfiguration yml = getYaml(id);
+        String regex = "\\[(.*?)\\]";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(line);
+        if(matcher.find()){
+            String match = matcher.group();
+            String skillCode = match.replace("[","").replace("]","");
+            String[] split = skillCode.split(" ");
+            String skillName = split[0];
+            Double skillValue = SkillData.getSkillValue(id, skillName, level);
+            if(split.length > 2){
+                String operator = split[1];
+                Double value = Double.parseDouble(split[2]);
+                if(operator.equals("*")){
+                    skillValue = skillValue * value;
+                } else if(operator.equals("/")){
+                    skillValue = skillValue / value;
+                }
+            }
+            line = line.replace(match, c.green + skillValue.toString() + c.dgray);
+        }
+        return line;
+    }
+
     public ArrayList<String> getDescription(int level){
-        if(getYaml(id).contains("values.description")){
-            return (ArrayList<String>) getYaml(id).getStringList("values.description");
+        if(getYaml(id).contains("description")){
+            return processDescription((ArrayList<String>) getYaml(id).getStringList("description"), id, level);
         } else {
             return description;
         }
@@ -166,7 +203,7 @@ public class Skill
     }
 
     public void onAxeRightClick(PlayerInteractEvent event){
-        System.out.println("AXE");
+
     }
 
     public void onSwap(PlayerSwapHandItemsEvent event){
