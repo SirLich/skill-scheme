@@ -5,10 +5,7 @@ import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityShootBowEvent;
-import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
@@ -185,6 +182,9 @@ public class Skill
 
     }
 
+    public void onDeath(PlayerDeathEvent event){
+
+    }
 
     public void onBowMeleeAttack(EntityDamageByEntityEvent event){
 

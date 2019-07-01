@@ -252,7 +252,7 @@ public class RpgPlayer
         }
     }
 
-    public static boolean sameTeam(RpgPlayer a, RpgPlayer b){
+    public static boolean isSameTeam(RpgPlayer a, RpgPlayer b){
         return a.getTeam().equals(b.getTeam());
     }
 

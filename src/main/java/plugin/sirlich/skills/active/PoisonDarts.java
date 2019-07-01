@@ -3,7 +3,6 @@ package main.java.plugin.sirlich.skills.active;
 import main.java.plugin.sirlich.core.RpgProjectile;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.skills.meta.TickingSkill;
-import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.*;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
@@ -13,7 +12,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PoisonDarts extends TickingSkill

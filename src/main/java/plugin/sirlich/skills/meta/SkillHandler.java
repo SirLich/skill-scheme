@@ -9,10 +9,7 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityShootBowEvent;
-import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -144,6 +141,17 @@ public class SkillHandler implements Listener
             for(Skill skill : rpgPlayer.getSkillList().values()){
                 RpgProjectile.registerProjectile((Arrow)event.getProjectile(), RpgPlayer.getRpgPlayer((Player)event.getEntity()));
                 skill.onBowFire(event);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onDeath(PlayerDeathEvent event){
+        if(RpgPlayer.isPlayer(event.getEntity().getUniqueId())){
+            Player player = event.getEntity();
+            RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
+            for(Skill skill : rpgPlayer.getSkillList().values()){
+                skill.onDeath(event);
             }
         }
     }

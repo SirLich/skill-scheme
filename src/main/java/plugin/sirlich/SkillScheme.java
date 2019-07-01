@@ -1,6 +1,7 @@
 package main.java.plugin.sirlich;
 
 import main.java.plugin.sirlich.core.*;
+import main.java.plugin.sirlich.skills.meta.DeathSkill;
 import main.java.plugin.sirlich.skills.meta.SkillData;
 import main.java.plugin.sirlich.utilities.BlockUtils;
 import org.bukkit.Bukkit;
