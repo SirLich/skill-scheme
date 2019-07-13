@@ -46,7 +46,7 @@ public class RageSkill extends CooldownSkill{
 
     public boolean attemptRage(){
         if(enraged){
-            getRpgPlayer().chat(currentlyEnragedText);
+            getRpgPlayer().tell(currentlyEnragedText);
             getRpgPlayer().playSound(currentlyEnragedSound);
             return false;
         } else {
@@ -59,7 +59,7 @@ public class RageSkill extends CooldownSkill{
                 onEnrage();
 
                 //Play media
-                getRpgPlayer().chat(becomeEnragedText);
+                getRpgPlayer().tell(becomeEnragedText);
                 getRpgPlayer().playSound(becomeEnragedSound);
 
                 //Set Helmet
@@ -97,7 +97,7 @@ public class RageSkill extends CooldownSkill{
         getRpgPlayer().getPlayer().getInventory().setHelmet(new ItemStack(Material.AIR));
 
         //Play media
-        getRpgPlayer().chat(stoppedRagingText);
+        getRpgPlayer().tell(stoppedRagingText);
         getRpgPlayer().playSound(stoppedRagingSound);
 
         //Refresh cooldown:

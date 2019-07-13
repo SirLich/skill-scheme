@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import main.java.plugin.sirlich.skills.meta.Skill;
 import main.java.plugin.sirlich.skills.meta.SkillEditObject;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.lang.reflect.Constructor;
 import java.util.*;
@@ -150,6 +151,20 @@ public class RpgPlayer
 
     }
 
+    public void addEffect(PotionEffectType potionEffectType, int level, int ticks){
+        Collection<PotionEffect> effects = getPlayer().getActivePotionEffects();
+
+        //Search through effects for duplicates
+        for(PotionEffect effect : effects){
+
+            //Found a duplicate
+            if(effect.getType() == potionEffectType){
+
+            }
+        }
+
+    }
+
     public void removeAllPotionEffects(){
         for (PotionEffect effect : player.getActivePotionEffects()){
             player.removePotionEffect(effect.getType());
@@ -199,9 +214,12 @@ public class RpgPlayer
         return player;
     }
 
-    public void chat(String message){
+    public void tell(String message){
         getPlayer().sendMessage(c.green + message);
     }
+
+    //TODO Eventually add method here with Bucket.broadcastMessage()
+    //public void say(String message){}
 
     private Player player;
 
@@ -247,7 +265,7 @@ public class RpgPlayer
         } else if(playerState == PlayerState.LOBBY){
             wipe();
         } else if(playerState == PlayerState.GAME || playerState == PlayerState.TESTING){
-            getRpgPlayer(getPlayer()).getSkillEditObject().addSkills();
+            getRpgPlayer(getPlayer()).getSkillEditObject().addSkills(true);
             getRpgPlayer(getPlayer()).getSkillEditObject().giveLoadout();
         }
     }

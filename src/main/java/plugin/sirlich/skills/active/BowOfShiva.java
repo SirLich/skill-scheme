@@ -69,7 +69,7 @@ public class BowOfShiva extends Skill
         if(rpgArrow.hasTag("CHAIN_ARROW") && event.getHitEntity() instanceof  LivingEntity){
             LivingEntity livingEntity = (LivingEntity) entity;
             rpgShooter.playSound(Sound.ENTITY_ARMORSTAND_HIT);
-            rpgShooter.chat(c.daqua + "*Zing!*");
+            rpgShooter.tell(c.daqua + "*Zing!*");
 
             if(isEntityClose(livingEntity,radius.get(getLevel()))){
 

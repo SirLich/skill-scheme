@@ -84,9 +84,9 @@ public class SkillGuiHandler implements Listener
             player.closeInventory();
             if(rpgPlayer.getPlayerState() == PlayerState.TESTING){
                 rpgPlayer.clearSkills();
-                rpgPlayer.getSkillEditObject().addSkills();
+                rpgPlayer.getSkillEditObject().addSkills(true);
             } else {
-                rpgPlayer.chat("Your skills have been saved. They will be applied when the game starts. ");
+                rpgPlayer.tell("Your skills have been saved. They will be applied when the game starts. ");
             }
         } else if(buttonAction.equalsIgnoreCase("open_main_gui")){
             player.closeInventory();
@@ -106,9 +106,9 @@ public class SkillGuiHandler implements Listener
         player.closeInventory();
         if(rpgPlayer.getPlayerState().canInstantlyEquipSkills()){
             rpgPlayer.clearSkills();
-            rpgPlayer.getSkillEditObject().addSkills();
+            rpgPlayer.getSkillEditObject().addSkills(true);
         } else {
-            rpgPlayer.chat("Your skills have been saved. They will be applied when the game starts. ");
+            rpgPlayer.tell("Your skills have been saved. They will be applied when the game starts. ");
         }
     }
 

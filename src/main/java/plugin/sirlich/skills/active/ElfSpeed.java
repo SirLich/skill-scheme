@@ -27,7 +27,7 @@ public class ElfSpeed extends TickingSkill {
     public void onArrowHitGround(ProjectileHitEvent event){
         if(charges > 0){
             getRpgPlayer().playSound(Sound.BLOCK_FIRE_EXTINGUISH);
-            getRpgPlayer().chat(c.red  + "Your streak has been reset.");
+            getRpgPlayer().tell(c.red  + "Your streak has been reset.");
         }
         charges = 0;
     }
@@ -52,7 +52,7 @@ public class ElfSpeed extends TickingSkill {
         if(charges > chargesNeeded.get(getLevel())){
             rpgPlayer.playSound(Sound.BLOCK_NOTE_HARP);
             rpgPlayer.editWalkSpeedModifier(speedModifier.get(getLevel()));
-            rpgPlayer.chat(c.green + "ElfSpeed " + c.dgray + "has been activated!");
+            rpgPlayer.tell(c.green + "ElfSpeed " + c.dgray + "has been activated!");
             charges = 0;
             new BukkitRunnable() {
 
@@ -60,7 +60,7 @@ public class ElfSpeed extends TickingSkill {
                 public void run() {
                     getRpgPlayer().editWalkSpeedModifier(-speedModifier.get(getLevel()));
                     getRpgPlayer().playSound(Sound.BLOCK_FIRE_EXTINGUISH);
-                    getRpgPlayer().chat(c.red  + "ElfSpeed has worn off");
+                    getRpgPlayer().tell(c.red  + "ElfSpeed has worn off");
                 }
 
             }.runTaskLater(SkillScheme.getInstance(), Math.round(20 * duration.get(getLevel())));
@@ -69,7 +69,7 @@ public class ElfSpeed extends TickingSkill {
     }
 
     private void chargeReportChat(RpgPlayer rpgPlayer){
-        rpgPlayer.chat(c.green + "Elf Speed " + c.dgray + "charges: " + c.green + charges);
+        rpgPlayer.tell(c.green + "Elf Speed " + c.dgray + "charges: " + c.green + charges);
 
     }
 

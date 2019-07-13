@@ -18,7 +18,7 @@ public class SatanicGamble extends CooldownSkill
         if(Math.random() <= 0.5){
             getRpgPlayer().getPlayer().setHealth(0);
         } else {
-            getRpgPlayer().chat("It was a pleasure.");
+            getRpgPlayer().tell("It was a pleasure.");
             getRpgPlayer().playSound(Sound.ENTITY_EXPERIENCE_ORB_PICKUP);
             getRpgPlayer().getPlayer().setHealth(getRpgPlayer().getPlayer().getMaxHealth());
         }

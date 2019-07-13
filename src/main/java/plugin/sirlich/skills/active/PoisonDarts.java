@@ -50,7 +50,7 @@ public class PoisonDarts extends TickingSkill
     @Override
     public void onBowLeftClick(PlayerInteractEvent event){
         if(charges <= 0){
-            getRpgPlayer().chat("You don't enough enough darts.");
+            getRpgPlayer().tell("You don't enough enough darts.");
         } else {
             Arrow arrow = event.getPlayer().launchProjectile(Arrow.class);
             arrow.setVelocity(arrow.getVelocity().multiply(0.5));
@@ -58,7 +58,7 @@ public class PoisonDarts extends TickingSkill
             RpgProjectile rpgArrow = RpgProjectile.getProjectile(arrow.getUniqueId());
             rpgArrow.addTag("POISON_DART");
             charges--;
-            getRpgPlayer().chat(ChatColor.GREEN + "Poison Darts: " + ChatColor.GRAY + charges);
+            getRpgPlayer().tell(ChatColor.GREEN + "Poison Darts: " + ChatColor.GRAY + charges);
         }
     }
 
@@ -66,7 +66,7 @@ public class PoisonDarts extends TickingSkill
     public void onTick(){
         if(charges < maxDarts.get(getLevel())){
             charges ++;
-            getRpgPlayer().chat(ChatColor.GREEN + "Poison Darts: " + ChatColor.GRAY + charges);
+            getRpgPlayer().tell(ChatColor.GREEN + "Poison Darts: " + ChatColor.GRAY + charges);
         }
     }
     @Override

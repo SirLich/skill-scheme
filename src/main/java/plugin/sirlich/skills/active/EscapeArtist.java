@@ -3,12 +3,10 @@ package main.java.plugin.sirlich.skills.active;
 import main.java.plugin.sirlich.SkillScheme;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.skills.meta.CooldownSkill;
-import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -42,7 +40,7 @@ public class EscapeArtist extends CooldownSkill
     @Override
     public void onSwap(PlayerSwapHandItemsEvent event){
         if(isCooldown()){return;}
-        getRpgPlayer().chat("Time is an illusion...");
+        getRpgPlayer().tell("Time is an illusion...");
         getRpgPlayer().teleport(location);
         getRpgPlayer().getPlayer().setHealth(health);
         refreshCooldown();

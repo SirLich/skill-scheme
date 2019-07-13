@@ -3,7 +3,6 @@ package main.java.plugin.sirlich.skills.active;
 import main.java.plugin.sirlich.SkillScheme;
 import main.java.plugin.sirlich.utilities.BlockUtils;
 import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.utilities.c;
 import main.java.plugin.sirlich.skills.meta.CooldownSkill;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -15,7 +14,6 @@ import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ArcherTower extends CooldownSkill
@@ -45,7 +43,7 @@ public class ArcherTower extends CooldownSkill
     public void onSwap(PlayerSwapHandItemsEvent event){
         if(isCooldown()){return;}
         if(!getRpgPlayer().getPlayer().isOnGround()){
-            getRpgPlayer().chat(ChatColor.RED + "You have to be on the ground to use that skill.");
+            getRpgPlayer().tell(ChatColor.RED + "You have to be on the ground to use that skill.");
             getRpgPlayer().playSound(Sound.BLOCK_ANVIL_FALL);
             return;
         }
@@ -145,7 +143,7 @@ public class ArcherTower extends CooldownSkill
             BlockUtils.tempPlaceBlock(Material.FENCE,fence_right, duration.get(getLevel()));
             refreshCooldown();
         } else {
-            getRpgPlayer().chat(ChatColor.RED + "Something appears to be in the way!");
+            getRpgPlayer().tell(ChatColor.RED + "Something appears to be in the way!");
             getRpgPlayer().playSound(Sound.BLOCK_ANVIL_FALL);
         }
     }

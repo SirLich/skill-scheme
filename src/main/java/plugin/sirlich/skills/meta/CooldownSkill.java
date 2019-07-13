@@ -6,7 +6,6 @@ import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.Sound;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CooldownSkill extends Skill
@@ -41,12 +40,12 @@ public class CooldownSkill extends Skill
 
     public void playCooldownMedia(){
         getRpgPlayer().playSound(cooldownSound);
-        getRpgPlayer().chat(cooldownText);
+        getRpgPlayer().tell(cooldownText);
     }
 
     public void playRechargeMedia(){
         getRpgPlayer().playSound(rechargeSound);
-        getRpgPlayer().chat(rechargeText);
+        getRpgPlayer().tell(rechargeText);
     }
 
     public void setCooldown(boolean state){

@@ -2,10 +2,7 @@ package main.java.plugin.sirlich.skills.meta;
 
 
 import main.java.plugin.sirlich.skills.active.*;
-import main.java.plugin.sirlich.skills.passive.CinderStrike;
-import main.java.plugin.sirlich.skills.passive.HolyStrike;
-import main.java.plugin.sirlich.skills.passive.MagmaBow;
-import main.java.plugin.sirlich.skills.passive.SpeedBuff;
+import main.java.plugin.sirlich.skills.passive.*;
 
 public enum SkillType {
     SpeedBuff(new SpeedBuff(null,0)),
@@ -34,7 +31,8 @@ public enum SkillType {
     CinderStrike(new CinderStrike(null,0)),
     IceRink(new IceRink(null,0)),
     ManaCharger(new ManaCharger(null, 0)),
-    RagingBull(new RagingBull(null,0));
+    RagingBull(new RagingBull(null,0)),
+    StrongArm(new StrongArm(null,0));
 
     private final Skill skill;
 

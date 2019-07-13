@@ -29,7 +29,7 @@ public class SkillEditObject
 
         //Undefined skills
         if(skillKind == SkillKind.UNDEFINED){
-            parent.chat("That feature isn't implemented yet. Sorry. ");
+            parent.tell("That feature isn't implemented yet. Sorry. ");
         }
 
         //Defined skills
@@ -50,14 +50,14 @@ public class SkillEditObject
 
                         //This skill is already the highest possible
                         else {
-                            parent.chat("That skill is already maxed.");
+                            parent.tell("That skill is already maxed.");
                             return false;
                         }
                     }
 
                     //Skill type is different
                     else {
-                        parent.chat("You can't select more than one skill from each category.");
+                        parent.tell("You can't select more than one skill from each category.");
                         return false;
                     }
                 }
@@ -91,14 +91,14 @@ public class SkillEditObject
 
                     //Skill type is different
                     else {
-                        parent.chat("You can't select more than one skill from each category.");
+                        parent.tell("You can't select more than one skill from each category.");
                         return false;
                     }
                 }
 
                 //The skill kind we are editing is fresh!
                 else {
-                    parent.chat("That skill is already at the min level.");
+                    parent.tell("That skill is already at the min level.");
                     return false;
                 }
             } else {
@@ -108,18 +108,25 @@ public class SkillEditObject
         return true;
     }
 
-    public void addSkills(){
-        this.parent.chat("Your skills have been added:");
-        System.out.println(classType.toString());
+    public void addSkills(boolean announceLoadout){
+        //Don't run if skill size is 0
+        if(skillMap.size() == 0){
+            return;
+        }
+
+        if(announceLoadout){
+            this.parent.tell("Your loadout has been applied:");
+        }
+
         if(this.classType == ClassType.WARLOCK){
             parent.addSkill(SkillType.ManaCharger,1);
         }
         for(SkillKind skillKind : skillMap.keySet()){
             SkillType skill = skillMap.get(skillKind);
-            int level = levelMap.get(skillKind) - 1;
+            int level = levelMap.get(skillKind);
 
             //Announce
-            this.parent.chat(c.dgray + " - " + c.green + skill.getSkill().getName() + " " + c.gray + level);
+            this.parent.tell(c.dgray + " - " + c.gray + skill.getSkill().getName() + ": " + c.green + level);
 
             //Add skills
             parent.addSkill(skill,level);

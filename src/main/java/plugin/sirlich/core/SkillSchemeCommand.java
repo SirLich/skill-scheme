@@ -15,7 +15,7 @@ public class SkillSchemeCommand implements CommandExecutor
             RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
 
             if(args.length < 1){
-                rpgPlayer.chat("Please include an argument: " + c.gray + "[s]kill, [c]lass, [t]eam, [p]layer state, [g]ui");
+                rpgPlayer.tell("Please include an argument: " + c.gray + "[s]kill, [c]lass, [t]eam, [p]layer state, [g]ui");
                 return true;
             }
 
@@ -23,48 +23,48 @@ public class SkillSchemeCommand implements CommandExecutor
 
             if(action.equalsIgnoreCase("skill") || action.equalsIgnoreCase("s")){
                 if(args.length < 2){
-                    rpgPlayer.chat("Please include an argument: " + c.gray + "[l]ist, [h]ave, [c]lear, [r]emove, [a]dd");
+                    rpgPlayer.tell("Please include an argument: " + c.gray + "[l]ist, [h]ave, [c]lear, [r]emove, [a]dd");
                     return true;
                 }
 
                 action = args[1];
                 if(action.equalsIgnoreCase("list") || action.equalsIgnoreCase("l")){
-                    rpgPlayer.chat("All skills:");
+                    rpgPlayer.tell("All skills:");
                     for(SkillType skillType : SkillType.values()){
-                        rpgPlayer.chat(c.aqua + skillType.getSkill().getName() + ": " + c.gray + skillType.getSkill().getId());
+                        rpgPlayer.tell(c.aqua + skillType.getSkill().getName() + ": " + c.gray + skillType.getSkill().getId());
                     }
                 } else if(action.equalsIgnoreCase("have") || action.equalsIgnoreCase("h")){
                     if(rpgPlayer.getSkillList().keySet().size() > 0){
-                        rpgPlayer.chat("Your skills:");
+                        rpgPlayer.tell("Your skills:");
                         for(SkillType skillType : rpgPlayer.getSkillList().keySet() ){
-                            rpgPlayer.chat(c.gray + skillType.toString() + " : " + c.aqua + rpgPlayer.getSkill(skillType).getLevel());
+                            rpgPlayer.tell(c.gray + skillType.toString() + " : " + c.aqua + rpgPlayer.getSkill(skillType).getLevel());
                         }
                     } else {
-                        rpgPlayer.chat("You don't have any skills equipped.");
+                        rpgPlayer.tell("You don't have any skills equipped.");
 
                     }
                 } else if(action.equalsIgnoreCase("clear") || action.equalsIgnoreCase("c")){
-                    rpgPlayer.chat("Your skills have been cleared.");
+                    rpgPlayer.tell("Your skills have been cleared.");
                     rpgPlayer.clearSkills();
                 } else if(action.equalsIgnoreCase("remove") || action.equalsIgnoreCase("r")){
                     if(args.length < 3){
-                        rpgPlayer.chat("Missing parameter: please list the skill you want to remove.");
+                        rpgPlayer.tell("Missing parameter: please list the skill you want to remove.");
                         return true;
                     }
                     action = args[2];
                     try{
                         SkillType skillType = SkillType.valueOf(action);
                         rpgPlayer.removeSkill(skillType);
-                        rpgPlayer.chat("removed " + args[1]);
+                        rpgPlayer.tell("removed " + args[1]);
                     } catch (Exception e){
-                        rpgPlayer.chat("Malformed parameter: please provide a valid skill.");
+                        rpgPlayer.tell("Malformed parameter: please provide a valid skill.");
                     }
                     SkillType skillType = SkillType.valueOf(args[2]);
                     rpgPlayer.removeSkill(skillType);
-                    rpgPlayer.chat("removed " + args[1]);
+                    rpgPlayer.tell("removed " + args[1]);
                 } else if(action.equalsIgnoreCase("add") || action.equalsIgnoreCase("a")){
                     if(args.length < 3){
-                        rpgPlayer.chat("Missing parameter: please list the skill you want to add.");
+                        rpgPlayer.tell("Missing parameter: please list the skill you want to add.");
                         return true;
                     }
                     action = args[2];
@@ -78,18 +78,18 @@ public class SkillSchemeCommand implements CommandExecutor
                             }
                         }
                         rpgPlayer.addSkill(skillType,level);
-                        rpgPlayer.chat("Added " + skillType.getSkill().getName() + " level " + level);
+                        rpgPlayer.tell("Added " + skillType.getSkill().getName() + " level " + level);
                     } catch (Exception e){
-                        rpgPlayer.chat("Malformed parameter: please provide a valid skill.");
+                        rpgPlayer.tell("Malformed parameter: please provide a valid skill.");
                     }
                 } else {
-                    rpgPlayer.chat("Please include an argument: " + c.gray + "[l]ist, [h]ave, [c]lear, [r]emove, [a]dd");
+                    rpgPlayer.tell("Please include an argument: " + c.gray + "[l]ist, [h]ave, [c]lear, [r]emove, [a]dd");
                 }
             } else if(action.equalsIgnoreCase("gui") || action.equalsIgnoreCase("g")){
                 SkillGuiHandler.openMainGui(player);
             } else if(action.equalsIgnoreCase("class") || action.equalsIgnoreCase("c")){
                 if(args.length < 2){
-                    rpgPlayer.chat("Please include an argument: " + c.gray + "[p]aladin, [f]ighter, [ra]nger, [ro]gue, [w]arlock");
+                    rpgPlayer.tell("Please include an argument: " + c.gray + "[p]aladin, [f]ighter, [ra]nger, [ro]gue, [w]arlock");
                     return true;
                 }
 
@@ -106,82 +106,82 @@ public class SkillSchemeCommand implements CommandExecutor
                 } else if(action.equalsIgnoreCase("warlock") || action.equalsIgnoreCase("w")){
                     SkillEditObject.giveLoadout(rpgPlayer,ClassType.WARLOCK);
                 } else {
-                    rpgPlayer.chat("Please include an argument: " + c.gray + "[p]aladin, [f]ighter, [ra]nger, [ro]gue, [w]arlock");
+                    rpgPlayer.tell("Please include an argument: " + c.gray + "[p]aladin, [f]ighter, [ra]nger, [ro]gue, [w]arlock");
                 }
             } else if(action.equalsIgnoreCase("team") || action.equalsIgnoreCase("t")){
                 if(args.length < 2){
-                    rpgPlayer.chat("Please include an argument: " + c.gray + "[g]et, [s]et, [l]ist, [r]eset");
+                    rpgPlayer.tell("Please include an argument: " + c.gray + "[g]et, [s]et, [l]ist, [r]eset");
                     return true;
                 }
                 action = args[1];
 
                 if(action.equalsIgnoreCase("get") || action.equalsIgnoreCase("g")){
                     if(args.length < 3){
-                        rpgPlayer.chat("Current team: " + c.dgray + rpgPlayer.getTeam());
+                        rpgPlayer.tell("Current team: " + c.dgray + rpgPlayer.getTeam());
                     } else {
                         action = args[2];
-                        rpgPlayer.chat("name: " + c.dgray + RpgPlayer.getRpgPlayer(action).getTeam());
+                        rpgPlayer.tell("name: " + c.dgray + RpgPlayer.getRpgPlayer(action).getTeam());
                     }
                 } else if(action.equalsIgnoreCase("set") || action.equalsIgnoreCase("s")){
                     if(args.length < 3){
-                        rpgPlayer.chat("Please use like: /ss t [TeamName] <playername>");
+                        rpgPlayer.tell("Please use like: /ss t [TeamName] <playername>");
                         return true;
                     }
                     action = args[2];
 
                     if(args.length < 4){
                         rpgPlayer.setTeam(action);
-                        rpgPlayer.chat("name: " + c.dgray + action);
+                        rpgPlayer.tell("name: " + c.dgray + action);
                     } else {
                         RpgPlayer.getRpgPlayer(args[3]).setTeam(action);
-                        rpgPlayer.chat(args[3] + c.dgray + action);
+                        rpgPlayer.tell(args[3] + c.dgray + action);
                     }
                 } else if(action.equalsIgnoreCase("list") || action.equalsIgnoreCase("l")){
-                    rpgPlayer.chat("All teams:");
+                    rpgPlayer.tell("All teams:");
                     for(RpgPlayer r : RpgPlayer.getRpgPlayers()){
-                        rpgPlayer.chat(r.getPlayer().getDisplayName() + c.dgray + " : " + r.getTeam());
+                        rpgPlayer.tell(r.getPlayer().getDisplayName() + c.dgray + " : " + r.getTeam());
                     }
                 } else {
-                    rpgPlayer.chat("Please include an argument: " + c.gray + "[g]et, [s]et, [l]ist, [r]eset");
+                    rpgPlayer.tell("Please include an argument: " + c.gray + "[g]et, [s]et, [l]ist, [r]eset");
                 }
             } else if(action.equalsIgnoreCase("p") || action.equalsIgnoreCase("playerstate")){
                 if(args.length < 2){
-                    rpgPlayer.chat("Please include an argument: " + c.gray + "[g]et, [s]et, [l]ist, [r]eset");
+                    rpgPlayer.tell("Please include an argument: " + c.gray + "[g]et, [s]et, [l]ist, [r]eset");
                     return true;
                 }
                 action = args[1];
 
                 if(action.equalsIgnoreCase("get") || action.equalsIgnoreCase("g")){
                     if(args.length < 3){
-                        rpgPlayer.chat("Current playerState: " + c.dgray + rpgPlayer.getPlayerState().toString());
+                        rpgPlayer.tell("Current playerState: " + c.dgray + rpgPlayer.getPlayerState().toString());
                     } else {
                         action = args[2];
-                        rpgPlayer.chat("name: " + c.dgray + RpgPlayer.getRpgPlayer(action).getPlayerState().toString());
+                        rpgPlayer.tell("name: " + c.dgray + RpgPlayer.getRpgPlayer(action).getPlayerState().toString());
                     }
                 } else if(action.equalsIgnoreCase("set") || action.equalsIgnoreCase("s")){
                     if(args.length < 3){
-                        rpgPlayer.chat("Please use like: /ss p [PlayerState] <playername>");
+                        rpgPlayer.tell("Please use like: /ss p [PlayerState] <playername>");
                         return true;
                     }
                     action = args[2].toUpperCase();
 
                     if(args.length < 4){
                         rpgPlayer.setPlayerState(PlayerState.valueOf(action));
-                        rpgPlayer.chat("Player State: " + c.dgray + action);
+                        rpgPlayer.tell("Player State: " + c.dgray + action);
                     } else {
                         RpgPlayer.getRpgPlayer(args[3]).setPlayerState(PlayerState.valueOf(action));
-                        rpgPlayer.chat(args[3] + c.dgray + action);
+                        rpgPlayer.tell(args[3] + c.dgray + action);
                     }
                 } else if(action.equalsIgnoreCase("list") || action.equalsIgnoreCase("l")){
-                    rpgPlayer.chat("All playerState values:");
+                    rpgPlayer.tell("All playerState values:");
                     for(PlayerState s : PlayerState.values()){
-                        rpgPlayer.chat(c.dgray + s.toString());
+                        rpgPlayer.tell(c.dgray + s.toString());
                     }
                 } else {
-                    rpgPlayer.chat("Please include an argument: " + c.gray + "[g]et, [s]et, [l]ist, [r]eset");
+                    rpgPlayer.tell("Please include an argument: " + c.gray + "[g]et, [s]et, [l]ist, [r]eset");
                 }
             } else {
-                rpgPlayer.chat("Please include an argument: " + c.gray + "[s]kill, [c]lass, [t]eam, [p]layer state, [g]ui");
+                rpgPlayer.tell("Please include an argument: " + c.gray + "[s]kill, [c]lass, [t]eam, [p]layer state, [g]ui");
             }
         }
         return true;
