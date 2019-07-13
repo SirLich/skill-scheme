@@ -123,10 +123,10 @@ public class SkillEditObject
         }
         for(SkillKind skillKind : skillMap.keySet()){
             SkillType skill = skillMap.get(skillKind);
-            int level = levelMap.get(skillKind);
+            int level = levelMap.get(skillKind) - 1;
 
             //Announce
-            this.parent.tell(c.dgray + " - " + c.gray + skill.getSkill().getName() + ": " + c.green + level);
+            this.parent.tell(c.dgray + " - " + c.gray + skill.getSkill().getName() + ": " + c.green + (level + 1));
 
             //Add skills
             parent.addSkill(skill,level);

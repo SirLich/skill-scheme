@@ -6,6 +6,7 @@ import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.entity.*;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
@@ -147,6 +148,22 @@ public class Skill
     }
 
     public void onArrowHitGround(ProjectileHitEvent event){
+
+    }
+
+    public void onItemDrop(PlayerDropItemEvent event){
+
+    }
+
+    public void onAxeDrop(PlayerDropItemEvent event){
+
+    }
+
+    public void onBowDrop(PlayerDropItemEvent event){
+
+    }
+
+    public void onSwordDrop(PlayerDropItemEvent event){
 
     }
 

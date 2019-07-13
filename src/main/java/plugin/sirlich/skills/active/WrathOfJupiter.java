@@ -3,6 +3,7 @@ package main.java.plugin.sirlich.skills.active;
 import main.java.plugin.sirlich.skills.meta.CooldownSkill;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.utilities.c;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
@@ -26,7 +27,11 @@ public class WrathOfJupiter extends CooldownSkill
     public void onSwap(PlayerSwapHandItemsEvent event){
         if(isCooldown()){return;}
 
-        for(Entity entity : event.getPlayer().getNearbyEntities(range.get(getLevel()),range.get(getLevel()),range.get(getLevel()))){
+        List<Entity> entities = event.getPlayer().getNearbyEntities(range.get(getLevel()),range.get(getLevel()),range.get(getLevel()));
+        if(entities.size() == 0){
+            getRpgPlayer().playSound(Sound.BLOCK_FIRE_EXTINGUISH);
+        }
+        for(Entity entity : entities){
             if(entity instanceof LivingEntity){
                 event.getPlayer().getWorld().strikeLightningEffect(entity.getLocation());
                 ((LivingEntity) entity).damage(damageOnStrike.get(getLevel()));

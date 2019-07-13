@@ -32,7 +32,8 @@ public enum SkillType {
     IceRink(new IceRink(null,0)),
     ManaCharger(new ManaCharger(null, 0)),
     RagingBull(new RagingBull(null,0)),
-    StrongArm(new StrongArm(null,0));
+    StrongArm(new StrongArm(null,0)),
+    KillingSpree(new KillingSpree(null,0));
 
     private final Skill skill;
 

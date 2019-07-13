@@ -10,9 +10,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.*;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 
@@ -51,6 +53,24 @@ public class SkillHandler implements Listener
             }
         }
     }
+
+    @EventHandler
+    public void onInvDrop(PlayerDropItemEvent event){
+        ItemStack itemStack = event.getItemDrop().getItemStack();
+        RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(event.getPlayer());
+        event.setCancelled(true);
+        for(Skill skill : rpgPlayer.getSkillList().values()){
+            skill.onItemDrop(event);
+            if(isAxe(itemStack)){
+                skill.onAxeDrop(event);
+            } else if (isSword(itemStack)){
+                skill.onSwordDrop(event);
+            } else if (isBow(itemStack)){
+                skill.onBowDrop(event);
+            }
+        }
+    }
+
     /*
     HANDLES: Melee attack events for
         - Sword
