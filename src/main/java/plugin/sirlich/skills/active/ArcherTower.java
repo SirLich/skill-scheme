@@ -1,6 +1,7 @@
 package main.java.plugin.sirlich.skills.active;
 
 import main.java.plugin.sirlich.SkillScheme;
+import main.java.plugin.sirlich.skills.meta.SkillData;
 import main.java.plugin.sirlich.utilities.BlockUtils;
 import main.java.plugin.sirlich.core.RpgPlayer;
 import main.java.plugin.sirlich.skills.meta.CooldownSkill;
@@ -22,6 +23,7 @@ public class ArcherTower extends CooldownSkill
     private static List<Integer> duration = getYaml(id).getIntegerList("values.duration");
 
     private static boolean deployed = false;
+
     public ArcherTower(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer,level,"ArcherTower");
     }
@@ -43,8 +45,8 @@ public class ArcherTower extends CooldownSkill
     public void onSwap(PlayerSwapHandItemsEvent event){
         if(isCooldown()){return;}
         if(!getRpgPlayer().getPlayer().isOnGround()){
-            getRpgPlayer().tell(ChatColor.RED + "You have to be on the ground to use that skill.");
-            getRpgPlayer().playSound(Sound.BLOCK_ANVIL_FALL);
+            getRpgPlayer().tell(data.xliff("must_be_on_ground"));
+            getRpgPlayer().playSound(data.sound("must_be_on_ground"));
             return;
         }
         deployed = true;
@@ -143,8 +145,8 @@ public class ArcherTower extends CooldownSkill
             BlockUtils.tempPlaceBlock(Material.FENCE,fence_right, duration.get(getLevel()));
             refreshCooldown();
         } else {
-            getRpgPlayer().tell(ChatColor.RED + "Something appears to be in the way!");
-            getRpgPlayer().playSound(Sound.BLOCK_ANVIL_FALL);
+            getRpgPlayer().tell(data.xliff("something_is_in_the_way"));
+            getRpgPlayer().playSound(data.sound("something_is_in_the_way"));
         }
     }
 }

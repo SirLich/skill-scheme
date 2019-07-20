@@ -25,6 +25,7 @@ public class Skill
 
     private RpgPlayer rpgPlayer;
     private int level;
+    public SkillData data;
 
 
     public Skill(RpgPlayer rpgPlayer, int level, String id){
@@ -35,6 +36,7 @@ public class Skill
         this.cost = getYaml(id).getInt("cost");
         this.maxLevel = getYaml(id).getInt("maxLevel");
         this.name = getYaml(id).getString("name");
+        this.data = new SkillData(this);
     }
 
 
@@ -83,7 +85,10 @@ public class Skill
             String skillCode = match.replace("[","").replace("]","");
             String[] split = skillCode.split(" ");
             String skillName = split[0];
-            Double skillValue = SkillData.getSkillValue(id, skillName, level);
+            Double skillValue = SkillData.value(id, skillName, level);
+            if(skillValue == -4.04){
+                return "! ERROR !";
+            }
             if(split.length > 2){
                 String operator = split[1];
                 Double value = Double.parseDouble(split[2]);

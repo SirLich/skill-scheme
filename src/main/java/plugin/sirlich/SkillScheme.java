@@ -1,7 +1,6 @@
 package main.java.plugin.sirlich;
 
 import main.java.plugin.sirlich.core.*;
-import main.java.plugin.sirlich.skills.meta.DeathSkill;
 import main.java.plugin.sirlich.skills.meta.SkillData;
 import main.java.plugin.sirlich.utilities.BlockUtils;
 import org.bukkit.Bukkit;
@@ -33,7 +32,7 @@ public class SkillScheme extends JavaPlugin
         for(Player player : Bukkit.getOnlinePlayers()){
             PlayerJoinHandler.initializePlayerData(player);
         }
-        SkillData.initializeSkillData();
+        SkillData.initializeData();
     }
 
     @Override
@@ -75,7 +74,7 @@ public class SkillScheme extends JavaPlugin
 
     private static void loadServerConfigFromYML(){
 
-        File arenaYml = new File(SkillScheme.getInstance().getDataFolder() + "/main.yml");
+        File arenaYml = new File(SkillScheme.getInstance().getDataFolder() + "/settings.yml");
         FileConfiguration config = YamlConfiguration.loadConfiguration(arenaYml);
 
         world = Bukkit.getWorld(config.getString("world"));
