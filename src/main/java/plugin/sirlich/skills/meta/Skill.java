@@ -85,7 +85,7 @@ public class Skill
             String skillCode = match.replace("[","").replace("]","");
             String[] split = skillCode.split(" ");
             String skillName = split[0];
-            Double skillValue = SkillData.value(id, skillName, level);
+            Double skillValue = SkillData.getDouble(id, skillName, level);
             if(skillValue == -4.04){
                 return "! ERROR !";
             }

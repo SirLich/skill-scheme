@@ -13,9 +13,6 @@ import java.util.List;
 
 public class Deflection extends CooldownSkill
 {
-    private static String id = "Deflection";
-    private static List<Integer> power = getYaml(id).getIntegerList("values.power");
-
     public Deflection(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer,level,"Deflection");
     }
@@ -26,7 +23,7 @@ public class Deflection extends CooldownSkill
         if(self.isBlocking()){
             if(isCooldown()){return;}
             RpgPlayer.getRpgPlayer(self).playSound(Sound.BLOCK_ANVIL_PLACE);
-            self.setVelocity(new Vector(self.getLocation().getDirection().multiply(-power.get(getLevel())).getX(), 0.4, self.getLocation().getDirection().multiply(-power.get(getLevel())).getZ()));
+            self.setVelocity(new Vector(self.getLocation().getDirection().multiply(-data.getDouble("power")).getX(), 0.4, self.getLocation().getDirection().multiply(-data.getDouble("power")).getZ()));
             refreshCooldown();
         }
     }

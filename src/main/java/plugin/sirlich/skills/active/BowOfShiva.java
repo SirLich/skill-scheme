@@ -13,15 +13,8 @@ import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.util.Vector;
 
-import java.util.List;
-
 public class BowOfShiva extends Skill
 {
-    private static String id = "BowOfShiva";
-    private static List<Integer> radius = getYaml(id).getIntegerList("values.radius");
-    private static List<Double> chance = getYaml(id).getDoubleList("values.chance");
-    private static List<Integer> velocity = getYaml(id).getIntegerList("values.velocity");
-
     public BowOfShiva(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer,level,"BowOfShiva");
     }
@@ -57,7 +50,7 @@ public class BowOfShiva extends Skill
     }
 
     private boolean randomArrowChainChance(){
-        return chance.get(getLevel()) >= Math.random();
+        return data.getDouble("chance") >= Math.random();
     }
 
 
@@ -71,12 +64,12 @@ public class BowOfShiva extends Skill
             rpgShooter.playSound(Sound.ENTITY_ARMORSTAND_HIT);
             rpgShooter.tell(c.daqua + "*Zing!*");
 
-            if(isEntityClose(livingEntity,radius.get(getLevel()))){
+            if(isEntityClose(livingEntity,data.getInt("radius"))){
 
                 Vector from = livingEntity.getLocation().toVector();
-                Vector to = getClosestEntityLocation(livingEntity,radius.get(getLevel())).toVector();
+                Vector to = getClosestEntityLocation(livingEntity,data.getInt("radius")).toVector();
 
-                Vector v = from.subtract(to).normalize().multiply(-velocity.get(getLevel()));
+                Vector v = from.subtract(to).normalize().multiply(-data.getInt("velocity"));
                 Arrow arrow = livingEntity.launchProjectile(Arrow.class);
                 arrow.setVelocity(v);
                 RpgProjectile.registerProjectile(arrow,rpgShooter);

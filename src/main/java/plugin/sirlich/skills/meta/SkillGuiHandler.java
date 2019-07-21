@@ -61,7 +61,6 @@ public class SkillGuiHandler implements Listener
                     NBTItem nbtItem = new NBTItem(itemStack);
                     if(nbtItem.hasKey("button_action")){
                         handleButtonAction(player, event.getClickedInventory(), nbtItem,event.getClick(),event.getSlot());
-                        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_PLING,1,1);
                     } else{
                         player.playSound(player.getLocation(), Sound.BLOCK_GRAVEL_BREAK,1,1);
                     }
@@ -78,8 +77,10 @@ public class SkillGuiHandler implements Listener
         if(buttonAction.equalsIgnoreCase("open_class_gui")){
             String classGui = nbtItem.getString("class");
             player.closeInventory();
+            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_PLING,1,1);
             openSkillGui(player, main.java.plugin.sirlich.skills.meta.ClassType.valueOf(classGui));
         } else if(buttonAction.equalsIgnoreCase("accept")){
+            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_PLING,1,1);
             player.playSound(player.getLocation(),Sound.ENTITY_FIREWORK_LARGE_BLAST,1,1);
             player.closeInventory();
             if(rpgPlayer.getPlayerState() == PlayerState.TESTING){
@@ -89,6 +90,7 @@ public class SkillGuiHandler implements Listener
                 rpgPlayer.tell("Your skills have been saved. They will be applied when the game starts. ");
             }
         } else if(buttonAction.equalsIgnoreCase("open_main_gui")){
+            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_PLING,1,1);
             player.closeInventory();
             openMainGui(player);
         }else if(buttonAction.equalsIgnoreCase("skill_item")) {
@@ -96,7 +98,13 @@ public class SkillGuiHandler implements Listener
             SkillType skillType = SkillType.valueOf(nbtItem.getString("skill_type"));
             SkillKind skillKind = SkillKind.valueOf(nbtItem.getString("skill_kind"));
             if(rpgPlayer.getSkillEditObject().buttonPush(skillKind,skillType,clickType)){
+                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_PLING,1,1);
                 oldInventory.setItem(slot,getSkillItem(skillType,rpgPlayer.getSkillEditObject().getLevel(skillKind),skillKind));
+                ItemStack point = getStandardGuiButton(Material.PRISMARINE_CRYSTALS,"Points remaining",null);
+                point.setAmount(rpgPlayer.getSkillEditObject().getPoints());
+                oldInventory.setItem(51,point);
+            } else {
+                player.playSound(player.getLocation(), Sound.BLOCK_STONE_STEP,1,1);
             }
         }
     }
@@ -112,8 +120,7 @@ public class SkillGuiHandler implements Listener
         }
     }
 
-
-    private static Inventory getStandardKitsGui(){
+    private static Inventory getStandardKitsGui(ClassType classType){
         Inventory inventory = Bukkit.createInventory(null, 54, ChatColor.DARK_GRAY + "~ Select your skills:");
         inventory.setItem(0, getStandardGuiButton(Material.IRON_SWORD,"Sword Skills",null));
         inventory.setItem(9, getStandardGuiButton(Material.IRON_AXE,"Axe Skills",null));
@@ -121,6 +128,9 @@ public class SkillGuiHandler implements Listener
         inventory.setItem(27, getStandardGuiButton(Material.CLAY_BALL,"Special Ability",null));
         inventory.setItem(36, getStandardGuiButton(Material.GOLD_NUGGET,"Passive A",null));
         inventory.setItem(45, getStandardGuiButton(Material.GOLD_NUGGET,"Passive B",null));
+        ItemStack pointsItems = getStandardGuiButton(Material.PRISMARINE_CRYSTALS, "Remaining points",null);
+        pointsItems.setAmount(SkillData.getDefaultPointData(classType));
+        inventory.setItem(51,pointsItems);
         inventory.setItem(52, getStandardGuiButton(Material.EMERALD,"Accept","accept"));
         inventory.setItem(53, getStandardGuiButton(Material.IRON_DOOR,"Back","open_main_gui"));
         return inventory;
@@ -129,7 +139,8 @@ public class SkillGuiHandler implements Listener
     private void openSkillGui(Player player, ClassType classType){
         RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
         rpgPlayer.refreshSkillEditObject(classType);
-        Inventory inventory = getStandardKitsGui();
+        Inventory inventory = getStandardKitsGui(classType);
+        rpgPlayer.getSkillEditObject().setPoints(SkillData.getDefaultPointData(classType));
 
         File playerYml = new File(SkillScheme.getInstance().getDataFolder() + "/gui.yml");
         FileConfiguration fileConfiguration =  YamlConfiguration.loadConfiguration(playerYml);
@@ -259,6 +270,7 @@ public class SkillGuiHandler implements Listener
         }
         return itemStack;
     }
+
 
     public static ItemStack getStandardGuiButton(Material material, String name, String button_action){
         ItemStack itemStack = new ItemStack(material,1);

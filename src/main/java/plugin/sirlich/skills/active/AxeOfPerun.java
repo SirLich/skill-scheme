@@ -14,11 +14,6 @@ import java.util.List;
 
 public class AxeOfPerun extends Skill
 {
-    private static String id = "AxeOfPerun";
-    private static List<Integer> cooldown = getYaml(id).getIntegerList("values.cooldown");
-    private static List<Double> bonusDamagePerHit = getYaml(id).getDoubleList("values.bonusDamagePerHit");
-    private static List<Integer> maxStack = getYaml(id).getIntegerList("values.maxStack");
-
     private int schedularID;
     private long lastAttack;
     private int charges;
@@ -32,7 +27,7 @@ public class AxeOfPerun extends Skill
         schedularID = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(SkillScheme.getInstance(), new Runnable() {
             public void run() {
                 if(charges != 0){
-                    if(System.currentTimeMillis() > lastAttack + (cooldown.get(getLevel()) * 1000/20)){
+                    if(System.currentTimeMillis() > lastAttack + (data.getInt("cooldown") * 1000/20)){
                         removeBloodlust();
                     }
                 }
@@ -57,11 +52,11 @@ public class AxeOfPerun extends Skill
 
     @Override
     public void onAxeMeleeAttackOther(EntityDamageByEntityEvent event){
-        event.setDamage(event.getDamage() + bonusDamagePerHit.get(getLevel()));
+        event.setDamage(event.getDamage() + data.getDouble("bonusDamagePerHit"));
         lastAttack = System.currentTimeMillis();
-        if(charges < maxStack.get(getLevel())){
+        if(charges < data.getInt("maxStack")){
             charges++;
-            getRpgPlayer().tell(c.dgray + "Bloodlust: " + c.dred + charges + c.dgray + " of " + c.dred + maxStack.get(getLevel()));
+            getRpgPlayer().tell(c.dgray + "Bloodlust: " + c.dred + charges + c.dgray + " of " + c.dred + data.getInt("maxStack"));
         } else {
             getRpgPlayer().playSound(Sound.ENTITY_COW_DEATH);
             getRpgPlayer().tell(ChatColor.DARK_RED + "Max bloodlust!");

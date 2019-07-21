@@ -11,9 +11,6 @@ import java.util.List;
 
 public class ClassicFireball extends CooldownSkill
 {
-    private static String id = "ClassicFireball";
-    private static List<Float> yield = getYaml(id).getFloatList("values.yield");
-
     public ClassicFireball(RpgPlayer rpgPlayer,int level){
         super(rpgPlayer,level,"ClassicFireball");
     }
@@ -24,7 +21,7 @@ public class ClassicFireball extends CooldownSkill
         Fireball f = getRpgPlayer().getPlayer().launchProjectile(Fireball.class);
         f.setIsIncendiary(false);
         f.setGlowing(true);
-        f.setYield(yield.get(getLevel()));
+        f.setYield(data.getDouble("yield").floatValue());
         refreshCooldown();
     }
 }

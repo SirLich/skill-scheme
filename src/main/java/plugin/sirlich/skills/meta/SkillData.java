@@ -11,16 +11,17 @@ import java.util.HashMap;
 
 public class SkillData {
     //Non Static stuff
-    String skillId;
+    Skill skill;
 
     public SkillData(Skill skill){
-        this.skillId = skill.getId();
+        this.skill = skill;
     }
 
     //Data storage for cached skill data
     private static HashMap<String, ArrayList<Double>> skillDataMap = new HashMap<String, ArrayList<Double>>();
     private static HashMap<String, String> xliffDataMap = new HashMap<String, String>();
     private static HashMap<String, Sound> soundDataMap = new HashMap<String, Sound>();
+    private static HashMap<ClassType, Integer> pointsMap = new HashMap<ClassType,Integer>();
 
     //Init method for pulling data from the yaml files
     public static void initializeData(){
@@ -31,6 +32,15 @@ public class SkillData {
                 handleSkill(child);
             }
         }
+
+        //Load gui point values
+        File guiFile = new File(SkillScheme.getInstance().getDataFolder() + "/gui.yml");
+        FileConfiguration guiYml = YamlConfiguration.loadConfiguration(guiFile);
+        for(String value : guiYml.getConfigurationSection("loadouts").getKeys(false)){
+            System.out.println(value);
+            pointsMap.put(ClassType.valueOf(value.toUpperCase()), guiYml.getInt("loadouts." + value + ".tokens"));
+        }
+
     }
 
     //Internal method for handling a single file during init
@@ -64,7 +74,7 @@ public class SkillData {
     }
 
     //Getter for skill values
-    public static Double value(String skill, String data, int index){
+    private static Double value(String skill, String data, int index){
         String key = skill + "_" + data;
         try {
             return skillDataMap.get(key).get(index);
@@ -105,15 +115,36 @@ public class SkillData {
         return sound(skill.getId(),code);
     }
 
-    public Double value(String code, int level){
-        return value(skillId,code, level);
+
+    public Double getDouble(String code, int level){
+        return value(skill.getId(), code, level);
+    }
+
+    public static Double getDouble(String id, String code, int level){
+        return value(id,code,level);
+    }
+    public Double getDouble(String code){
+        return value(skill.getId(),code,skill.getLevel());
+    }
+
+    public Integer getInt(String code, int level){
+        return value(skill.getId(), code, level).intValue();
+    }
+
+    public Integer getInt(String code){
+        return value(skill.getId(),code,skill.getLevel()).intValue();
     }
 
     public String xliff(String code){
-        return xliff(skillId,code);
+        return xliff(skill.getId(),code);
     }
 
     public Sound sound(String code){
-        return sound(skillId,code);
+        return sound(skill.getId(),code);
+    }
+
+    public static Integer getDefaultPointData(ClassType classType){
+        System.out.println(pointsMap.toString());
+        return pointsMap.get(classType);
     }
 }

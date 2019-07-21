@@ -15,6 +15,7 @@ public class SkillEditObject
 {
     private ClassType classType;
     private RpgPlayer parent;
+    private Integer points;
 
     private HashMap<SkillKind, SkillType> skillMap = new HashMap<SkillKind, SkillType>();
     private HashMap<SkillKind, Integer> levelMap = new HashMap<SkillKind, Integer>();
@@ -29,7 +30,7 @@ public class SkillEditObject
 
         //Undefined skills
         if(skillKind == SkillKind.UNDEFINED){
-            parent.tell("That feature isn't implemented yet. Sorry. ");
+            parent.tell("That feature isn't implemented yet. Sorry.");
         }
 
         //Defined skills
@@ -43,15 +44,21 @@ public class SkillEditObject
                     //Skill type is the same, so we can update the level
                     if(skillMap.get(skillKind) == skillType){
 
-                        //Skill type is less than max level
-                        if(levelMap.get(skillKind) < maxLevel){
-                            levelMap.put(skillKind,levelMap.get(skillKind) + 1);
-                        }
+                        //The player has points remaining
+                        if(points > 0){
+                            //Skill type is less than max level
+                            if(levelMap.get(skillKind) < maxLevel){
+                                points -= 1;
+                                levelMap.put(skillKind,levelMap.get(skillKind) + 1);
+                            }
 
-                        //This skill is already the highest possible
-                        else {
-                            parent.tell("That skill is already maxed.");
-                            return false;
+                            //This skill is already the highest possible
+                            else {
+                                parent.tell("That skill is already maxed.");
+                                return false;
+                            }
+                        } else {
+                            parent.tell("You don't have any points remaining");
                         }
                     }
 
@@ -66,6 +73,7 @@ public class SkillEditObject
                 else {
                     skillMap.put(skillKind,skillType);
                     levelMap.put(skillKind,1);
+                    points -= 1;
                 }
             }
 
@@ -87,6 +95,7 @@ public class SkillEditObject
                             skillMap.remove(skillKind);
                             levelMap.remove(skillKind);
                         }
+                        points += 1;
                     }
 
                     //Skill type is different
@@ -228,5 +237,13 @@ public class SkillEditObject
             stack.setItemMeta(meta);
             player.getInventory().addItem(stack);
         }
+    }
+
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
     }
 }

@@ -16,8 +16,6 @@ import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-
 import static main.java.plugin.sirlich.utilities.WeaponUtils.*;
 
 public class SkillHandler implements Listener

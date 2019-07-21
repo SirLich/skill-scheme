@@ -50,13 +50,13 @@ public class SkillScheme extends JavaPlugin
 
 
     private void createDataFolder(){
+        System.out.println("Checking for existence of SkillScheme data folder...");
         try {
             if (!getDataFolder().exists()) {
                 System.out.println("Data folder not found... creating!");
                 getDataFolder().mkdirs();
-                System.out.println(getDataFolder());
             } else {
-                System.out.println("Data folder exists!");
+                System.out.println("Data folder exists.");
             }
         } catch (Exception e) {
             e.printStackTrace();

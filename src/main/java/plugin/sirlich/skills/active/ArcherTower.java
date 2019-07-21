@@ -19,9 +19,6 @@ import java.util.List;
 
 public class ArcherTower extends CooldownSkill
 {
-    private static String id = "ArcherTower";
-    private static List<Integer> duration = getYaml(id).getIntegerList("values.duration");
-
     private static boolean deployed = false;
 
     public ArcherTower(RpgPlayer rpgPlayer, int level){
@@ -57,7 +54,7 @@ public class ArcherTower extends CooldownSkill
                 deployed = false;
             }
 
-        }.runTaskLater(SkillScheme.getInstance(), duration.get(getLevel()) +40);
+        }.runTaskLater(SkillScheme.getInstance(), data.getInt("duration") +40);
 
         Player player = event.getPlayer();
         Location location = player.getLocation();
@@ -115,34 +112,34 @@ public class ArcherTower extends CooldownSkill
                     getRpgPlayer().playSound(Sound.BLOCK_WOOD_BREAK);
                 }
 
-            }.runTaskLater(SkillScheme.getInstance(), duration.get(getLevel()) - 40);
+            }.runTaskLater(SkillScheme.getInstance(), data.getInt("duration") - 40);
 
-            BlockUtils.tempPlaceBlock(Material.LOG,base, duration.get(getLevel()));
-            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,base_front, duration.get(getLevel()), (byte) 0x1);
-            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,base_right, duration.get(getLevel()), (byte) 0x3);
-            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,base_left, duration.get(getLevel()), (byte) 0x2);
-            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,base_back, duration.get(getLevel()), (byte) 0x0);
-            BlockUtils.tempPlaceBlock(Material.COBBLE_WALL,pole1, duration.get(getLevel()));
-            BlockUtils.tempPlaceBlock(Material.COBBLE_WALL,pole2, duration.get(getLevel()));
-            BlockUtils.tempPlaceBlock(Material.LOG,pole3, duration.get(getLevel()));
+            BlockUtils.tempPlaceBlock(Material.LOG,base, data.getInt("duration"));
+            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,base_front, data.getInt("duration"), (byte) 0x1);
+            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,base_right, data.getInt("duration"), (byte) 0x3);
+            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,base_left, data.getInt("duration"), (byte) 0x2);
+            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,base_back, data.getInt("duration"), (byte) 0x0);
+            BlockUtils.tempPlaceBlock(Material.COBBLE_WALL,pole1, data.getInt("duration"));
+            BlockUtils.tempPlaceBlock(Material.COBBLE_WALL,pole2, data.getInt("duration"));
+            BlockUtils.tempPlaceBlock(Material.LOG,pole3, data.getInt("duration"));
 
 
-            BlockUtils.tempPlaceBlock(Material.WALL_BANNER,flag_front, duration.get(getLevel()) - 5, (byte) 0x5);
-            BlockUtils.tempPlaceBlock(Material.WALL_BANNER,flag_left, duration.get(getLevel()) - 5, (byte) 0x6);
-            BlockUtils.tempPlaceBlock(Material.WALL_BANNER,flag_back, duration.get(getLevel()) - 5, (byte) 0x4);
-            BlockUtils.tempPlaceBlock(Material.WALL_BANNER,flag_right, duration.get(getLevel())- 5, (byte) 0x3);
+            BlockUtils.tempPlaceBlock(Material.WALL_BANNER,flag_front, data.getInt("duration") - 5, (byte) 0x5);
+            BlockUtils.tempPlaceBlock(Material.WALL_BANNER,flag_left, data.getInt("duration") - 5, (byte) 0x6);
+            BlockUtils.tempPlaceBlock(Material.WALL_BANNER,flag_back, data.getInt("duration") - 5, (byte) 0x4);
+            BlockUtils.tempPlaceBlock(Material.WALL_BANNER,flag_right, data.getInt("duration")- 5, (byte) 0x3);
 
-            BlockUtils.tempPlaceBlock(Material.COBBLE_WALL,pole4, duration.get(getLevel()));
+            BlockUtils.tempPlaceBlock(Material.COBBLE_WALL,pole4, data.getInt("duration"));
 
-            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,top_front, duration.get(getLevel()), (byte) 0x5);
-            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,top_left, duration.get(getLevel()), (byte) 0x6);
-            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,top_back, duration.get(getLevel()), (byte) 0x4);
-            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,top_right, duration.get(getLevel()), (byte) 0x7);
-            BlockUtils.tempPlaceBlock(Material.LOG,top, duration.get(getLevel()));
-            BlockUtils.tempPlaceBlock(Material.FENCE,fence_front, duration.get(getLevel()));
-            BlockUtils.tempPlaceBlock(Material.FENCE,fence_left, duration.get(getLevel()));
-            BlockUtils.tempPlaceBlock(Material.FENCE,fence_back, duration.get(getLevel()));
-            BlockUtils.tempPlaceBlock(Material.FENCE,fence_right, duration.get(getLevel()));
+            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,top_front, data.getInt("duration"), (byte) 0x5);
+            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,top_left, data.getInt("duration"), (byte) 0x6);
+            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,top_back, data.getInt("duration"), (byte) 0x4);
+            BlockUtils.tempPlaceBlock(Material.WOOD_STAIRS,top_right, data.getInt("duration"), (byte) 0x7);
+            BlockUtils.tempPlaceBlock(Material.LOG,top, data.getInt("duration"));
+            BlockUtils.tempPlaceBlock(Material.FENCE,fence_front, data.getInt("duration"));
+            BlockUtils.tempPlaceBlock(Material.FENCE,fence_left, data.getInt("duration"));
+            BlockUtils.tempPlaceBlock(Material.FENCE,fence_back, data.getInt("duration"));
+            BlockUtils.tempPlaceBlock(Material.FENCE,fence_right, data.getInt("duration"));
             refreshCooldown();
         } else {
             getRpgPlayer().tell(data.xliff("something_is_in_the_way"));

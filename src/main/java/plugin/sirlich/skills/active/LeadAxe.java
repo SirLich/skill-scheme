@@ -12,9 +12,6 @@ import java.util.List;
 
 public class LeadAxe extends PrimedSkill
 {
-    private static String id = "LeadAxe";
-    private static List<Double> power = getYaml(id).getDoubleList("values.power");
-
     public LeadAxe(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer, level,"LeadAxe");
     }
@@ -29,7 +26,7 @@ public class LeadAxe extends PrimedSkill
         if(primed){
             primed = false;
             getRpgPlayer().playSound(Sound.BLOCK_ANVIL_LAND);
-            event.getEntity().setVelocity(getRpgPlayer().getPlayer().getLocation().getDirection().setY(0).normalize().multiply(power.get(getLevel())));
+            event.getEntity().setVelocity(getRpgPlayer().getPlayer().getLocation().getDirection().setY(0).normalize().multiply(data.getDouble("power")));
             refreshCooldown();
         }
     }

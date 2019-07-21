@@ -17,9 +17,6 @@ import java.util.List;
 
 public class Prism extends CooldownSkill
 {
-    private static String id = "Prism";
-    private static List<Integer> duration = getYaml(id).getIntegerList("values.duration");
-
     private boolean deployed = false;
 
     public Prism(RpgPlayer rpgPlayer, int level){
@@ -31,8 +28,8 @@ public class Prism extends CooldownSkill
         if(isCooldown()){return;}
         Player player = getRpgPlayer().getPlayer();
         deployed = true;
-        BlockUtils.tempPlaceBlock(Material.GLASS,player.getLocation(),duration.get(getLevel()));
-        BlockUtils.tempPlaceBlock(Material.GLASS,player.getLocation().add(new Vector(0,1,0)),duration.get(getLevel()));
+        BlockUtils.tempPlaceBlock(Material.GLASS,player.getLocation(),data.getInt("duration"));
+        BlockUtils.tempPlaceBlock(Material.GLASS,player.getLocation().add(new Vector(0,1,0)),data.getInt("duration"));
         new BukkitRunnable() {
 
             @Override
@@ -40,7 +37,7 @@ public class Prism extends CooldownSkill
                 deployed = false;
             }
 
-        }.runTaskLater(SkillScheme.getInstance(), duration.get(getLevel()));
+        }.runTaskLater(SkillScheme.getInstance(), data.getInt("duration"));
         refreshCooldown();
     }
 

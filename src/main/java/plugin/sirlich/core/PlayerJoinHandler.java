@@ -49,7 +49,7 @@ public class PlayerJoinHandler implements Listener
                 e.printStackTrace();
             }
         } else {
-            System.out.println("Attempting to create core-file...");
+            System.out.println("Attempting to create core-file for: " + player.getName());
             if(createPlayerYml(player, playerYml, true)) {
                 System.out.println("Created YML file for: " + player.getName());
             } else {

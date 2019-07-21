@@ -138,14 +138,13 @@ public class RpgPlayer
     public void addSkill(SkillType skillType, int level){
         try{
             Class clazz = skillType.getSkillClass();
-            System.out.println(clazz.getName());
             Constructor<Skill> constructor = clazz.getConstructor(RpgPlayer.class,int.class);
             Skill skill = (Skill) constructor.newInstance(this,level);
             skill.onEnable();
             skillList.put(skillType,skill);
             refreshPassiveModifiers();
         } catch (Exception e){
-            System.out.println("WARNING! SOMETHING TERRIBLE HAPPENED IN THE REFLECTION. YAYYY");
+            System.out.println("WARNING! Something terrible has occurred in the reflection.");
         }
 
 
@@ -197,7 +196,6 @@ public class RpgPlayer
 
     public void clearSkills(){
         for(Skill skill : skillList.values()){
-            System.out.println("Removing " + skill.getName());
             skill.onDisable();
         }
         refreshPassiveModifiers();
