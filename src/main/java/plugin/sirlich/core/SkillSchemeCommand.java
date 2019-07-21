@@ -14,6 +14,10 @@ public class SkillSchemeCommand implements CommandExecutor
             Player player = (Player) sender;
             RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
 
+            if (!player.hasPermission("skillscheme.ss") || ! player.isOp()){
+                rpgPlayer.tell("You don't have permission to do that.");
+                return true;
+            }
             if(args.length < 1){
                 rpgPlayer.tell("Please include an argument: " + c.gray + "[s]kill, [c]lass, [t]eam, [p]layer state, [g]ui");
                 return true;

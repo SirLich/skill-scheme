@@ -6,11 +6,13 @@ import main.java.plugin.sirlich.utilities.c;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import main.java.plugin.sirlich.skills.meta.Skill;
 import main.java.plugin.sirlich.skills.meta.SkillEditObject;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.util.Vector;
 
 import java.lang.reflect.Constructor;
 import java.util.*;
@@ -281,6 +283,20 @@ public class RpgPlayer
     public void setTeam(String team)
     {
         this.team = team;
+    }
+
+    public Arrow shootArrow(Vector velocity) {
+        return shootArrow(velocity,null);
+    }
+
+    public Arrow shootArrow(Vector velocity, String tag){
+        Arrow arrow = this.getPlayer().launchProjectile(Arrow.class);
+        arrow.setVelocity(velocity);
+        RpgProjectile rpgProjectile = RpgProjectile.registerProjectile(arrow,this);
+        if(tag != null){
+            rpgProjectile.addTag(tag);
+        }
+        return arrow;
     }
 
 }

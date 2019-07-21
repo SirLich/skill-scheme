@@ -26,13 +26,14 @@ public class RpgProjectile {
     private UUID id;
 
     //Add projectiles
-    public static void registerProjectile(Arrow arrow, RpgPlayer shooter){
-        registerProjectile((Projectile) arrow, shooter);
+    public static RpgProjectile registerProjectile(Arrow arrow, RpgPlayer shooter){
+        return registerProjectile((Projectile) arrow, shooter);
     }
-    public static void registerProjectile(Projectile arrow, RpgPlayer shooter){
+    public static RpgProjectile registerProjectile(Projectile arrow, RpgPlayer shooter){
         ArrayList<String> tags = new ArrayList<String>();
         RpgProjectile rpgArrow = new RpgProjectile(arrow.getUniqueId(),shooter,tags);
         projectileMap.put(arrow.getUniqueId(),rpgArrow);
+        return  rpgArrow;
     }
 
     //Remove projectiles

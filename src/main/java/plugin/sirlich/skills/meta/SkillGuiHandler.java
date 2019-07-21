@@ -18,6 +18,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
@@ -34,6 +35,15 @@ public class SkillGuiHandler implements Listener
     //Inventory names
     private final String SELECT_CLASS_INVENTORY_NAME = "~";
 
+    //Eventually this should warn the player if they close the inventory w/ saving.
+//    @EventHandler
+//    public void inventoryClose(InventoryCloseEvent event){
+//        if(event.getInventory().getName().contains(SELECT_CLASS_INVENTORY_NAME)){
+//            RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer((Player) event.getPlayer());
+//            rpgPlayer.playSound(Sound.BLOCK_FIRE_EXTINGUISH);
+//            rpgPlayer.tell(c.red + "You closed the SkillEditor manually. Use the emerald 'Accept` button to apply your skills.");
+//        }
+//    }
 
     @EventHandler
     public void clickEnchantTable(PlayerInteractEvent event)
