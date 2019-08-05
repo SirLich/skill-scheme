@@ -1,7 +1,7 @@
-package main.java.plugin.sirlich.skills.death;
+package plugin.sirlich.skills.death;
 
-import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.skills.meta.DeathSkill;
+import plugin.sirlich.core.RpgPlayer;
+import plugin.sirlich.skills.meta.DeathSkill;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
 import java.util.ArrayList;

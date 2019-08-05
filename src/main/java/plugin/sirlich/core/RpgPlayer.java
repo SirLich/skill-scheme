@@ -1,15 +1,15 @@
-package main.java.plugin.sirlich.core;
+package plugin.sirlich.core;
 
-import main.java.plugin.sirlich.skills.meta.ClassType;
-import main.java.plugin.sirlich.skills.meta.SkillType;
-import main.java.plugin.sirlich.utilities.c;
+import plugin.sirlich.skills.meta.ClassType;
+import plugin.sirlich.skills.meta.SkillType;
+import plugin.sirlich.utilities.c;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
-import main.java.plugin.sirlich.skills.meta.Skill;
-import main.java.plugin.sirlich.skills.meta.SkillEditObject;
+import plugin.sirlich.skills.meta.Skill;
+import plugin.sirlich.skills.meta.SkillEditObject;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;

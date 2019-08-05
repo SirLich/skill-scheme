@@ -1,4 +1,4 @@
-package main.java.plugin.sirlich.skills.meta;
+package plugin.sirlich.skills.meta;
 
 public enum SkillKind
 {

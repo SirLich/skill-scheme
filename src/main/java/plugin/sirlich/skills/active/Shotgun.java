@@ -1,7 +1,7 @@
-package main.java.plugin.sirlich.skills.active;
+package plugin.sirlich.skills.active;
 
-import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.skills.meta.CooldownSkill;
+import plugin.sirlich.core.RpgPlayer;
+import plugin.sirlich.skills.meta.CooldownSkill;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;

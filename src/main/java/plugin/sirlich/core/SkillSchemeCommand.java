@@ -1,7 +1,7 @@
-package main.java.plugin.sirlich.core;
+package plugin.sirlich.core;
 
-import main.java.plugin.sirlich.skills.meta.*;
-import main.java.plugin.sirlich.utilities.c;
+import plugin.sirlich.skills.meta.*;
+import plugin.sirlich.utilities.c;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

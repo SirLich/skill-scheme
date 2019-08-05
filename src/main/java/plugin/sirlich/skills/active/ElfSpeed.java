@@ -1,9 +1,9 @@
-package main.java.plugin.sirlich.skills.active;
+package plugin.sirlich.skills.active;
 
-import main.java.plugin.sirlich.SkillScheme;
-import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.skills.meta.TickingSkill;
-import main.java.plugin.sirlich.utilities.c;
+import plugin.sirlich.SkillScheme;
+import plugin.sirlich.core.RpgPlayer;
+import plugin.sirlich.skills.meta.TickingSkill;
+import plugin.sirlich.utilities.c;
 import org.bukkit.Sound;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -50,7 +50,7 @@ public class ElfSpeed extends TickingSkill {
         charges++;
         RpgPlayer rpgPlayer = getRpgPlayer();
         if(charges > chargesNeeded.get(getLevel())){
-            rpgPlayer.playSound(Sound.BLOCK_NOTE_HARP);
+            rpgPlayer.playSound(Sound.BLOCK_NOTE_BLOCK_HARP);
             rpgPlayer.editWalkSpeedModifier(speedModifier.get(getLevel()));
             rpgPlayer.tell(c.green + "ElfSpeed " + c.dgray + "has been activated!");
             charges = 0;

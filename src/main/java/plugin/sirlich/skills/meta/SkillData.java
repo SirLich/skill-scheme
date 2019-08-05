@@ -1,6 +1,6 @@
-package main.java.plugin.sirlich.skills.meta;
+package plugin.sirlich.skills.meta;
 
-import main.java.plugin.sirlich.SkillScheme;
+import plugin.sirlich.SkillScheme;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;

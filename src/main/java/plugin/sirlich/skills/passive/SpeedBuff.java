@@ -1,7 +1,7 @@
-package main.java.plugin.sirlich.skills.passive;
+package plugin.sirlich.skills.passive;
 
-import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.skills.meta.Skill;
+import plugin.sirlich.core.RpgPlayer;
+import plugin.sirlich.skills.meta.Skill;
 import org.bukkit.ChatColor;
 
 import java.util.ArrayList;

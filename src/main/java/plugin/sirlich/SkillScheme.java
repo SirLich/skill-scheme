@@ -1,8 +1,8 @@
-package main.java.plugin.sirlich;
+package plugin.sirlich;
 
-import main.java.plugin.sirlich.core.*;
-import main.java.plugin.sirlich.skills.meta.SkillData;
-import main.java.plugin.sirlich.utilities.BlockUtils;
+import plugin.sirlich.core.*;
+import plugin.sirlich.skills.meta.SkillData;
+import plugin.sirlich.utilities.BlockUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -10,8 +10,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import main.java.plugin.sirlich.skills.meta.SkillHandler;
-import main.java.plugin.sirlich.skills.meta.SkillGuiHandler;
+import plugin.sirlich.skills.meta.SkillHandler;
+import plugin.sirlich.skills.meta.SkillGuiHandler;
 
 import java.io.File;
 

@@ -1,4 +1,4 @@
-package main.java.plugin.sirlich.core;
+package plugin.sirlich.core;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

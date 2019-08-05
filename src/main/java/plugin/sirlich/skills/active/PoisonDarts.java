@@ -1,8 +1,8 @@
-package main.java.plugin.sirlich.skills.active;
+package plugin.sirlich.skills.active;
 
-import main.java.plugin.sirlich.core.RpgProjectile;
-import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.skills.meta.TickingSkill;
+import plugin.sirlich.core.RpgProjectile;
+import plugin.sirlich.core.RpgPlayer;
+import plugin.sirlich.skills.meta.TickingSkill;
 import org.bukkit.*;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;

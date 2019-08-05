@@ -1,6 +1,7 @@
 name: SkillScheme
-version: 0.1
-main: main.java.plugin.sirlich.SkillScheme
+version: '0.1'
+main: plugin.sirlich.SkillScheme
+api-version: '1.13'
 commands:
    ss:
      description: nothing here

@@ -1,6 +1,6 @@
-package main.java.plugin.sirlich.skills.meta;
+package plugin.sirlich.skills.meta;
 
-import main.java.plugin.sirlich.core.RpgPlayer;
+import plugin.sirlich.core.RpgPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.PlayerDeathEvent;

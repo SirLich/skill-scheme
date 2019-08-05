@@ -1,10 +1,10 @@
-package main.java.plugin.sirlich.skills.active;
+package plugin.sirlich.skills.active;
 
-import main.java.plugin.sirlich.core.RpgProjectile;
-import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.skills.meta.PrimedSkill;
-import main.java.plugin.sirlich.utilities.BlockUtils;
-import main.java.plugin.sirlich.utilities.c;
+import plugin.sirlich.core.RpgProjectile;
+import plugin.sirlich.core.RpgPlayer;
+import plugin.sirlich.skills.meta.PrimedSkill;
+import plugin.sirlich.utilities.BlockUtils;
+import plugin.sirlich.utilities.c;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Arrow;
@@ -37,7 +37,7 @@ public class WebShot extends PrimedSkill
         if(event.getHitEntity() instanceof LivingEntity && rpgArrow.hasTag("WEB_SHOT")){
             Location loc = event.getHitEntity().getLocation();
             if(event.getHitEntity().getWorld().getBlockAt(loc).getType() == Material.AIR){
-                BlockUtils.tempPlaceBlock(Material.WEB,loc,duration.get(getLevel()));
+                BlockUtils.tempPlaceBlock(Material.COBWEB,loc,duration.get(getLevel()));
             }
         }
     }
@@ -49,7 +49,7 @@ public class WebShot extends PrimedSkill
             Location loc = event.getHitBlock().getLocation();
             loc.add(0,1,0);
             if(event.getHitBlock().getWorld().getBlockAt(loc).getType() == Material.AIR){
-                BlockUtils.tempPlaceBlock(Material.WEB,loc,duration.get(getLevel()));
+                BlockUtils.tempPlaceBlock(Material.COBWEB,loc,duration.get(getLevel()));
             }
         }
     }

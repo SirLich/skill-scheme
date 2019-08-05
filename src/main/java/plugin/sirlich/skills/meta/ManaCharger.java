@@ -1,7 +1,7 @@
-package main.java.plugin.sirlich.skills.meta;
+package plugin.sirlich.skills.meta;
 
-import main.java.plugin.sirlich.SkillScheme;
-import main.java.plugin.sirlich.core.RpgPlayer;
+import plugin.sirlich.SkillScheme;
+import plugin.sirlich.core.RpgPlayer;
 import org.bukkit.Bukkit;
 
 public class ManaCharger extends Skill {

@@ -1,10 +1,10 @@
-package main.java.plugin.sirlich.skills.active;
+package plugin.sirlich.skills.active;
 
-import main.java.plugin.sirlich.SkillScheme;
-import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.skills.meta.ManaSkill;
-import main.java.plugin.sirlich.utilities.BlockUtils;
-import main.java.plugin.sirlich.utilities.c;
+import plugin.sirlich.SkillScheme;
+import plugin.sirlich.core.RpgPlayer;
+import plugin.sirlich.skills.meta.ManaSkill;
+import plugin.sirlich.utilities.BlockUtils;
+import plugin.sirlich.utilities.c;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;

@@ -1,8 +1,8 @@
-package main.java.plugin.sirlich.skills.active;
+package plugin.sirlich.skills.active;
 
-import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.skills.meta.CooldownSkill;
-import main.java.plugin.sirlich.utilities.c;
+import plugin.sirlich.core.RpgPlayer;
+import plugin.sirlich.skills.meta.CooldownSkill;
+import plugin.sirlich.utilities.c;
 import org.bukkit.entity.Fireball;
 import org.bukkit.event.player.PlayerInteractEvent;
 

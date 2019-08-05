@@ -1,9 +1,9 @@
-package main.java.plugin.sirlich.skills.active;
+package plugin.sirlich.skills.active;
 
-import main.java.plugin.sirlich.core.RpgProjectile;
-import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.skills.meta.Skill;
-import main.java.plugin.sirlich.utilities.c;
+import plugin.sirlich.core.RpgProjectile;
+import plugin.sirlich.core.RpgPlayer;
+import plugin.sirlich.skills.meta.Skill;
+import plugin.sirlich.utilities.c;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Arrow;
@@ -61,7 +61,7 @@ public class BowOfShiva extends Skill
         Entity entity = event.getHitEntity();
         if(rpgArrow.hasTag("CHAIN_ARROW") && event.getHitEntity() instanceof  LivingEntity){
             LivingEntity livingEntity = (LivingEntity) entity;
-            rpgShooter.playSound(Sound.ENTITY_ARMORSTAND_HIT);
+            rpgShooter.playSound(Sound.ENTITY_ARMOR_STAND_HIT);
             rpgShooter.tell(c.daqua + "*Zing!*");
 
             if(isEntityClose(livingEntity,data.getInt("radius"))){

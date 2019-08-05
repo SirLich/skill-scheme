@@ -1,9 +1,9 @@
-package main.java.plugin.sirlich.skills.active;
+package plugin.sirlich.skills.active;
 
-import main.java.plugin.sirlich.SkillScheme;
-import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.skills.meta.Skill;
-import main.java.plugin.sirlich.utilities.c;
+import plugin.sirlich.SkillScheme;
+import plugin.sirlich.core.RpgPlayer;
+import plugin.sirlich.skills.meta.Skill;
+import plugin.sirlich.utilities.c;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;

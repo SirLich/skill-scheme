@@ -1,7 +1,7 @@
-package main.java.plugin.sirlich.skills.meta;
+package plugin.sirlich.skills.meta;
 
-import main.java.plugin.sirlich.core.RpgProjectile;
-import main.java.plugin.sirlich.core.RpgPlayer;
+import plugin.sirlich.core.RpgProjectile;
+import plugin.sirlich.core.RpgPlayer;
 import org.bukkit.Material;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
@@ -16,7 +16,7 @@ import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
-import static main.java.plugin.sirlich.utilities.WeaponUtils.*;
+import static plugin.sirlich.utilities.WeaponUtils.*;
 
 public class SkillHandler implements Listener
 {

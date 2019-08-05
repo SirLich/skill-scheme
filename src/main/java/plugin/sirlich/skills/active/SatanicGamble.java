@@ -1,7 +1,7 @@
-package main.java.plugin.sirlich.skills.active;
+package plugin.sirlich.skills.active;
 
-import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.skills.meta.CooldownSkill;
+import plugin.sirlich.core.RpgPlayer;
+import plugin.sirlich.skills.meta.CooldownSkill;
 import org.bukkit.Sound;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
@@ -9,7 +9,7 @@ public class SatanicGamble extends CooldownSkill
 {
     public SatanicGamble(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer,level,"SatanicGamble");
-        setRechargeSound(Sound.ENTITY_ENDERMEN_SCREAM);
+        setRechargeSound(Sound.ENTITY_ENDERMAN_SCREAM);
     }
 
     @Override

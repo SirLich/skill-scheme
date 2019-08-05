@@ -1,8 +1,8 @@
-package main.java.plugin.sirlich.skills.meta;
+package plugin.sirlich.skills.meta;
 
 
-import main.java.plugin.sirlich.skills.active.*;
-import main.java.plugin.sirlich.skills.passive.*;
+import plugin.sirlich.skills.active.*;
+import plugin.sirlich.skills.passive.*;
 
 public enum SkillType {
     SpeedBuff(new SpeedBuff(null,0)),

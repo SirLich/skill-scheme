@@ -1,8 +1,8 @@
-package main.java.plugin.sirlich.skills.active;
+package plugin.sirlich.skills.active;
 
-import main.java.plugin.sirlich.SkillScheme;
-import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.skills.meta.CooldownSkill;
+import plugin.sirlich.SkillScheme;
+import plugin.sirlich.core.RpgPlayer;
+import plugin.sirlich.skills.meta.CooldownSkill;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;

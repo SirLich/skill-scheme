@@ -1,10 +1,10 @@
-package main.java.plugin.sirlich.skills.meta;
+package plugin.sirlich.skills.meta;
 
-import de.tr7zw.itemnbtapi.NBTItem;
-import main.java.plugin.sirlich.SkillScheme;
-import main.java.plugin.sirlich.core.PlayerState;
-import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.utilities.c;
+import de.tr7zw.nbtapi.NBTItem;
+import plugin.sirlich.SkillScheme;
+import plugin.sirlich.core.PlayerState;
+import plugin.sirlich.core.RpgPlayer;
+import plugin.sirlich.utilities.c;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -18,7 +18,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
@@ -50,7 +49,7 @@ public class SkillGuiHandler implements Listener
     {
         RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(event.getPlayer());
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-            if (event.getClickedBlock().getType() == Material.ENCHANTMENT_TABLE) {
+            if (event.getClickedBlock().getType() == Material.ENCHANTING_TABLE) {
                 if(rpgPlayer.getPlayerState().canUseEditor()){
                     event.setCancelled(true);
                     openMainGui(event.getPlayer());
@@ -65,7 +64,7 @@ public class SkillGuiHandler implements Listener
         if (event.getWhoClicked() != null) {
             Player player = (Player) event.getWhoClicked();
             if (event.getClickedInventory() != null && event.getCurrentItem() != null) {
-                if (event.getClickedInventory().getName().contains(SELECT_CLASS_INVENTORY_NAME)) {
+                if (event.getView().getTitle().contains(SELECT_CLASS_INVENTORY_NAME)) {
                     event.setCancelled(true);
                     ItemStack itemStack = event.getCurrentItem();
                     NBTItem nbtItem = new NBTItem(itemStack);
@@ -87,11 +86,11 @@ public class SkillGuiHandler implements Listener
         if(buttonAction.equalsIgnoreCase("open_class_gui")){
             String classGui = nbtItem.getString("class");
             player.closeInventory();
-            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_PLING,1,1);
-            openSkillGui(player, main.java.plugin.sirlich.skills.meta.ClassType.valueOf(classGui));
+            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING,1,1);
+            openSkillGui(player, plugin.sirlich.skills.meta.ClassType.valueOf(classGui));
         } else if(buttonAction.equalsIgnoreCase("accept")){
-            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_PLING,1,1);
-            player.playSound(player.getLocation(),Sound.ENTITY_FIREWORK_LARGE_BLAST,1,1);
+            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING,1,1);
+            player.playSound(player.getLocation(),Sound.ENTITY_FIREWORK_ROCKET_BLAST,1,1);
             player.closeInventory();
             if(rpgPlayer.getPlayerState() == PlayerState.TESTING){
                 rpgPlayer.clearSkills();
@@ -100,7 +99,7 @@ public class SkillGuiHandler implements Listener
                 rpgPlayer.tell("Your skills have been saved. They will be applied when the game starts. ");
             }
         } else if(buttonAction.equalsIgnoreCase("open_main_gui")){
-            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_PLING,1,1);
+            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING,1,1);
             player.closeInventory();
             openMainGui(player);
         }else if(buttonAction.equalsIgnoreCase("skill_item")) {
@@ -108,7 +107,7 @@ public class SkillGuiHandler implements Listener
             SkillType skillType = SkillType.valueOf(nbtItem.getString("skill_type"));
             SkillKind skillKind = SkillKind.valueOf(nbtItem.getString("skill_kind"));
             if(rpgPlayer.getSkillEditObject().buttonPush(skillKind,skillType,clickType)){
-                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_PLING,1,1);
+                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING,1,1);
                 oldInventory.setItem(slot,getSkillItem(skillType,rpgPlayer.getSkillEditObject().getLevel(skillKind),skillKind));
                 ItemStack point = getStandardGuiButton(Material.PRISMARINE_CRYSTALS,"Points remaining",null);
                 point.setAmount(rpgPlayer.getSkillEditObject().getPoints());
@@ -120,7 +119,7 @@ public class SkillGuiHandler implements Listener
     }
 
     private static void acceptSkills(Player player, RpgPlayer rpgPlayer){
-        player.playSound(player.getLocation(),Sound.ENTITY_FIREWORK_LARGE_BLAST,1,1);
+        player.playSound(player.getLocation(),Sound.ENTITY_FIREWORK_ROCKET_BLAST,1,1);
         player.closeInventory();
         if(rpgPlayer.getPlayerState().canInstantlyEquipSkills()){
             rpgPlayer.clearSkills();
@@ -194,7 +193,7 @@ public class SkillGuiHandler implements Listener
     private static void overfillLeftoverSlots(Inventory inventory){
         for(int slot = 0; slot < inventory.getSize(); slot++){
             if(inventory.getItem(slot) == null){
-                ItemStack itemStack = new ItemStack(Material.STAINED_GLASS_PANE,1,(short)15);
+                ItemStack itemStack = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
                 ItemMeta itemMeta = itemStack.getItemMeta();
                 itemMeta.setDisplayName(ChatColor.BOLD + "");
                 itemStack.setItemMeta(itemMeta);
@@ -211,7 +210,7 @@ public class SkillGuiHandler implements Listener
         inventory.setItem(11, getStandardGuiButton(Material.IRON_CHESTPLATE,"Fighter","open_class_gui","FIGHTER"));
         inventory.setItem(13, getStandardGuiButton(Material.CHAINMAIL_CHESTPLATE,"Ranger","open_class_gui","RANGER"));
         inventory.setItem(14, getStandardGuiButton(Material.LEATHER_CHESTPLATE,"Rogue","open_class_gui","ROGUE"));
-        inventory.setItem(16, getStandardGuiButton(Material.GOLD_CHESTPLATE,"Warlock","open_class_gui","WARLOCK"));
+        inventory.setItem(16, getStandardGuiButton(Material.GOLDEN_CHESTPLATE,"Warlock","open_class_gui","WARLOCK"));
 
         overfillLeftoverSlots(inventory);
         player.openInventory(inventory);
@@ -227,7 +226,7 @@ public class SkillGuiHandler implements Listener
             level--;
             levelBalancer++;
         } else {
-            itemStack = new ItemStack(Material.INK_SACK, 1,(short)8);
+            itemStack = new ItemStack(Material.LIGHT_GRAY_DYE);
         }
         ItemMeta itemMeta = itemStack.getItemMeta();
 

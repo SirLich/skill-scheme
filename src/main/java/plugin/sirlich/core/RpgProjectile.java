@@ -1,4 +1,4 @@
-package main.java.plugin.sirlich.core;
+package plugin.sirlich.core;
 
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Projectile;

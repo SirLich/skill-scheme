@@ -1,7 +1,7 @@
-package main.java.plugin.sirlich.utilities;
+package plugin.sirlich.utilities;
 
-import main.java.plugin.sirlich.SkillScheme;
-import main.java.plugin.sirlich.core.RpgPlayer;
+import plugin.sirlich.SkillScheme;
+import plugin.sirlich.core.RpgPlayer;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -68,14 +68,11 @@ public class BlockUtils implements Listener
         final Byte oldDirection = location.getWorld().getBlockAt(location).getData();
         dontBreak.add(oldLocation);
         location.getWorld().getBlockAt(location).setType(material);
-        location.getWorld().getBlockAt(location).setData(direction);
         new BukkitRunnable() {
             @Override
             public void run() {
                 oldLocation.getWorld().getBlockAt(oldLocation).setType(oldMaterial);
-                oldLocation.getWorld().getBlockAt(oldLocation).setData(oldDirection);
                 dontBreak.remove(oldLocation);
-
             }
 
         }.runTaskLater(SkillScheme.getInstance(), ticks);

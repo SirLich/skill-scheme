@@ -1,6 +1,6 @@
-package main.java.plugin.sirlich.core;
+package plugin.sirlich.core;
 
-import main.java.plugin.sirlich.SkillScheme;
+import plugin.sirlich.SkillScheme;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;

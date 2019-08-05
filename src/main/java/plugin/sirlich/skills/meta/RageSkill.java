@@ -1,8 +1,8 @@
-package main.java.plugin.sirlich.skills.meta;
+package plugin.sirlich.skills.meta;
 
-import main.java.plugin.sirlich.SkillScheme;
-import main.java.plugin.sirlich.core.RpgPlayer;
-import main.java.plugin.sirlich.utilities.c;
+import plugin.sirlich.SkillScheme;
+import plugin.sirlich.core.RpgPlayer;
+import plugin.sirlich.utilities.c;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.inventory.ItemStack;
