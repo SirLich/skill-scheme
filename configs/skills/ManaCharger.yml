@@ -1,0 +1,5 @@
+cost: 1
+maxLevel: 3
+name: 'Mana Charger'
+manaPerSecond: 10
+ticksPerCycle: 5

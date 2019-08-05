@@ -1,0 +1,23 @@
+cost: 1
+maxLevel: 3
+name: 'Classic Fireball'
+description:
+- '&7&o"Keep calm and drink Fireball."'
+- ""
+- "Shoots fireballs. Classic."
+- ""
+- 'Right-Click &baxe&7 to fire'
+- ""
+- "Cooldown: [cooldown / 20] seconds"
+- "Yield: [yield] boom-units"
+values:
+  cooldown:
+  - 100
+  - 400
+  - 200
+  - 800
+  yield:
+  - 0.5
+  - 0.2
+  - 0.1
+  - 0.3

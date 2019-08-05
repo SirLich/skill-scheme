@@ -1,0 +1,8 @@
+world: world
+playerStateOnJoin: TESTING
+spawn_location:
+  x: 260
+  y: 56
+  z: 304
+  pitch: -137
+  yaw: 0

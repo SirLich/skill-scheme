@@ -1,0 +1,30 @@
+cost: 1
+maxLevel: 3
+name: 'Archer Tower'
+description:
+- '&7&o"You have to know when to strike and when to retreat"'
+- ""
+- 'Retreat from the battlefield for a few moments'
+- "in this portable, temporary archer-tower."
+- ''
+- 'Press &bF&8 to activate'
+- ''
+- "Cooldown: [cooldown / 20] seconds"
+- "Lifespan: [duration / 20] seconds"
+xliff:
+  must_be_on_ground: "You must be on the ground to use this skil"
+  something_is_in_the_way: "Something appears to be in the way"
+sounds:
+  must_be_on_ground: BLOCK_ANVIL_FALL
+  something_is_in_the_way: BLOCK_ANVIL_FALL
+values:
+  cooldown:
+  - 100
+  - 400
+  - 200
+  - 800
+  duration:
+  - 50
+  - 400
+  - 700
+  - 20

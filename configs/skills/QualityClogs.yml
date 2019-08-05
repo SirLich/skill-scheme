@@ -1,0 +1,9 @@
+cost: 1
+maxLevel: 3
+name: 'Quality Clogs'
+values:
+  damageReduction:
+  - 0.8
+  - 0.6
+  - 0.4
+  - 0

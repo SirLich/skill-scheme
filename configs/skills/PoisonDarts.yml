@@ -1,0 +1,31 @@
+cost: 1
+maxLevel: 3
+name: 'Poison Darts'
+description:
+- "&7&oPoison makes the strongest man weak!"
+- ""
+- "Passively generate poison dart charges."
+- "Poison darts can be fired instantly, and"
+- "cause a lasting poison effect."
+- ""
+- "Right-Click &bbow&8 to insta-fire"
+- ""
+- "1 dart per [ticks / 20] seconds"
+- "Poison lasts for [poisonDuration / 20] seconds"
+- "Max of [maxDarts] darts"
+values:
+  ticks:
+  - 200
+  - 200
+  - 200
+  - 10
+  poisonDuration:
+  - 20
+  - 30
+  - 40
+  - 100
+  maxDarts:
+  - 3
+  - 5
+  - 8
+  - 200

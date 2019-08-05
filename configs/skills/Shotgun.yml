@@ -1,0 +1,14 @@
+cost: 1
+maxLevel: 4
+name: 'Shotgun'
+values:
+  cooldown:
+  - 500
+  - 400
+  - 300
+  - 200
+  power:
+  - 200
+  - 3
+  - 4
+  - 5

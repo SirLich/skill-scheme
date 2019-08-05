@@ -1,0 +1,28 @@
+cost: 1
+maxLevel: 3
+name: 'Geronimo'
+description:
+- "Enter into a raged state. While raged"
+- "melee attacks will cause your body to explode"
+- "dealing damage to your enemies, but not yourself."
+- ""
+- "Press: &bF&8 to activate"
+- ""
+- "Cooldown: [cooldown / 20] seconds"
+- "Duration: [duration / 20] seconds"
+values:
+  cooldown:
+  - 200
+  - 150
+  - 100
+  - 50
+  duration:
+  - 50
+  - 100
+  - 150
+  - 200
+  yield:
+  - 0.1
+  - 0.2
+  - 0.5
+  - 1.6

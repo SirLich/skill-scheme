@@ -1,0 +1,7 @@
+cost: 1
+maxLevel: 4
+name: 'Triple Shot'
+xliff:
+  triple_shot: "*Splock*"
+sounds:
+  triple_shot: "ENTITY_PARROT_HURT"

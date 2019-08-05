@@ -1,0 +1,18 @@
+cost: 1
+maxLevel: 3
+name: 'Blade of Confusion'
+description:
+- '&7&o"Confusion is the mightiest weapon!"'
+- ""
+- "When primed, sword strikes cause the enemy"
+- "to look in a random direction."
+- ""
+- "Right-click &bsword&8 to prime"
+- ""
+- "Cooldown: [cooldown / 20] seconds"
+values:
+  cooldown:
+  - 100
+  - 400
+  - 200
+  - 800

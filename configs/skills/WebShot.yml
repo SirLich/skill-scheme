@@ -1,0 +1,23 @@
+cost: 1
+maxLevel: 3
+name: 'Web Shot'
+description:
+- '&7&o"Insert line here"'
+- ""
+- "Primed arrows leave a cobweb behind"
+- "on hit. Perfect for trapping enemies!"
+- ""
+- "Left-Click &b bow &8 to prime"
+- "Cooldown: [cooldown / 20] seconds"
+- "Duration: [duration / 20] seconds"
+values:
+  cooldown:
+  - 100
+  - 400
+  - 200
+  - 800
+  duration:
+  - 50
+  - 400
+  - 700
+  - 20

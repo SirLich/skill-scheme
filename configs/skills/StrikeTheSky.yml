@@ -1,0 +1,19 @@
+cost: 1
+maxLevel: 4
+name: 'Strike the Sky'
+values:
+  cooldown:
+  - 100
+  - 400
+  - 200
+  - 100
+  range:
+  - 5
+  - 10
+  - 25
+  - 50
+  power:
+  - 2
+  - 3
+  - 4
+  - 5

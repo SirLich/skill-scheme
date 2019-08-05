@@ -1,0 +1,16 @@
+cost: 1
+maxLevel: 3
+name: 'Killing Spree'
+description:
+- "Teleport into battle"
+- "5 seconds later you teleport back."
+- ""
+- "Drop &bsword&8 to activate"
+- ""
+- "Cooldown: [cooldown / 20] seconds"
+values:
+  cooldown:
+  - 200
+  - 150
+  - 100
+  - 50

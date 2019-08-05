@@ -1,0 +1,22 @@
+cost: 1
+maxLevel: 4
+name: 'Magma Bow'
+description:
+- '&7&oFight fire with fire!'
+- ""
+- "Each shot has a passive chance to cause"
+- "lasting burn damage."
+- ""
+- "Chance: [chance * 100]%"
+- "Burn for: [fireTicks / 20] seconds"
+values:
+  chance:
+  - 0.3
+  - 0.4
+  - 0.5
+  - 1
+  fireTicks:
+  - 20
+  - 40
+  - 60
+  - 80

@@ -1,0 +1,23 @@
+cost: 1
+maxLevel: 3
+name: 'Phantom Arrows'
+description:
+- "&7&oConfusion and turmoil!"
+- ""
+- "Primed arrows will cause you to swap places"
+- "with whomever you hit."
+- ""
+- "Left-Click &bbow&8 to prime"
+- ""
+- "Cooldown: [cooldown / 20] seconds"
+values:
+  cooldown:
+  - 100
+  - 400
+  - 200
+  - 800
+  duration:
+  - 50
+  - 400
+  - 700
+  - 20
