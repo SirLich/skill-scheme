@@ -69,6 +69,25 @@ public class SkillHandler implements Listener
         }
     }
 
+    @EventHandler
+    public void onItemPickup(EntityPickupItemEvent event) {
+        if(event.getEntity() instanceof Player){
+            Player player  = (Player) event.getEntity();
+            RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
+            for(Skill skill : rpgPlayer.getSkillList().values()){
+                skill.onItemPickup(event);
+            }
+
+            for(RpgPlayer otherPlayer : RpgPlayer.getRpgPlayers()){
+                if(otherPlayer.getPlayer().getUniqueId() != player.getUniqueId()){
+                    for(Skill skill : rpgPlayer.getSkillList().values()){
+                        skill.onItemPickupOther(event);
+                    }
+                }
+            }
+        }
+    }
+
     /*
     HANDLES: Melee attack events for
         - Sword

@@ -226,7 +226,7 @@ public class SkillGuiHandler implements Listener
             level--;
             levelBalancer++;
         } else {
-            itemStack = new ItemStack(Material.LIGHT_GRAY_DYE);
+            itemStack = new ItemStack(Material.GRAY_DYE);
         }
         ItemMeta itemMeta = itemStack.getItemMeta();
 

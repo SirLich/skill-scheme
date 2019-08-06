@@ -160,6 +160,14 @@ public class Skill
 
     }
 
+    public void onItemPickup(EntityPickupItemEvent event){
+
+    }
+
+    public void onItemPickupOther(EntityPickupItemEvent event){
+
+    }
+
     public void onAxeDrop(PlayerDropItemEvent event){
 
     }

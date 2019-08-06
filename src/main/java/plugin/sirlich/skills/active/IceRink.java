@@ -2,24 +2,22 @@ package plugin.sirlich.skills.active;
 
 import plugin.sirlich.SkillScheme;
 import plugin.sirlich.core.RpgPlayer;
-import plugin.sirlich.skills.meta.ManaSkill;
+import plugin.sirlich.skills.meta.ToggleSkill;
 import plugin.sirlich.utilities.BlockUtils;
-import plugin.sirlich.utilities.c;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class IceRink extends ManaSkill
+public class IceRink extends ToggleSkill
 {
     private static String id = "IceRink";
     private static List<Integer> radius = getYaml(id).getIntegerList("values.radius");
     private static List<Integer> iceDuration = getYaml(id).getIntegerList("values.iceDuration");
     private static List<Integer> manaLossPerSecond =  getYaml(id).getIntegerList("values.manaLossPerSecond");
-    private int refreshRate = getYaml(id).getInt("values.refreshRate");
+    private int refreshRate = data.getInt("refresh_rate");
 
 
     private int schedularID;

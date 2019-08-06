@@ -27,6 +27,7 @@ public class SkillEditObject
 
     public boolean buttonPush(SkillKind skillKind, SkillType skillType, ClickType clickType){
         int maxLevel = skillType.getSkill().getMaxLevel();
+        int cost = skillType.getSkill().getCost();
 
         //Undefined skills
         if(skillKind == SkillKind.UNDEFINED){
@@ -38,18 +39,19 @@ public class SkillEditObject
             //Left clicks
             if(clickType.equals(ClickType.LEFT)){
 
-                //The skill kind we are editing has already been edited
-                if(skillMap.containsKey(skillKind)){
+                //The player has points remaining
+                if(points - cost >= 0) {
 
-                    //Skill type is the same, so we can update the level
-                    if(skillMap.get(skillKind) == skillType){
+                    //The skill kind we are editing has already been edited
+                    if (skillMap.containsKey(skillKind)) {
 
-                        //The player has points remaining
-                        if(points > 0){
+                        //Skill type is the same, so we can update the level
+                        if (skillMap.get(skillKind) == skillType) {
+
                             //Skill type is less than max level
-                            if(levelMap.get(skillKind) < maxLevel){
-                                points -= 1;
-                                levelMap.put(skillKind,levelMap.get(skillKind) + 1);
+                            if (levelMap.get(skillKind) < maxLevel) {
+                                points -= cost;
+                                levelMap.put(skillKind, levelMap.get(skillKind) + 1);
                             }
 
                             //This skill is already the highest possible
@@ -57,23 +59,27 @@ public class SkillEditObject
                                 parent.tell("That skill is already maxed.");
                                 return false;
                             }
-                        } else {
-                            parent.tell("You don't have any points remaining");
+                        }
+
+                        //Skill type is different
+                        else {
+                            parent.tell("You can't select more than one skill from each category.");
+                            return false;
                         }
                     }
 
-                    //Skill type is different
+                    //The skill kind we are editing is fresh!
                     else {
-                        parent.tell("You can't select more than one skill from each category.");
-                        return false;
+                        skillMap.put(skillKind, skillType);
+                        levelMap.put(skillKind, 1);
+                        points -= cost;
                     }
                 }
 
-                //The skill kind we are editing is fresh!
-                else {
-                    skillMap.put(skillKind,skillType);
-                    levelMap.put(skillKind,1);
-                    points -= 1;
+                //No points remaining
+                else{
+                    parent.tell("You don't have any points remaining");
+                    return false;
                 }
             }
 
@@ -95,7 +101,7 @@ public class SkillEditObject
                             skillMap.remove(skillKind);
                             levelMap.remove(skillKind);
                         }
-                        points += 1;
+                        points += cost;
                     }
 
                     //Skill type is different
