@@ -37,7 +37,8 @@ public enum SkillType {
     Shotgun(new Shotgun(null, 0)),
     TripleShot(new TripleShot(null,0)),
     Embers(new Embers(null, 0)),
-    SpringBoard(new SpringBoard(null, 0));
+    SpringBoard(new SpringBoard(null, 0)),
+    Bandaid(new Bandaid(null, 0));
 
     private final Skill skill;
 

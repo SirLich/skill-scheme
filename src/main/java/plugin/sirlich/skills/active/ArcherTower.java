@@ -1,11 +1,9 @@
 package plugin.sirlich.skills.active;
 
 import plugin.sirlich.SkillScheme;
-import plugin.sirlich.skills.meta.SkillData;
 import plugin.sirlich.utilities.BlockUtils;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.skills.meta.CooldownSkill;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -14,8 +12,6 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
-
-import java.util.List;
 
 public class ArcherTower extends CooldownSkill
 {
@@ -43,7 +39,7 @@ public class ArcherTower extends CooldownSkill
         if(isCooldown()){return;}
         if(!getRpgPlayer().getPlayer().isOnGround()){
             getRpgPlayer().tell(data.xliff("must_be_on_ground"));
-            getRpgPlayer().playSound(data.sound("must_be_on_ground"));
+            getRpgPlayer().playSound(data.getSound("must_be_on_ground"));
             return;
         }
         deployed = true;
@@ -143,7 +139,7 @@ public class ArcherTower extends CooldownSkill
             refreshCooldown();
         } else {
             getRpgPlayer().tell(data.xliff("something_is_in_the_way"));
-            getRpgPlayer().playSound(data.sound("something_is_in_the_way"));
+            getRpgPlayer().playSound(data.getSound("something_is_in_the_way"));
         }
     }
 }

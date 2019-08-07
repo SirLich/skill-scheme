@@ -17,5 +17,4 @@ public class SpringBoard extends SwordChargeSkill {
         Vector vel = player.getLocation().getDirection().normalize();
         player.setVelocity(new Vector(vel.getX() * power, vel.getY() * power/2, vel.getZ() * power));
     }
-
 }

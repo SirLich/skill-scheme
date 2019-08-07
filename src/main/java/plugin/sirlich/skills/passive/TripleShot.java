@@ -14,7 +14,7 @@ public class TripleShot extends Skill {
     @Override
     public void onBowFire(EntityShootBowEvent event){
         if(event.getForce() == 1.0f){
-            getRpgPlayer().playSound(data.sound("triple_shot"));
+            getRpgPlayer().playSound(data.getSound("triple_shot"));
             getRpgPlayer().tell(data.xliff("triple_shot"));
             Vector velocity = event.getProjectile().getVelocity();
             Arrow arrow1 = getRpgPlayer().shootArrow(velocity);

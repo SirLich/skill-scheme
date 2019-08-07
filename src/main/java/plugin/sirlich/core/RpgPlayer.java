@@ -1,5 +1,6 @@
 package plugin.sirlich.core;
 
+import org.bukkit.attribute.Attribute;
 import plugin.sirlich.skills.meta.ClassType;
 import plugin.sirlich.skills.meta.SkillType;
 import plugin.sirlich.utilities.c;
@@ -85,6 +86,14 @@ public class RpgPlayer
 
     public int getMana(){
         return Math.round(getPlayer().getExp() * 100);
+    }
+
+    public void addHealth(double health){
+        if(this.getPlayer().getHealth() + health <= player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getDefaultValue()){
+            getPlayer().setHealth(this.player.getHealth() + health);
+        } else {
+            this.getPlayer().setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getDefaultValue());
+        }
     }
 
     public void addMana(int mana){
@@ -205,7 +214,9 @@ public class RpgPlayer
     }
 
     public void playSound(Sound sound){
-        getPlayer().playSound(getPlayer().getLocation(),sound,1,1);
+        if(sound != null){
+            getPlayer().playSound(getPlayer().getLocation(),sound,1,1);
+        }
     }
 
 

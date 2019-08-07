@@ -46,7 +46,6 @@ public class Skill
     public void onDisable(){
     }
 
-
     public RpgPlayer getRpgPlayer(){
         return this.rpgPlayer;
     }

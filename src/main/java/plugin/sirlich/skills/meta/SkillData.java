@@ -99,20 +99,14 @@ public class SkillData {
         return xliff(skill.getId(),code);
     }
 
-    public static Sound sound(String skill, String code){
+    public static Sound getSound(String skill, String code){
         String key = skill + "_" + code;
-        if(soundDataMap.containsKey(key)){
-            return soundDataMap.get(key);
-        } else {
-            System.out.println("No key found of type: " + key);
-            System.out.println("All codes: " + xliffDataMap.toString());
-            return Sound.ENTITY_VILLAGER_NO;
-        }
+        return soundDataMap.get(key);
     }
 
     //Non static stuff for the built version
-    public static Sound sound(Skill skill, String code){
-        return sound(skill.getId(),code);
+    public static Sound getSound(Skill skill, String code){
+        return getSound(skill.getId(),code);
     }
 
 
@@ -139,8 +133,8 @@ public class SkillData {
         return xliff(skill.getId(),code);
     }
 
-    public Sound sound(String code){
-        return sound(skill.getId(),code);
+    public Sound getSound(String code){
+        return getSound(skill.getId(),code);
     }
 
     public static Integer getDefaultPointData(ClassType classType){
