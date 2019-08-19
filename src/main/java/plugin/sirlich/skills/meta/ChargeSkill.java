@@ -4,14 +4,13 @@ import org.bukkit.Bukkit;
 import plugin.sirlich.SkillScheme;
 import plugin.sirlich.core.RpgPlayer;
 
-public class SwordChargeSkill extends CooldownSkill{
+public class ChargeSkill extends CooldownSkill{
 
     private int schedularID;
     private boolean isCharging;
     private int charges;
     private int maxCharges;
     private boolean isFullyCharged;
-    private boolean isOnGroundRequired;
 
     /* CONFIG TO IMPLEMENT:
     max_charges
@@ -22,12 +21,11 @@ public class SwordChargeSkill extends CooldownSkill{
     sword_charge_refresh_rate
      */
 
-    public SwordChargeSkill(RpgPlayer rpgPlayer, int level, String id, boolean isOnGroundRequired){
+    public ChargeSkill(RpgPlayer rpgPlayer, int level, String id){
         super(rpgPlayer,level,id);
         this.maxCharges = data.getInt("max_charges");
         this.isCharging = false;
         this.isFullyCharged = false;
-        this.isOnGroundRequired = isOnGroundRequired;
         this.charges = 0;
     }
 
@@ -43,13 +41,19 @@ public class SwordChargeSkill extends CooldownSkill{
 
     }
 
+    //Overide this!
+    public boolean isCharging(){
+        System.out.println("Skill: " + this.getId() + " is configured incorrectly. Please overide isCharging");
+        return false;
+    }
+
     @Override
     public void onEnable(){
         onEnablePassthrough();
         schedularID = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(SkillScheme.getInstance(), new Runnable() {
             public void run() {
                 //The funky or clause here handles the case where the user doesn't have to be on the ground.
-                if(getRpgPlayer().getPlayer().isBlocking() && (getRpgPlayer().getPlayer().isOnGround() || !isOnGroundRequired)){
+                if(isCharging()){
                     if(!isCooldown()){
                         if(charges == maxCharges){
                             if(!isFullyCharged){

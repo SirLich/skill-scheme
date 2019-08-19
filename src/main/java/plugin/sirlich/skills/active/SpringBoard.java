@@ -3,11 +3,16 @@ package plugin.sirlich.skills.active;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 import plugin.sirlich.core.RpgPlayer;
-import plugin.sirlich.skills.meta.SwordChargeSkill;
+import plugin.sirlich.skills.meta.ChargeSkill;
 
-public class SpringBoard extends SwordChargeSkill {
+public class SpringBoard extends ChargeSkill {
     public SpringBoard(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer, level, "SpringBoard", true);
+        super(rpgPlayer, level, "SpringBoard");
+    }
+
+    @Override
+    public boolean isCharging(){
+        return getRpgPlayer().getPlayer().isBlocking() && getRpgPlayer().getPlayer().isOnGround();
     }
 
     @Override

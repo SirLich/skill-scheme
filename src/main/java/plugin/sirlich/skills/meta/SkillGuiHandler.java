@@ -2,13 +2,11 @@ package plugin.sirlich.skills.meta;
 
 import de.tr7zw.nbtapi.NBTItem;
 import plugin.sirlich.SkillScheme;
-import plugin.sirlich.core.PlayerState;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.utilities.c;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
@@ -63,6 +61,7 @@ public class SkillGuiHandler implements Listener
     {
         if (event.getWhoClicked() != null) {
             Player player = (Player) event.getWhoClicked();
+            RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
             if (event.getClickedInventory() != null && event.getCurrentItem() != null) {
                 if (event.getView().getTitle().contains(SELECT_CLASS_INVENTORY_NAME)) {
                     event.setCancelled(true);
@@ -71,7 +70,7 @@ public class SkillGuiHandler implements Listener
                     if(nbtItem.hasKey("button_action")){
                         handleButtonAction(player, event.getClickedInventory(), nbtItem,event.getClick(),event.getSlot());
                     } else{
-                        player.playSound(player.getLocation(), Sound.BLOCK_GRAVEL_BREAK,1,1);
+                        rpgPlayer.playSoundX("SkillGuiHandler.click_background");
                     }
                 }
             }
@@ -86,20 +85,12 @@ public class SkillGuiHandler implements Listener
         if(buttonAction.equalsIgnoreCase("open_class_gui")){
             String classGui = nbtItem.getString("class");
             player.closeInventory();
-            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING,1,1);
+            rpgPlayer.playSoundX("SkillGuiHandler.open_class_gui");
             openSkillGui(player, plugin.sirlich.skills.meta.ClassType.valueOf(classGui));
         } else if(buttonAction.equalsIgnoreCase("accept")){
-            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING,1,1);
-            player.playSound(player.getLocation(),Sound.ENTITY_FIREWORK_ROCKET_BLAST,1,1);
-            player.closeInventory();
-            if(rpgPlayer.getPlayerState() == PlayerState.TESTING){
-                rpgPlayer.clearSkills();
-                rpgPlayer.getSkillEditObject().addSkills(true);
-            } else {
-                rpgPlayer.tell("Your skills have been saved. They will be applied when the game starts. ");
-            }
+            acceptSkills(player,rpgPlayer);
         } else if(buttonAction.equalsIgnoreCase("open_main_gui")){
-            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING,1,1);
+            rpgPlayer.playSoundX("SkillGuiHandler.open_main_gui");
             player.closeInventory();
             openMainGui(player);
         }else if(buttonAction.equalsIgnoreCase("skill_item")) {
@@ -107,25 +98,37 @@ public class SkillGuiHandler implements Listener
             SkillType skillType = SkillType.valueOf(nbtItem.getString("skill_type"));
             SkillKind skillKind = SkillKind.valueOf(nbtItem.getString("skill_kind"));
             if(rpgPlayer.getSkillEditObject().buttonPush(skillKind,skillType,clickType)){
-                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING,1,1);
+                rpgPlayer.playSoundX("SkillGuiHandler.click_skill_true");
                 oldInventory.setItem(slot,getSkillItem(skillType,rpgPlayer.getSkillEditObject().getLevel(skillKind),skillKind));
                 ItemStack point = getStandardGuiButton(Material.PRISMARINE_CRYSTALS,"Points remaining",null);
                 point.setAmount(rpgPlayer.getSkillEditObject().getPoints());
                 oldInventory.setItem(51,point);
             } else {
-                player.playSound(player.getLocation(), Sound.BLOCK_STONE_STEP,1,1);
+                rpgPlayer.playSoundX("SkillGuiHandler.click_skill_false");
             }
         }
     }
 
+//    rpgPlayer.playSoundX("SkillGuiHandler.click_accept_1");
+//            rpgPlayer.playSoundX("SkillGuiHandler.click_accept_2");
+//            player.closeInventory();
+//            if(rpgPlayer.getPlayerState() == PlayerState.TESTING){
+//    rpgPlayer.clearSkills();
+//    rpgPlayer.getSkillEditObject().addSkills(true);
+//} else {
+//    rpgPlayer.tell("Your skills have been saved. They will be applied when the game starts. ");
+
     private static void acceptSkills(Player player, RpgPlayer rpgPlayer){
-        player.playSound(player.getLocation(),Sound.ENTITY_FIREWORK_ROCKET_BLAST,1,1);
+        rpgPlayer.playSoundX("SkillGuiHandler.click_accept_1");
+        rpgPlayer.playSoundX("SkillGuiHandler.click_accept_2");
         player.closeInventory();
         if(rpgPlayer.getPlayerState().canInstantlyEquipSkills()){
             rpgPlayer.clearSkills();
             rpgPlayer.getSkillEditObject().addSkills(true);
+            rpgPlayer.tellX("SkillGuiHandler.skills_have_been_equipped");
         } else {
-            rpgPlayer.tell("Your skills have been saved. They will be applied when the game starts. ");
+            rpgPlayer.playSoundX("SkillGuiHandler.click_accept_2");
+            rpgPlayer.tellX("SkillGuiHandler.skills_have_been_saved");
         }
     }
 
@@ -236,7 +239,7 @@ public class SkillGuiHandler implements Listener
             return new ItemStack(Material.RED_GLAZED_TERRACOTTA,1);
         }
 
-        itemMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.BOLD + skill.getName() + ChatColor.GRAY + " - " + " " +ChatColor.AQUA + (level + levelBalancer) + "/" + skill.getMaxLevel());
+        itemMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.BOLD + skill.getName() + ChatColor.GRAY + " - " + " " +ChatColor.AQUA + (level + levelBalancer) + "/" + skill.getMaxLevel() + c.gray + " - Cost: " + c.gold + skill.getCost());
 
         ArrayList<String> loreLines = skill.getDescription(level);
 

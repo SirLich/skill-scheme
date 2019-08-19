@@ -3,6 +3,7 @@ package plugin.sirlich.core;
 import org.bukkit.attribute.Attribute;
 import plugin.sirlich.skills.meta.ClassType;
 import plugin.sirlich.skills.meta.SkillType;
+import plugin.sirlich.utilities.Xliff;
 import plugin.sirlich.utilities.c;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -213,6 +214,10 @@ public class RpgPlayer
         skillList.clear();
     }
 
+    public void playSoundX(String sound){
+        playSound(Xliff.getSound(sound));
+    }
+
     public void playSound(Sound sound){
         if(sound != null){
             getPlayer().playSound(getPlayer().getLocation(),sound,1,1);
@@ -228,6 +233,11 @@ public class RpgPlayer
     public void tell(String message){
         getPlayer().sendMessage(c.green + message);
     }
+
+    public void tellX(String message){
+        tell(Xliff.getXliff(message));
+    }
+
 
     //TODO Eventually add method here with Bucket.broadcastMessage()
     //public void say(String message){}

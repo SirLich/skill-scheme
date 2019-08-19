@@ -93,7 +93,8 @@ public class SkillSchemeCommand implements CommandExecutor
                 SkillGuiHandler.openMainGui(player);
             } else if(action.equalsIgnoreCase("class") || action.equalsIgnoreCase("c")){
                 if(args.length < 2){
-                    rpgPlayer.tell("Please include an argument: " + c.gray + "[p]aladin, [f]ighter, [ra]nger, [ro]gue, [w]arlock");
+                    SkillEditObject.giveLoadout(rpgPlayer,ClassType.RANGER);
+                    rpgPlayer.tell("Default applied. Specify like: " + c.gray + "[p]aladin, [f]ighter, [ra]nger, [ro]gue, [w]arlock");
                     return true;
                 }
 
@@ -110,7 +111,8 @@ public class SkillSchemeCommand implements CommandExecutor
                 } else if(action.equalsIgnoreCase("warlock") || action.equalsIgnoreCase("w")){
                     SkillEditObject.giveLoadout(rpgPlayer,ClassType.WARLOCK);
                 } else {
-                    rpgPlayer.tell("Please include an argument: " + c.gray + "[p]aladin, [f]ighter, [ra]nger, [ro]gue, [w]arlock");
+                    SkillEditObject.giveLoadout(rpgPlayer,ClassType.RANGER);
+                    rpgPlayer.tell("Default applied. Specify like: " + c.gray + "[p]aladin, [f]ighter, [ra]nger, [ro]gue, [w]arlock");
                 }
             } else if(action.equalsIgnoreCase("team") || action.equalsIgnoreCase("t")){
                 if(args.length < 2){

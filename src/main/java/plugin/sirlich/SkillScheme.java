@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import plugin.sirlich.skills.meta.SkillHandler;
 import plugin.sirlich.skills.meta.SkillGuiHandler;
+import plugin.sirlich.utilities.Xliff;
 
 import java.io.File;
 
@@ -33,6 +34,7 @@ public class SkillScheme extends JavaPlugin
             PlayerJoinHandler.initializePlayerData(player);
         }
         SkillData.initializeData();
+        Xliff.initializeData();
     }
 
     @Override

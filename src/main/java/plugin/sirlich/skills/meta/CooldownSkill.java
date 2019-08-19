@@ -6,6 +6,7 @@ import plugin.sirlich.utilities.c;
 import org.bukkit.Sound;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.Date;
 import java.util.List;
 
 public class CooldownSkill extends Skill
@@ -17,12 +18,17 @@ public class CooldownSkill extends Skill
     private int cooldownValue;
 
     private boolean cooldown;
+    private long lastUsed;
 
     private Sound cooldownSound = Sound.BLOCK_COMPARATOR_CLICK;
     private Sound rechargeSound = Sound.BLOCK_ENDER_CHEST_OPEN;
-    private String cooldownText = c.red + getName() + c.dgray + " is still on cooldown.";
+    private String cooldownText = c.red + getName() + c.dgray + " can be used again in ";
     private String rechargeText = c.green + getName() + c.dgray + " has been recharged.";
 
+
+    private double calculateCooldownLeft(){
+        return Math.round((((cooldownValue / 20.0) - (System.currentTimeMillis() - lastUsed) / 1000.0) * 100.0) / 100.0);
+    }
 
     public CooldownSkill(RpgPlayer rpgPlayer, int level, String id){
         super(rpgPlayer,level,id);
@@ -32,7 +38,7 @@ public class CooldownSkill extends Skill
     }
 
     public boolean isCooldown(){
-        if(cooldown){
+        if(cooldown) {
             playCooldownMedia();
         }
         return cooldown;
@@ -40,7 +46,7 @@ public class CooldownSkill extends Skill
 
     public void playCooldownMedia(){
         getRpgPlayer().playSound(cooldownSound);
-        getRpgPlayer().tell(cooldownText);
+        getRpgPlayer().tell(cooldownText + c.daqua + calculateCooldownLeft() + c.dgray + " seconds");
     }
 
     public void playRechargeMedia(){
@@ -53,6 +59,7 @@ public class CooldownSkill extends Skill
     }
     public void refreshCooldown(){
         this.cooldown = true;
+        this.lastUsed = System.currentTimeMillis();
         new BukkitRunnable() {
 
             @Override
