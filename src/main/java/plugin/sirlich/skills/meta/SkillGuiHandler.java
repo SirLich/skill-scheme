@@ -86,7 +86,7 @@ public class SkillGuiHandler implements Listener
             String classGui = nbtItem.getString("class");
             player.closeInventory();
             rpgPlayer.playSoundX("SkillGuiHandler.open_class_gui");
-            openSkillGui(player, plugin.sirlich.skills.meta.ClassType.valueOf(classGui));
+            openSkillGui(player, ClassType.valueOf(classGui));
         } else if(buttonAction.equalsIgnoreCase("accept")){
             acceptSkills(player,rpgPlayer);
         } else if(buttonAction.equalsIgnoreCase("open_main_gui")){

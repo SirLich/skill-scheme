@@ -2,6 +2,8 @@ package plugin.sirlich.core;
 
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Projectile;
+import org.bukkit.scheduler.BukkitRunnable;
+import plugin.sirlich.SkillScheme;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,7 +46,16 @@ public class RpgProjectile {
         projectileMap.remove(projectile.getUniqueId());
     }
     public void deregisterSelf(){
-        projectileMap.remove(this.id);
+        final UUID id = this.id;
+        new BukkitRunnable() {
+
+            @Override
+            public void run() {
+                projectileMap.remove(id);
+
+            }
+
+        }.runTaskLater(SkillScheme.getInstance(), 5);
     }
 
     public static void addTag(UUID uuid,String tag){
@@ -54,7 +65,9 @@ public class RpgProjectile {
     public void addTag(String tag){
         this.tags.add(tag);
     }
+
     public static boolean hasProjectile(Projectile projectile){
+        System.out.println(projectileMap.keySet());
         return projectileMap.containsKey(projectile.getUniqueId());
     }
 

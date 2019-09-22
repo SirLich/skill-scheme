@@ -178,8 +178,8 @@ public class SkillHandler implements Listener
         if(event.getEntity() instanceof Player){
             Player player = (Player) event.getEntity();
             RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
+            RpgProjectile.registerProjectile((Arrow)event.getProjectile(), RpgPlayer.getRpgPlayer((Player)event.getEntity()));
             for(Skill skill : rpgPlayer.getSkillList().values()){
-                RpgProjectile.registerProjectile((Arrow)event.getProjectile(), RpgPlayer.getRpgPlayer((Player)event.getEntity()));
                 skill.onBowFire(event);
             }
         }
@@ -200,11 +200,15 @@ public class SkillHandler implements Listener
     //Handle arrow hits into the ground
     @EventHandler
     public void onArrowHit(EntityDamageByEntityEvent event){
+        System.out.println("1");
         if(event.getDamager() instanceof Arrow){
+            System.out.println("2");
             if(event.getEntity() != null) {
-                Projectile projectile = (Arrow) event.getEntity();
-                if(RpgProjectile.hasProjectile(projectile)){
-                    RpgProjectile rpgProjectile = RpgProjectile.getProjectile(projectile);
+                System.out.println("3");
+                Arrow arrow = (Arrow) event.getDamager();
+                if(RpgProjectile.hasProjectile(arrow)){
+                    System.out.println("4");
+                    RpgProjectile rpgProjectile = RpgProjectile.getProjectile(arrow);
                     RpgPlayer rpgPlayer = rpgProjectile.getShooter();
                     for(Skill skill : rpgPlayer.getSkillList().values()){
                         skill.onArrowHitEntity(event);
@@ -226,6 +230,7 @@ public class SkillHandler implements Listener
                 for(Skill skill : rpgPlayer.getSkillList().values()){
                     skill.onArrowHitGround(event);
                 }
+                System.out.println("deregistered");
                 rpgArrow.deregisterSelf();
             }
         }

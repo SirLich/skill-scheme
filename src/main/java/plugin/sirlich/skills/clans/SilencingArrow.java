@@ -22,7 +22,7 @@ public class SilencingArrow extends PrimedSkill {
     @Override
     public void onArrowHitEntity(EntityDamageByEntityEvent event){
         Entity hitEntity = event.getEntity();
-        RpgProjectile rpgArrow = RpgProjectile.getProjectile((Arrow) event.getEntity());
+        RpgProjectile rpgArrow = RpgProjectile.getProjectile((Arrow) event.getDamager());
 
         //Check if Player and if RpgPlayer exists and if SILENCING_ARROW
         if(hitEntity instanceof Player && RpgPlayer.isRpgPlayer(hitEntity.getUniqueId()) && rpgArrow.hasTag("SILENCING_ARROW")){
