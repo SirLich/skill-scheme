@@ -33,11 +33,11 @@ public class WeaponUtils {
     }
 
     public static boolean isSword(Material material){
-        return material.equals(Material.WOODEN_SWORD) ||
+        return material.equals(Material.WOOD_SWORD) ||
                 material.equals(Material.STONE_SWORD) ||
                 material.equals(Material.IRON_SWORD) ||
                 material.equals(Material.DIAMOND_SWORD)||
-                material.equals(Material.GOLDEN_SWORD);
+                material.equals(Material.GOLD_SWORD);
     }
 
     public static boolean isAxe(ItemStack itemStack){
@@ -45,10 +45,10 @@ public class WeaponUtils {
     }
 
     public static boolean isAxe(Material material){
-        return material.equals(Material.WOODEN_AXE) ||
+        return material.equals(Material.WOOD_AXE) ||
                 material.equals(Material.STONE_AXE) ||
                 material.equals(Material.IRON_AXE) ||
                 material.equals(Material.DIAMOND_AXE) ||
-                material.equals(Material.GOLDEN_AXE);
+                material.equals(Material.GOLD_AXE);
     }
 }

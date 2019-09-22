@@ -1,4 +1,4 @@
-package plugin.sirlich.skills.active;
+package plugin.sirlich.skills.clans;
 
 import plugin.sirlich.skills.meta.CooldownSkill;
 import plugin.sirlich.core.RpgPlayer;
@@ -24,7 +24,7 @@ public class NimbleLeap extends CooldownSkill
     public void onAxeRightClick(PlayerInteractEvent event){
         if(isCooldown()){return;}
         Player player = getRpgPlayer().getPlayer();
-        player.playSound(player.getLocation(),Sound.ENTITY_BLAZE_SHOOT,1,1);
+        getRpgPlayer().playSound(Sound.BLAZE_BREATH);
         player.setVelocity(new Vector(player.getLocation().getDirection().multiply(power.get(getLevel())).getX(), 0.4, player.getLocation().getDirection().multiply(power.get(getLevel())).getZ()));
         refreshCooldown();
     }

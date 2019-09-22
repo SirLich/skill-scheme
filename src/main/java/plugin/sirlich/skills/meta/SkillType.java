@@ -1,46 +1,22 @@
 package plugin.sirlich.skills.meta;
 
 
-import plugin.sirlich.skills.active.*;
-import plugin.sirlich.skills.clans.rogue.Evade;
-import plugin.sirlich.skills.clans.rogue.SilencingArrow;
-import plugin.sirlich.skills.passive.*;
+import plugin.sirlich.skills.clans.*;
+import plugin.sirlich.skills.clans.Evade;
+import plugin.sirlich.skills.clans.QualityClogs;
+import plugin.sirlich.skills.clans.SilencingArrow;
 
 public enum SkillType {
     SpeedBuff(new SpeedBuff(null,0)),
-    LeadAxe(new LeadAxe(null,0)),
-    HolyStrike(new HolyStrike(null,0)),
-    WrathOfJupiter(new WrathOfJupiter(null,0)),
     NimbleLeap(new NimbleLeap(null,0)),
-    PoisonDarts(new PoisonDarts(null,0)),
-    PhantomArrows(new PhantomArrows(null,0)),
-    ArcherTower(new ArcherTower(null,0)),
     QualityClogs(new QualityClogs(null,0)),
-    SatanicGamble(new SatanicGamble(null,0)),
-    AxeOfPerun(new AxeOfPerun(null,0)),
     ClassicFireball(new ClassicFireball(null,0)),
-    Geronimo(new Geronimo(null,0)),
     Prism(new Prism(null,0)),
     Deflection(new Deflection(null,0)),
-    BowOfShiva(new BowOfShiva(null,0)),
-    BorimirsRevenge(new BorimirsRevenge(null,0)),
-    WebShot(new WebShot(null,0)),
-    EscapeArtist(new EscapeArtist(null,0)),
-    StrikeTheEarth(new StrikeTheEarth(null,0)),
-    MagmaBow(new MagmaBow(null, 0)),
-    ElfSpeed(new ElfSpeed(null,0)),
-    BladeOfConfusion(new BladeOfConfusion(null,0)),
-    CinderStrike(new CinderStrike(null,0)),
     IceRink(new IceRink(null,0)),
     ManaCharger(new ManaCharger(null, 0)),
     RagingBull(new RagingBull(null,0)),
-    StrongArm(new StrongArm(null,0)),
-    KillingSpree(new KillingSpree(null,0)),
-    Shotgun(new Shotgun(null, 0)),
-    TripleShot(new TripleShot(null,0)),
-    Embers(new Embers(null, 0)),
     SpringBoard(new SpringBoard(null, 0)),
-    Bandaid(new Bandaid(null, 0)),
     Evade(new Evade(null, 0)),
     SilencingArrow(new SilencingArrow(null, 0));
 

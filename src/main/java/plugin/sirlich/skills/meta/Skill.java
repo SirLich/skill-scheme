@@ -1,5 +1,6 @@
 package plugin.sirlich.skills.meta;
 
+import org.bukkit.event.player.PlayerPickupItemEvent;
 import plugin.sirlich.SkillScheme;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.utilities.c;
@@ -8,7 +9,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -150,7 +150,7 @@ public class Skill
 
     }
 
-    public void onArrowHitEntity(ProjectileHitEvent event){
+    public void onArrowHitEntity(EntityDamageByEntityEvent event){
 
     }
 
@@ -166,11 +166,11 @@ public class Skill
 
     }
 
-    public void onItemPickup(EntityPickupItemEvent event){
+    public void onItemPickup(PlayerPickupItemEvent event){
 
     }
 
-    public void onItemPickupOther(EntityPickupItemEvent event){
+    public void onItemPickupOther(PlayerPickupItemEvent event){
 
     }
 
@@ -239,10 +239,6 @@ public class Skill
     }
 
     public void onAxeRightClick(PlayerInteractEvent event){
-
-    }
-
-    public void onSwap(PlayerSwapHandItemsEvent event){
 
     }
 }

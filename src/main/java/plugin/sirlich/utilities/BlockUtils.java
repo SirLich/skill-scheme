@@ -36,8 +36,8 @@ public class BlockUtils implements Listener
         //Deny block breaking during testing (creative mode). This behavior replicates the no-sword thing in Vanilla.
         if(event.getPlayer() != null &&
                 event.getPlayer().getGameMode() == GameMode.CREATIVE &&
-                event.getPlayer().getInventory().getItemInMainHand() != null &&
-                WeaponUtils.isWeapon(event.getPlayer().getInventory().getItemInMainHand().getType())){
+                event.getPlayer().getInventory().getItemInHand() != null &&
+                WeaponUtils.isWeapon(event.getPlayer().getInventory().getItemInHand().getType())){
             event.setCancelled(true);
         }
     }

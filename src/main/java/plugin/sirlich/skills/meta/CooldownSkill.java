@@ -6,7 +6,6 @@ import plugin.sirlich.utilities.c;
 import org.bukkit.Sound;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.Date;
 import java.util.List;
 
 public class CooldownSkill extends Skill
@@ -20,8 +19,8 @@ public class CooldownSkill extends Skill
     private boolean cooldown;
     private long lastUsed;
 
-    private Sound cooldownSound = Sound.BLOCK_COMPARATOR_CLICK;
-    private Sound rechargeSound = Sound.BLOCK_ENDER_CHEST_OPEN;
+    private Sound cooldownSound = Sound.CLICK;
+    private Sound rechargeSound = Sound.CHEST_CLOSE;
     private String cooldownText = c.red + getName() + c.dgray + " can be used again in ";
     private String rechargeText = c.green + getName() + c.dgray + " has been recharged.";
 

@@ -47,7 +47,7 @@ public class SkillGuiHandler implements Listener
     {
         RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(event.getPlayer());
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-            if (event.getClickedBlock().getType() == Material.ENCHANTING_TABLE) {
+            if (event.getClickedBlock().getType() == Material.ENCHANTMENT_TABLE) {
                 if(rpgPlayer.getPlayerState().canUseEditor()){
                     event.setCancelled(true);
                     openMainGui(event.getPlayer());
@@ -196,7 +196,7 @@ public class SkillGuiHandler implements Listener
     private static void overfillLeftoverSlots(Inventory inventory){
         for(int slot = 0; slot < inventory.getSize(); slot++){
             if(inventory.getItem(slot) == null){
-                ItemStack itemStack = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
+                ItemStack itemStack = new ItemStack(Material.STAINED_GLASS_PANE);
                 ItemMeta itemMeta = itemStack.getItemMeta();
                 itemMeta.setDisplayName(ChatColor.BOLD + "");
                 itemStack.setItemMeta(itemMeta);
@@ -213,7 +213,7 @@ public class SkillGuiHandler implements Listener
         inventory.setItem(11, getStandardGuiButton(Material.IRON_CHESTPLATE,"Fighter","open_class_gui","FIGHTER"));
         inventory.setItem(13, getStandardGuiButton(Material.CHAINMAIL_CHESTPLATE,"Ranger","open_class_gui","RANGER"));
         inventory.setItem(14, getStandardGuiButton(Material.LEATHER_CHESTPLATE,"Rogue","open_class_gui","ROGUE"));
-        inventory.setItem(16, getStandardGuiButton(Material.GOLDEN_CHESTPLATE,"Warlock","open_class_gui","WARLOCK"));
+        inventory.setItem(16, getStandardGuiButton(Material.GOLD_CHESTPLATE,"Warlock","open_class_gui","WARLOCK"));
 
         overfillLeftoverSlots(inventory);
         player.openInventory(inventory);
@@ -229,14 +229,14 @@ public class SkillGuiHandler implements Listener
             level--;
             levelBalancer++;
         } else {
-            itemStack = new ItemStack(Material.GRAY_DYE);
+            itemStack = new ItemStack(Material.INK_SACK);
         }
         ItemMeta itemMeta = itemStack.getItemMeta();
 
         Skill skill = skillType.getSkill();
 
         if(skill == null){
-            return new ItemStack(Material.RED_GLAZED_TERRACOTTA,1);
+            return new ItemStack(Material.REDSTONE_BLOCK,1);
         }
 
         itemMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.BOLD + skill.getName() + ChatColor.GRAY + " - " + " " +ChatColor.AQUA + (level + levelBalancer) + "/" + skill.getMaxLevel() + c.gray + " - Cost: " + c.gold + skill.getCost());

@@ -1,4 +1,4 @@
-package plugin.sirlich.skills.clans.rogue;
+package plugin.sirlich.skills.clans;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

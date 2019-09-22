@@ -1,19 +1,15 @@
-package plugin.sirlich.skills.active;
+package plugin.sirlich.skills.clans;
 
+import org.bukkit.event.player.PlayerDropItemEvent;
 import plugin.sirlich.SkillScheme;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.skills.meta.CooldownSkill;
 import plugin.sirlich.utilities.BlockUtils;
-import plugin.sirlich.utilities.c;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Prism extends CooldownSkill
 {
@@ -24,7 +20,7 @@ public class Prism extends CooldownSkill
     }
 
     @Override
-    public void onSwap(PlayerSwapHandItemsEvent event){
+    public void onSwordDrop(PlayerDropItemEvent event){
         if(isCooldown()){return;}
         Player player = getRpgPlayer().getPlayer();
         deployed = true;

@@ -1,4 +1,4 @@
-package plugin.sirlich.skills.passive;
+package plugin.sirlich.skills.clans;
 
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.skills.meta.Skill;

@@ -1,6 +1,5 @@
 package plugin.sirlich.core;
 
-import org.bukkit.attribute.Attribute;
 import org.bukkit.scheduler.BukkitRunnable;
 import plugin.sirlich.SkillScheme;
 import plugin.sirlich.skills.meta.ClassType;
@@ -96,10 +95,10 @@ public class RpgPlayer
     }
 
     public void addHealth(double health){
-        if(this.getPlayer().getHealth() + health <= player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getDefaultValue()){
+        if(this.getPlayer().getHealth() + health <= player.getMaxHealth()){
             getPlayer().setHealth(this.player.getHealth() + health);
         } else {
-            this.getPlayer().setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getDefaultValue());
+            this.getPlayer().setHealth(player.getMaxHealth());
         }
     }
 

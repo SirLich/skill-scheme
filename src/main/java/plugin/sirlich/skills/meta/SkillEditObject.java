@@ -3,11 +3,9 @@ package plugin.sirlich.skills.meta;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.utilities.c;
 import org.bukkit.Material;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.SpawnEggMeta;
 
 import java.util.HashMap;
 
@@ -184,7 +182,6 @@ public class SkillEditObject
             player.getInventory().setBoots(new ItemStack(Material.DIAMOND_BOOTS));
             player.getInventory().addItem(new ItemStack(Material.IRON_SWORD));
             player.getInventory().addItem(new ItemStack(Material.IRON_AXE));
-            player.getInventory().addItem(new ItemStack(Material.POLAR_BEAR_SPAWN_EGG));
         } else if(classType == ClassType.FIGHTER){
             player.getInventory().setHelmet(new ItemStack(Material.IRON_HELMET));
             player.getInventory().setChestplate(new ItemStack(Material.IRON_CHESTPLATE));
@@ -192,7 +189,6 @@ public class SkillEditObject
             player.getInventory().setBoots(new ItemStack(Material.IRON_BOOTS));
             player.getInventory().addItem(new ItemStack(Material.IRON_SWORD));
             player.getInventory().addItem(new ItemStack(Material.IRON_AXE));
-            player.getInventory().addItem(new ItemStack(Material.POLAR_BEAR_SPAWN_EGG));
         }  else if(classType == ClassType.RANGER){
             player.getInventory().setHelmet(new ItemStack(Material.CHAINMAIL_HELMET));
             player.getInventory().setChestplate(new ItemStack(Material.CHAINMAIL_CHESTPLATE));
@@ -202,7 +198,6 @@ public class SkillEditObject
             player.getInventory().addItem(new ItemStack(Material.IRON_AXE));
             player.getInventory().addItem(new ItemStack(Material.BOW));
             player.getInventory().addItem(new ItemStack(Material.ARROW,64));
-            player.getInventory().addItem(new ItemStack(Material.POLAR_BEAR_SPAWN_EGG));
 
         } else if(classType == ClassType.ROGUE){
             player.getInventory().setHelmet(new ItemStack(Material.LEATHER_HELMET));
@@ -213,15 +208,13 @@ public class SkillEditObject
             player.getInventory().addItem(new ItemStack(Material.IRON_AXE));
             player.getInventory().addItem(new ItemStack(Material.BOW));
             player.getInventory().addItem(new ItemStack(Material.ARROW,64));
-            player.getInventory().addItem(new ItemStack(Material.POLAR_BEAR_SPAWN_EGG));
         } else if(classType == ClassType.WARLOCK){
-            player.getInventory().setHelmet(new ItemStack(Material.GOLDEN_HELMET));
-            player.getInventory().setChestplate(new ItemStack(Material.GOLDEN_CHESTPLATE));
-            player.getInventory().setLeggings(new ItemStack(Material.GOLDEN_LEGGINGS));
-            player.getInventory().setBoots(new ItemStack(Material.GOLDEN_BOOTS));
+            player.getInventory().setHelmet(new ItemStack(Material.GOLD_HELMET));
+            player.getInventory().setChestplate(new ItemStack(Material.GOLD_CHESTPLATE));
+            player.getInventory().setLeggings(new ItemStack(Material.GOLD_LEGGINGS));
+            player.getInventory().setBoots(new ItemStack(Material.GOLD_BOOTS));
             player.getInventory().addItem(new ItemStack(Material.IRON_SWORD));
             player.getInventory().addItem(new ItemStack(Material.IRON_AXE));
-            player.getInventory().addItem(new ItemStack(Material.POLAR_BEAR_SPAWN_EGG));
         }
     }
 

@@ -1,5 +1,6 @@
 package plugin.sirlich.skills.meta;
 
+import org.bukkit.event.player.PlayerPickupItemEvent;
 import plugin.sirlich.core.RpgProjectile;
 import plugin.sirlich.core.RpgPlayer;
 import org.bukkit.Material;
@@ -12,8 +13,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerSwapHandItemsEvent;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
 import static plugin.sirlich.utilities.WeaponUtils.*;
@@ -69,20 +68,19 @@ public class SkillHandler implements Listener
         }
     }
 
+    //Handles dropped-item stuff.
     @EventHandler
-    public void onItemPickup(EntityPickupItemEvent event) {
-        if(event.getEntity() instanceof Player){
-            Player player  = (Player) event.getEntity();
-            RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
-            for(Skill skill : rpgPlayer.getSkillList().values()){
-                skill.onItemPickup(event);
-            }
+    public void onItemPickup(PlayerPickupItemEvent event) {
+        Player player  = event.getPlayer();
+        RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
+        for(Skill skill : rpgPlayer.getSkillList().values()){
+            skill.onItemPickup(event);
+        }
 
-            for(RpgPlayer otherPlayer : RpgPlayer.getRpgPlayers()){
-                if(otherPlayer.getPlayer().getUniqueId() != player.getUniqueId()){
-                    for(Skill skill : rpgPlayer.getSkillList().values()){
-                        skill.onItemPickupOther(event);
-                    }
+        for(RpgPlayer otherPlayer : RpgPlayer.getRpgPlayers()){
+            if(otherPlayer.getPlayer().getUniqueId() != player.getUniqueId()){
+                for(Skill skill : rpgPlayer.getSkillList().values()){
+                    skill.onItemPickupOther(event);
                 }
             }
         }
@@ -107,7 +105,7 @@ public class SkillHandler implements Listener
             //Get RpgPlayer
             Player player  = (Player) event.getEntity();
             RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
-            Material itemType  = player.getInventory().getItemInMainHand().getType();
+            Material itemType  = player.getInventory().getItemInHand().getType();
 
             //Sword melee attack
             if(isSword(itemType)){
@@ -149,7 +147,7 @@ public class SkillHandler implements Listener
             //Get RpgPlayer
             Player player = (Player) event.getDamager();
             RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
-            Material itemType  = player.getInventory().getItemInMainHand().getType();
+            Material itemType  = player.getInventory().getItemInHand().getType();
 
             //Hit another person with a sword attack
             if(isSword(itemType)){
@@ -174,8 +172,9 @@ public class SkillHandler implements Listener
         }
     }
 
+    //Handles: onBowFire
     @EventHandler
-    public void onArrowShoot(EntityShootBowEvent event){
+    public void onBowFire(EntityShootBowEvent event){
         if(event.getEntity() instanceof Player){
             Player player = (Player) event.getEntity();
             RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
@@ -186,6 +185,7 @@ public class SkillHandler implements Listener
         }
     }
 
+    //Handles: onDeath
     @EventHandler
     public void onDeath(PlayerDeathEvent event){
         if(RpgPlayer.isRpgPlayer(event.getEntity().getUniqueId())){
@@ -197,14 +197,12 @@ public class SkillHandler implements Listener
         }
     }
 
-
+    //Handle arrow hits into the ground
     @EventHandler
-    public void onArrow(ProjectileHitEvent event){
-        //Only arrows!
-        if(event.getEntity() instanceof Arrow){
-            //Arrow hit entity
-            if(event.getHitEntity() != null){
-                Projectile projectile = event.getEntity();
+    public void onArrowHit(EntityDamageByEntityEvent event){
+        if(event.getDamager() instanceof Arrow){
+            if(event.getEntity() != null) {
+                Projectile projectile = (Arrow) event.getEntity();
                 if(RpgProjectile.hasProjectile(projectile)){
                     RpgProjectile rpgProjectile = RpgProjectile.getProjectile(projectile);
                     RpgPlayer rpgPlayer = rpgProjectile.getShooter();
@@ -214,19 +212,21 @@ public class SkillHandler implements Listener
                     rpgProjectile.deregisterSelf();
                 }
             }
+        }
+    }
 
-
-            //Arrow hit ground
-            else {
-                Arrow arrow = (Arrow) event.getEntity();
-                if(RpgProjectile.hasProjectile(arrow)){
-                    RpgProjectile rpgArrow = RpgProjectile.getProjectile(arrow);
-                    RpgPlayer rpgPlayer = rpgArrow.getShooter();
-                    for(Skill skill : rpgPlayer.getSkillList().values()){
-                        skill.onArrowHitGround(event);
-                    }
-                    rpgArrow.deregisterSelf();
+    @EventHandler
+    public void onArrow(ProjectileHitEvent event){
+        //Only arrows!
+        if(event.getEntity() instanceof Arrow){
+            Arrow arrow = (Arrow) event.getEntity();
+            if(RpgProjectile.hasProjectile(arrow)){
+                RpgProjectile rpgArrow = RpgProjectile.getProjectile(arrow);
+                RpgPlayer rpgPlayer = rpgArrow.getShooter();
+                for(Skill skill : rpgPlayer.getSkillList().values()){
+                    skill.onArrowHitGround(event);
                 }
+                rpgArrow.deregisterSelf();
             }
         }
     }
@@ -242,23 +242,8 @@ public class SkillHandler implements Listener
         Player player = event.getPlayer();
         RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
 
-        //Whif!
-        if(event.getHand() == EquipmentSlot.HAND &&
-                event.getMaterial() != Material.AIR &&
-                event.getAction() == Action.LEFT_CLICK_AIR && !rpgPlayer.didJustAttack()){
-            if(isAxe(event.getMaterial())){
-                for(Skill skill : rpgPlayer.getSkillList().values()){
-                    skill.onAxeMiss(event);
-                }
-            } else if(isSword(event.getMaterial())){
-                for(Skill skill : rpgPlayer.getSkillList().values()){
-                    skill.onSwordMiss(event);
-                }
-            }
-        }
         //Left click
-        if(event.getHand() == EquipmentSlot.HAND &&
-                event.getMaterial() != Material.AIR &&
+        if(event.getMaterial() != Material.AIR &&
                 (event.getAction() == Action.LEFT_CLICK_AIR ||
                         event.getAction() == Action.LEFT_CLICK_BLOCK )){
 
@@ -272,8 +257,7 @@ public class SkillHandler implements Listener
         }
 
         //Right click
-        else if(event.getHand() == EquipmentSlot.HAND &&
-                event.getMaterial() != Material.AIR &&
+        else if(event.getMaterial() != Material.AIR &&
                 (event.getAction() == Action.RIGHT_CLICK_AIR ||
                         event.getAction() == Action.RIGHT_CLICK_BLOCK)){
             Material itemType = event.getMaterial();
@@ -297,20 +281,6 @@ public class SkillHandler implements Listener
                 for(Skill skill : rpgPlayer.getSkillList().values()){
                     skill.onBowRightClickEvent(event);
                 }
-            }
-        }
-    }
-
-    /*
-    HANDLES: Swap events
-     */
-    @EventHandler
-    public void onPlayerSwapItemEvent(PlayerSwapHandItemsEvent event){
-        if(isMeleeWeapon(event.getOffHandItem().getType())){
-            Player player = event.getPlayer();
-            RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
-            for(Skill skill : rpgPlayer.getSkillList().values()){
-                skill.onSwap(event);
             }
         }
     }

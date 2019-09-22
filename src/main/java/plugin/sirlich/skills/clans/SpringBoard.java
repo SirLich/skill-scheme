@@ -1,4 +1,4 @@
-package plugin.sirlich.skills.active;
+package plugin.sirlich.skills.clans;
 
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;

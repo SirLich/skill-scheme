@@ -1,5 +1,6 @@
-package plugin.sirlich.skills.active;
+package plugin.sirlich.skills.clans;
 
+import org.bukkit.event.player.PlayerDropItemEvent;
 import plugin.sirlich.SkillScheme;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.skills.meta.ToggleSkill;
@@ -7,7 +8,6 @@ import plugin.sirlich.utilities.BlockUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
 import java.util.List;
 
@@ -52,7 +52,7 @@ public class IceRink extends ToggleSkill
     }
 
     @Override
-    public void onSwap(PlayerSwapHandItemsEvent entityEvent){
+    public void onSwordDrop(PlayerDropItemEvent entityEvent){
         //Toggle!
         if(isActive()){
             DeactivateSkill();

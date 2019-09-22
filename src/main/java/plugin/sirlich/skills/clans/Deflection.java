@@ -1,4 +1,4 @@
-package plugin.sirlich.skills.active;
+package plugin.sirlich.skills.clans;
 
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.skills.meta.CooldownSkill;
@@ -22,7 +22,7 @@ public class Deflection extends CooldownSkill
         Player self = (Player) event.getEntity();
         if(self.isBlocking()){
             if(isCooldown()){return;}
-            RpgPlayer.getRpgPlayer(self).playSound(Sound.BLOCK_ANVIL_PLACE);
+            RpgPlayer.getRpgPlayer(self).playSound(Sound.BAT_HURT);
             self.setVelocity(new Vector(self.getLocation().getDirection().multiply(-data.getDouble("power")).getX(), 0.4, self.getLocation().getDirection().multiply(-data.getDouble("power")).getZ()));
             refreshCooldown();
         }

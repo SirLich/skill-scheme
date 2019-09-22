@@ -1,8 +1,9 @@
-package plugin.sirlich.skills.clans.rogue;
+package plugin.sirlich.skills.clans;
 
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -17,9 +18,10 @@ public class SilencingArrow extends PrimedSkill {
         super(rpgPlayer,level,"SilencingArrow");
     }
     //Handle the player getting hit with an arrow
+
     @Override
-    public void onArrowHitEntity(ProjectileHitEvent event){
-        Entity hitEntity = event.getHitEntity();
+    public void onArrowHitEntity(EntityDamageByEntityEvent event){
+        Entity hitEntity = event.getEntity();
         RpgProjectile rpgArrow = RpgProjectile.getProjectile((Arrow) event.getEntity());
 
         //Check if Player and if RpgPlayer exists and if SILENCING_ARROW
