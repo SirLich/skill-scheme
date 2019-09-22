@@ -1,5 +1,8 @@
 package plugin.sirlich.core;
 
+/*
+Each RpgPlayer contains a PlayerState. The playerState is used to
+ */
 public enum PlayerState
 {
     /*
@@ -11,21 +14,22 @@ public enum PlayerState
     /*
     This is for players who are not playing skill-scheme related games at all:
     - No ability to use skills
-    - No ability to interact with enchantment tables
+    - No ability to interact with enchantment tables (the skill editing GUI)
      */
     HUB(false,false,false),
 
     /*
     This is for players who are currently inside a skill-scheme game:
     - Skills can be used, if useSkill is turned on
-    - Skills should be auto-applied when entering this game-mode
+    - Using the GUI in this game-mode will automatically apply the skills.
+    - "Saved" skills are auto-applied when entering this game-mode
      */
     GAME(false,false, true),
 
     /*
     This is for players who are waiting in a skillScheme lobby:
     - Can use the skills editor
-    - Skills are "saved", and can be applied when the game starts
+    - Skills are "saved", and will be applied when PlayerState is changed to GAME or TESTING
      */
     LOBBY(true,false, false),
 

@@ -97,6 +97,10 @@ public class SkillHandler implements Listener
     @EventHandler
     public void onMeleeDamage(EntityDamageByEntityEvent event){
 
+        if(event.getDamager() instanceof Player){
+            RpgPlayer.getRpgPlayer((Player)event.getDamager()).logPlayerAttack();
+        }
+
         //Is Player
         if(event.getEntity() instanceof Player){
 
@@ -184,7 +188,7 @@ public class SkillHandler implements Listener
 
     @EventHandler
     public void onDeath(PlayerDeathEvent event){
-        if(RpgPlayer.isPlayer(event.getEntity().getUniqueId())){
+        if(RpgPlayer.isRpgPlayer(event.getEntity().getUniqueId())){
             Player player = event.getEntity();
             RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
             for(Skill skill : rpgPlayer.getSkillList().values()){
@@ -241,7 +245,7 @@ public class SkillHandler implements Listener
         //Whif!
         if(event.getHand() == EquipmentSlot.HAND &&
                 event.getMaterial() != Material.AIR &&
-                (event.getAction() == Action.LEFT_CLICK_AIR)){
+                event.getAction() == Action.LEFT_CLICK_AIR && !rpgPlayer.didJustAttack()){
             if(isAxe(event.getMaterial())){
                 for(Skill skill : rpgPlayer.getSkillList().values()){
                     skill.onAxeMiss(event);

@@ -24,7 +24,7 @@ public class DeathSkill extends Skill{
         ArrayList<RpgPlayer> allies = new ArrayList<RpgPlayer>();
         ArrayList<RpgPlayer> enemies = new ArrayList<RpgPlayer>();
         for(Entity entity : event.getEntity().getNearbyEntities(r,r,r)){
-            if(entity instanceof Player && RpgPlayer.isPlayer((Player) entity)){
+            if(entity instanceof Player && RpgPlayer.isRpgPlayer((Player) entity)){
                 RpgPlayer effectedRpgPlayer = RpgPlayer.getRpgPlayer(event.getEntity());
                 if(RpgPlayer.isSameTeam(rpgPlayer,effectedRpgPlayer)){
                     allies.add(effectedRpgPlayer);

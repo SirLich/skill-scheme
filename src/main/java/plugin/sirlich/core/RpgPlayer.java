@@ -1,6 +1,8 @@
 package plugin.sirlich.core;
 
 import org.bukkit.attribute.Attribute;
+import org.bukkit.scheduler.BukkitRunnable;
+import plugin.sirlich.SkillScheme;
 import plugin.sirlich.skills.meta.ClassType;
 import plugin.sirlich.skills.meta.SkillType;
 import plugin.sirlich.utilities.Xliff;
@@ -48,11 +50,11 @@ public class RpgPlayer
         return Bukkit.getPlayer(playerHashMap.get(rpgPlayer));
     }
 
-    public static boolean isPlayer(Player player) {
+    public static boolean isRpgPlayer(Player player) {
         return rpgPlayerHashMap.containsKey(player.getUniqueId());
     }
 
-    public static boolean isPlayer(UUID uuid) {
+    public static boolean isRpgPlayer(UUID uuid) {
         return rpgPlayerHashMap.containsKey(uuid);
     }
 
@@ -75,7 +77,11 @@ public class RpgPlayer
     END RPGPLAYER LIST STUFF
      */
 
+    private boolean silenced;
+
     private boolean modifierActive = false;
+
+    private boolean justAttacked = false;
 
     public boolean isModifierActive(){
         return modifierActive;
@@ -114,6 +120,13 @@ public class RpgPlayer
         this.playerState = PlayerState.TESTING;
     }
 
+    public boolean isSilenced() {
+        return silenced;
+    }
+
+    public void setSilenced(boolean silenced) {
+        this.silenced = silenced;
+    }
 
     private PlayerState playerState;
     private String team;
@@ -212,6 +225,20 @@ public class RpgPlayer
         }
         refreshPassiveModifiers();
         skillList.clear();
+    }
+
+    public boolean didJustAttack(){
+        return justAttacked;
+    }
+    public void logPlayerAttack(){
+        justAttacked = true;
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                justAttacked = false;
+            }
+
+        }.runTaskLater(SkillScheme.getInstance(), 1);
     }
 
     public void playSoundX(String sound){

@@ -36,7 +36,7 @@ public class RagingBull extends RageSkill {
         if(isEnraged()){
             endRageEarly();
             UUID uuid = event.getEntity().getUniqueId();
-            if(RpgPlayer.isPlayer(uuid)){
+            if(RpgPlayer.isRpgPlayer(uuid)){
                 final RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(uuid);
 
                 //Slow the target down!

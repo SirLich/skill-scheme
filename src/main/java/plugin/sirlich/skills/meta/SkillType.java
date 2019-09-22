@@ -2,6 +2,8 @@ package plugin.sirlich.skills.meta;
 
 
 import plugin.sirlich.skills.active.*;
+import plugin.sirlich.skills.clans.rogue.Evade;
+import plugin.sirlich.skills.clans.rogue.SilencingArrow;
 import plugin.sirlich.skills.passive.*;
 
 public enum SkillType {
@@ -38,7 +40,9 @@ public enum SkillType {
     TripleShot(new TripleShot(null,0)),
     Embers(new Embers(null, 0)),
     SpringBoard(new SpringBoard(null, 0)),
-    Bandaid(new Bandaid(null, 0));
+    Bandaid(new Bandaid(null, 0)),
+    Evade(new Evade(null, 0)),
+    SilencingArrow(new SilencingArrow(null, 0));
 
     private final Skill skill;
 

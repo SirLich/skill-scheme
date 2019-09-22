@@ -28,6 +28,7 @@ public class Skill
     public SkillData data;
 
 
+
     public Skill(RpgPlayer rpgPlayer, int level, String id){
         description.add(c.dgray + "This skill does not have a description!");
         this.id = id;
@@ -38,7 +39,6 @@ public class Skill
         this.name = getYaml(id).getString("name");
         this.data = new SkillData(this);
     }
-
 
     public void onEnable(){
     }
@@ -64,7 +64,6 @@ public class Skill
         return this.id;
     }
 
-
     private static ArrayList<String> processDescription(ArrayList<String> description, String id, int level){
         ArrayList<String> newDescription = new ArrayList<String>();
         for(int i = 0; i < description.size(); i ++){
@@ -73,6 +72,14 @@ public class Skill
         return newDescription;
     }
 
+    public boolean isSilenced() {
+        boolean silenced = this.getRpgPlayer().isSilenced();
+        if(silenced){
+            this.rpgPlayer.tellX("Skill.cannot_use_skill_when_silenced");
+            this.rpgPlayer.playSoundX("Skill.cannot_use_skill_when_silenced");
+        }
+        return this.getRpgPlayer().isSilenced();
+    }
 
     private static String processDescriptionLine(String line, String id, int level){
         FileConfiguration yml = getYaml(id);
