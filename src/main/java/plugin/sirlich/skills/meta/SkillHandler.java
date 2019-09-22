@@ -252,6 +252,10 @@ public class SkillHandler implements Listener
                 (event.getAction() == Action.LEFT_CLICK_AIR ||
                         event.getAction() == Action.LEFT_CLICK_BLOCK )){
 
+            for(Skill skill : rpgPlayer.getSkillList().values()){
+                skill.onLeftClick(event);
+            }
+
             //Bow left click
             if(event.getMaterial().equals(Material.BOW)){
                 for(Skill skill : rpgPlayer.getSkillList().values()){

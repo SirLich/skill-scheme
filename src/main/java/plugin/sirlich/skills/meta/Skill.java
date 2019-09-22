@@ -78,7 +78,16 @@ public class Skill
             this.rpgPlayer.tellX("Skill.cannot_use_skill_when_silenced");
             this.rpgPlayer.playSoundX("Skill.cannot_use_skill_when_silenced");
         }
-        return this.getRpgPlayer().isSilenced();
+        return silenced;
+    }
+
+    public boolean isInWater() {
+        boolean inWater = this.getRpgPlayer().getPlayer().getLocation().getBlock().isLiquid();
+        if(inWater){
+            this.rpgPlayer.tellX("Skill.cannot_use_skill_when_in_water");
+            this.rpgPlayer.playSoundX("Skill.cannot_use_skill_when_in_water");
+        }
+        return inWater;
     }
 
     private static String processDescriptionLine(String line, String id, int level){
@@ -227,6 +236,10 @@ public class Skill
     }
 
     public void onBowLeftClick(PlayerInteractEvent event){
+
+    }
+
+    public void onLeftClick(PlayerInteractEvent event){
 
     }
 

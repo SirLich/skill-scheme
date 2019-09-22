@@ -244,6 +244,29 @@ public class RpgPlayer
         playSound(Xliff.getSound(sound));
     }
 
+    public void playWorldSoundX(String sound){
+        playWorldSoundX(sound, 1, 1);
+    }
+
+    public void playWorldSoundX(String sound, float volume, float speed){
+        playWorldSound(Xliff.getSound(sound), volume, speed);
+    }
+
+    public void playWorldSound(Sound sound){
+        playWorldSound(sound, 1, 1);
+    }
+
+    public void playWorldSound(String sound, float volume, float speed){
+        playWorldSound(Sound.valueOf(sound), volume, speed);
+    }
+
+    public void playWorldSound(String sound){
+        playWorldSound(sound, 1, 1);
+    }
+    public void playWorldSound(Sound sound, float volume, float speed){
+        getPlayer().getWorld().playSound(getPlayer().getLocation(), sound, volume, speed);
+    }
+
     public void playSound(Sound sound){
         if(sound != null){
             getPlayer().playSound(getPlayer().getLocation(),sound,1,1);
