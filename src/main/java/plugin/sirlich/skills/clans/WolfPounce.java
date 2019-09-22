@@ -5,9 +5,9 @@ import org.bukkit.util.Vector;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.skills.meta.ChargeSkill;
 
-public class SpringBoard extends ChargeSkill {
-    public SpringBoard(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer, level, "SpringBoard");
+public class WolfPounce extends ChargeSkill {
+    public WolfPounce(RpgPlayer rpgPlayer, int level){
+        super(rpgPlayer, level, "WolfPounce");
     }
 
     @Override

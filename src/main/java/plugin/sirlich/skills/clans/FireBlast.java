@@ -5,10 +5,10 @@ import plugin.sirlich.skills.meta.CooldownSkill;
 import org.bukkit.entity.Fireball;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-public class ClassicFireball extends CooldownSkill
+public class FireBlast extends CooldownSkill
 {
-    public ClassicFireball(RpgPlayer rpgPlayer,int level){
-        super(rpgPlayer,level,"ClassicFireball");
+    public FireBlast(RpgPlayer rpgPlayer, int level){
+        super(rpgPlayer,level,"FireBlast");
     }
 
     @Override

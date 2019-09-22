@@ -11,9 +11,9 @@ import org.bukkit.block.Block;
 
 import java.util.List;
 
-public class IceRink extends ToggleSkill
+public class ArcticArmor extends ToggleSkill
 {
-    private static String id = "IceRink";
+    private static String id = "ArcticArmor";
     private static List<Integer> radius = getYaml(id).getIntegerList("values.radius");
     private static List<Integer> iceDuration = getYaml(id).getIntegerList("values.iceDuration");
     private static List<Integer> manaLossPerSecond =  getYaml(id).getIntegerList("values.manaLossPerSecond");
@@ -22,8 +22,8 @@ public class IceRink extends ToggleSkill
 
     private int schedularID;
 
-    public IceRink(RpgPlayer rpgPlayer,int level){
-        super(rpgPlayer,level,"IceRink", Material.ICE);
+    public ArcticArmor(RpgPlayer rpgPlayer, int level){
+        super(rpgPlayer,level,"ArcticArmor", Material.ICE);
     }
 
     @Override

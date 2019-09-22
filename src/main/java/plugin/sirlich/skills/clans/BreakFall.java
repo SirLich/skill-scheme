@@ -8,13 +8,13 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QualityClogs extends Skill
+public class BreakFall extends Skill
 {
-    private static String id = "QualityClogs";
+    private static String id = "BreakFall";
     private static List<Float> damageReduction = getYaml(id).getFloatList("values.damageReduction");
 
-    public QualityClogs(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level,"QualityClogs");
+    public BreakFall(RpgPlayer rpgPlayer, int level){
+        super(rpgPlayer,level,"BreakFall");
     }
 
     @Override

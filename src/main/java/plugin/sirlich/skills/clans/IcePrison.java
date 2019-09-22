@@ -11,12 +11,12 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-public class Prism extends CooldownSkill
+public class IcePrison extends CooldownSkill
 {
     private boolean deployed = false;
 
-    public Prism(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level,"Prism");
+    public IcePrison(RpgPlayer rpgPlayer, int level){
+        super(rpgPlayer,level,"IcePrison");
     }
 
     @Override

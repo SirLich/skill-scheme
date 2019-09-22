@@ -11,10 +11,10 @@ import org.bukkit.util.Vector;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Deflection extends CooldownSkill
+public class Disengage extends CooldownSkill
 {
-    public Deflection(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level,"Deflection");
+    public Disengage(RpgPlayer rpgPlayer, int level){
+        super(rpgPlayer,level,"Disengage");
     }
 
     @Override

@@ -11,15 +11,15 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.List;
 import java.util.UUID;
 
-public class RagingBull extends RageSkill {
-    private static String id = "RagingBull";
+public class BullsCharge extends RageSkill {
+    private static String id = "BullsCharge";
     private static List<Double> slownessPower = getYaml(id).getDoubleList("values.slownessPower");
     private static List<Integer> slownessDuration = getYaml(id).getIntegerList("values.slownessDuration");
     private static List<Double> speedPower = getYaml(id).getDoubleList("values.speedPower");
 
 
-    public RagingBull(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level,"RagingBull", Material.DIRT);
+    public BullsCharge(RpgPlayer rpgPlayer, int level){
+        super(rpgPlayer,level,"BullsCharge", Material.DIRT);
     }
 
     @Override

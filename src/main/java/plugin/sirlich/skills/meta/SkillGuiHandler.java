@@ -137,9 +137,9 @@ public class SkillGuiHandler implements Listener
         inventory.setItem(0, getStandardGuiButton(Material.IRON_SWORD,"Sword Skills",null));
         inventory.setItem(9, getStandardGuiButton(Material.IRON_AXE,"Axe Skills",null));
         inventory.setItem(18, getStandardGuiButton(Material.BOW,"Bow Skills",null));
-        inventory.setItem(27, getStandardGuiButton(Material.CLAY_BALL,"Special Ability",null));
-        inventory.setItem(36, getStandardGuiButton(Material.GOLD_NUGGET,"Passive A",null));
-        inventory.setItem(45, getStandardGuiButton(Material.GOLD_NUGGET,"Passive B",null));
+        inventory.setItem(27, getStandardGuiButton(Material.GOLD_NUGGET,"Passive A",null));
+        inventory.setItem(36, getStandardGuiButton(Material.GOLD_NUGGET,"Passive B",null));
+        inventory.setItem(45, getStandardGuiButton(Material.GOLD_NUGGET,"Passive C",null));
         ItemStack pointsItems = getStandardGuiButton(Material.PRISMARINE_CRYSTALS, "Remaining points",null);
         pointsItems.setAmount(SkillData.getDefaultPointData(classType));
         inventory.setItem(51,pointsItems);
@@ -160,9 +160,9 @@ public class SkillGuiHandler implements Listener
         List<String> sword = fileConfiguration.getStringList("loadouts." + classType.toString().toLowerCase() + ".sword");
         List<String> axe = fileConfiguration.getStringList("loadouts." + classType.toString().toLowerCase() + ".axe");
         List<String> bow = fileConfiguration.getStringList("loadouts." + classType.toString().toLowerCase() + ".bow");
-        List<String> special = fileConfiguration.getStringList("loadouts." + classType.toString().toLowerCase() + ".special");
         List<String> passiveA = fileConfiguration.getStringList("loadouts." + classType.toString().toLowerCase() + ".passiveA");
         List<String> passiveB = fileConfiguration.getStringList("loadouts." + classType.toString().toLowerCase() + ".passiveB");
+        List<String> passiveC = fileConfiguration.getStringList("loadouts." + classType.toString().toLowerCase() + ".passiveC");
 
         for(int i = 0; i < sword.size(); i ++){
             inventory.setItem(1 + i, getSkillItem(SkillType.valueOf(sword.get(i)),0, SkillKind.SWORD));
@@ -176,16 +176,16 @@ public class SkillGuiHandler implements Listener
             inventory.setItem(19 + i, getSkillItem(SkillType.valueOf(bow.get(i)),0, SkillKind.BOW));
         }
 
-        for(int i = 0; i < special.size(); i ++){
-            inventory.setItem(28 + i, getSkillItem(SkillType.valueOf(special.get(i)),0, SkillKind.SPECIAL));
-        }
-
         for(int i = 0; i < passiveA.size(); i ++){
-            inventory.setItem(37 + i, getSkillItem(SkillType.valueOf(passiveA.get(i)),0, SkillKind.PASSIVE_A));
+            inventory.setItem(28 + i, getSkillItem(SkillType.valueOf(passiveA.get(i)),0, SkillKind.PASSIVE_A));
         }
 
         for(int i = 0; i < passiveB.size(); i ++){
-            inventory.setItem(46 + i, getSkillItem(SkillType.valueOf(passiveB.get(i)),0, SkillKind.PASSIVE_B));
+            inventory.setItem(37 + i, getSkillItem(SkillType.valueOf(passiveB.get(i)),0, SkillKind.PASSIVE_B));
+        }
+
+        for(int i = 0; i < passiveC.size(); i ++){
+            inventory.setItem(46 + i, getSkillItem(SkillType.valueOf(passiveC.get(i)),0, SkillKind.PASSIVE_C));
         }
 
         overfillLeftoverSlots(inventory);

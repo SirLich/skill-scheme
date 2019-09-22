@@ -11,13 +11,13 @@ import org.bukkit.util.Vector;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NimbleLeap extends CooldownSkill
+public class Leap extends CooldownSkill
 {
-    private static List<Double> power = getYaml("NimbleLeap").getDoubleList("values.power");
+    private static List<Double> power = getYaml("Leap").getDoubleList("values.power");
 
 
-    public NimbleLeap(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level,"NimbleLeap");
+    public Leap(RpgPlayer rpgPlayer, int level){
+        super(rpgPlayer,level,"Leap");
     }
 
     @Override

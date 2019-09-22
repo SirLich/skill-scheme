@@ -26,7 +26,7 @@ public class CooldownSkill extends Skill
 
 
     private double calculateCooldownLeft(){
-        return Math.round((((cooldownValue / 20.0) - (System.currentTimeMillis() - lastUsed) / 1000.0) * 100.0) / 100.0);
+        return Math.round((((cooldownValue / 20.00) - (System.currentTimeMillis() - lastUsed) / 1000.00) * 100.00) / 100.00);
     }
 
     public CooldownSkill(RpgPlayer rpgPlayer, int level, String id){
@@ -45,7 +45,7 @@ public class CooldownSkill extends Skill
 
     public void playCooldownMedia(){
         getRpgPlayer().playSound(cooldownSound);
-        getRpgPlayer().tell(cooldownText + c.daqua + calculateCooldownLeft() + c.dgray + " seconds");
+        getRpgPlayer().tell(cooldownText + c.green + calculateCooldownLeft() + c.dgray + " seconds");
     }
 
     public void playRechargeMedia(){
