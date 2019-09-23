@@ -182,6 +182,7 @@ public class SkillHandler implements Listener
         if(event.getEntity() instanceof Player){
             Player player = (Player) event.getEntity();
             RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
+            System.out.println("Arrow registered");
             RpgProjectile.registerProjectile((Arrow)event.getProjectile(), RpgPlayer.getRpgPlayer((Player)event.getEntity()));
             for(Skill skill : rpgPlayer.getSkillList().values()){
                 skill.onBowFire(event);

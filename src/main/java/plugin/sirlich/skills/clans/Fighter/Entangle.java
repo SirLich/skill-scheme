@@ -15,7 +15,7 @@ public class Entangle extends Skill {
 
     @Override
     public void onBowFire(EntityShootBowEvent event){
-        RpgProjectile rpgProjectile = RpgProjectile.getProjectile(event.getEntity().getUniqueId());
+        RpgProjectile rpgProjectile = RpgProjectile.getProjectile(event.getProjectile().getUniqueId());
         rpgProjectile.addTag("ENTANGLE");
     }
 
