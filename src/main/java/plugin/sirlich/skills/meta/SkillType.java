@@ -20,7 +20,8 @@ public enum SkillType {
     Evade(new Evade(null, 0)),
     SilencingArrow(new SilencingArrow(null, 0)),
     Agility(new Agility(null, 0)),
-    WolfsFury(new WolfsFury(null,0));
+    WolfsFury(new WolfsFury(null,0)),
+    IncendiaryShot(new IncendiaryShot(null, 0));
 
     private final Skill skill;
 

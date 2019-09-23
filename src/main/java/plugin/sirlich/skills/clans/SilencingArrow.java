@@ -45,7 +45,6 @@ public class SilencingArrow extends PrimedSkill {
 
     @Override
     public void onBowLeftClick(PlayerInteractEvent event){
-        if(isSilenced()){return;};
         attemptPrime();
     }
 
