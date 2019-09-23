@@ -223,6 +223,10 @@ public class Skill
 
     }
 
+    public void onMeleeAttackOther(EntityDamageByEntityEvent event){
+
+    }
+
     public void onAxeMeleeAttackOther(EntityDamageByEntityEvent event){
 
     }

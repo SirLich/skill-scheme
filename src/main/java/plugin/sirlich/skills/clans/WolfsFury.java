@@ -1,6 +1,8 @@
 package plugin.sirlich.skills.clans;
 
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -15,6 +17,15 @@ public class WolfsFury extends RageSkill {
     @Override
     public void onEnrage(){
         getRpgPlayer().getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, data.getInt("duration"),data.getInt("amplifier")));
+    }
+
+    public void onMeleeAttackOther(EntityDamageByEntityEvent event){
+        if(isEnraged()){
+            double damage = event.getDamage();
+            event.setCancelled(true);
+            Player player = (Player) event.getEntity();
+            player.damage(damage, getRpgPlayer().getPlayer());
+        }
     }
 
     //TODO: Add logic to cancel the rage early (see Agility) if the player whiffs (misses) two attacks in a row.
