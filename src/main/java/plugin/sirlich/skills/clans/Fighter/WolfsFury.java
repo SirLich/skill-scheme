@@ -1,4 +1,4 @@
-package plugin.sirlich.skills.clans;
+package plugin.sirlich.skills.clans.Fighter;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

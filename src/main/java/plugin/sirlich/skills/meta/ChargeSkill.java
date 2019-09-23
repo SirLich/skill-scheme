@@ -14,11 +14,11 @@ public class ChargeSkill extends CooldownSkill{
 
     /* CONFIG TO IMPLEMENT:
     max_charges
-    sword_charge_finished_sound
-    sword_charge_sound
-    sword_charged_release_sound
-    sword_fully_charged_release_sound
-    sword_charge_refresh_rate
+    charge_finish_sound
+    charge_tick_sound
+    charge_release_sound
+    full_charge_release_sound
+    charge_refresh_rate
      */
 
     public ChargeSkill(RpgPlayer rpgPlayer, int level, String id){
@@ -41,6 +41,14 @@ public class ChargeSkill extends CooldownSkill{
 
     }
 
+    public boolean isFullyCharged(){
+        return isFullyCharged;
+    }
+
+    public int getCharges(){
+        return charges;
+    }
+
     //Overide this!
     public boolean isCharging(){
         System.out.println("Skill: " + this.getId() + " is configured incorrectly. Please overide isCharging");
@@ -57,14 +65,14 @@ public class ChargeSkill extends CooldownSkill{
                     if(!isCooldown()){
                         if(charges == maxCharges){
                             if(!isFullyCharged){
-                                getRpgPlayer().playSound(data.getSound("sword_charge_finished_sound"));
+                                getRpgPlayer().playSound(data.getSound("charge_finish_sound"));
                                 isFullyCharged = true;
                             }
                         } else {
                             onCharge();
                             charges ++;
                             isCharging = true;
-                            getRpgPlayer().playSound(data.getSound("sword_charge_sound"));
+                            getRpgPlayer().playSound(data.getSound("charge_tick_sound"));
                         }
                     }
                 } else {
@@ -72,9 +80,9 @@ public class ChargeSkill extends CooldownSkill{
                         refreshCooldown();
                         isCharging = false;
                         if(isFullyCharged){
-                            getRpgPlayer().playSound(data.getSound("sword_fully_charged_release_sound"));
+                            getRpgPlayer().playSound(data.getSound("full_charge_release_sound"));
                         } else {
-                            getRpgPlayer().playSound(data.getSound("sword_charged_release_sound"));
+                            getRpgPlayer().playSound(data.getSound("charge_release_sound"));
                         }
                         onReleaseCharge(charges, isFullyCharged);
                         isFullyCharged = false;
@@ -82,7 +90,7 @@ public class ChargeSkill extends CooldownSkill{
                     }
                 }
             }
-        }, 0L, data.getInt("sword_charge_refresh_rate"));
+        }, 0L, data.getInt("charge_refresh_rate"));
     }
 
     public void onCharge(){
