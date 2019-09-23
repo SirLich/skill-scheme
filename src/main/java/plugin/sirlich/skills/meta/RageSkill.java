@@ -12,13 +12,11 @@ import java.util.List;
 
 public class RageSkill extends CooldownSkill{
 
-    //Default getters
-    public List<Integer> duration;
-
     //Defaults
     private Material headBlock;
     private boolean enraged;
     private boolean endRageEarly = false;
+    private ItemStack oldHeadblock;
 
     private Sound currentlyEnragedSound = Sound.ANVIL_BREAK;
     private String currentlyEnragedText = c.red + getName() + c.dgray + "  is already active.";
@@ -31,7 +29,6 @@ public class RageSkill extends CooldownSkill{
 
     public RageSkill(RpgPlayer rpgPlayer, int level, String id, Material headBlock){
         super(rpgPlayer,level,id);
-        this.duration = getYaml(id).getIntegerList("values.duration");
         this.headBlock = headBlock;
         this.enraged = false;
     }
@@ -45,6 +42,7 @@ public class RageSkill extends CooldownSkill{
     }
 
     public boolean attemptRage(){
+        if(isSilenced()){return false;}
         if(enraged){
             getRpgPlayer().tell(currentlyEnragedText);
             getRpgPlayer().playSound(currentlyEnragedSound);
@@ -63,6 +61,7 @@ public class RageSkill extends CooldownSkill{
                 getRpgPlayer().playSound(becomeEnragedSound);
 
                 //Set Helmet
+                oldHeadblock = getRpgPlayer().getPlayer().getInventory().getHelmet();
                 getRpgPlayer().getPlayer().getInventory().setHelmet(new ItemStack(headBlock));
 
                 //Set enraged countdown
@@ -77,15 +76,17 @@ public class RageSkill extends CooldownSkill{
                         }
                     }
 
-                }.runTaskLater(SkillScheme.getInstance(), duration.get(getLevel()));
+                }.runTaskLater(SkillScheme.getInstance(), data.getInt("duration"));
                 return true;
             }
         }
     }
 
     public void endRageEarly(){
-        this.endRageEarly = true;
-        endRage();
+        if(isEnraged()){
+            this.endRageEarly = true;
+            endRage();
+        }
     }
 
     private void endRage(){
@@ -94,7 +95,7 @@ public class RageSkill extends CooldownSkill{
         onRageExpire();
 
         //Set Helmet
-        getRpgPlayer().getPlayer().getInventory().setHelmet(new ItemStack(Material.AIR));
+        getRpgPlayer().getPlayer().getInventory().setHelmet(oldHeadblock);
 
         //Play media
         getRpgPlayer().tell(stoppedRagingText);
