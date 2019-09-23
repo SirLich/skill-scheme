@@ -4,10 +4,7 @@ package plugin.sirlich.skills.meta;
 import plugin.sirlich.skills.clans.*;
 import plugin.sirlich.skills.clans.Evade;
 import plugin.sirlich.skills.clans.BreakFall;
-import plugin.sirlich.skills.clans.Fighter.Agility;
-import plugin.sirlich.skills.clans.Fighter.Barrage;
-import plugin.sirlich.skills.clans.Fighter.WolfPounce;
-import plugin.sirlich.skills.clans.Fighter.WolfsFury;
+import plugin.sirlich.skills.clans.Fighter.*;
 import plugin.sirlich.skills.clans.SilencingArrow;
 
 public enum SkillType {
@@ -26,7 +23,8 @@ public enum SkillType {
     Agility(new Agility(null, 0)),
     WolfsFury(new WolfsFury(null,0)),
     IncendiaryShot(new IncendiaryShot(null, 0)),
-    Barrage(new Barrage(null, 0));
+    Barrage(new Barrage(null, 0)),
+    Entangle(new Entangle(null, 0));
 
     private final Skill skill;
 
