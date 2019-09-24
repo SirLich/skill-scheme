@@ -14,14 +14,13 @@ import plugin.sirlich.skills.meta.ChargeSkill;
 
 public class Barrage extends ChargeSkill {
     public Barrage(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer, level, "Barrage");
+        super(rpgPlayer, level, "Barrage", false);
     }
     private int schedularID;
 
     @Override
     public boolean isCharging(){
-        //TODO make this check actually check for bow drawn back
-        return getRpgPlayer().getPlayer().getItemInHand().getType().equals(Material.BOW);
+        return getRpgPlayer().isDrawingBow() && getRpgPlayer().isBowFullyCharged();
     }
 
     @Override

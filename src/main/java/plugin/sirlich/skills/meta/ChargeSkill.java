@@ -11,6 +11,7 @@ public class ChargeSkill extends CooldownSkill{
     private int charges;
     private int maxCharges;
     private boolean isFullyCharged;
+    private boolean useCooldown;
 
     /* CONFIG TO IMPLEMENT:
     max_charges
@@ -21,20 +22,13 @@ public class ChargeSkill extends CooldownSkill{
     charge_refresh_rate
      */
 
-    public ChargeSkill(RpgPlayer rpgPlayer, int level, String id){
+    public ChargeSkill(RpgPlayer rpgPlayer, int level, String id, boolean useCooldown){
         super(rpgPlayer,level,id);
         this.maxCharges = data.getInt("max_charges");
         this.isCharging = false;
         this.isFullyCharged = false;
         this.charges = 0;
-    }
-
-    public void onEnablePassthrough(){
-
-    }
-
-    public void onDisablePassthrough(){
-
+        this.useCooldown = useCooldown;
     }
 
     public void onReleaseCharge(int charges, boolean isFullyCharged){
@@ -55,14 +49,14 @@ public class ChargeSkill extends CooldownSkill{
         return false;
     }
 
+    //please use a super() call if you want to use this method.
     @Override
     public void onEnable(){
-        onEnablePassthrough();
         schedularID = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(SkillScheme.getInstance(), new Runnable() {
             public void run() {
-                //The funky or clause here handles the case where the user doesn't have to be on the ground.
+                //Handle ticks when you are charging
                 if(isCharging()){
-                    if(!isCooldown()){
+                    if(!useCooldown || !isCooldown()){
                         if(charges == maxCharges){
                             if(!isFullyCharged){
                                 getRpgPlayer().playSound(data.getSound("charge_finish_sound"));
@@ -75,9 +69,14 @@ public class ChargeSkill extends CooldownSkill{
                             getRpgPlayer().playSound(data.getSound("charge_tick_sound"));
                         }
                     }
-                } else {
+                }
+
+                //Handle the case where you WERE charging and release a charge.
+                else {
                     if(isCharging){
-                        refreshCooldown();
+                        if(useCooldown){
+                            refreshCooldown();
+                        }
                         isCharging = false;
                         if(isFullyCharged){
                             getRpgPlayer().playSound(data.getSound("full_charge_release_sound"));
@@ -97,9 +96,9 @@ public class ChargeSkill extends CooldownSkill{
 
     }
 
+    //Please use a super() method if you want to use this method.
     @Override
     public void onDisable(){
-        onDisablePassthrough();
         Bukkit.getServer().getScheduler().cancelTask(schedularID);
     }
 }

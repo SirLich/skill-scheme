@@ -1,5 +1,6 @@
 package plugin.sirlich.skills.meta;
 
+import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import plugin.sirlich.core.RpgProjectile;
 import plugin.sirlich.core.RpgPlayer;
@@ -176,16 +177,32 @@ public class SkillHandler implements Listener
         }
     }
 
+
+    //Cancel player charging the bow
+    @EventHandler
+    public void onChangeSlot(PlayerItemHeldEvent event)  {
+        RpgPlayer.getRpgPlayer(event.getPlayer()).setDrawingBow(false);
+    }
+
     //Handles: onBowFire
     @EventHandler
     public void onBowFire(EntityShootBowEvent event){
         if(event.getEntity() instanceof Player){
             Player player = (Player) event.getEntity();
             RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
-            System.out.println("Arrow registered");
             RpgProjectile.registerProjectile((Arrow)event.getProjectile(), RpgPlayer.getRpgPlayer((Player)event.getEntity()));
             for(Skill skill : rpgPlayer.getSkillList().values()){
                 skill.onBowFire(event);
+            }
+            rpgPlayer.setDrawingBow(false);
+        }
+    }
+
+    @EventHandler
+    public void onDraw(PlayerInteractEvent event) {
+        if(event.getItem() != null && event.getItem().getType() == Material.BOW) {
+            if(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+                RpgPlayer.getRpgPlayer(event.getPlayer()).setDrawingBow(true);
             }
         }
     }

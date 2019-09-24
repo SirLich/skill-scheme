@@ -76,7 +76,11 @@ public class RpgPlayer
     END RPGPLAYER LIST STUFF
      */
 
+    private boolean drawingBow;
+
     private boolean silenced;
+
+    private long startedDrawing;
 
     private boolean modifierActive = false;
 
@@ -88,6 +92,21 @@ public class RpgPlayer
 
     public void setModifierActive(boolean a){
         modifierActive = a;
+    }
+
+    public boolean isDrawingBow() {
+        return drawingBow;
+    }
+
+    public boolean isBowFullyCharged(){
+        return startedDrawing + 1200 < System.currentTimeMillis();
+    }
+
+    public void setDrawingBow(boolean drawingBow) {
+        if(drawingBow){
+            startedDrawing = System.currentTimeMillis();
+        }
+        this.drawingBow = drawingBow;
     }
 
     public int getMana(){
