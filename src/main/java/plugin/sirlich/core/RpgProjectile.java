@@ -24,8 +24,23 @@ public class RpgProjectile {
     }
 
     private ArrayList<String> tags;
+    private HashMap<String, Integer> intData;
     private RpgPlayer shooter;
     private UUID id;
+
+    public Integer getInt(String key){
+        return intData.get(key);
+    }
+
+    public void setInt(String key, Integer num){
+        intData.put(key, num);
+    }
+
+    public boolean hasKey(String key){
+        return intData.containsKey(key);
+    }
+
+
 
     //Add projectiles
     public static RpgProjectile registerProjectile(Arrow arrow, RpgPlayer shooter){

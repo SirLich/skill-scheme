@@ -1,5 +1,7 @@
 package plugin.sirlich.skills.meta;
 
+import org.bukkit.Bukkit;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import plugin.sirlich.core.RpgProjectile;
@@ -20,6 +22,62 @@ import static plugin.sirlich.utilities.WeaponUtils.*;
 
 public class SkillHandler implements Listener
 {
+
+    //Handle initial damage: World Damage
+    @EventHandler
+    public void worldDamage(EntityDamageEvent event){
+        System.out.println("Damage was detected: world");
+
+        RpgDamageEvent rpgDamageEvent = new RpgDamageEvent(event);
+        rpgDamageEvent.setCancelled(false);
+    }
+
+    //Handle initial damage: Entity damage
+    @EventHandler
+    public void entityDamage(EntityDamageByEntityEvent event){
+        System.out.println("Damage was detected: entity");
+        event.setDamage(0);
+
+        RpgDamageEvent rpgDamageEvent = new RpgDamageEvent(event);
+        rpgDamageEvent.setCancelled(false);
+
+        rpgDamageEvent.setDamagee(event.getEntity());
+        if(RpgPlayer.isRpgPlayer(event.getEntity().getUniqueId())){
+            rpgDamageEvent.setRpgDamagee(RpgPlayer.getRpgPlayer(event.getEntity().getUniqueId()));
+        }
+
+        //Handle Ranged attacks:
+        if(event.getDamager() instanceof Projectile){
+            Projectile projectile = (Projectile) event.getDamager();
+            rpgDamageEvent.setProjectile(projectile);
+            if(RpgProjectile.hasProjectile(projectile)){
+                RpgProjectile rpgProjectile = RpgProjectile.getProjectile(projectile);
+                rpgDamageEvent.setRpgProjectile(rpgProjectile);
+                rpgDamageEvent.setDamager(rpgProjectile.getShooter().getPlayer());
+                rpgDamageEvent.setRpgDamager(rpgProjectile.getShooter());
+            }
+        } else {
+            rpgDamageEvent.setDamager(event.getDamager());
+            if(RpgPlayer.isRpgPlayer(event.getDamager().getUniqueId())){
+                RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(event.getDamager().getUniqueId());
+                rpgDamageEvent.setRpgDamager(rpgPlayer);
+            }
+        }
+
+        Bukkit.getPluginManager().callEvent(rpgDamageEvent);
+    }
+
+    //Handle RpgDamageEvent, and then call various Skill-like Listeners
+    @EventHandler
+    public void onEntityRpgDamage(RpgDamageEvent event){
+
+    }
+
+    //Catch the event (after its gone through skills, and apply damage + knockback.
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void handleFinalDamage(RpgDamageEvent event){
+
+    }
 
     /*
      HANDLES: Self-damage causes for:
@@ -95,7 +153,6 @@ public class SkillHandler implements Listener
      */
     @EventHandler
     public void onMeleeDamage(EntityDamageByEntityEvent event){
-
         if(event.getDamager() instanceof Player){
             RpgPlayer.getRpgPlayer((Player)event.getDamager()).logPlayerAttack();
         }

@@ -1,4 +1,4 @@
-package plugin.sirlich.skills.clans.Fighter;
+package plugin.sirlich.skills.clans.Ranger;
 
 import org.bukkit.Location;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;

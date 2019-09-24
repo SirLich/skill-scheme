@@ -41,6 +41,7 @@ public class Skill
     }
 
     public void onEnable(){
+
     }
 
     public void onDisable(){

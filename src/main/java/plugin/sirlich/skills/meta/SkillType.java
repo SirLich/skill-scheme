@@ -4,7 +4,7 @@ package plugin.sirlich.skills.meta;
 import plugin.sirlich.skills.clans.*;
 import plugin.sirlich.skills.clans.Evade;
 import plugin.sirlich.skills.clans.BreakFall;
-import plugin.sirlich.skills.clans.Fighter.*;
+import plugin.sirlich.skills.clans.Ranger.*;
 import plugin.sirlich.skills.clans.SilencingArrow;
 
 public enum SkillType {
@@ -25,7 +25,8 @@ public enum SkillType {
     IncendiaryShot(new IncendiaryShot(null, 0)),
     Barrage(new Barrage(null, 0)),
     Entangle(new Entangle(null, 0)),
-    LongShot(new LongShot(null, 0));
+    LongShot(new LongShot(null, 0)),
+    Overcharge(new Overcharge(null, 0));
 
     private final Skill skill;
 
