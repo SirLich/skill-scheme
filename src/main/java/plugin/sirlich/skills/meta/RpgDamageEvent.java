@@ -1,6 +1,7 @@
 package plugin.sirlich.skills.meta;
 
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
@@ -19,14 +20,14 @@ public class RpgDamageEvent extends Event implements Cancellable {
 
     private static final HandlerList HANDLERS = new HandlerList();
     private boolean isCancelled;
-    private Entity damager;
-    private Entity damagee;
+    private LivingEntity damager;
+    private LivingEntity damagee;
     private Projectile projectile;
     private RpgPlayer rpgDamager;
     private RpgPlayer rpgDamagee;
     private RpgProjectile rpgProjectile;
-    private boolean damage;
-    private boolean trueDamage;
+    private double damage;
+    private double trueDamage;
     private EntityDamageEvent event;
     private Set<Skill> activeSkills;
 
@@ -56,15 +57,15 @@ public class RpgDamageEvent extends Event implements Cancellable {
         return damager;
     }
 
-    public void setDamager(Entity damager) {
+    public void setDamager(LivingEntity damager) {
         this.damager = damager;
     }
 
-    public Entity getDamagee() {
+    public LivingEntity getDamagee() {
         return damagee;
     }
 
-    public void setDamagee(Entity damagee) {
+    public void setDamagee(LivingEntity damagee) {
         this.damagee = damagee;
     }
 
@@ -100,20 +101,21 @@ public class RpgDamageEvent extends Event implements Cancellable {
         this.rpgProjectile = rpgProjectile;
     }
 
-    public boolean isDamage() {
+
+    public double getDamage(){
         return damage;
     }
 
-    public void setDamage(boolean damage) {
-        this.damage = damage;
-    }
-
-    public boolean isTrueDamage() {
+    public double getTrueDamage(){
         return trueDamage;
     }
 
-    public void setTrueDamage(boolean trueDamage) {
+    public void setTrueDamage(double trueDamage){
         this.trueDamage = trueDamage;
+    }
+
+    public void setDamage(double damage) {
+        this.damage = damage;
     }
 
     public EntityDamageEvent getEvent() {

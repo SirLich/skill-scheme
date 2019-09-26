@@ -1,6 +1,7 @@
 package plugin.sirlich.skills.meta;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
@@ -23,6 +24,10 @@ import static plugin.sirlich.utilities.WeaponUtils.*;
 public class SkillHandler implements Listener
 {
 
+    public boolean isWorldDamage(EntityDamageEvent.DamageCause damageCause){
+        return false;
+    }
+
     //Handle initial damage: World Damage
     @EventHandler
     public void worldDamage(EntityDamageEvent event){
@@ -36,12 +41,13 @@ public class SkillHandler implements Listener
     @EventHandler
     public void entityDamage(EntityDamageByEntityEvent event){
         System.out.println("Damage was detected: entity");
-        event.setDamage(0);
+        event.setCancelled(true);
 
         RpgDamageEvent rpgDamageEvent = new RpgDamageEvent(event);
         rpgDamageEvent.setCancelled(false);
+        rpgDamageEvent.setDamage(event.getDamage());
 
-        rpgDamageEvent.setDamagee(event.getEntity());
+        rpgDamageEvent.setDamagee((LivingEntity) event.getEntity());
         if(RpgPlayer.isRpgPlayer(event.getEntity().getUniqueId())){
             rpgDamageEvent.setRpgDamagee(RpgPlayer.getRpgPlayer(event.getEntity().getUniqueId()));
         }
@@ -57,7 +63,7 @@ public class SkillHandler implements Listener
                 rpgDamageEvent.setRpgDamager(rpgProjectile.getShooter());
             }
         } else {
-            rpgDamageEvent.setDamager(event.getDamager());
+            rpgDamageEvent.setDamager((LivingEntity) event.getDamager());
             if(RpgPlayer.isRpgPlayer(event.getDamager().getUniqueId())){
                 RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(event.getDamager().getUniqueId());
                 rpgDamageEvent.setRpgDamager(rpgPlayer);
@@ -70,13 +76,14 @@ public class SkillHandler implements Listener
     //Handle RpgDamageEvent, and then call various Skill-like Listeners
     @EventHandler
     public void onEntityRpgDamage(RpgDamageEvent event){
-
+        System.out.println("Detected RpgDamage");
     }
 
     //Catch the event (after its gone through skills, and apply damage + knockback.
     @EventHandler(priority = EventPriority.MONITOR)
     public void handleFinalDamage(RpgDamageEvent event){
-
+        System.out.println("Final check for RpgDamage handled.");
+        event.getDamagee().damage(event.getDamage() + event.getTrueDamage());
     }
 
     /*
