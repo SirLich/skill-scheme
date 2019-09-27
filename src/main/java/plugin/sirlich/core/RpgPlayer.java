@@ -272,6 +272,7 @@ public class RpgPlayer
     public boolean didJustAttack(){
         return justAttacked;
     }
+
     public void logPlayerAttack(){
         justAttacked = true;
         new BukkitRunnable() {

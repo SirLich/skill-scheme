@@ -1,5 +1,6 @@
 package plugin.sirlich.skills.clans.Ranger;
 
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.potion.PotionEffect;
@@ -21,9 +22,16 @@ public class Entangle extends Skill {
 
     @Override
     public void onArrowHitEntity(EntityDamageByEntityEvent event){
+
+        //We don't care if it isn't a living entity
+        if(!(event.getEntity() instanceof LivingEntity)){
+            return;
+        }
+
+        LivingEntity hitEntity = (LivingEntity) event.getEntity();
         RpgProjectile rpgProjectile = RpgProjectile.getProjectile(event.getEntity().getUniqueId());
         if(rpgProjectile.hasTag("ENTANGLE")){
-            rpgProjectile.getShooter().getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, data.getInt("slowness_duration"),data.getInt("slowness_amplifier")));
+            hitEntity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, data.getInt("slowness_duration"),data.getInt("slowness_amplifier")));
         }
     }
 }

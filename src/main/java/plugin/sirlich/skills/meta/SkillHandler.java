@@ -1,8 +1,5 @@
 package plugin.sirlich.skills.meta;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import plugin.sirlich.core.RpgProjectile;
@@ -24,9 +21,9 @@ import static plugin.sirlich.utilities.WeaponUtils.*;
 public class SkillHandler implements Listener
 {
     /*
-     HANDLES: Self-damage causes for:
-        - Explosion
-        - Fall damage
+    Handles environmental damage
+    - Fall damage
+    - Explosion damage
      */
     @EventHandler
     public void onFallDamage(EntityDamageEvent event){
@@ -54,10 +51,14 @@ public class SkillHandler implements Listener
         }
     }
 
+    /*
+    Handles item drop events
+    - Swords
+    - Axes
+     */
     @EventHandler
     public void onInvDrop(PlayerDropItemEvent event){
         ItemStack itemStack = event.getItemDrop().getItemStack();
-        System.out.println(itemStack.getType());
         RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(event.getPlayer());
         event.setCancelled(true);
         for(Skill skill : rpgPlayer.getSkillList().values()){
@@ -224,14 +225,10 @@ public class SkillHandler implements Listener
     //Handle arrow hits into the ground
     @EventHandler
     public void onArrowHit(EntityDamageByEntityEvent event){
-        System.out.println("1");
         if(event.getDamager() instanceof Arrow){
-            System.out.println("2");
             if(event.getEntity() != null) {
-                System.out.println("3");
                 Arrow arrow = (Arrow) event.getDamager();
                 if(RpgProjectile.hasProjectile(arrow)){
-                    System.out.println("4");
                     RpgProjectile rpgProjectile = RpgProjectile.getProjectile(arrow);
                     RpgPlayer rpgPlayer = rpgProjectile.getShooter();
                     for(Skill skill : rpgPlayer.getSkillList().values()){
