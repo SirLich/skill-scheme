@@ -82,7 +82,6 @@ public class RpgProjectile {
     }
 
     public static boolean hasProjectile(Projectile projectile){
-        System.out.println(projectileMap.keySet());
         return projectileMap.containsKey(projectile.getUniqueId());
     }
 

@@ -29,10 +29,8 @@ public class ManaSkill extends ToggleSkill {
         schedularID = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(SkillScheme.getInstance(), new Runnable() {
             public void run() {
                 int manaCost =  (int) (data.getInt("mana_loss_per_second") * (data.getInt("mana_refresh_rate") / 20.0));
-                System.out.println("manaCost:" + manaCost);
                 if(isActive() && getRpgPlayer().hasEnoughMana(manaCost)){
                     getRpgPlayer().addMana(- manaCost);
-                    System.out.println("tick");
                     onTick();
                 }
             }

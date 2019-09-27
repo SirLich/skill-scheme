@@ -58,8 +58,6 @@ public class SkillData {
             //Handle default skills
             ArrayList<SimpleSkill> skills = new ArrayList<SimpleSkill>();
             for(Map map : guiYml.getMapList("loadouts." + loadout + ".default_skills")){
-                System.out.println("inside!");
-                System.out.println(map.values());
                 SkillType skillType = SkillType.valueOf(map.get("type").toString());
                 Integer level = (Integer) map.get("level");
                 SimpleSkill simpleSkill = new SimpleSkill(skillType, level);
@@ -165,7 +163,6 @@ public class SkillData {
     }
 
     public static Integer getDefaultTokens(ClassType classType){
-        System.out.println(pointsMap.toString());
         return pointsMap.get(classType);
     }
 

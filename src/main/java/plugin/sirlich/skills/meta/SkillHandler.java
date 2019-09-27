@@ -251,7 +251,6 @@ public class SkillHandler implements Listener
                 for(Skill skill : rpgPlayer.getSkillList().values()){
                     skill.onArrowHitGround(event);
                 }
-                System.out.println("deregistered");
                 rpgArrow.deregisterSelf();
             }
         }
