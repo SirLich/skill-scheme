@@ -7,36 +7,30 @@ import org.bukkit.Bukkit;
 import java.util.List;
 
 public class TickingSkill extends Skill {
-    private static List<Integer> ticks;
+    /*
+    ticking_skill_refresh_rate: int
+     */
     private int schedularID;
-
 
     public TickingSkill(RpgPlayer rpgPlayer, int level, String id){
         super(rpgPlayer,level,id);
-        ticks = getYaml(id).getIntegerList("values.ticks");
     }
 
     public void onTick(){
 
     }
 
-    public void startTicker(){
+    @Override
+    public void onEnable(){
         schedularID = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(SkillScheme.getInstance(), new Runnable() {
             public void run() {
                 onTick();
             }
-        }, 0L, ticks.get(getLevel()));
+        }, 0L, data.getInt("ticking_skill_refresh_rate"));
     }
 
-    public void stopTicker(){
+    @Override
+    public void onDisable(){
         Bukkit.getServer().getScheduler().cancelTask(schedularID);
-    }
-
-    public int getTicks(){
-        return ticks.get(getLevel());
-    }
-
-    public int getTicks(int level){
-        return ticks.get(level);
     }
 }

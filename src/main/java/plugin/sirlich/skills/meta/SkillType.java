@@ -30,7 +30,8 @@ public enum SkillType {
     IncendiaryShot(new IncendiaryShot(null, 0)),
     Barrage(new Barrage(null, 0)),
     Entangle(new Entangle(null, 0)),
-    LongShot(new LongShot(null, 0));
+    LongShot(new LongShot(null, 0)),
+    HuntersThrill(new HuntersThrill(null, 0));
 
     //Overcharge(new Overcharge(null, 0));
 
