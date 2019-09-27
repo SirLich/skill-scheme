@@ -31,7 +31,9 @@ public class CooldownSkill extends Skill
     private String rechargeText = c.green + getName() + c.dgray + " has been recharged.";
 
     private double calculateCooldownLeft(){
-        return Math.round((((cooldownValue / 20.00) - (System.currentTimeMillis() - lastUsed) / 1000.00) * 100.00) / 100.00);
+        double x = (cooldownValue / 20.00) - (System.currentTimeMillis() - lastUsed) / 1000.00;
+        System.out.println(x);
+        return Math.round(x * 10) / 10.0;
     }
 
     public CooldownSkill(RpgPlayer rpgPlayer, int level, String id){

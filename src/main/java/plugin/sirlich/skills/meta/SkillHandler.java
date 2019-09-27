@@ -1,5 +1,6 @@
 package plugin.sirlich.skills.meta;
 
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import plugin.sirlich.core.RpgProjectile;
@@ -15,6 +16,8 @@ import org.bukkit.event.entity.*;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.ArrayList;
 
 import static plugin.sirlich.utilities.WeaponUtils.*;
 
@@ -103,7 +106,7 @@ public class SkillHandler implements Listener
             RpgPlayer.getRpgPlayer((Player)event.getDamager()).logPlayerAttack();
         }
 
-        //Is Player
+        //If YOU are a player
         if(event.getEntity() instanceof Player){
 
             //Get RpgPlayer
@@ -145,7 +148,7 @@ public class SkillHandler implements Listener
 
         }
 
-        //Handles attacks on OTHER poeple
+        //If the person YOU HIT is a player (this needs to be removed somehow)
         if(event.getDamager() instanceof Player){
 
             //Get RpgPlayer
@@ -222,16 +225,17 @@ public class SkillHandler implements Listener
         }
     }
 
-    //Handle arrow hits into the ground
+    //Handle arrow hits
     @EventHandler
     public void onArrowHit(EntityDamageByEntityEvent event){
         if(event.getDamager() instanceof Arrow){
-            if(event.getEntity() != null) {
+            if(event.getEntity() != null && event.getEntity() instanceof LivingEntity) {
                 Arrow arrow = (Arrow) event.getDamager();
                 if(RpgProjectile.hasProjectile(arrow)){
                     RpgProjectile rpgProjectile = RpgProjectile.getProjectile(arrow);
                     RpgPlayer rpgPlayer = rpgProjectile.getShooter();
                     for(Skill skill : rpgPlayer.getSkillList().values()){
+                        System.out.println("onArrowHit");
                         skill.onArrowHitEntity(event);
                     }
                     rpgProjectile.deregisterSelf();

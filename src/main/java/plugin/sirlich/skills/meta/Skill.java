@@ -3,6 +3,7 @@ package plugin.sirlich.skills.meta;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import plugin.sirlich.SkillScheme;
 import plugin.sirlich.core.RpgPlayer;
+import plugin.sirlich.core.RpgProjectile;
 import plugin.sirlich.utilities.c;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
