@@ -86,6 +86,10 @@ public class RpgPlayer
 
     private boolean justAttacked = false;
 
+    private UUID sessionToken;
+
+    //This method determines whether or not the player is using a mana skill. The player cannot get mana when he
+    //is currently using a skill. Ie, he must toggle off to charge.
     public boolean isModifierActive(){
         return modifierActive;
     }
@@ -121,6 +125,10 @@ public class RpgPlayer
         }
     }
 
+    public boolean hasEnoughMana(int mana){
+        return getMana() >= mana;
+    }
+
     public void addMana(int mana){
         float newMana = getPlayer().getExp() + ((float)mana)/100;
         if(newMana < 0){
@@ -133,6 +141,7 @@ public class RpgPlayer
 
     public RpgPlayer(Player player){
         this.skillEditObject = new SkillEditObject(ClassType.UNDEFINED, this);
+        this.sessionToken = UUID.randomUUID();
         this.player = player;
         this.team = "Default";
         this.playerState = PlayerState.TESTING;
@@ -146,6 +155,21 @@ public class RpgPlayer
         this.silenced = silenced;
     }
 
+    public void refreshSessionToken(){
+        this.sessionToken = UUID.randomUUID();
+    }
+
+    public boolean testSession(UUID token){
+        return this.sessionToken.equals(token);
+    }
+
+    public boolean testSession(Skill skill){
+        return this.sessionToken.equals(skill.getSessionToken());
+    }
+
+    public UUID getSessionToken(){
+        return sessionToken;
+    }
     private PlayerState playerState;
     private String team;
     private double walkSpeedModifier;

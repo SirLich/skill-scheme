@@ -1,4 +1,4 @@
-package plugin.sirlich.skills.clans;
+package plugin.sirlich.skills.clans.any;
 
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.utilities.c;

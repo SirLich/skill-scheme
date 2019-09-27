@@ -33,6 +33,7 @@ public class WeaponUtils {
     }
 
     public static boolean isSword(Material material){
+        System.out.println(material);
         return material.equals(Material.WOOD_SWORD) ||
                 material.equals(Material.STONE_SWORD) ||
                 material.equals(Material.IRON_SWORD) ||

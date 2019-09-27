@@ -5,7 +5,14 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 public class ToggleSkill extends Skill{
+    /*
+    Required config values:
+
+    Optional config values:
+     */
+
     private Material headBlock;
+    private ItemStack headSave;
     private boolean active;
 
     public ToggleSkill(RpgPlayer rpgPlayer, int level, String id, Material headBlock){
@@ -14,13 +21,14 @@ public class ToggleSkill extends Skill{
     }
 
     public void ActivateSkill(){
+        this.headSave = getRpgPlayer().getPlayer().getInventory().getHelmet();
         this.getRpgPlayer().getPlayer().getInventory().setHelmet(new ItemStack(headBlock));
         this.active = true;
         getRpgPlayer().setModifierActive(true);
     }
 
     public void DeactivateSkill(){
-        this.getRpgPlayer().getPlayer().getInventory().setHelmet(new ItemStack(Material.AIR));
+        this.getRpgPlayer().getPlayer().getInventory().setHelmet(headSave);
         this.active = false;
         getRpgPlayer().setModifierActive(false);
     }
@@ -29,7 +37,7 @@ public class ToggleSkill extends Skill{
         return active;
     }
 
-    public void toggle(){
+    public void toggleStatus(){
         if(this.isActive()){
             DeactivateSkill();
         } else {

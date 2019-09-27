@@ -1,11 +1,16 @@
 package plugin.sirlich.skills.meta;
 
 
-import plugin.sirlich.skills.clans.*;
-import plugin.sirlich.skills.clans.Evade;
-import plugin.sirlich.skills.clans.BreakFall;
+import plugin.sirlich.skills.clans.Rogue.Evade;
+import plugin.sirlich.skills.clans.Fighter.BullsCharge;
+import plugin.sirlich.skills.clans.Rogue.Leap;
+import plugin.sirlich.skills.clans.Warlock.FireBlast;
+import plugin.sirlich.skills.clans.Warlock.IcePrison;
+import plugin.sirlich.skills.clans.any.BreakFall;
 import plugin.sirlich.skills.clans.Ranger.*;
-import plugin.sirlich.skills.clans.SilencingArrow;
+import plugin.sirlich.skills.clans.Rogue.SpeedBuff;
+import plugin.sirlich.skills.clans.Rogue.SilencingArrow;
+import plugin.sirlich.skills.clans.Warlock.ArcticArmor;
 
 public enum SkillType {
     SpeedBuff(new SpeedBuff(null,0)),

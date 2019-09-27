@@ -1,4 +1,4 @@
-package plugin.sirlich.skills.clans;
+package plugin.sirlich.skills.clans.Warlock;
 
 import org.bukkit.event.player.PlayerDropItemEvent;
 import plugin.sirlich.SkillScheme;

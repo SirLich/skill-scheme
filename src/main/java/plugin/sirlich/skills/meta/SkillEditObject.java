@@ -122,6 +122,8 @@ public class SkillEditObject
     }
 
     public void addSkills(boolean announceLoadout){
+        parent.refreshSessionToken();
+
         //Don't run if skill size is 0
         if(skillMap.size() == 0){
             return;
@@ -131,9 +133,10 @@ public class SkillEditObject
             this.parent.tell("Your loadout has been applied:");
         }
 
-        if(this.classType == ClassType.WARLOCK){
-            parent.addSkill(SkillType.ManaCharger,1);
+        for(SimpleSkill simpleSkill : SkillData.getDefaultSkills(classType)){
+            parent.addSkill(simpleSkill.getSkillType(), simpleSkill.getLevel());
         }
+
         for(SkillKind skillKind : skillMap.keySet()){
             SkillType skill = skillMap.get(skillKind);
             int level = levelMap.get(skillKind) - 1;

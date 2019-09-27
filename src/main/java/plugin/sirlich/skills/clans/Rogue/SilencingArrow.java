@@ -1,4 +1,4 @@
-package plugin.sirlich.skills.clans;
+package plugin.sirlich.skills.clans.Rogue;
 
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;

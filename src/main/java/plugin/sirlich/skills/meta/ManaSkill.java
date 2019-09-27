@@ -6,42 +6,46 @@ import plugin.sirlich.SkillScheme;
 import plugin.sirlich.core.RpgPlayer;
 
 public class ManaSkill extends ToggleSkill {
+    /*
+    Required config values:
+    - mana_loss_per_second: int
+    - mana_refresh_rate: int
+
+    Optional config values:
+     */
 
     private int schedularID;
-    private int manaLossPerSecond;
 
     public ManaSkill(RpgPlayer rpgPlayer, int level, String id, Material headBlock){
         super(rpgPlayer,level,id, headBlock);
-        this.manaLossPerSecond = data.getInt("mana_loss_per_second");
     }
 
-    //Passthrough methods to allow children to still call onEnable/onDisable.
-    public void onEnablePassthrough(){
 
-    }
-
-    public void onDisablePassthrough(){
-
-    }
+    //If you want to use these methods, you can call super() and then use them normally.
 
     //Lose mana_loss_per_second mana
     @Override
     public void onEnable(){
-        onEnablePassthrough();
         schedularID = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(SkillScheme.getInstance(), new Runnable() {
             public void run() {
-                if(isActive()){
-                    getRpgPlayer().addMana(- manaLossPerSecond);
+                int manaCost =  (int) (data.getInt("mana_loss_per_second") * (data.getInt("mana_refresh_rate") / 20.0));
+                System.out.println("manaCost:" + manaCost);
+                if(isActive() && getRpgPlayer().hasEnoughMana(manaCost)){
+                    getRpgPlayer().addMana(- manaCost);
+                    System.out.println("tick");
+                    onTick();
                 }
             }
-        }, 0L, getYaml(this.getId()).getInt("mana_loss_refresh_rate"));
+        }, 0L, data.getInt("mana_refresh_rate"));
     }
 
+    public void onTick(){
+
+    }
 
     //Remove mana_loss_per_second
     @Override
     public void onDisable(){
-        onDisablePassthrough();
         Bukkit.getServer().getScheduler().cancelTask(schedularID);
     }
 }

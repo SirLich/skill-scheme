@@ -8,8 +8,12 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class SkillData {
+    /*
+    This class is a data-manager for caching config values from the gui.yml and skill.yml files.
+     */
     //Non Static stuff
     Skill skill;
 
@@ -22,9 +26,14 @@ public class SkillData {
     private static HashMap<String, String> xliffDataMap = new HashMap<String, String>();
     private static HashMap<String, Sound> soundDataMap = new HashMap<String, Sound>();
     private static HashMap<ClassType, Integer> pointsMap = new HashMap<ClassType,Integer>();
+    private static HashMap<ClassType, ArrayList<SimpleSkill>> defaultSkillMap = new HashMap<ClassType, ArrayList<SimpleSkill>>();
 
     //Init method for pulling data from the yaml files
     public static void initializeData(){
+        System.out.println("Initializing data:");
+
+        System.out.println("Attempting to load Skills");
+        //Handle skills
         File dir = new File(SkillScheme.getInstance().getDataFolder() + "/skills/");
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null) {
@@ -33,21 +42,39 @@ public class SkillData {
             }
         }
 
-        //Load gui point values
+        System.out.println(" + Skill success");
+
+
+        System.out.println("Attempting to handle GUI");
+        //Handle GUI
         File guiFile = new File(SkillScheme.getInstance().getDataFolder() + "/gui.yml");
         FileConfiguration guiYml = YamlConfiguration.loadConfiguration(guiFile);
-        for(String value : guiYml.getConfigurationSection("loadouts").getKeys(false)){
-            System.out.println(value);
-            pointsMap.put(ClassType.valueOf(value.toUpperCase()), guiYml.getInt("loadouts." + value + ".tokens"));
-        }
+        for(String loadout : guiYml.getConfigurationSection("loadouts").getKeys(false)){
+            System.out.println("Handling: " + loadout);
+            //Handle default tokens
+            ClassType classType = ClassType.valueOf(loadout.toUpperCase());
+            pointsMap.put(classType, guiYml.getInt("loadouts." + loadout + ".tokens"));
 
+            //Handle default skills
+            ArrayList<SimpleSkill> skills = new ArrayList<SimpleSkill>();
+            for(Map map : guiYml.getMapList("loadouts." + loadout + ".default_skills")){
+                System.out.println("inside!");
+                System.out.println(map.values());
+                SkillType skillType = SkillType.valueOf(map.get("type").toString());
+                Integer level = (Integer) map.get("level");
+                SimpleSkill simpleSkill = new SimpleSkill(skillType, level);
+                skills.add(simpleSkill);
+            }
+
+            defaultSkillMap.put(classType, skills);
+        }
+        System.out.println(" + GUI success");
     }
 
     //Internal method for handling a single file during init
     private static void handleSkill(File file){
         String fname = file.getName();
         FileConfiguration yaml = YamlConfiguration.loadConfiguration(file);
-
         //Handle SkillData
         if(yaml.contains("values")){
             for(String value : yaml.getConfigurationSection("values").getKeys(false)){
@@ -137,8 +164,12 @@ public class SkillData {
         return getSound(skill.getId(),code);
     }
 
-    public static Integer getDefaultPointData(ClassType classType){
+    public static Integer getDefaultTokens(ClassType classType){
         System.out.println(pointsMap.toString());
         return pointsMap.get(classType);
+    }
+
+    public static ArrayList<SimpleSkill> getDefaultSkills(ClassType classType) {
+        return defaultSkillMap.get(classType);
     }
 }

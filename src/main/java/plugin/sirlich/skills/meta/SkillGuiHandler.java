@@ -141,7 +141,7 @@ public class SkillGuiHandler implements Listener
         inventory.setItem(36, getStandardGuiButton(Material.GOLD_NUGGET,"Passive B",null));
         inventory.setItem(45, getStandardGuiButton(Material.GOLD_NUGGET,"Passive C",null));
         ItemStack pointsItems = getStandardGuiButton(Material.PRISMARINE_CRYSTALS, "Remaining points",null);
-        pointsItems.setAmount(SkillData.getDefaultPointData(classType));
+        pointsItems.setAmount(SkillData.getDefaultTokens(classType));
         inventory.setItem(51,pointsItems);
         inventory.setItem(52, getStandardGuiButton(Material.EMERALD,"Accept","accept"));
         inventory.setItem(53, getStandardGuiButton(Material.IRON_DOOR,"Back","open_main_gui"));
@@ -152,7 +152,7 @@ public class SkillGuiHandler implements Listener
         RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
         rpgPlayer.refreshSkillEditObject(classType);
         Inventory inventory = getStandardKitsGui(classType);
-        rpgPlayer.getSkillEditObject().setPoints(SkillData.getDefaultPointData(classType));
+        rpgPlayer.getSkillEditObject().setPoints(SkillData.getDefaultTokens(classType));
 
         File playerYml = new File(SkillScheme.getInstance().getDataFolder() + "/gui.yml");
         FileConfiguration fileConfiguration =  YamlConfiguration.loadConfiguration(playerYml);
@@ -229,7 +229,7 @@ public class SkillGuiHandler implements Listener
             level--;
             levelBalancer++;
         } else {
-            itemStack = new ItemStack(Material.INK_SACK);
+            itemStack = new ItemStack(Material.INK_SACK, 1,(short)8);
         }
         ItemMeta itemMeta = itemStack.getItemMeta();
 

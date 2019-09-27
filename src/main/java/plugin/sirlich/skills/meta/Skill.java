@@ -12,15 +12,29 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Skill
 {
+    /*
+    Required config values:
+    - cost: int
+    - max_level: int
+    - name: string
+
+    Optional config values:
+    - description
+    - various values, nested under values
+    - various sounds, nested under sounds
+    - various text-lines, nested under xliff
+     */
     private String name;
     private String id;
     private int cost;
     private int maxLevel;
+    private UUID sessionToken;
     private ArrayList<String> description = new ArrayList<String>();
 
     private RpgPlayer rpgPlayer;
@@ -31,11 +45,16 @@ public class Skill
 
     public Skill(RpgPlayer rpgPlayer, int level, String id){
         description.add(c.dgray + "This skill does not have a description!");
+        if(rpgPlayer != null){
+            this.sessionToken = rpgPlayer.getSessionToken();
+        }
+
+        //TODO These uses of getYml really need to be removed!
         this.id = id;
         this.rpgPlayer = rpgPlayer;
         this.level = level;
         this.cost = getYaml(id).getInt("cost");
-        this.maxLevel = getYaml(id).getInt("maxLevel");
+        this.maxLevel = getYaml(id).getInt("max_level");
         this.name = getYaml(id).getString("name");
         this.data = new SkillData(this);
     }
@@ -44,6 +63,7 @@ public class Skill
     }
 
     public void onDisable(){
+
     }
 
     public RpgPlayer getRpgPlayer(){
@@ -62,6 +82,14 @@ public class Skill
     public String getId()
     {
         return this.id;
+    }
+
+    public UUID getSessionToken() {
+        return sessionToken;
+    }
+
+    public void setSessionToken(UUID sessionToken) {
+        this.sessionToken = sessionToken;
     }
 
     private static ArrayList<String> processDescription(ArrayList<String> description, String id, int level){
@@ -91,7 +119,6 @@ public class Skill
     }
 
     private static String processDescriptionLine(String line, String id, int level){
-        FileConfiguration yml = getYaml(id);
         String regex = "\\[(.*?)\\]";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(line);

@@ -13,14 +13,17 @@ public class ChargeSkill extends CooldownSkill{
     private boolean isFullyCharged;
     private boolean useCooldown;
 
-    /* CONFIG TO IMPLEMENT:
-    max_charges
-    charge_finish_sound
-    charge_tick_sound
-    charge_release_sound
-    full_charge_release_sound
-    charge_refresh_rate
-     */
+    /*
+    Required config values:
+    - max_charges: int
+    - charge_refresh_rate: int, in ticks. How many ticks before a charge is added (up to max_charges).
+    - charge_finish_sound: sound
+    - charge_tick_sound: sound
+    - charge_release_sound: sound
+    - full_charge_release_sound: sound
+
+    Optional config values:
+    */
 
     public ChargeSkill(RpgPlayer rpgPlayer, int level, String id, boolean useCooldown){
         super(rpgPlayer,level,id);
