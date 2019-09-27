@@ -17,6 +17,8 @@ public class ChargeSkill extends CooldownSkill{
     Required config values:
     - max_charges: int
     - charge_refresh_rate: int, in ticks. How many ticks before a charge is added (up to max_charges).
+
+    Sounds:
     - charge_finish_sound: sound
     - charge_tick_sound: sound
     - charge_release_sound: sound

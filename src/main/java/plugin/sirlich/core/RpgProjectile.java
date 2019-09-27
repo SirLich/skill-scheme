@@ -24,7 +24,7 @@ public class RpgProjectile {
     }
 
     private ArrayList<String> tags;
-    private HashMap<String, Integer> intData;
+    private HashMap<String, Integer> intData = new HashMap<String, Integer>();
     private RpgPlayer shooter;
     private UUID id;
 
