@@ -6,9 +6,6 @@ import org.bukkit.Bukkit;
 
 public class ManaCharger extends Skill {
     private int schedularID;
-    private static String id = "ManaCharger";
-    private static Integer manaPerSecond = getYaml(id).getInt("manaPerSecond");
-    private static Integer ticksPerCycle = getYaml(id).getInt("ticksPerCycle");
 
     public ManaCharger(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer,level,"ManaCharger");
@@ -25,11 +22,11 @@ public class ManaCharger extends Skill {
             public void run() {
                 //If the player is "resting", than give some mana
                 if(!getRpgPlayer().isModifierActive()){
-                    float manaPerTick = (float)manaPerSecond/20;
-                    getRpgPlayer().addMana(Math.round(manaPerTick * ticksPerCycle));
+                    float manaPerTick = (float) data.getInt("mana_per_second") /20;
+                    getRpgPlayer().addMana(Math.round(manaPerTick * data.getInt("ticks_per_cycle")));
                 }
             }
-        }, 0L, ticksPerCycle);
+        }, 0L, data.getInt("ticks_per_cycle"));
     }
     public void onDisable(){
         this.getRpgPlayer().addMana(-100);
