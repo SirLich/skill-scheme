@@ -3,7 +3,6 @@ package plugin.sirlich.skills.meta;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import plugin.sirlich.SkillScheme;
 import plugin.sirlich.core.RpgPlayer;
-import plugin.sirlich.core.RpgProjectile;
 import plugin.sirlich.utilities.c;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -49,11 +48,6 @@ public class Skill
         if(rpgPlayer != null){
             this.sessionToken = rpgPlayer.getSessionToken();
         }
-
-        initializeSkillData();
-    }
-
-    public void initializeSkillData(){
         //TODO These uses of getYml really need to be removed!
         this.id = id;
         this.rpgPlayer = rpgPlayer;
@@ -62,6 +56,12 @@ public class Skill
         this.maxLevel = getYaml(id).getInt("max_level");
         this.name = getYaml(id).getString("name");
         this.data = new SkillData(this);
+        initializeSkillData();
+
+    }
+
+    public void initializeSkillData(){
+
     }
 
     public void onEnable(){

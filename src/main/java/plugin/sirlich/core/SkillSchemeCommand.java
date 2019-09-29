@@ -1,6 +1,8 @@
 package plugin.sirlich.core;
 
+import plugin.sirlich.SkillScheme;
 import plugin.sirlich.skills.meta.*;
+import plugin.sirlich.utilities.Xliff;
 import plugin.sirlich.utilities.c;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -19,7 +21,7 @@ public class SkillSchemeCommand implements CommandExecutor
                 return true;
             }
             if(args.length < 1){
-                rpgPlayer.tell("Please include an argument: " + c.gray + "[s]kill, [c]lass, [t]eam, [p]layer state, [g]ui");
+                rpgPlayer.tell("Please include an argument: " + c.gray + "[s]kill, [c]lass, [t]eam, [p]layer state, [g]ui, [r]eload");
                 return true;
             }
 
@@ -186,8 +188,12 @@ public class SkillSchemeCommand implements CommandExecutor
                 } else {
                     rpgPlayer.tell("Please include an argument: " + c.gray + "[g]et, [s]et, [l]ist, [r]eset");
                 }
+            } else if(action.equalsIgnoreCase("r") || action.equalsIgnoreCase("reload")){
+                SkillData.initializeData();
+                Xliff.initializeData();
+                rpgPlayer.tell("Config values have been reloaded.");
             } else {
-                rpgPlayer.tell("Please include an argument: " + c.gray + "[s]kill, [c]lass, [t]eam, [p]layer state, [g]ui");
+                rpgPlayer.tell("Please include an argument: " + c.gray + "[s]kill, [c]lass, [t]eam, [p]layer state, [g]ui, [r]eload");
             }
         }
         return true;
