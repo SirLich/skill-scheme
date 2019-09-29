@@ -22,6 +22,13 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.mykindos</groupId>
+            <artifactId>BetterPvpClans</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>/home/liam/git/skill-scheme/lib/BetterPvP-Clans.jar</systemPath>
+        </dependency>
+        <dependency>
             <groupId>com.connorlinfoot</groupId>
             <artifactId>ActionBarAPI</artifactId>
             <version>1.5.4</version>

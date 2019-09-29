@@ -88,6 +88,8 @@ public class RpgPlayer
 
     private UUID sessionToken;
 
+    private Long lastDamaged;
+
     //This method determines whether or not the player is using a mana skill. The player cannot get mana when he
     //is currently using a skill. Ie, he must toggle off to charge.
     public boolean isModifierActive(){
@@ -155,6 +157,8 @@ public class RpgPlayer
         this.silenced = silenced;
     }
 
+
+
     public void refreshSessionToken(){
         this.sessionToken = UUID.randomUUID();
     }
@@ -165,6 +169,14 @@ public class RpgPlayer
 
     public boolean testSession(Skill skill){
         return this.sessionToken.equals(skill.getSessionToken());
+    }
+
+    public Long getLastDamaged() {
+        return lastDamaged;
+    }
+
+    public void setLastDamaged(Long lastDamaged) {
+        this.lastDamaged = lastDamaged;
     }
 
     public UUID getSessionToken(){

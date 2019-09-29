@@ -116,6 +116,7 @@ public class SkillHandler implements Listener
             RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
             Material itemType  = player.getInventory().getItemInHand().getType();
 
+            rpgPlayer.setLastDamaged(System.currentTimeMillis());
             //Sword melee attack
             if(isSword(itemType)){
                 for(Skill skill : rpgPlayer.getSkillList().values()){
