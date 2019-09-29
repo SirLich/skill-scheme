@@ -7,7 +7,7 @@ import plugin.sirlich.skills.meta.ChargeSkill;
 
 public class WolfPounce extends ChargeSkill {
     public WolfPounce(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer, level, "WolfPounce", true);
+        super(rpgPlayer, level, "WolfPounce", true, true);
     }
 
     @Override

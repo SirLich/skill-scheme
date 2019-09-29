@@ -14,7 +14,7 @@ import plugin.sirlich.skills.meta.ChargeSkill;
 
 public class Barrage extends ChargeSkill {
     public Barrage(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer, level, "Barrage", false);
+        super(rpgPlayer, level, "Barrage", false, true);
     }
     private int schedularID;
 

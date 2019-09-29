@@ -1,5 +1,6 @@
 package plugin.sirlich.core;
 
+import com.connorlinfoot.actionbarapi.ActionBarAPI;
 import org.bukkit.scheduler.BukkitRunnable;
 import plugin.sirlich.SkillScheme;
 import plugin.sirlich.skills.meta.ClassType;
@@ -324,17 +325,23 @@ public class RpgPlayer
         getPlayer().getWorld().playSound(getPlayer().getLocation(), sound, volume, speed);
     }
 
-    public void playSound(Sound sound){
-        playSound(sound, 1);
+    public void playSound(Sound sound, float speed){
+        playWorldSound(sound, speed, 1);
     }
 
-    public void playSound(Sound sound, float speed){
+    public void playSound(Sound sound){
+        playSound(sound, 1, 1);
+    }
+
+    public void playSound(Sound sound, float speed, float pitch){
         if(sound != null){
-            getPlayer().playSound(getPlayer().getLocation(),sound,1,speed);
+            getPlayer().playSound(getPlayer().getLocation(),sound,speed,pitch);
         }
     }
 
-
+    public void setActionBar(String message){
+        ActionBarAPI.sendActionBar(getPlayer(),message);
+    }
 
     public Player getPlayer()
     {

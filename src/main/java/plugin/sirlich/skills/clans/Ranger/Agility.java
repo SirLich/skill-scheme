@@ -8,11 +8,17 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.skills.meta.RageSkill;
+import plugin.sirlich.utilities.WeaponUtils;
 
 public class Agility extends RageSkill {
 
     public Agility(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer,level,"Agility", Material.COAL_BLOCK);
+    }
+
+    @Override
+    public boolean showActionBar(){
+        return WeaponUtils.isAxe(getRpgPlayer().getPlayer().getItemInHand());
     }
 
     @Override

@@ -1,13 +1,16 @@
 package plugin.sirlich.skills.meta;
 
+import org.bukkit.Bukkit;
 import plugin.sirlich.SkillScheme;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.utilities.Xliff;
 import plugin.sirlich.utilities.c;
 import org.bukkit.Sound;
 import org.bukkit.scheduler.BukkitRunnable;
+import sun.awt.X11.XSystemTrayPeer;
 
 import java.util.List;
+import java.util.UUID;
 
 public class CooldownSkill extends Skill
 {
@@ -21,9 +24,11 @@ public class CooldownSkill extends Skill
 
     //Current cooldown by level
     private int cooldownValue;
-
+    private int schedularID;
     private boolean cooldown;
     private long lastUsed;
+    private final int ACTION_BAR_REFRESH_RATE = 3;
+    private final int CHARGE_BAR_LENGTH = 30;
 
     private Sound cooldownSound;
     private Sound rechargeSound;
@@ -32,8 +37,12 @@ public class CooldownSkill extends Skill
 
     private double calculateCooldownLeft(){
         double x = (cooldownValue / 20.00) - (System.currentTimeMillis() - lastUsed) / 1000.00;
-        System.out.println(x);
         return Math.round(x * 10) / 10.0;
+    }
+
+    //Returns a number from 1-CHARGE_BAR_LENGTH
+    private long calculateChargeBarCooldown(){
+        return CHARGE_BAR_LENGTH - Math.abs(Math.round(calculateCooldownLeft() / (cooldownValue / 20.0) * CHARGE_BAR_LENGTH));
     }
 
     public CooldownSkill(RpgPlayer rpgPlayer, int level, String id){
@@ -64,6 +73,7 @@ public class CooldownSkill extends Skill
     public void setCooldown(boolean state){
         this.cooldown = state;
     }
+
     public void refreshCooldown(){
         this.cooldown = true;
         this.lastUsed = System.currentTimeMillis();
@@ -80,8 +90,46 @@ public class CooldownSkill extends Skill
         }.runTaskLater(SkillScheme.getInstance(), cooldownValue);
     }
 
+    //This should be overridden!
+    public boolean showActionBar(){
+        System.out.println("WARNING !! THIS ISN'T SETUP CORRECTLY. You must override this value.");
+        return false;
+    }
+
     public int getCooldown()
     {
         return cooldownValue;
+    }
+
+    @Override
+    public void onEnable(){
+        schedularID = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(SkillScheme.getInstance(), new Runnable() {
+            public void run() {
+                if(cooldown && showActionBar()){
+                    long chargeMeter = calculateChargeBarCooldown();
+                    String m = c.white + getName() + ": [";
+                    for(int i = 0; i < CHARGE_BAR_LENGTH; i ++){
+                        if(i < chargeMeter){
+                            m = m + c.green + "■";
+                        } else {
+                            m = m + c.red + "■";
+                        }
+                    }
+
+                    m = m + c.white + "] " + c.red + calculateCooldownLeft();
+
+                    getRpgPlayer().setActionBar(m);
+                }
+            }
+        }, 0L, ACTION_BAR_REFRESH_RATE);
+    }
+
+    public String buildChargeBar(){
+        return "";
+    }
+
+    @Override
+    public void onDisable(){
+        Bukkit.getServer().getScheduler().cancelTask(schedularID);
     }
 }

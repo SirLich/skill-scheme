@@ -12,7 +12,7 @@ public class Overcharge extends ChargeSkill {
     damage_per_charge
      */
     public Overcharge(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer, level, "Overcharge", false);
+        super(rpgPlayer, level, "Overcharge", false, true);
     }
 
     @Override

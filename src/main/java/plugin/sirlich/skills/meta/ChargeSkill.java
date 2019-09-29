@@ -12,6 +12,7 @@ public class ChargeSkill extends CooldownSkill{
     private int maxCharges;
     private boolean isFullyCharged;
     private boolean useCooldown;
+    private boolean useChargePitch;
 
     /*
     Required config values:
@@ -27,13 +28,14 @@ public class ChargeSkill extends CooldownSkill{
     Optional config values:
     */
 
-    public ChargeSkill(RpgPlayer rpgPlayer, int level, String id, boolean useCooldown){
+    public ChargeSkill(RpgPlayer rpgPlayer, int level, String id, boolean useCooldown, boolean useChargePitch){
         super(rpgPlayer,level,id);
         this.maxCharges = data.getInt("max_charges");
         this.isCharging = false;
         this.isFullyCharged = false;
         this.charges = 0;
         this.useCooldown = useCooldown;
+        this.useChargePitch = useChargePitch;
     }
 
     public void onReleaseCharge(int charges, boolean isFullyCharged){
@@ -57,6 +59,7 @@ public class ChargeSkill extends CooldownSkill{
     //please use a super() call if you want to use this method.
     @Override
     public void onEnable(){
+        super.onEnable();
         schedularID = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(SkillScheme.getInstance(), new Runnable() {
             public void run() {
                 //Handle ticks when you are charging
@@ -71,7 +74,12 @@ public class ChargeSkill extends CooldownSkill{
                             onCharge();
                             charges ++;
                             isCharging = true;
-                            getRpgPlayer().playSound(data.getSound("charge_tick_sound"));
+                            float pitch = 1.0f;
+                            if(useChargePitch){
+                                pitch = 1 +  (float) charges/data.getInt("max_charges");
+                                System.out.println(pitch);
+                            }
+                            getRpgPlayer().playSound(data.getSound("charge_tick_sound"), 1, pitch);
                         }
                     }
                 }
