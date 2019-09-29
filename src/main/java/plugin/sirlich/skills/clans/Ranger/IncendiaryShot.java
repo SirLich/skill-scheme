@@ -4,10 +4,16 @@ import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.skills.meta.PrimedSkill;
+import plugin.sirlich.utilities.WeaponUtils;
 
 public class IncendiaryShot extends PrimedSkill {
     public IncendiaryShot(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer,level,"IncendiaryShot");
+    }
+
+    @Override
+    public boolean showActionBar(){
+        return WeaponUtils.isBow(getRpgPlayer().getPlayer().getItemInHand());
     }
 
     @Override

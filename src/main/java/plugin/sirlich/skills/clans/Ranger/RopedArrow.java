@@ -14,6 +14,7 @@ import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.core.RpgProjectile;
 import plugin.sirlich.skills.meta.PrimedSkill;
 import plugin.sirlich.utilities.VelocityUtils;
+import plugin.sirlich.utilities.WeaponUtils;
 
 public class RopedArrow extends PrimedSkill {
     public RopedArrow(RpgPlayer rpgPlayer, int level){
@@ -29,6 +30,11 @@ public class RopedArrow extends PrimedSkill {
         if(rpgProjectile.hasTag("ROPED_ARROW")){
             handleRopedArrow(location, power, projectile);
         }
+    }
+
+    @Override
+    public boolean showActionBar(){
+        return WeaponUtils.isBow(getRpgPlayer().getPlayer().getItemInHand());
     }
 
     @Override

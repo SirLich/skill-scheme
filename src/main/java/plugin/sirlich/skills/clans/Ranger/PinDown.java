@@ -12,6 +12,7 @@ import org.bukkit.potion.PotionEffectType;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.core.RpgProjectile;
 import plugin.sirlich.skills.meta.CooldownSkill;
+import plugin.sirlich.utilities.WeaponUtils;
 
 public class PinDown extends CooldownSkill
 {
@@ -33,6 +34,10 @@ public class PinDown extends CooldownSkill
         }
     }
 
+    @Override
+    public boolean showActionBar(){
+        return WeaponUtils.isBow(getRpgPlayer().getPlayer().getItemInHand());
+    }
 
     @Override
     public void onArrowHitEntity(EntityDamageByEntityEvent event){

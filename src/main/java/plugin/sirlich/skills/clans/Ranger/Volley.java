@@ -11,6 +11,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.core.RpgProjectile;
 import plugin.sirlich.skills.meta.PrimedSkill;
+import plugin.sirlich.utilities.WeaponUtils;
 
 
 public class Volley extends PrimedSkill {
@@ -45,6 +46,11 @@ public class Volley extends PrimedSkill {
         }
 
         getRpgPlayer().playWorldSound(data.getSound("on_fire"), 3f, 1f);
+    }
+
+    @Override
+    public boolean showActionBar(){
+        return WeaponUtils.isBow(getRpgPlayer().getPlayer().getItemInHand());
     }
 
     @Override

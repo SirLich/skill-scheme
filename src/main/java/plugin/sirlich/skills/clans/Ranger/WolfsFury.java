@@ -8,6 +8,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.skills.meta.RageSkill;
+import plugin.sirlich.utilities.WeaponUtils;
 
 public class WolfsFury extends RageSkill {
     public WolfsFury(RpgPlayer rpgPlayer, int level){
@@ -27,6 +28,12 @@ public class WolfsFury extends RageSkill {
             player.damage(damage, getRpgPlayer().getPlayer());
         }
     }
+
+    @Override
+    public boolean showActionBar(){
+        return WeaponUtils.isAxe(getRpgPlayer().getPlayer().getItemInHand());
+    }
+
 
     //TODO: Add logic to cancel the rage early (see Agility) if the player whiffs (misses) two attacks in a row.
 

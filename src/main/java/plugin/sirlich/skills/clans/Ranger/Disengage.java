@@ -2,6 +2,7 @@ package plugin.sirlich.skills.clans.Ranger;
 
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.skills.meta.CooldownSkill;
+import plugin.sirlich.utilities.WeaponUtils;
 import plugin.sirlich.utilities.c;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -26,5 +27,10 @@ public class Disengage extends CooldownSkill
             self.setVelocity(new Vector(self.getLocation().getDirection().multiply(-data.getDouble("power")).getX(), 0.4, self.getLocation().getDirection().multiply(-data.getDouble("power")).getZ()));
             refreshCooldown();
         }
+    }
+
+    @Override
+    public boolean showActionBar(){
+        return WeaponUtils.isSword(getRpgPlayer().getPlayer().getItemInHand());
     }
 }

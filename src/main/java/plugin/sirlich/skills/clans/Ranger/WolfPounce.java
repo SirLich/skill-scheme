@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.skills.meta.ChargeSkill;
+import plugin.sirlich.utilities.WeaponUtils;
 
 public class WolfPounce extends ChargeSkill {
     public WolfPounce(RpgPlayer rpgPlayer, int level){
@@ -13,6 +14,11 @@ public class WolfPounce extends ChargeSkill {
     @Override
     public boolean isCharging(){
         return getRpgPlayer().getPlayer().isBlocking() && getRpgPlayer().getPlayer().isOnGround();
+    }
+
+    @Override
+    public boolean showActionBar(){
+        return WeaponUtils.isSword(getRpgPlayer().getPlayer().getItemInHand());
     }
 
     @Override

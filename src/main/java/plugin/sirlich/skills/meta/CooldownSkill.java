@@ -28,7 +28,7 @@ public class CooldownSkill extends Skill
     private boolean cooldown;
     private long lastUsed;
     private final int ACTION_BAR_REFRESH_RATE = 3;
-    private final int CHARGE_BAR_LENGTH = 30;
+    private final int CHARGE_BAR_LENGTH = 10;
 
     private Sound cooldownSound;
     private Sound rechargeSound;
@@ -62,12 +62,27 @@ public class CooldownSkill extends Skill
 
     public void playCooldownMedia(){
         getRpgPlayer().playSound(cooldownSound);
-        getRpgPlayer().tell(cooldownText + c.green + calculateCooldownLeft() + c.dgray + " seconds");
+        getRpgPlayer().tell(cooldownText + getChargeColor() + calculateCooldownLeft() + c.dgray + " seconds");
     }
 
     public void playRechargeMedia(){
         getRpgPlayer().playSound(rechargeSound);
         getRpgPlayer().tell(rechargeText);
+    }
+
+    public String getChargeColor(){
+        double percent = calculateChargeBarCooldown();
+        if(percent > CHARGE_BAR_LENGTH * 0.8){
+            return c.green;
+        } else if(percent > CHARGE_BAR_LENGTH * 0.6){
+            return c.yellow;
+        } else if(percent > CHARGE_BAR_LENGTH * 0.4){
+            return c.gold;
+        } else if(percent > CHARGE_BAR_LENGTH * 0.2){
+            return c.red;
+        } else {
+            return c.dred;
+        }
     }
 
     public void setCooldown(boolean state){
@@ -107,16 +122,16 @@ public class CooldownSkill extends Skill
             public void run() {
                 if(cooldown && showActionBar()){
                     long chargeMeter = calculateChargeBarCooldown();
-                    String m = c.white + getName() + ": [";
+                    String m = c.gold + c.bold + getName() + c.yellow + c.bold + ": [";
                     for(int i = 0; i < CHARGE_BAR_LENGTH; i ++){
                         if(i < chargeMeter){
-                            m = m + c.green + "■";
+                            m = m + c.green + c.bold + "▇";
                         } else {
-                            m = m + c.red + "■";
+                            m = m + c.red + c.bold + "▇";
                         }
                     }
 
-                    m = m + c.white + "] " + c.red + calculateCooldownLeft();
+                    m = m + c.yellow + c.bold + "] " + getChargeColor() + calculateCooldownLeft();
 
                     getRpgPlayer().setActionBar(m);
                 }
