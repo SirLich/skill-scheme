@@ -1,9 +1,7 @@
 cost: 1
-maxLevel: 3
-name: 'Deflection'
+max_level: 3
+name: 'Disengage'
 description:
-- '&7&o"Certain battles were won by retreating"'
-- ""
 - "Retreat from fights at high velocity"
 - "by blocking melee attacks."
 - ""
@@ -13,12 +11,12 @@ description:
 - "Power: [power]"
 values:
   cooldown:
-  - 100
+  - 500
   - 400
   - 200
   - 200
   power:
-  - 0.5
-  - 0.7
-  - 1.5
+  - 6.5
+  - 6.7
+  - 6.5
   - 6.3

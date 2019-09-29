@@ -1,6 +1,6 @@
 cost: 1
-maxLevel: 3
-name: 'Prism'
+max_level: 3
+name: 'Ice Prison'
 description:
 - "&7&oMagic is stronger than steel!"
 - ""

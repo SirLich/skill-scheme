@@ -1,0 +1,27 @@
+cost: 1
+max_level: 4
+name: 'Wolfs Fury'
+description:
+- 'Right-Click with &baxe&7 to activate'
+- ""
+- "Summon the power of the wolf, gaining"
+- "Strength 2 for [duration / 20] seconds, and giving"
+- "no knockback on your attacks."
+- ""
+- "Cooldown: [cooldown / 20] seconds"
+values:
+  cooldown:
+  - 300
+  - 250
+  - 150
+  - 100
+  duration:
+  - 60
+  - 60
+  - 60
+  - 60
+  amplifier:
+  - 2
+  - 2
+  - 2
+  - 2

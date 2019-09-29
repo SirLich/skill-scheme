@@ -1,6 +1,6 @@
 cost: 1
-maxLevel: 3
-name: 'Nimble Leap'
+max_level: 3
+name: 'Leap'
 description:
 - "Leap around the map at high speeds with"
 - "this mobility focused skill."

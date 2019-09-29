@@ -1,0 +1,33 @@
+cost: 2
+max_level: 4
+name: 'Overcharge'
+description:
+- "Hold bown charge to channel."
+- ""
+- "Arrows deal extra damage based on charge time"
+sounds:
+  charge_tick_sound: "CLICK"
+  charge_release_sound: "CLICK"
+  charge_finish_sound: "PISTON_EXTEND"
+  full_charge_release_sound: "ORB_PICKUP"
+values:
+  max_charges:
+  - 5
+  - 5
+  - 5
+  - 5
+  charge_refresh_rate:
+  - 10
+  - 10
+  - 10
+  - 10
+  cooldown:
+  - 0
+  - 0
+  - 0
+  - 0
+  damage_per_charge:
+  - 0.2
+  - 0.5
+  - 1
+  - 4

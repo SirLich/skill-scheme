@@ -1,6 +1,6 @@
 cost: 1
-maxLevel: 3
-name: 'Raging Bull'
+max_level: 3
+name: 'Bulls Charge'
 values:
   cooldown:
   - 70

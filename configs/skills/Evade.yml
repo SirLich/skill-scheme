@@ -1,0 +1,9 @@
+cost: 1
+max_level: 4
+name: 'Evade'
+values:
+  cooldown:
+  - 320
+  - 320
+  - 320
+  - 320

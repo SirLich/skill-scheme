@@ -1,0 +1,13 @@
+cost: 1
+max_level: 4
+name: 'Precision'
+description:
+- "Each arrow flies with deadly precision."
+- ""
+- "Arrows deal: [bonus_damage / 2] hearts bonus"
+values:
+  bonus_damage:
+  - 2.0
+  - 3.0
+  - 4.0
+  - 100.0

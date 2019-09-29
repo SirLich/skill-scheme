@@ -1,0 +1,32 @@
+cost: 1
+max_level: 4
+name: 'Vitality Spores'
+description:
+- "After [safe_duration / 20] seconds of not taking damage,"
+- "forest spores surround you, giving"
+- "you Regeneration [regeneration_amplifier] for [regeneration_duration / 20] seconds"
+- ""
+- "This remains untill you take damage."
+sounds:
+  now_healing: DRINK
+values:
+  regeneration_duration:
+  - 120
+  - 120
+  - 120
+  - 120
+  regeneration_amplifier:
+  - 1
+  - 1
+  - 1
+  - 1
+  safe_duration:
+  - 150
+  - 120
+  - 110
+  - 100
+  ticking_skill_refresh_rate:
+  - 5
+  - 5
+  - 5
+  - 5

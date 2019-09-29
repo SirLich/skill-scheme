@@ -1,6 +1,16 @@
 cost: 1
-maxLevel: 3
+max_level: 3
 name: 'Mana Charger'
 values:
-manaPerSecond: 10
-ticksPerCycle: 5
+  mana_per_second:
+  - 10
+  - 10
+  - 10
+  - 10
+  ticks_per_cycle:
+  - 5
+  - 5
+  - 5
+  - 5
+  
+

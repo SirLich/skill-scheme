@@ -1,9 +1,0 @@
-cost: 1
-maxLevel: 3
-name: 'Satanic Gamble'
-values:
-  cooldown:
-  - 100
-  - 400
-  - 200
-  - 800

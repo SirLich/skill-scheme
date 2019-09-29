@@ -1,10 +1,8 @@
 cost: 1
-maxLevel: 3
-name: 'Classic Fireball'
+max_level: 3
+name: 'Fire Blast'
 description:
-- '&7&o"Keep calm and drink Fireball."'
-- ""
-- "Shoots fireballs. Classic."
+- "Shoot fireballs. Classic."
 - ""
 - 'Right-Click &baxe&7 to fire'
 - ""

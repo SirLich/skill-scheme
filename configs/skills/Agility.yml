@@ -1,0 +1,36 @@
+cost: 1
+max_level: 4
+name: 'Agility'
+description:
+- 'Right-Click with &baxe&7 to activate'
+- ""
+- "Sprint with great agility, gaining"
+- "Speed I for [duration / 20] seconds."
+- "You are immune to melee attacks while sprinting"
+- "Agility ends if you interact"
+- ""
+- "Cooldown: [cooldown / 20] seconds"
+xliff:
+  activate_skill: "You used Agility"
+  agility_has_expired: "Agility has expired"
+  that_player_is_using_agility: "That player is using agility, you can't damage them"
+sounds:
+  activate_skill: "NOTE_PLING"
+  agility_has_expired: "BLAZE_BREATH"
+  that_player_is_using_agility: "BLAZE_BREATH"
+values:
+  cooldown:
+  - 300
+  - 250
+  - 150
+  - 100
+  duration:
+  - 60
+  - 60
+  - 60
+  - 60
+  amplifier:
+  - 1
+  - 1
+  - 1
+  - 1

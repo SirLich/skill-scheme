@@ -1,0 +1,32 @@
+cost: 1
+max_level: 4
+name: 'Volley'
+description:
+- "Left-Click &bbow&8 to prime"
+- ""
+- "Your next shot is instant, and shoots"
+- "a volley of [effect_width * 2] arrows in the direction you are facing."
+- ""
+- "Upon hitting a target, arrows will deal [arrow_damage / 2] hearts"
+- "of damage to a naked player"
+- ""
+- "Cooldown: [cooldown / 20] seconds"
+sounds:
+  on_fire: PISTON_EXTEND
+values:
+  effect_width:
+  - 5
+  - 5
+  - 5
+  - 5
+  arrow_damage:
+  - 8
+  - 9
+  - 10
+  - 11
+  cooldown:
+  - 100
+  - 90
+  - 80
+  - 60
+  - 40

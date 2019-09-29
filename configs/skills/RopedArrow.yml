@@ -1,0 +1,16 @@
+cost: 1
+max_level: 3
+name: 'Roped Arrow'
+description:
+- "Right-Click &bbow&8 to prepare."
+- ""
+- "Prepared arrows will pull  you in"
+- "after it hits."
+- ""
+- "Cooldown: [cooldown / 20] seconds"
+values:
+  cooldown:
+  - 800
+  - 400
+  - 300
+  - 100

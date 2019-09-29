@@ -1,0 +1,31 @@
+cost: 1
+max_level: 4
+name: 'Long Shot'
+description:
+- "Shoot an arrow that gains additional"
+- "Damage the further the target hit is."
+- ""
+- "Caps out at: [max_damage] damage"
+- ""
+- "Cannot be used in own territory"
+values:
+  max_damage:
+  - 12.0
+  - 14.0
+  - 16.0
+  - 18.0
+  damage_divisor:
+  - 3.0
+  - 3.0
+  - 3.0
+  - 3.0
+  damage_reduction:
+  - 4.0
+  - 4.0
+  - 4.0
+  - 4.0
+  arrow_fly_percent_faster:
+  - 20
+  - 20
+  - 20
+  - 20
