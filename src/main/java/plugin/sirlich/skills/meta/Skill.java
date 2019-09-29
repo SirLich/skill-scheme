@@ -50,6 +50,10 @@ public class Skill
             this.sessionToken = rpgPlayer.getSessionToken();
         }
 
+        initializeSkillData();
+    }
+
+    public void initializeSkillData(){
         //TODO These uses of getYml really need to be removed!
         this.id = id;
         this.rpgPlayer = rpgPlayer;

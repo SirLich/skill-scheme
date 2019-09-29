@@ -4,7 +4,6 @@ import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
-import org.bukkit.event.entity.ProjectileHitEvent;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.core.RpgProjectile;
 import plugin.sirlich.skills.meta.TickingSkill;
@@ -36,13 +35,11 @@ public class SharpShooter extends TickingSkill {
         if(charges < data.getInt("max_charges")){
             charges = charges + 1;
             getRpgPlayer().tell(c.green + getName() + c.dgray + " charges: " + c.green + charges);
-        } else {
-            getRpgPlayer().tell(c.green + getName() + c.dgray + " charges: " + c.green + "maxed");
         }
         getRpgPlayer().getPlayer().playSound(getRpgPlayer().getPlayer().getLocation(), data.getSound("on_hit"),1.0f,2.0f * charges/data.getInt("max_charges"));
     }
 
-    public void handleArrowMiss(){
+    public void resetCharges(){
         if(charges != 0){
             getRpgPlayer().playSound(data.getSound("on_miss"));
             getRpgPlayer().tell(c.red + getName() + c.dgray + " charges has been reset.");
@@ -71,15 +68,7 @@ public class SharpShooter extends TickingSkill {
     @Override
     public void onTick(){
         if (System.currentTimeMillis() >= lastHit + (data.getInt("base_millis") + data.getInt("per_level_millis"))) {
-            handleArrowMiss();
-        }
-    }
-
-    @Override
-    public void onArrowHitGround(ProjectileHitEvent event){
-        RpgProjectile rpgProjectile = RpgProjectile.getProjectile(event.getEntity().getUniqueId());
-        if(rpgProjectile.hasTag("SHARP_SHOOTER")){
-            handleArrowMiss();
+            resetCharges();
         }
     }
 }
