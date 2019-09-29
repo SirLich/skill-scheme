@@ -6,6 +6,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.core.RpgProjectile;
@@ -27,17 +28,20 @@ public class Volley extends PrimedSkill {
     }
 
     public void launchProjectiles(){
-        Location velocity;
         Player player = getRpgPlayer().getPlayer();
         Location loc = player.getLocation();
-
-        for (int i = - data.getInt("effect_width"); i < data.getInt("effect_width"); i += 1) {
+        for (int i = - data.getInt("effect_width"); i < data.getInt("effect_width") + 1; i += 1) {
             Arrow arrow = player.launchProjectile(Arrow.class);
-            RpgProjectile rpgProjectile = RpgProjectile.getProjectile(arrow);
+            RpgProjectile rpgProjectile = RpgProjectile.registerProjectile(arrow, getRpgPlayer());
             rpgProjectile.addTag("VOLLEY");
             arrow.setShooter(player);
-            loc.setYaw(loc.getYaw() + i * 2);
+            loc.setYaw(loc.getYaw() + (i * 2));
             arrow.setVelocity(loc.getDirection().multiply(2));
+
+            //Hacky, fight me :O
+            if(i==0){
+                loc = player.getLocation();
+            }
         }
 
         getRpgPlayer().playWorldSound(data.getSound("on_fire"), 3f, 1f);
@@ -56,6 +60,14 @@ public class Volley extends PrimedSkill {
     }
 
     @Override
+    public void onArrowHitGround(ProjectileHitEvent event){
+        RpgProjectile rpgArrow = RpgProjectile.getProjectile(event.getEntity().getUniqueId());
+        if(rpgArrow.hasTag("VOLLEY")){
+            event.getEntity().remove();
+        }
+    }
+
+    @Override
     public void onBowLeftClick(PlayerInteractEvent event){
         attemptPrime();
     }
@@ -64,11 +76,12 @@ public class Volley extends PrimedSkill {
     public void onBowFire(EntityShootBowEvent event){
         if(isSilenced()){return;};
         if(primed){
-            event.setCancelled(true);
             Arrow arrow = (Arrow) event.getProjectile();
             RpgProjectile.deregisterProjectile(arrow);
+            launchProjectiles();
+            event.setCancelled(true);
             primed = false;
-            RpgProjectile.addTag(arrow.getUniqueId(),"VOLLEY");
+            event.setCancelled(true);
             refreshCooldown();
         }
     }
