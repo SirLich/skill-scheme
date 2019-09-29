@@ -34,7 +34,8 @@ public enum SkillType {
     HuntersThrill(new HuntersThrill(null, 0)),
     Overcharge(new Overcharge(null, 0)),
     PinDown(new PinDown(null, 0)),
-    Precision(new Precision(null, 0));
+    Precision(new Precision(null, 0)),
+    RopedArrow(new RopedArrow(null, 0));
 
     //Overcharge(new Overcharge(null, 0));
 
