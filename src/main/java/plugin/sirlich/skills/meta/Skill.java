@@ -175,6 +175,10 @@ public class Skill
         return YamlConfiguration.loadConfiguration(playerYml);
     }
 
+    public void onDamageSelf(EntityDamageEvent event){
+
+    }
+
     public void onFallDamageSelf(EntityDamageEvent event){
 
     }

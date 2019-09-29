@@ -1,8 +1,7 @@
 package plugin.sirlich.skills.meta;
 
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.event.player.PlayerItemHeldEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.scheduler.BukkitRunnable;
 import plugin.sirlich.SkillScheme;
 import plugin.sirlich.core.RpgProjectile;
@@ -15,8 +14,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.*;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -96,6 +93,17 @@ public class SkillHandler implements Listener
         }
     }
 
+    @EventHandler
+    public void onDamage(EntityDamageEvent event){
+        if(event.getEntity() instanceof Player){
+            RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(event.getEntity().getUniqueId());
+            rpgPlayer.setLastDamaged(System.currentTimeMillis());
+            for(Skill skill : rpgPlayer.getSkillList().values()){
+                skill.onDamageSelf(event);
+            }
+        }
+    }
+
     /*
     HANDLES: Melee attack events for
         - Sword
@@ -104,10 +112,6 @@ public class SkillHandler implements Listener
      */
     @EventHandler
     public void onMeleeDamage(EntityDamageByEntityEvent event){
-        if(event.getDamager() instanceof Player){
-            RpgPlayer.getRpgPlayer((Player)event.getDamager()).logPlayerAttack();
-        }
-
         //If YOU are a player
         if(event.getEntity() instanceof Player){
 
@@ -116,7 +120,10 @@ public class SkillHandler implements Listener
             RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
             Material itemType  = player.getInventory().getItemInHand().getType();
 
-            rpgPlayer.setLastDamaged(System.currentTimeMillis());
+            if(event.getDamager() instanceof Player){
+                RpgPlayer.getRpgPlayer((Player)event.getDamager()).logPlayerAttack();
+            }
+
             //Sword melee attack
             if(isSword(itemType)){
                 for(Skill skill : rpgPlayer.getSkillList().values()){

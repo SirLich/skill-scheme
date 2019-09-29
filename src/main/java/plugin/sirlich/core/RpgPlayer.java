@@ -18,6 +18,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import java.lang.reflect.Constructor;
+import java.time.chrono.IsoEra;
 import java.util.*;
 
 public class RpgPlayer
@@ -88,7 +89,7 @@ public class RpgPlayer
 
     private UUID sessionToken;
 
-    private Long lastDamaged;
+    private Long lastDamaged = 0L;
 
     //This method determines whether or not the player is using a mana skill. The player cannot get mana when he
     //is currently using a skill. Ie, he must toggle off to charge.
@@ -324,10 +325,15 @@ public class RpgPlayer
     }
 
     public void playSound(Sound sound){
+        playSound(sound, 1);
+    }
+
+    public void playSound(Sound sound, float speed){
         if(sound != null){
-            getPlayer().playSound(getPlayer().getLocation(),sound,1,1);
+            getPlayer().playSound(getPlayer().getLocation(),sound,1,speed);
         }
     }
+
 
 
     public Player getPlayer()
