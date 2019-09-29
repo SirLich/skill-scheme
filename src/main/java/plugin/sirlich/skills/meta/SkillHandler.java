@@ -3,6 +3,8 @@ package plugin.sirlich.skills.meta;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
+import org.bukkit.scheduler.BukkitRunnable;
+import plugin.sirlich.SkillScheme;
 import plugin.sirlich.core.RpgProjectile;
 import plugin.sirlich.core.RpgPlayer;
 import org.bukkit.Material;
@@ -234,6 +236,7 @@ public class SkillHandler implements Listener
                 if(RpgProjectile.hasProjectile(arrow)){
                     RpgProjectile rpgProjectile = RpgProjectile.getProjectile(arrow);
                     RpgPlayer rpgPlayer = rpgProjectile.getShooter();
+                    rpgPlayer.logPlayerAttack();
                     for(Skill skill : rpgPlayer.getSkillList().values()){
                         System.out.println("onArrowHit");
                         skill.onArrowHitEntity(event);
@@ -246,15 +249,24 @@ public class SkillHandler implements Listener
 
     @EventHandler
     public void onArrow(ProjectileHitEvent event){
-        //Only arrows!
         if(event.getEntity() instanceof Arrow){
             Arrow arrow = (Arrow) event.getEntity();
             if(RpgProjectile.hasProjectile(arrow)){
                 RpgProjectile rpgArrow = RpgProjectile.getProjectile(arrow);
-                RpgPlayer rpgPlayer = rpgArrow.getShooter();
-                for(Skill skill : rpgPlayer.getSkillList().values()){
-                    skill.onArrowHitGround(event);
-                }
+                final RpgPlayer rpgPlayer = rpgArrow.getShooter();
+                final ProjectileHitEvent projectileHitEvent = event;
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        if(!rpgPlayer.didJustAttack()){
+                            for(Skill skill : rpgPlayer.getSkillList().values()){
+                                skill.onArrowHitGround(projectileHitEvent);
+                            }
+                        }
+                    }
+
+                }.runTaskLater(SkillScheme.getInstance(), 0);
+
                 rpgArrow.deregisterSelf();
             }
         }
