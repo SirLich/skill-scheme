@@ -56,11 +56,12 @@ public class Skill
         this.maxLevel = getYaml(id).getInt("max_level");
         this.name = getYaml(id).getString("name");
         this.data = new SkillData(this);
-        initializeSkillData();
+        initData();
 
     }
 
-    public void initializeSkillData(){
+    //Please call super.initData() if you want to use this method!
+    public void initData(){
 
     }
 
