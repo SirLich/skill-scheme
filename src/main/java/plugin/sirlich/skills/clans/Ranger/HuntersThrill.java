@@ -51,8 +51,6 @@ public class HuntersThrill extends TickingSkill {
     @Override
     public void onTick(){
         if (charges != 0 && System.currentTimeMillis() >= lastHit + (data.getInt("base_millis") + data.getInt("per_level_millis"))) {
-            getRpgPlayer().tell(data.xliff("skill_expired"));
-            getRpgPlayer().playSound(data.getSound("skill_expired"));
             charges = 0;
             getRpgPlayer().getPlayer().removePotionEffect(PotionEffectType.SPEED);
         }
