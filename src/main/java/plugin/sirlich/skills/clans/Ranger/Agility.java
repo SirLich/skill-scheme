@@ -1,6 +1,7 @@
 package plugin.sirlich.skills.clans.Ranger;
 
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -16,6 +17,16 @@ public class Agility extends RageSkill {
         super(rpgPlayer,level,"Agility", Material.COAL_BLOCK);
     }
 
+    private int duration;
+    private int amplifier;
+
+    @Override
+    public void initData(){
+        super.initData();
+        this.duration = data.getInt("duration");
+        this.amplifier = data.getInt("amplifier");
+    }
+
     @Override
     public boolean showActionBar(){
         return WeaponUtils.isAxe(getRpgPlayer().getPlayer().getItemInHand());
@@ -23,7 +34,7 @@ public class Agility extends RageSkill {
 
     @Override
     public void onEnrage(){
-        getRpgPlayer().getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, data.getInt("duration"),data.getInt("amplifier")));
+        getRpgPlayer().getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, duration, amplifier));
     }
 
     @Override
@@ -43,13 +54,13 @@ public class Agility extends RageSkill {
 
     @Override
     public void onMeleeAttackSelf(EntityDamageByEntityEvent event){
-        if(event.getDamager() instanceof Player && RpgPlayer.isRpgPlayer(event.getDamager().getUniqueId())){
-            if(isEnraged() && getRpgPlayer().getPlayer().isSprinting()){
+        if(isEnraged() && getRpgPlayer().getPlayer().isSprinting()){
+            if(RpgPlayer.isRpgPlayer(event.getDamager().getUniqueId())){
                 RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(event.getDamager().getUniqueId());
                 rpgPlayer.tell(data.xliff("that_player_is_using_agility"));
                 rpgPlayer.playSound(data.getSound("that_player_is_using_agility"));
-                event.setCancelled(true);
             }
+            event.setCancelled(true);
         }
     }
 }
