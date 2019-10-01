@@ -29,7 +29,7 @@ public class Entangle extends Skill {
         }
 
         LivingEntity hitEntity = (LivingEntity) event.getEntity();
-        RpgProjectile rpgProjectile = RpgProjectile.getProjectile(event.getEntity().getUniqueId());
+        RpgProjectile rpgProjectile = RpgProjectile.getProjectile(event.getDamager().getUniqueId());
         if(rpgProjectile.hasTag("ENTANGLE")){
             hitEntity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, data.getInt("slowness_duration"),data.getInt("slowness_amplifier")));
         }
