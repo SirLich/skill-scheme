@@ -64,7 +64,7 @@ public class ChargeSkill extends CooldownSkill{
             public void run() {
                 //Handle ticks when you are charging
                 if(isCharging()){
-                    if(!useCooldown || !isCooldown()){
+                    if(!useCooldown || !isCooldownNoMedia()){
                         if(charges == maxCharges){
                             if(!isFullyCharged){
                                 getRpgPlayer().playSound(data.getSound("charge_finish_sound"));

@@ -1,6 +1,8 @@
 package plugin.sirlich.skills.clans.Ranger;
 
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityInteractEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.util.Vector;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.skills.meta.ChargeSkill;
@@ -25,6 +27,12 @@ public class WolfPounce extends ChargeSkill {
     @Override
     public boolean isCharging(){
         return getRpgPlayer().getPlayer().isBlocking() && getRpgPlayer().getPlayer().isOnGround();
+    }
+
+    public void onSwordRightClick(PlayerInteractEvent event){
+        if(getCharges() == 0 && isCooldownNoMedia()){
+            playCooldownMedia();
+        }
     }
 
     @Override
