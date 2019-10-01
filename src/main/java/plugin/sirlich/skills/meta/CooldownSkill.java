@@ -7,10 +7,7 @@ import plugin.sirlich.utilities.Xliff;
 import plugin.sirlich.utilities.c;
 import org.bukkit.Sound;
 import org.bukkit.scheduler.BukkitRunnable;
-import sun.awt.X11.XSystemTrayPeer;
 
-import java.util.List;
-import java.util.UUID;
 
 public class CooldownSkill extends Skill
 {
@@ -57,6 +54,10 @@ public class CooldownSkill extends Skill
         if(cooldown) {
             playCooldownMedia();
         }
+        return cooldown;
+    }
+
+    public boolean isCooldownNoMedia(){
         return cooldown;
     }
 

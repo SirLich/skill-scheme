@@ -149,13 +149,14 @@ public class SkillHandler implements Listener
                 }
             }
 
-            //Called when you get hit with any melee attack
-            for(Skill skill : rpgPlayer.getSkillList().values()){
-                if(skill instanceof CooldownSkill){
-                    skill.onMeleeAttackSelf(event);
+            if(event.getDamager() instanceof LivingEntity){
+                //Called when you get hit with any melee attack
+                for(Skill skill : rpgPlayer.getSkillList().values()){
+                    if(skill instanceof CooldownSkill){
+                        skill.onMeleeAttackSelf(event);
+                    }
                 }
             }
-
         }
 
         //If the person YOU HIT is a player (this needs to be removed somehow)

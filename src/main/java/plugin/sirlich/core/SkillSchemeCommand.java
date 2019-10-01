@@ -9,6 +9,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.HashMap;
+
 public class SkillSchemeCommand implements CommandExecutor
 {
     public boolean onCommand(CommandSender sender, Command command, String argv, String[] args){
@@ -191,6 +193,12 @@ public class SkillSchemeCommand implements CommandExecutor
             } else if(action.equalsIgnoreCase("r") || action.equalsIgnoreCase("reload")){
                 SkillData.initializeData();
                 Xliff.initializeData();
+                for(RpgPlayer loop : RpgPlayer.getRpgPlayers()){
+                    HashMap<SkillType, Skill> skillList = rpgPlayer.getSkillList();
+                    for(Skill skill : skillList.values()){
+                        skill.initData();
+                    }
+                }
                 rpgPlayer.tell("Config values have been reloaded.");
             } else {
                 rpgPlayer.tell("Please include an argument: " + c.gray + "[s]kill, [c]lass, [t]eam, [p]layer state, [g]ui, [r]eload");
