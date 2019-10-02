@@ -1,15 +1,12 @@
 package plugin.sirlich.skills.meta;
 
 
-import plugin.sirlich.skills.clans.Rogue.Evade;
+import plugin.sirlich.skills.clans.Rogue.*;
 import plugin.sirlich.skills.clans.Fighter.BullsCharge;
-import plugin.sirlich.skills.clans.Rogue.Leap;
 import plugin.sirlich.skills.clans.Warlock.FireBlast;
 import plugin.sirlich.skills.clans.Warlock.IcePrison;
 import plugin.sirlich.skills.clans.any.BreakFall;
 import plugin.sirlich.skills.clans.Ranger.*;
-import plugin.sirlich.skills.clans.Rogue.SpeedBuff;
-import plugin.sirlich.skills.clans.Rogue.SilencingArrow;
 import plugin.sirlich.skills.clans.Warlock.ArcticArmor;
 
 public enum SkillType {
@@ -39,7 +36,8 @@ public enum SkillType {
     SharpShooter(new SharpShooter(null, 0)),
     StunningShot(new StunningShot(null, 0)),
     VitalitySpores(new VitalitySpores(null, 0)),
-    Volley(new Volley(null, 0));
+    Volley(new Volley(null, 0)),
+    Backstab(new Backstab(null, 0));
 
     //Overcharge(new Overcharge(null, 0));
 

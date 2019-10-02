@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 
-public class ChatUtilities
+public class ChatUtils
 {
     public void basicChat(Player p, String m){
         p.sendMessage(ChatColor.GRAY + "- " + m);
