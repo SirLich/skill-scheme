@@ -8,8 +8,8 @@ public class PrimedSkill extends CooldownSkill {
 
     public boolean primed;
 
-    private Sound alreadyPrimedSound = Sound.CLICK;
-    private Sound primeSound = Sound.PISTON_EXTEND;
+    private Sound alreadyPrimedSound = Sound.BLOCK_COMPARATOR_CLICK;
+    private Sound primeSound = Sound.BLOCK_PISTON_EXTEND;
     private String primeText = c.green + getName() + c.dgray + " is now primed.";
     private String alreadyPrimedText = c.red + getName() + c.dgray + " is already primed.";
 

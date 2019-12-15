@@ -60,6 +60,5 @@ public class Barrage extends ChargeSkill {
         RpgProjectile rpgProjectile = RpgProjectile.registerProjectile(arrow, getRpgPlayer());
         rpgProjectile.addTag("REMOVE_ON_HIT");
         arrow.setVelocity(player.getLocation().getDirection().add(random).multiply(3));
-        getRpgPlayer().playWorldSound(Sound.SHOOT_ARROW);
     }
 }

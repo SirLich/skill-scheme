@@ -212,10 +212,10 @@ public class SkillEditObject
             player.getInventory().addItem(new ItemStack(Material.BOW));
             player.getInventory().addItem(new ItemStack(Material.ARROW,64));
         } else if(classType == ClassType.WARLOCK){
-            player.getInventory().setHelmet(new ItemStack(Material.GOLD_HELMET));
-            player.getInventory().setChestplate(new ItemStack(Material.GOLD_CHESTPLATE));
-            player.getInventory().setLeggings(new ItemStack(Material.GOLD_LEGGINGS));
-            player.getInventory().setBoots(new ItemStack(Material.GOLD_BOOTS));
+            player.getInventory().setHelmet(new ItemStack(Material.GOLDEN_HELMET));
+            player.getInventory().setChestplate(new ItemStack(Material.GOLDEN_CHESTPLATE));
+            player.getInventory().setLeggings(new ItemStack(Material.GOLDEN_LEGGINGS));
+            player.getInventory().setBoots(new ItemStack(Material.GOLDEN_BOOTS));
             player.getInventory().addItem(new ItemStack(Material.IRON_SWORD));
             player.getInventory().addItem(new ItemStack(Material.IRON_AXE));
         }

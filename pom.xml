@@ -22,22 +22,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.mykindos</groupId>
-            <artifactId>BetterPvpCore</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>/home/liam/git/skill-scheme/lib/BetterPvP-Core.jar</systemPath>
-        </dependency>
-
-        <dependency>
-            <groupId>com.mykindos</groupId>
-            <artifactId>BetterPvpClans</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>/home/liam/git/skill-scheme/lib/BetterPvP-Clans.jar</systemPath>
-        </dependency>
-
-        <dependency>
             <groupId>com.connorlinfoot</groupId>
             <artifactId>ActionBarAPI</artifactId>
             <version>1.5.4</version>
@@ -48,7 +32,8 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.8.8-R0.1-SNAPSHOT</version>
+<!--            <version>1.8.8-R0.1-SNAPSHOT</version>-->
+            <version>1.14.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 

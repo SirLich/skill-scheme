@@ -18,12 +18,12 @@ public class RageSkill extends CooldownSkill{
     private boolean endRageEarly = false;
     private ItemStack oldHeadblock;
 
-    private Sound currentlyEnragedSound = Sound.ANVIL_BREAK;
+    private Sound currentlyEnragedSound = Sound.BLOCK_ANVIL_BREAK;
     private String currentlyEnragedText = c.red + getName() + c.dgray + "  is already active.";
-    private Sound becomeEnragedSound = Sound.COW_HURT;
+    private Sound becomeEnragedSound = Sound.ENTITY_COW_HURT;
     private String becomeEnragedText = c.dgray + "You activate "+ c.green + this.getName();
 
-    private Sound stoppedRagingSound = Sound.FIRE_IGNITE;
+    private Sound stoppedRagingSound = Sound.BLOCK_FIRE_EXTINGUISH;
     private String stoppedRagingText = c.red + getName() + c.dgray + " has expired.";
 
 

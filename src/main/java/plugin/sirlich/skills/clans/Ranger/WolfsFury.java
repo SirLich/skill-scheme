@@ -1,6 +1,7 @@
 package plugin.sirlich.skills.clans.Ranger;
 
 import org.bukkit.Material;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -24,8 +25,10 @@ public class WolfsFury extends RageSkill {
         if(isEnraged()){
             double damage = event.getDamage();
             event.setCancelled(true);
-            Player player = (Player) event.getEntity();
-            player.damage(damage, getRpgPlayer().getPlayer());
+            if(event.getEntity() instanceof LivingEntity){
+                LivingEntity livingEntity = (LivingEntity) event.getEntity();
+                livingEntity.damage(damage, getRpgPlayer().getPlayer());
+            }
         }
     }
 

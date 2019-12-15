@@ -24,7 +24,7 @@ public class Leap extends CooldownSkill
     public void onAxeRightClick(PlayerInteractEvent event){
         if(isCooldown()){return;}
         Player player = getRpgPlayer().getPlayer();
-        getRpgPlayer().playSound(Sound.BLAZE_BREATH);
+        getRpgPlayer().playSound(Sound.ENTITY_BLAZE_SHOOT);
         player.setVelocity(new Vector(player.getLocation().getDirection().multiply(power.get(getLevel())).getX(), 0.4, player.getLocation().getDirection().multiply(power.get(getLevel())).getZ()));
         refreshCooldown();
     }

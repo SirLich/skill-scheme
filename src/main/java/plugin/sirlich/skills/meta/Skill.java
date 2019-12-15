@@ -1,6 +1,7 @@
 package plugin.sirlich.skills.meta;
 
 import org.bukkit.event.player.PlayerPickupItemEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import plugin.sirlich.SkillScheme;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.utilities.c;
@@ -213,6 +214,10 @@ public class Skill
     }
 
     public void onItemPickup(PlayerPickupItemEvent event){
+
+    }
+
+    public void onSwap(PlayerSwapHandItemsEvent event){
 
     }
 

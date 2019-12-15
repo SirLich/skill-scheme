@@ -8,6 +8,7 @@ import plugin.sirlich.skills.clans.Warlock.IcePrison;
 import plugin.sirlich.skills.clans.any.BreakFall;
 import plugin.sirlich.skills.clans.Ranger.*;
 import plugin.sirlich.skills.clans.Warlock.ArcticArmor;
+import plugin.sirlich.skills.oc.ArcherTower;
 
 public enum SkillType {
     SpeedBuff(new SpeedBuff(null,0)),
@@ -37,7 +38,8 @@ public enum SkillType {
     StunningShot(new StunningShot(null, 0)),
     VitalitySpores(new VitalitySpores(null, 0)),
     Volley(new Volley(null, 0)),
-    Backstab(new Backstab(null, 0));
+    Backstab(new Backstab(null, 0)),
+    ArcherTower(new ArcherTower(null, 0));
 
     //Overcharge(new Overcharge(null, 0));
 

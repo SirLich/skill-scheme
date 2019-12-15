@@ -57,7 +57,7 @@ public class RopedArrow extends PrimedSkill {
         VelocityUtils.velocity(player, vec,
                 2.5D + mult, false, 0.4D, 0.3D * mult, 1.5D * mult, true);
 
-        projectile.getWorld().playSound(projectile.getLocation(), Sound.BLAZE_BREATH, 2.5F, 2.0F);
+        projectile.getWorld().playSound(projectile.getLocation(), Sound.ENTITY_BLAZE_SHOOT, 2.5F, 2.0F);
     }
 
     @Override

@@ -47,7 +47,7 @@ public class SkillGuiHandler implements Listener
     {
         RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(event.getPlayer());
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-            if (event.getClickedBlock().getType() == Material.ENCHANTMENT_TABLE) {
+            if (event.getClickedBlock().getType() == Material.ENCHANTING_TABLE) {
                 if(rpgPlayer.getPlayerState().canUseEditor()){
                     event.setCancelled(true);
                     openMainGui(event.getPlayer());
@@ -196,7 +196,7 @@ public class SkillGuiHandler implements Listener
     private static void overfillLeftoverSlots(Inventory inventory){
         for(int slot = 0; slot < inventory.getSize(); slot++){
             if(inventory.getItem(slot) == null){
-                ItemStack itemStack = new ItemStack(Material.STAINED_GLASS_PANE);
+                ItemStack itemStack = new ItemStack(Material.WHITE_STAINED_GLASS_PANE);
                 ItemMeta itemMeta = itemStack.getItemMeta();
                 itemMeta.setDisplayName(ChatColor.BOLD + "");
                 itemStack.setItemMeta(itemMeta);
@@ -213,7 +213,7 @@ public class SkillGuiHandler implements Listener
         inventory.setItem(11, getStandardGuiButton(Material.IRON_CHESTPLATE,"Fighter","open_class_gui","FIGHTER"));
         inventory.setItem(13, getStandardGuiButton(Material.CHAINMAIL_CHESTPLATE,"Ranger","open_class_gui","RANGER"));
         inventory.setItem(14, getStandardGuiButton(Material.LEATHER_CHESTPLATE,"Rogue","open_class_gui","ROGUE"));
-        inventory.setItem(16, getStandardGuiButton(Material.GOLD_CHESTPLATE,"Warlock","open_class_gui","WARLOCK"));
+        inventory.setItem(16, getStandardGuiButton(Material.GOLDEN_CHESTPLATE,"Warlock","open_class_gui","WARLOCK"));
 
         overfillLeftoverSlots(inventory);
         player.openInventory(inventory);
@@ -229,7 +229,7 @@ public class SkillGuiHandler implements Listener
             level--;
             levelBalancer++;
         } else {
-            itemStack = new ItemStack(Material.INK_SACK, 1,(short)8);
+            itemStack = new ItemStack(Material.GRAY_DYE);
         }
         ItemMeta itemMeta = itemStack.getItemMeta();
 

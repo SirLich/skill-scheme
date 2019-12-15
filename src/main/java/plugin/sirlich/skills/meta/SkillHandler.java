@@ -339,4 +339,18 @@ public class SkillHandler implements Listener
             }
         }
     }
+
+    /*
+    HANDLES: Swap events
+     */
+    @EventHandler
+    public void onPlayerSwapItemEvent(PlayerSwapHandItemsEvent event){
+        if(isMeleeWeapon(event.getOffHandItem().getType())){
+            Player player = event.getPlayer();
+            RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
+            for(Skill skill : rpgPlayer.getSkillList().values()){
+                skill.onSwap(event);
+            }
+        }
+    }
 }

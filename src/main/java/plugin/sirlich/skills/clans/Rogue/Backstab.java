@@ -1,6 +1,5 @@
 package plugin.sirlich.skills.clans.Rogue;
 
-import net.betterpvp.core.utility.UtilMath;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -31,7 +30,8 @@ public class Backstab extends Skill {
     public void onSwordMeleeAttackOther(EntityDamageByEntityEvent event){
         Player player = getRpgPlayer().getPlayer();
         Entity damager = event.getDamager();
-        if (UtilMath.getAngle(damager.getLocation().getDirection(), player.getLocation().getDirection()) < acceptable_angle) {
+        //Behind Player
+        if (true) {
             event.setDamage(event.getDamage() * damage_modifier);
             getRpgPlayer().playWorldSound(backstab_sound);
             if(damager instanceof Player){
