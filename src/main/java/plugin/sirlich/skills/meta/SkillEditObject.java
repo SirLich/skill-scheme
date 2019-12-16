@@ -27,24 +27,23 @@ public class SkillEditObject
         int maxLevel = skillType.getSkill().getMaxLevel();
         int cost = skillType.getSkill().getCost();
 
-        //Undefined skills
-        if(skillKind == SkillKind.UNDEFINED){
-            parent.tell("That feature isn't implemented yet. Sorry.");
-        }
+        //Remove soon
+        if(false){
 
+        }
         //Defined skills
         else {
             //Left clicks
             if(clickType.equals(ClickType.LEFT)){
 
                 //The player has points remaining
-                if(points - cost >= 0) {
+                if(points - cost >= 0 || skillKind == SkillKind.UNDEFINED) {
 
                     //The skill kind we are editing has already been edited
                     if (skillMap.containsKey(skillKind)) {
 
                         //Skill type is the same, so we can update the level
-                        if (skillMap.get(skillKind) == skillType) {
+                        if (skillMap.get(skillKind) == skillType || skillKind == SkillKind.UNDEFINED) {
 
                             //Skill type is less than max level
                             if (levelMap.get(skillKind) < maxLevel) {
@@ -87,7 +86,7 @@ public class SkillEditObject
                 if(skillMap.containsKey(skillKind)){
 
                     //Skill type is the same, so we can update the level
-                    if(skillMap.get(skillKind) == skillType){
+                    if(skillMap.get(skillKind) == skillType || skillKind == SkillKind.UNDEFINED){
 
                         //Skill type is less than max level
                         if(levelMap.get(skillKind) > 1){

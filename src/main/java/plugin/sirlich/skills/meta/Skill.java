@@ -4,6 +4,7 @@ import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import plugin.sirlich.SkillScheme;
 import plugin.sirlich.core.RpgPlayer;
+import plugin.sirlich.skills.triggers.Trigger;
 import plugin.sirlich.utilities.c;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -58,7 +59,6 @@ public class Skill
         this.name = getYaml(id).getString("name");
         this.data = new SkillData(this);
         initData();
-
     }
 
     //Please call super.initData() if you want to use this method!
@@ -281,23 +281,23 @@ public class Skill
 
     }
 
-    public void onBowLeftClick(PlayerInteractEvent event){
+    public void onBowLeftClick(Trigger event){
 
     }
 
-    public void onLeftClick(PlayerInteractEvent event){
+    public void onLeftClick(Trigger event){
 
     }
 
-    public void onBowRightClickEvent(PlayerInteractEvent event){
+    public void onBowRightClickEvent(Trigger event){
 
     }
 
-    public void onSwordRightClick(PlayerInteractEvent event){
+    public void onSwordRightClick(Trigger event){
 
     }
 
-    public void onAxeRightClick(PlayerInteractEvent event){
+    public void onAxeRightClick(Trigger event){
 
     }
 }

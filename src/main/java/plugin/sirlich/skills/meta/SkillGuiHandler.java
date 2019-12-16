@@ -1,6 +1,7 @@
 package plugin.sirlich.skills.meta;
 
 import de.tr7zw.nbtapi.NBTItem;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import plugin.sirlich.SkillScheme;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.utilities.c;
@@ -134,15 +135,17 @@ public class SkillGuiHandler implements Listener
 
     private static Inventory getStandardKitsGui(ClassType classType){
         Inventory inventory = Bukkit.createInventory(null, 54, ChatColor.DARK_GRAY + "~ Select your skills:");
-        inventory.setItem(0, getStandardGuiButton(Material.IRON_SWORD,"Sword Skills",null));
-        inventory.setItem(9, getStandardGuiButton(Material.IRON_AXE,"Axe Skills",null));
-        inventory.setItem(18, getStandardGuiButton(Material.BOW,"Bow Skills",null));
-        inventory.setItem(27, getStandardGuiButton(Material.GOLD_NUGGET,"Passive A",null));
-        inventory.setItem(36, getStandardGuiButton(Material.GOLD_NUGGET,"Passive B",null));
-        inventory.setItem(45, getStandardGuiButton(Material.GOLD_NUGGET,"Passive C",null));
-        ItemStack pointsItems = getStandardGuiButton(Material.PRISMARINE_CRYSTALS, "Remaining points",null);
-        pointsItems.setAmount(SkillData.getDefaultTokens(classType));
-        inventory.setItem(51,pointsItems);
+        if(classType != ClassType.UNDEFINED){
+            inventory.setItem(0, getStandardGuiButton(Material.IRON_SWORD,"Sword Skills",null));
+            inventory.setItem(9, getStandardGuiButton(Material.IRON_AXE,"Axe Skills",null));
+            inventory.setItem(18, getStandardGuiButton(Material.BOW,"Bow Skills",null));
+            inventory.setItem(27, getStandardGuiButton(Material.GOLD_NUGGET,"Passive A",null));
+            inventory.setItem(36, getStandardGuiButton(Material.GOLD_NUGGET,"Passive B",null));
+            inventory.setItem(45, getStandardGuiButton(Material.GOLD_NUGGET,"Passive C",null));
+            ItemStack pointsItems = getStandardGuiButton(Material.PRISMARINE_CRYSTALS, "Remaining points",null);
+            pointsItems.setAmount(SkillData.getDefaultTokens(classType));
+            inventory.setItem(51,pointsItems);
+        }
         inventory.setItem(52, getStandardGuiButton(Material.EMERALD,"Accept","accept"));
         inventory.setItem(53, getStandardGuiButton(Material.IRON_DOOR,"Back","open_main_gui"));
         return inventory;
@@ -203,6 +206,22 @@ public class SkillGuiHandler implements Listener
                 inventory.setItem(slot,new ItemStack(itemStack));
             }
         }
+    }
+
+    public static void openAllSkillsGui(Player player){
+        RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
+        rpgPlayer.refreshSkillEditObject(ClassType.UNDEFINED);
+        Inventory inventory = getStandardKitsGui(ClassType.UNDEFINED);
+        rpgPlayer.getSkillEditObject().setPoints(1000);
+
+        int space = 0;
+        for(SkillType skillType : SkillType.values()){
+            inventory.setItem(space, getSkillItem(skillType,0, SkillKind.UNDEFINED));
+            space++;
+        }
+
+        overfillLeftoverSlots(inventory);
+        player.openInventory(inventory);
     }
 
     public static void openMainGui(Player player)

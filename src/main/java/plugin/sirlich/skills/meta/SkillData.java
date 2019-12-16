@@ -27,6 +27,7 @@ public class SkillData {
     private static HashMap<String, Sound> soundDataMap = new HashMap<String, Sound>();
     private static HashMap<ClassType, Integer> pointsMap = new HashMap<ClassType,Integer>();
     private static HashMap<ClassType, ArrayList<SimpleSkill>> defaultSkillMap = new HashMap<ClassType, ArrayList<SimpleSkill>>();
+    private static HashMap<String, ArrayList<SimpleSkill>> kitsMap = new HashMap<String, ArrayList<SimpleSkill>>();
 
     //Init method for pulling data from the yaml files
     public static void initializeData(){
@@ -68,6 +69,15 @@ public class SkillData {
         }
         System.out.println(" + GUI success");
     }
+
+    public static boolean kitExists(String kit){
+        return kitsMap.containsKey(kit);
+    }
+
+    public static ArrayList<SimpleSkill> getKit(String kit){
+        return kitsMap.get(kit);
+    }
+
 
     //Internal method for handling a single file during init
     private static void handleSkill(File file){

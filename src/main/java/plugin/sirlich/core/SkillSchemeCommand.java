@@ -95,7 +95,9 @@ public class SkillSchemeCommand implements CommandExecutor
                 }
             } else if(action.equalsIgnoreCase("gui") || action.equalsIgnoreCase("g")){
                 SkillGuiHandler.openMainGui(player);
-            } else if(action.equalsIgnoreCase("class") || action.equalsIgnoreCase("c")){
+            } else if(action.equalsIgnoreCase("gg")){
+                SkillGuiHandler.openAllSkillsGui(player);
+            }else if(action.equalsIgnoreCase("class") || action.equalsIgnoreCase("c")){
                 if(args.length < 2){
                     SkillEditObject.giveLoadout(rpgPlayer,ClassType.RANGER);
                     rpgPlayer.tell("Default applied. Specify like: " + c.gray + "[p]aladin, [f]ighter, [ra]nger, [ro]gue, [w]arlock");

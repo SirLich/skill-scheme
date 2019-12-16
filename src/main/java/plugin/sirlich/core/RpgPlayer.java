@@ -3,8 +3,7 @@ package plugin.sirlich.core;
 import com.connorlinfoot.actionbarapi.ActionBarAPI;
 import org.bukkit.scheduler.BukkitRunnable;
 import plugin.sirlich.SkillScheme;
-import plugin.sirlich.skills.meta.ClassType;
-import plugin.sirlich.skills.meta.SkillType;
+import plugin.sirlich.skills.meta.*;
 import plugin.sirlich.utilities.Xliff;
 import plugin.sirlich.utilities.c;
 import org.bukkit.Bukkit;
@@ -12,8 +11,6 @@ import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
-import plugin.sirlich.skills.meta.Skill;
-import plugin.sirlich.skills.meta.SkillEditObject;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
@@ -356,6 +353,15 @@ public class RpgPlayer
         tell(Xliff.getXliff(message));
     }
 
+    public void giveKit(String kit) {
+        if(SkillData.kitExists(kit)){
+            for(SimpleSkill simpleSkill : SkillData.getKit(kit)){
+                this.addSkill(simpleSkill.getSkillType(), simpleSkill.getLevel());
+            }
+        } else {
+            tellX("RpgPlayer.that_kit_does_not_exist");
+        }
+    }
 
     //TODO Eventually add method here with Bucket.broadcastMessage()
     //public void say(String message){}

@@ -11,6 +11,7 @@ import plugin.sirlich.SkillScheme;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.core.RpgProjectile;
 import plugin.sirlich.skills.meta.PrimedSkill;
+import plugin.sirlich.skills.triggers.Trigger;
 
 public class SilencingArrow extends PrimedSkill {
     public SilencingArrow(RpgPlayer rpgPlayer, int level){
@@ -43,7 +44,7 @@ public class SilencingArrow extends PrimedSkill {
     }
 
     @Override
-    public void onBowLeftClick(PlayerInteractEvent event){
+    public void onBowLeftClick(Trigger event){
         attemptPrime();
     }
 

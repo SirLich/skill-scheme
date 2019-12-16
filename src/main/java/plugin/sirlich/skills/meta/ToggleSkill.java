@@ -20,14 +20,22 @@ public class ToggleSkill extends Skill{
         this.headBlock = headBlock;
     }
 
-    public void ActivateSkill(){
+    public void activateSkill(){
         this.headSave = getRpgPlayer().getPlayer().getInventory().getHelmet();
         this.getRpgPlayer().getPlayer().getInventory().setHelmet(new ItemStack(headBlock));
         this.active = true;
         getRpgPlayer().setModifierActive(true);
     }
 
-    public void DeactivateSkill(){
+    public void toggleSkill(){
+        if(this.active){
+            deactivateSkill();
+        } else {
+            activateSkill();
+        }
+    }
+
+    public void deactivateSkill(){
         this.getRpgPlayer().getPlayer().getInventory().setHelmet(headSave);
         this.active = false;
         getRpgPlayer().setModifierActive(false);
@@ -39,9 +47,9 @@ public class ToggleSkill extends Skill{
 
     public void toggleStatus(){
         if(this.isActive()){
-            DeactivateSkill();
+            deactivateSkill();
         } else {
-            ActivateSkill();
+            activateSkill();
         }
     }
 

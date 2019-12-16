@@ -2,13 +2,13 @@ package plugin.sirlich.skills.meta;
 
 
 import plugin.sirlich.skills.clans.Rogue.*;
-import plugin.sirlich.skills.clans.Fighter.BullsCharge;
-import plugin.sirlich.skills.clans.Warlock.FireBlast;
-import plugin.sirlich.skills.clans.Warlock.IcePrison;
+import plugin.sirlich.skills.clans.fighter.BullsCharge;
+import plugin.sirlich.skills.clans.warlock.FireBlast;
+import plugin.sirlich.skills.clans.warlock.IcePrison;
 import plugin.sirlich.skills.clans.any.BreakFall;
-import plugin.sirlich.skills.clans.Ranger.*;
-import plugin.sirlich.skills.clans.Warlock.ArcticArmor;
-import plugin.sirlich.skills.oc.ArcherTower;
+import plugin.sirlich.skills.clans.rogue.*;
+import plugin.sirlich.skills.clans.warlock.ArcticArmor;
+import plugin.sirlich.skills.oc.*;
 
 public enum SkillType {
     SpeedBuff(new SpeedBuff(null,0)),
@@ -39,7 +39,25 @@ public enum SkillType {
     VitalitySpores(new VitalitySpores(null, 0)),
     Volley(new Volley(null, 0)),
     Backstab(new Backstab(null, 0)),
-    ArcherTower(new ArcherTower(null, 0));
+    ArcherTower(new ArcherTower(null, 0)),
+    AxeOfPerun(new AxeOfPerun(null, 0)),
+    Bandaid(new Bandaid(null, 0)),
+    BladeOfConfusion(new BladeOfConfusion(null, 0)),
+    BorimirsRevenge(new BorimirsRevenge(null, 0)),
+    BowOfShiva(new BowOfShiva(null, 0)),
+    ElfSpeed(new ElfSpeed(null, 0)),
+    Embers(new Embers(null, 0)),
+    EscapeArtist(new EscapeArtist(null, 0)),
+    Geronimo(new Geronimo(null, 0)),
+    KillingSpree(new KillingSpree(null, 0)),
+    LeadAxe(new LeadAxe(null,0)),
+    PhantomArrows(new PhantomArrows(null, 0)),
+    PoisonDarts(new PoisonDarts(null, 0)),
+    SatanicGamble(new SatanicGamble(null, 0)),
+    StrikeTheSky(new StrikeTheSky(null, 0)),
+    StrikeTheEarth(new StrikeTheEarth(null, 0)),
+    WebShot(new WebShot(null, 0)),
+    WrathOfJupier(new WrathOfJupiter(null, 0));
 
     //Overcharge(new Overcharge(null, 0));
 

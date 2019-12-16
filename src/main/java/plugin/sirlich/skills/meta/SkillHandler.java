@@ -1,6 +1,5 @@
 package plugin.sirlich.skills.meta;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.player.*;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -16,8 +15,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.*;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.ArrayList;
+import plugin.sirlich.skills.triggers.Trigger;
 
 import static plugin.sirlich.utilities.WeaponUtils.*;
 
@@ -299,13 +297,13 @@ public class SkillHandler implements Listener
                         event.getAction() == Action.LEFT_CLICK_BLOCK )){
 
             for(Skill skill : rpgPlayer.getSkillList().values()){
-                skill.onLeftClick(event);
+                skill.onLeftClick(new Trigger(event, player));
             }
 
             //Bow left click
             if(event.getMaterial().equals(Material.BOW)){
                 for(Skill skill : rpgPlayer.getSkillList().values()){
-                    skill.onBowLeftClick(event);
+                    skill.onBowLeftClick(new Trigger(event, player));
                 }
             }
 
@@ -320,21 +318,21 @@ public class SkillHandler implements Listener
             //Axe
             if(isAxe(itemType)){
                 for(Skill skill : rpgPlayer.getSkillList().values()){
-                    skill.onAxeRightClick(event);
+                    skill.onAxeRightClick(new Trigger(event, player));
                 }
             }
 
             //Sword
             else if(isSword(itemType)){
                 for(Skill skill : rpgPlayer.getSkillList().values()){
-                    skill.onSwordRightClick(event);
+                    skill.onSwordRightClick(new Trigger(event, player));
                 }
             }
 
             //Bow
             else if(itemType == Material.BOW){
                 for(Skill skill : rpgPlayer.getSkillList().values()){
-                    skill.onBowRightClickEvent(event);
+                    skill.onBowRightClickEvent(new Trigger(event, player));
                 }
             }
         }
