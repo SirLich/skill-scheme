@@ -10,9 +10,17 @@
 
     <repositories>
         <repository>
-            <id>spigotmc-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+            <id>papermc</id>
+            <url>https://papermc.io/repo/repository/maven-public/</url>
         </repository>
+        <repository>
+            <id>aikar</id>
+            <url>https://repo.aikar.co/content/groups/aikar/</url>
+        </repository>
+<!--        <repository>-->
+<!--            <id>spigotmc-repo</id>-->
+<!--            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>-->
+<!--        </repository>-->
         <repository>
             <id>codemc-repo</id>
             <url>https://repo.codemc.org/repository/maven-public/</url>
@@ -22,6 +30,19 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.destroystokyo.paper</groupId>
+            <artifactId>paper-api</artifactId>
+            <version>1.14.2-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>co.aikar</groupId>
+            <artifactId>acf-bukkit</artifactId>
+            <version>0.5.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.connorlinfoot</groupId>
             <artifactId>ActionBarAPI</artifactId>
             <version>1.5.4</version>
@@ -29,13 +50,13 @@
             <systemPath>/home/liam/git/skill-scheme/lib/ActionBarAPI-1.5.4.jar</systemPath>
         </dependency>
 
-        <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-<!--            <version>1.8.8-R0.1-SNAPSHOT</version>-->
-            <version>1.14.4-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.spigotmc</groupId>-->
+<!--            <artifactId>spigot-api</artifactId>-->
+<!--&lt;!&ndash;            <version>1.8.8-R0.1-SNAPSHOT</version>&ndash;&gt;-->
+<!--            <version>1.14.4-R0.1-SNAPSHOT</version>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>de.tr7zw</groupId>
@@ -43,4 +64,43 @@
             <version>2.0.0</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <version>3.7.0</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <compilerArgs>
+                        <arg>-parameters</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
+                    <relocations>
+                        <relocation>
+                            <pattern>co.aikar.commands</pattern>
+                            <shadedPattern>plugin.sirlich.acf</shadedPattern>
+                        </relocation>
+                    </relocations>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
