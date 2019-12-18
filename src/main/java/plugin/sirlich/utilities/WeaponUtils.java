@@ -108,21 +108,18 @@ public class WeaponUtils {
         Player player = rpgPlayer.getPlayer();
         player.getInventory().clear();
         if(classType == ClassType.PALADIN){
-            player.getInventory().setHelmet(new ItemStack(Material.DIAMOND_HELMET));
             player.getInventory().setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE));
             player.getInventory().setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS));
             player.getInventory().setBoots(new ItemStack(Material.DIAMOND_BOOTS));
             player.getInventory().addItem(new ItemStack(Material.IRON_SWORD));
             player.getInventory().addItem(new ItemStack(Material.IRON_AXE));
         } else if(classType == ClassType.FIGHTER){
-            player.getInventory().setHelmet(new ItemStack(Material.IRON_HELMET));
             player.getInventory().setChestplate(new ItemStack(Material.IRON_CHESTPLATE));
             player.getInventory().setLeggings(new ItemStack(Material.IRON_LEGGINGS));
             player.getInventory().setBoots(new ItemStack(Material.IRON_BOOTS));
             player.getInventory().addItem(new ItemStack(Material.IRON_SWORD));
             player.getInventory().addItem(new ItemStack(Material.IRON_AXE));
         }  else if(classType == ClassType.RANGER){
-            player.getInventory().setHelmet(new ItemStack(Material.CHAINMAIL_HELMET));
             player.getInventory().setChestplate(new ItemStack(Material.CHAINMAIL_CHESTPLATE));
             player.getInventory().setLeggings(new ItemStack(Material.CHAINMAIL_LEGGINGS));
             player.getInventory().setBoots(new ItemStack(Material.CHAINMAIL_BOOTS));
@@ -132,7 +129,6 @@ public class WeaponUtils {
             player.getInventory().addItem(new ItemStack(Material.ARROW,64));
 
         } else if(classType == ClassType.ROGUE){
-            player.getInventory().setHelmet(new ItemStack(Material.LEATHER_HELMET));
             player.getInventory().setChestplate(new ItemStack(Material.LEATHER_CHESTPLATE));
             player.getInventory().setLeggings(new ItemStack(Material.LEATHER_LEGGINGS));
             player.getInventory().setBoots(new ItemStack(Material.LEATHER_BOOTS));

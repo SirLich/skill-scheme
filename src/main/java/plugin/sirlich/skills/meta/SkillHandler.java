@@ -5,6 +5,9 @@ import com.codingforcookies.armorequip.ArmorType;
 import com.connorlinfoot.actionbarapi.ActionBarAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.event.inventory.InventoryAction;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.*;
 import org.bukkit.scheduler.BukkitRunnable;
 import plugin.sirlich.SkillScheme;
@@ -22,7 +25,10 @@ import org.bukkit.inventory.ItemStack;
 import plugin.sirlich.skills.triggers.Trigger;
 import plugin.sirlich.utilities.Color;
 import plugin.sirlich.utilities.WeaponUtils;
+import sun.security.util.ByteArrayLexOrder;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 import static plugin.sirlich.utilities.WeaponUtils.*;
@@ -60,15 +66,52 @@ public class SkillHandler implements Listener
         }
     }
 
-    //Handles armor equip and de-equip
+    //Stop players from interacting with their helmet slot
+    @EventHandler()
+    public void onClick(InventoryClickEvent event)
+    {
+        InventoryType type = event.getInventory().getType();
+        if(type == InventoryType.CRAFTING) {
+            if (event.getSlot() == 39) {
+                event.setCursor(null);
+                event.setCancelled(true);
+            }
+        }
+
+        //Test for shift clicks
+        if(event.isShiftClick()){
+            if(ArmorType.matchType(event.getCurrentItem()) == ArmorType.HELMET){
+                event.setCancelled(true);
+            }
+        }
+    }
+
+    //Handles armor equip and de-equip simple event
     @EventHandler
     public void onArmorEquip(ArmorEquipEvent event){
+        RpgPlayer.getRpgPlayer(event.getPlayer()).applySkillsFromArmor(event.getPlayer().getUniqueId());
+    }
+
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent event)
+    {
+        Player player = event.getPlayer();
         final UUID uuid = event.getPlayer().getUniqueId();
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(SkillScheme.getInstance(), new Runnable() {
-            public void run() {
-                RpgPlayer.getRpgPlayer(Bukkit.getPlayer(uuid)).applySkillsFromArmor();
+        ArmorType armorType = ArmorType.matchType(event.getPlayer().getInventory().getItemInMainHand());
+
+        if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK) || event.getAction().equals(Action.RIGHT_CLICK_AIR))
+        {
+            //Cancel if its a helmet
+            if (armorType == ArmorType.HELMET)
+            {
+                event.setCancelled(true);
             }
-        }, 5);
+
+            //Delay apply armor if other armor
+            else if (armorType == ArmorType.LEGGINGS || armorType == ArmorType.BOOTS || armorType == ArmorType.CHESTPLATE){
+                RpgPlayer.getRpgPlayer(player).applySkillsFromArmor(uuid);
+            }
+        }
     }
 
     /*

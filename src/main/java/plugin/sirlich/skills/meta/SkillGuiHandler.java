@@ -59,23 +59,19 @@ public class SkillGuiHandler implements Listener
     @EventHandler
     public void handleInventoryClick(InventoryClickEvent event)
     {
-        if (event.getWhoClicked() != null) {
-            Player player = (Player) event.getWhoClicked();
-            RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
-            if (event.getClickedInventory() != null && event.getCurrentItem() != null) {
-                if (event.getView().getTitle().contains(SELECT_CLASS_INVENTORY_NAME)) {
-                    event.setCancelled(true);
-                    ItemStack itemStack = event.getCurrentItem();
-                    NBTItem nbtItem = new NBTItem(itemStack);
-                    if(nbtItem.hasKey("button_action")){
-                        handleButtonAction(player, event.getClickedInventory(), nbtItem,event.getClick(),event.getSlot());
-                    } else{
-                        rpgPlayer.playSoundX("SkillGuiHandler.click_background");
-                    }
+        Player player = (Player) event.getWhoClicked();
+        RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
+        if (event.getClickedInventory() != null && event.getCurrentItem() != null) {
+            if (event.getView().getTitle().contains(SELECT_CLASS_INVENTORY_NAME)) {
+                event.setCancelled(true);
+                ItemStack itemStack = event.getCurrentItem();
+                NBTItem nbtItem = new NBTItem(itemStack);
+                if(nbtItem.hasKey("button_action")){
+                    handleButtonAction(player, event.getClickedInventory(), nbtItem,event.getClick(),event.getSlot());
+                } else{
+                    rpgPlayer.playSoundX("SkillGuiHandler.click_background");
                 }
             }
-        } else {
-            System.out.println("Please only use this event from in-game!");
         }
     }
 

@@ -1,6 +1,8 @@
 package plugin.sirlich.core;
 
 import com.connorlinfoot.actionbarapi.ActionBarAPI;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import plugin.sirlich.SkillScheme;
 import plugin.sirlich.skills.meta.*;
@@ -74,6 +76,16 @@ public class RpgPlayer
     /*
     END RPGPLAYER LIST STUFF
      */
+
+    private ClassType classType;
+
+    public ClassType getClassType() {
+        return classType;
+    }
+
+    public void setClassType(ClassType classType) {
+        this.classType = classType;
+    }
 
     private boolean drawingBow;
 
@@ -224,6 +236,11 @@ public class RpgPlayer
     public void applySkills(ClassType classType){
         playSound(Sound.BLOCK_CONDUIT_DEACTIVATE);
         clearSkills();
+        setClassType(classType);
+
+        //Place holder for the eventual addition of class helmets.
+        getPlayer().getInventory().setHelmet(new ItemStack(Material.GRAY_DYE));
+
         tell("You applied: " + classType.toString().toLowerCase());
         for(SimpleSkill simpleSkill : loadouts.get(classType)){
             tell(" - " + simpleSkill.getSkillType().getSkill().getName());
@@ -231,11 +248,30 @@ public class RpgPlayer
         }
     }
 
+    public void applySkillsFromArmor(UUID uuid){
+        final UUID saved_uuid = uuid;
+        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(SkillScheme.getInstance(), new Runnable() {
+            public void run() {
+                try {
+                    RpgPlayer.getRpgPlayer(Bukkit.getPlayer(saved_uuid)).applySkillsFromArmor();
+                } catch (Exception e){
+                    System.out.println("That player UUID is null!");
+                }
+            }
+        }, 5);
+    }
+
     public void applySkillsFromArmor(){
         if(WeaponUtils.isWearingFullSet(getPlayer())){
             RpgPlayer.getRpgPlayer(getPlayer()).applySkills(WeaponUtils.getClassTypeFromArmor(getPlayer()));
-        } else {
+        }
+
+        //Players with a UNDEFINED class shoulden't get spammed
+        else if(getClassType() != ClassType.UNDEFINED){
             tell("You unequiped your class.");
+            playSound(Sound.ENTITY_VILLAGER_NO);
+            setClassType(ClassType.UNDEFINED);
+            getPlayer().getInventory().setHelmet(new ItemStack(Material.AIR));
             clearSkills();
         }
     }
