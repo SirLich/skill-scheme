@@ -3,9 +3,7 @@ package plugin.sirlich.skills.clans.fighter;
 import plugin.sirlich.SkillScheme;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.skills.meta.RageSkill;
-import org.bukkit.Material;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import plugin.sirlich.skills.triggers.Trigger;
 
@@ -20,7 +18,7 @@ public class BullsCharge extends RageSkill {
 
 
     public BullsCharge(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level,"BullsCharge", Material.DIRT);
+        super(rpgPlayer,level,"BullsCharge");
     }
 
     @Override

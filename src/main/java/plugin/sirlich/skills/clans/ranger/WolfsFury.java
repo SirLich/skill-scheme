@@ -1,6 +1,5 @@
 package plugin.sirlich.skills.clans.ranger;
 
-import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.potion.PotionEffect;
@@ -12,7 +11,7 @@ import plugin.sirlich.utilities.WeaponUtils;
 
 public class WolfsFury extends RageSkill {
     public WolfsFury(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level,"WolfsFury", Material.EMERALD_BLOCK);
+        super(rpgPlayer,level,"WolfsFury");
     }
 
     @Override

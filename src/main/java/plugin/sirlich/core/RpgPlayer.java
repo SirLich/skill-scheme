@@ -60,6 +60,7 @@ public class RpgPlayer
 
     public static void addPlayer(Player player) {
         RpgPlayer rpgPlayer = new RpgPlayer(player);
+        rpgPlayer.classType = ClassType.UNDEFINED;
         rpgPlayerHashMap.put(player.getUniqueId(), rpgPlayer);
         playerHashMap.put(rpgPlayer, player.getUniqueId());
     }

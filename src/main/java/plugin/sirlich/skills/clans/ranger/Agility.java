@@ -1,6 +1,5 @@
 package plugin.sirlich.skills.clans.ranger;
 
-import org.bukkit.Material;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -12,7 +11,7 @@ import plugin.sirlich.utilities.WeaponUtils;
 public class Agility extends RageSkill {
 
     public Agility(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level,"Agility", Material.COAL_BLOCK);
+        super(rpgPlayer,level,"Agility");
     }
 
     private int duration;

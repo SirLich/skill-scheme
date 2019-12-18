@@ -16,8 +16,8 @@ public class ManaSkill extends ToggleSkill {
 
     private int schedularID;
 
-    public ManaSkill(RpgPlayer rpgPlayer, int level, String id, Material headBlock){
-        super(rpgPlayer,level,id, headBlock);
+    public ManaSkill(RpgPlayer rpgPlayer, int level, String id){
+        super(rpgPlayer,level,id);
     }
 
 

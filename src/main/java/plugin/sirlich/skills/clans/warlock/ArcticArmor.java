@@ -12,7 +12,7 @@ public class ArcticArmor extends ManaSkill
     private static String id = "ArcticArmor";
 
     public ArcticArmor(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level,"ArcticArmor", Material.ICE);
+        super(rpgPlayer,level,"ArcticArmor");
     }
 
     @Override

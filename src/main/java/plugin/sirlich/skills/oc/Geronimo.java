@@ -2,7 +2,6 @@ package plugin.sirlich.skills.oc;
 
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.skills.meta.RageSkill;
-import org.bukkit.Material;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
@@ -20,7 +19,7 @@ public class Geronimo extends RageSkill
     private ItemStack headSave;
 
     public Geronimo(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level,"Geronimo", Material.TNT);
+        super(rpgPlayer,level,"Geronimo");
     }
 
     @Override

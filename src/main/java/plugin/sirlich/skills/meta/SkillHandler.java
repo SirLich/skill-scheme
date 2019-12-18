@@ -268,6 +268,12 @@ public class SkillHandler implements Listener
         if(event.getEntity() instanceof Player){
             Player player = (Player) event.getEntity();
             RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
+
+            //Some players cant use bows!
+            if(rpgPlayer.getClassType() == ClassType.UNDEFINED || ! rpgPlayer.getClassType().canUseBow()){
+                rpgPlayer.tell("You can't use bows with your current class.");
+                event.setCancelled(true);
+            }
             RpgProjectile.registerProjectile((Arrow)event.getProjectile(), RpgPlayer.getRpgPlayer((Player)event.getEntity()));
             for(Skill skill : rpgPlayer.getActiveSkillList()){
                 skill.onBowFire(event);

@@ -11,10 +11,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class RageSkill extends CooldownSkill{
 
     //Defaults
-    private Material headBlock;
     private boolean enraged;
     private boolean endRageEarly = false;
-    private ItemStack oldHeadblock;
 
     private Sound currentlyEnragedSound = Sound.BLOCK_ANVIL_BREAK;
     private String currentlyEnragedText = Color.red + getName() + Color.dgray + "  is already active.";
@@ -25,9 +23,8 @@ public class RageSkill extends CooldownSkill{
     private String stoppedRagingText = Color.red + getName() + Color.dgray + " has expired.";
 
 
-    public RageSkill(RpgPlayer rpgPlayer, int level, String id, Material headBlock){
+    public RageSkill(RpgPlayer rpgPlayer, int level, String id){
         super(rpgPlayer,level,id);
-        this.headBlock = headBlock;
         this.enraged = false;
     }
 
@@ -57,10 +54,6 @@ public class RageSkill extends CooldownSkill{
                 //Play media
                 getRpgPlayer().tell(becomeEnragedText);
                 getRpgPlayer().playSound(becomeEnragedSound);
-
-                //Set Helmet
-                oldHeadblock = getRpgPlayer().getPlayer().getInventory().getHelmet();
-                getRpgPlayer().getPlayer().getInventory().setHelmet(new ItemStack(headBlock));
 
                 //Set enraged countdown
                 new BukkitRunnable() {
@@ -92,9 +85,6 @@ public class RageSkill extends CooldownSkill{
         enraged = false;
         onRageExpire();
 
-        //Set Helmet
-        getRpgPlayer().getPlayer().getInventory().setHelmet(oldHeadblock);
-
         //Play media
         getRpgPlayer().tell(stoppedRagingText);
         getRpgPlayer().playSound(stoppedRagingSound);
@@ -105,10 +95,6 @@ public class RageSkill extends CooldownSkill{
 
     public boolean isEnraged() {
         return enraged;
-    }
-
-    public void setHeadBlock(Material headBlock) {
-        this.headBlock = headBlock;
     }
 
     public void setCurrentlyEnragedSound(Sound currentlyEnragedSound) {

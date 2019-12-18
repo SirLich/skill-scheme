@@ -11,18 +11,14 @@ public class ToggleSkill extends Skill{
     Optional config values:
      */
 
-    private Material headBlock;
     private ItemStack headSave;
     private boolean active;
 
-    public ToggleSkill(RpgPlayer rpgPlayer, int level, String id, Material headBlock){
+    public ToggleSkill(RpgPlayer rpgPlayer, int level, String id){
         super(rpgPlayer,level,id);
-        this.headBlock = headBlock;
     }
 
     public void activateSkill(){
-        this.headSave = getRpgPlayer().getPlayer().getInventory().getHelmet();
-        this.getRpgPlayer().getPlayer().getInventory().setHelmet(new ItemStack(headBlock));
         this.active = true;
         getRpgPlayer().setModifierActive(true);
     }
@@ -36,7 +32,6 @@ public class ToggleSkill extends Skill{
     }
 
     public void deactivateSkill(){
-        this.getRpgPlayer().getPlayer().getInventory().setHelmet(headSave);
         this.active = false;
         getRpgPlayer().setModifierActive(false);
     }

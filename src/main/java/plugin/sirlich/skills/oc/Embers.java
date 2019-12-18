@@ -14,7 +14,7 @@ import plugin.sirlich.skills.meta.ManaSkill;
 public class Embers extends ManaSkill {
 
     public Embers(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level,"Embers", Material.MAGMA_BLOCK);
+        super(rpgPlayer,level,"Embers");
     }
 
     private int schedularID;
