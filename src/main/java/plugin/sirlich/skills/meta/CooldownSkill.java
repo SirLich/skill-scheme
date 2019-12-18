@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import plugin.sirlich.SkillScheme;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.utilities.Xliff;
-import plugin.sirlich.utilities.c;
+import plugin.sirlich.utilities.Color;
 import org.bukkit.Sound;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -29,8 +29,8 @@ public class CooldownSkill extends Skill
 
     private Sound cooldownSound;
     private Sound rechargeSound;
-    private String cooldownText = c.red + getName() + c.dgray + " can be used again in ";
-    private String rechargeText = c.green + getName() + c.dgray + " has been recharged.";
+    private String cooldownText = Color.red + getName() + Color.dgray + " can be used again in ";
+    private String rechargeText = Color.green + getName() + Color.dgray + " has been recharged.";
 
     private double calculateCooldownLeft(){
         double x = (cooldownValue / 20.00) - (System.currentTimeMillis() - lastUsed) / 1000.00;
@@ -68,7 +68,7 @@ public class CooldownSkill extends Skill
 
     public void playCooldownMedia(){
         getRpgPlayer().playSound(cooldownSound);
-        getRpgPlayer().tell(cooldownText + getChargeColor() + calculateCooldownLeft() + c.dgray + " seconds");
+        getRpgPlayer().tell(cooldownText + getChargeColor() + calculateCooldownLeft() + Color.dgray + " seconds");
     }
 
     public void playRechargeMedia(){
@@ -79,15 +79,15 @@ public class CooldownSkill extends Skill
     public String getChargeColor(){
         double percent = calculateChargeBarCooldown();
         if(percent > CHARGE_BAR_LENGTH * 0.8){
-            return c.green;
+            return Color.green;
         } else if(percent > CHARGE_BAR_LENGTH * 0.6){
-            return c.yellow;
+            return Color.yellow;
         } else if(percent > CHARGE_BAR_LENGTH * 0.4){
-            return c.gold;
+            return Color.gold;
         } else if(percent > CHARGE_BAR_LENGTH * 0.2){
-            return c.red;
+            return Color.red;
         } else {
-            return c.dred;
+            return Color.dred;
         }
     }
 
@@ -128,16 +128,16 @@ public class CooldownSkill extends Skill
             public void run() {
                 if(cooldown && showActionBar()){
                     long chargeMeter = calculateChargeBarCooldown();
-                    String m = c.gold + c.bold + getName() + c.yellow + c.bold + ": [";
+                    String m = Color.gold + Color.bold + getName() + Color.yellow + Color.bold + ": [";
                     for(int i = 0; i < CHARGE_BAR_LENGTH; i ++){
                         if(i < chargeMeter){
-                            m = m + c.green + c.bold + "▇";
+                            m = m + Color.green + Color.bold + "▇";
                         } else {
-                            m = m + c.red + c.bold + "▇";
+                            m = m + Color.red + Color.bold + "▇";
                         }
                     }
 
-                    m = m + c.yellow + c.bold + "] " + getChargeColor() + calculateCooldownLeft();
+                    m = m + Color.yellow + Color.bold + "] " + getChargeColor() + calculateCooldownLeft();
 
                     getRpgPlayer().setActionBar(m);
                 }

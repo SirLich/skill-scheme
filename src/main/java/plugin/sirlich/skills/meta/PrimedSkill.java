@@ -1,7 +1,7 @@
 package plugin.sirlich.skills.meta;
 
 import plugin.sirlich.core.RpgPlayer;
-import plugin.sirlich.utilities.c;
+import plugin.sirlich.utilities.Color;
 import org.bukkit.Sound;
 
 public class PrimedSkill extends CooldownSkill {
@@ -10,8 +10,8 @@ public class PrimedSkill extends CooldownSkill {
 
     private Sound alreadyPrimedSound = Sound.BLOCK_COMPARATOR_CLICK;
     private Sound primeSound = Sound.BLOCK_PISTON_EXTEND;
-    private String primeText = c.green + getName() + c.dgray + " is now primed.";
-    private String alreadyPrimedText = c.red + getName() + c.dgray + " is already primed.";
+    private String primeText = Color.green + getName() + Color.dgray + " is now primed.";
+    private String alreadyPrimedText = Color.red + getName() + Color.dgray + " is already primed.";
 
 
     public PrimedSkill(RpgPlayer rpgPlayer, int level, String id){

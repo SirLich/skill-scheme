@@ -2,7 +2,7 @@ package plugin.sirlich.skills.meta;
 
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.utilities.WeaponUtils;
-import plugin.sirlich.utilities.c;
+import plugin.sirlich.utilities.Color;
 import org.bukkit.event.inventory.ClickType;
 
 import java.util.ArrayList;
@@ -135,7 +135,7 @@ public class SkillEditObject
         for(SimpleSkill simpleSkill : simpleSkillMap.values()){
             //Announce
             if(announceLoadout){
-                this.parent.tell(c.dgray + " - " + c.gray + simpleSkill.getSkillType().getSkill().getName() + ": " + c.green + (simpleSkill.getLevel()));
+                this.parent.tell(Color.dgray + " - " + Color.gray + simpleSkill.getSkillType().getSkill().getName() + ": " + Color.green + (simpleSkill.getLevel()));
             }
 
             //Add skills

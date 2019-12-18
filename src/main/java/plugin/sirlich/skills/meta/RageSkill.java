@@ -2,7 +2,7 @@ package plugin.sirlich.skills.meta;
 
 import plugin.sirlich.SkillScheme;
 import plugin.sirlich.core.RpgPlayer;
-import plugin.sirlich.utilities.c;
+import plugin.sirlich.utilities.Color;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.inventory.ItemStack;
@@ -17,12 +17,12 @@ public class RageSkill extends CooldownSkill{
     private ItemStack oldHeadblock;
 
     private Sound currentlyEnragedSound = Sound.BLOCK_ANVIL_BREAK;
-    private String currentlyEnragedText = c.red + getName() + c.dgray + "  is already active.";
+    private String currentlyEnragedText = Color.red + getName() + Color.dgray + "  is already active.";
     private Sound becomeEnragedSound = Sound.ENTITY_COW_HURT;
-    private String becomeEnragedText = c.dgray + "You activate "+ c.green + this.getName();
+    private String becomeEnragedText = Color.dgray + "You activate "+ Color.green + this.getName();
 
     private Sound stoppedRagingSound = Sound.BLOCK_FIRE_EXTINGUISH;
-    private String stoppedRagingText = c.red + getName() + c.dgray + " has expired.";
+    private String stoppedRagingText = Color.red + getName() + Color.dgray + " has expired.";
 
 
     public RageSkill(RpgPlayer rpgPlayer, int level, String id, Material headBlock){

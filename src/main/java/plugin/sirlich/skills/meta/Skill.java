@@ -8,7 +8,7 @@ import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import plugin.sirlich.SkillScheme;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.skills.triggers.Trigger;
-import plugin.sirlich.utilities.c;
+import plugin.sirlich.utilities.Color;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.entity.*;
@@ -49,7 +49,7 @@ public class Skill
 
 
     public Skill(RpgPlayer rpgPlayer, int level, String id){
-        description.add(c.dgray + "This skill does not have a description!");
+        description.add(Color.dgray + "This skill does not have a description!");
         if(rpgPlayer != null){
             this.sessionToken = rpgPlayer.getSessionToken();
         }
@@ -185,7 +185,7 @@ public class Skill
                     skillValue = skillValue / value;
                 }
             }
-            line = line.replace(match, c.green + skillValue.toString() + c.dgray);
+            line = line.replace(match, Color.green + skillValue.toString() + Color.dgray);
         }
         return line;
     }

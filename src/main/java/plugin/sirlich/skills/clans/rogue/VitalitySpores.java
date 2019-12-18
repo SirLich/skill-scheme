@@ -5,7 +5,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.skills.meta.TickingSkill;
-import plugin.sirlich.utilities.c;
+import plugin.sirlich.utilities.Color;
 
 public class VitalitySpores extends TickingSkill {
     /*
@@ -29,7 +29,7 @@ public class VitalitySpores extends TickingSkill {
         final int TICKS_TO_MILLIS = 50;
         if(!healing && System.currentTimeMillis() > (data.getDouble("safe_duration") * TICKS_TO_MILLIS) + getRpgPlayer().getLastDamaged()){
             healing = true;
-            getRpgPlayer().tell(c.green + getName() + c.dgray + " are now active.");
+            getRpgPlayer().tell(Color.green + getName() + Color.dgray + " are now active.");
             getRpgPlayer().playSound(data.getSound("now_healing"), 0.5f);
         }
 
@@ -43,7 +43,7 @@ public class VitalitySpores extends TickingSkill {
         if(healing){
             healing = false;
             getRpgPlayer().getPlayer().removePotionEffect(PotionEffectType.REGENERATION);
-            getRpgPlayer().tell(c.red + getName() + c.dgray + " is no longer active.");
+            getRpgPlayer().tell(Color.red + getName() + Color.dgray + " is no longer active.");
         }
     }
 }

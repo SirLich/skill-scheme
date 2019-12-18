@@ -3,14 +3,12 @@ package plugin.sirlich.skills.oc;
 import plugin.sirlich.SkillScheme;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.skills.meta.Skill;
-import plugin.sirlich.utilities.c;
+import plugin.sirlich.utilities.Color;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-
-import java.util.List;
 
 public class AxeOfPerun extends Skill
 {
@@ -42,7 +40,7 @@ public class AxeOfPerun extends Skill
     private void removeBloodlust(){
         charges = 0;
         getRpgPlayer().playSound(Sound.BLOCK_FIRE_EXTINGUISH);
-        getRpgPlayer().tell(c.red +  "The bloodlust fades...");
+        getRpgPlayer().tell(Color.red +  "The bloodlust fades...");
     }
 
     @Override
@@ -56,7 +54,7 @@ public class AxeOfPerun extends Skill
         lastAttack = System.currentTimeMillis();
         if(charges < data.getInt("maxStack")){
             charges++;
-            getRpgPlayer().tell(c.dgray + "Bloodlust: " + c.dred + charges + c.dgray + " of " + c.dred + data.getInt("maxStack"));
+            getRpgPlayer().tell(Color.dgray + "Bloodlust: " + Color.dred + charges + Color.dgray + " of " + Color.dred + data.getInt("maxStack"));
         } else {
             getRpgPlayer().playSound(Sound.ENTITY_COW_DEATH);
             getRpgPlayer().tell(ChatColor.DARK_RED + "Max bloodlust!");

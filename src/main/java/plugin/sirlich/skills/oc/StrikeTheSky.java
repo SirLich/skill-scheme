@@ -2,7 +2,7 @@ package plugin.sirlich.skills.oc;
 
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.skills.meta.CooldownSkill;
-import plugin.sirlich.utilities.c;
+import plugin.sirlich.utilities.Color;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
@@ -24,7 +24,7 @@ public class StrikeTheSky extends CooldownSkill
     @Override
     public ArrayList<String> getDescription(int level){
         ArrayList<String> lorelines = new ArrayList<String>();
-        lorelines.add(c.dgray + "Create a whirlwind to sucks enemies towards you.");
+        lorelines.add(Color.dgray + "Create a whirlwind to sucks enemies towards you.");
         return lorelines;
     }
 

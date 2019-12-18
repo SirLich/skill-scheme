@@ -7,7 +7,7 @@ import org.bukkit.event.entity.EntityShootBowEvent;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.core.RpgProjectile;
 import plugin.sirlich.skills.meta.TickingSkill;
-import plugin.sirlich.utilities.c;
+import plugin.sirlich.utilities.Color;
 
 public class SharpShooter extends TickingSkill {
     /*
@@ -34,7 +34,7 @@ public class SharpShooter extends TickingSkill {
     public void handleArrowHit(){
         if(charges < data.getInt("max_charges")){
             charges = charges + 1;
-            getRpgPlayer().tell(c.green + getName() + c.dgray + " charges: " + c.green + charges);
+            getRpgPlayer().tell(Color.green + getName() + Color.dgray + " charges: " + Color.green + charges);
         }
         getRpgPlayer().getPlayer().playSound(getRpgPlayer().getPlayer().getLocation(), data.getSound("on_hit"),1.0f,2.0f * charges/data.getInt("max_charges"));
     }
@@ -42,7 +42,7 @@ public class SharpShooter extends TickingSkill {
     public void resetCharges(){
         if(charges != 0){
             getRpgPlayer().playSound(data.getSound("on_miss"));
-            getRpgPlayer().tell(c.red + getName() + c.dgray + " charges has been reset.");
+            getRpgPlayer().tell(Color.red + getName() + Color.dgray + " charges has been reset.");
         }
         charges = 0;
     }

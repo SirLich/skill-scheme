@@ -1,10 +1,9 @@
 package plugin.sirlich.skills.meta;
 
 import de.tr7zw.nbtapi.NBTItem;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
 import plugin.sirlich.SkillScheme;
 import plugin.sirlich.core.RpgPlayer;
-import plugin.sirlich.utilities.c;
+import plugin.sirlich.utilities.Color;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -258,13 +257,13 @@ public class SkillGuiHandler implements Listener
             return new ItemStack(Material.REDSTONE_BLOCK,1);
         }
 
-        itemMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.BOLD + skill.getName() + ChatColor.GRAY + " - " + " " +ChatColor.AQUA + (level + levelBalancer) + "/" + skill.getMaxLevel() + c.gray + " - Cost: " + c.gold + skill.getCost());
+        itemMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.BOLD + skill.getName() + ChatColor.GRAY + " - " + " " +ChatColor.AQUA + (level + levelBalancer) + "/" + skill.getMaxLevel() + Color.gray + " - Cost: " + Color.gold + skill.getCost());
 
         ArrayList<String> loreLines = skill.getDescription(level);
 
         //Polish the lorelines before display!
         for(int i = 0; i < loreLines.size(); i ++){
-            loreLines.set(i, ChatColor.translateAlternateColorCodes('&', c.dgray + loreLines.get(i)));
+            loreLines.set(i, ChatColor.translateAlternateColorCodes('&', Color.dgray + loreLines.get(i)));
         }
 
         itemMeta.setLore(loreLines);

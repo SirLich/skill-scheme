@@ -4,7 +4,6 @@ import plugin.sirlich.core.RpgProjectile;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.skills.meta.PrimedSkill;
 import plugin.sirlich.skills.triggers.Trigger;
-import plugin.sirlich.utilities.c;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Arrow;
@@ -13,10 +12,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.util.Vector;
-
-import java.util.ArrayList;
 
 public class PhantomArrows extends PrimedSkill
 {

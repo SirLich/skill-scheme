@@ -2,7 +2,7 @@ package plugin.sirlich.utilities;
 
 import org.bukkit.ChatColor;
 
-public class c
+public class Color
 {
     public static String gray = ChatColor.GRAY.toString();
     public static String bold = ChatColor.BOLD.toString();

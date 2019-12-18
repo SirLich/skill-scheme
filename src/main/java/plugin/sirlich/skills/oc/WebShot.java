@@ -5,16 +5,13 @@ import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.skills.meta.PrimedSkill;
 import plugin.sirlich.skills.triggers.Trigger;
 import plugin.sirlich.utilities.BlockUtils;
-import plugin.sirlich.utilities.c;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class WebShot extends PrimedSkill

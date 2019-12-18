@@ -10,7 +10,7 @@ import plugin.sirlich.skills.meta.CooldownSkill;
 import plugin.sirlich.skills.triggers.Trigger;
 import plugin.sirlich.utilities.VelocityUtils;
 import plugin.sirlich.utilities.WeaponUtils;
-import plugin.sirlich.utilities.c;
+import plugin.sirlich.utilities.Color;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -60,7 +60,7 @@ public class Disengage extends CooldownSkill
                 //If you didn't use disengage, its a miss after 1 second
                 if(!usedDisengage){
                     getRpgPlayer().playSound(miss_disengage);
-                    getRpgPlayer().tell(c.red + "You missed disengage");
+                    getRpgPlayer().tell(Color.red + "You missed disengage");
                     refreshCooldown();
                 }
                 usedDisengage = false;
@@ -80,10 +80,10 @@ public class Disengage extends CooldownSkill
             entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, slowness_duration, slowness_amplifier));
             if(entity instanceof Player){
                 Player damager = (Player) entity;
-                damager.sendMessage(c.red + "You were hit by disengage!");
+                damager.sendMessage(Color.red + "You were hit by disengage!");
             }
             usedDisengage = true;
-            getRpgPlayer().tell(c.green + "You successfully disengaged");
+            getRpgPlayer().tell(Color.green + "You successfully disengaged");
             final Vector velocity  = VelocityUtils.getTrajectory(entity, self).normalize().multiply(power).setY(y_power);
             Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(SkillScheme.getInstance(), new Runnable() {
                 public void run() {

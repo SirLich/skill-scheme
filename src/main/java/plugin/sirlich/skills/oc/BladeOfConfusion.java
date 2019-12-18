@@ -3,12 +3,9 @@ package plugin.sirlich.skills.oc;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.skills.meta.PrimedSkill;
 import plugin.sirlich.skills.triggers.Trigger;
-import plugin.sirlich.utilities.c;
 import org.bukkit.Sound;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class BladeOfConfusion extends PrimedSkill {

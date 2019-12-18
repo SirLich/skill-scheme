@@ -1,12 +1,11 @@
 package plugin.sirlich.core;
 
 import com.connorlinfoot.actionbarapi.ActionBarAPI;
-import com.sun.org.apache.xalan.internal.xsltc.dom.ArrayNodeListIterator;
 import org.bukkit.scheduler.BukkitRunnable;
 import plugin.sirlich.SkillScheme;
 import plugin.sirlich.skills.meta.*;
 import plugin.sirlich.utilities.Xliff;
-import plugin.sirlich.utilities.c;
+import plugin.sirlich.utilities.Color;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -355,7 +354,7 @@ public class RpgPlayer
     }
 
     public void tell(String message){
-        getPlayer().sendMessage(c.green + message);
+        getPlayer().sendMessage(Color.green + message);
     }
 
     public void tellX(String message){
