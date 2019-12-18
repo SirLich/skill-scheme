@@ -1,5 +1,7 @@
 package plugin.sirlich.skills.meta;
 
+import com.codingforcookies.armorequip.ArmorEquipEvent;
+import com.codingforcookies.armorequip.ArmorType;
 import com.connorlinfoot.actionbarapi.ActionBarAPI;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.player.*;
@@ -51,6 +53,11 @@ public class SkillHandler implements Listener
                 }
             }
         }
+    }
+
+    @EventHandler
+    public void onArmorEquip(ArmorEquipEvent event){
+        
     }
 
     /*

@@ -54,6 +54,14 @@
         </dependency>
 
         <dependency>
+            <groupId>com.arnuh</groupId>
+            <artifactId>ArmorEquipEvent</artifactId>
+            <version>1.7.3</version>
+            <scope>system</scope>
+            <systemPath>/home/liam/git/skill-scheme/lib/ArmorEquipEvent-1.7.3.jar</systemPath>
+        </dependency>
+
+        <dependency>
             <groupId>com.connorlinfoot</groupId>
             <artifactId>ActionBarAPI</artifactId>
             <version>1.5.4</version>
