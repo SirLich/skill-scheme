@@ -14,7 +14,7 @@ public class StrikeTheEarth extends CooldownSkill
 
     @Override
     public void onSwap(PlayerSwapHandItemsEvent event){
-        if(isCooldown()){return;}
+        if(skillCheck()){return;}
         Double r = data.getDouble("range");
         for(Entity entity : event.getPlayer().getNearbyEntities(r,r,r)){
             if(entity instanceof LivingEntity){

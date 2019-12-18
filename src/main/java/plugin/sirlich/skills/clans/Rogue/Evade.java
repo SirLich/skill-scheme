@@ -22,7 +22,7 @@ public class Evade extends CooldownSkill {
     }
 
     public void onMeleeAttackSelf(EntityDamageByEntityEvent event){
-        if(isCooldown()){return;}
+        if(skillCheck()){return;}
         if(getRpgPlayer().getPlayer().isBlocking()){
             wasBlocking = false;
             blockCount = 0;
@@ -43,7 +43,7 @@ public class Evade extends CooldownSkill {
         schedularID = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(SkillScheme.getInstance(), new Runnable() {
             public void run() {
                 if(getRpgPlayer().getPlayer().isBlocking()){
-                    if(isCooldown());
+                    if(skillCheck());
                     blockCount ++;
                     wasBlocking = true;
                     if(blockCount > 20){

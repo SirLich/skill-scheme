@@ -21,7 +21,7 @@ public class KillingSpree extends CooldownSkill {
 
     @Override
     public void onSwordDrop(PlayerDropItemEvent event){
-        if(isCooldown()){return;}
+        if(skillCheck()){return;}
         Player player = event.getPlayer();
         final RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
         Block block = player.getTargetBlock(null,100);

@@ -13,7 +13,7 @@ public class SatanicGamble extends CooldownSkill
 
     @Override
     public void onSwap(PlayerSwapHandItemsEvent event){
-        if(isCooldown()){return;}
+        if(skillCheck()){return;}
         if(Math.random() <= 0.5){
             getRpgPlayer().getPlayer().setHealth(0);
         } else {

@@ -25,12 +25,12 @@ public class SimpleSkill {
         return level;
     }
 
-    public void increaseLevel(int amount) {
-        level -= amount;
+    public void incrementLevel() {
+        level ++;
     }
 
-    public void decreaseLevel(int amount){
-        level += amount;
+    public void decrementLevel(){
+        level --;
     }
 
     public void setLevel(Integer level) {

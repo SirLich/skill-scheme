@@ -2,13 +2,11 @@ package plugin.sirlich.skills.oc;
 
 import plugin.sirlich.skills.meta.CooldownSkill;
 import plugin.sirlich.core.RpgPlayer;
-import plugin.sirlich.utilities.c;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class WrathOfJupiter extends CooldownSkill
@@ -25,7 +23,7 @@ public class WrathOfJupiter extends CooldownSkill
 
     @Override
     public void onSwap(PlayerSwapHandItemsEvent event){
-        if(isCooldown()){return;}
+        if(skillCheck()){return;}
 
         List<Entity> entities = event.getPlayer().getNearbyEntities(range.get(getLevel()),range.get(getLevel()),range.get(getLevel()));
         if(entities.size() == 0){

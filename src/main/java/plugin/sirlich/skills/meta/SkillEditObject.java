@@ -3,10 +3,7 @@ package plugin.sirlich.skills.meta;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.utilities.WeaponUtils;
 import plugin.sirlich.utilities.c;
-import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 
@@ -46,7 +43,7 @@ public class SkillEditObject
                         //Skill type is less than max level
                         if (simpleSkillMap.get(skillKind).getLevel() < maxLevel) {
                             points -= cost;
-                            simpleSkillMap.get(skillKind).decreaseLevel(cost);
+                            simpleSkillMap.get(skillKind).incrementLevel();
                         }
                         //This skill is already the highest possible
                         else {
@@ -86,7 +83,7 @@ public class SkillEditObject
 
                     //Skill type is less than max level
                     if(simpleSkillMap.get(skillKind).getLevel() > 1){
-                        simpleSkillMap.get(skillKind).increaseLevel(cost);
+                        simpleSkillMap.get(skillKind).decrementLevel();
                     }
 
                     //This skill just got down to 0
@@ -128,18 +125,18 @@ public class SkillEditObject
 
         //This adds the "default" skills for each class. For example ManaRegen
         for(SimpleSkill simpleSkill : SkillData.getDefaultSkills(classType)){
-            parent.addSkill(simpleSkill.getSkillType(), simpleSkill.getLevel());
+            parent.addSkill(simpleSkill);
         }
 
         //This adds the skills you were just editing.
         for(SimpleSkill simpleSkill : simpleSkillMap.values()){
             //Announce
             if(announceLoadout){
-                this.parent.tell(c.dgray + " - " + c.gray + simpleSkill.getSkillType().getSkill().getName() + ": " + c.green + (simpleSkill.getLevel() + 1));
+                this.parent.tell(c.dgray + " - " + c.gray + simpleSkill.getSkillType().getSkill().getName() + ": " + c.green + (simpleSkill.getLevel()));
             }
 
             //Add skills
-            parent.addSkill(simpleSkill.getSkillType(), simpleSkill.getLevel());
+            parent.addSkill(simpleSkill);
         }
     }
 

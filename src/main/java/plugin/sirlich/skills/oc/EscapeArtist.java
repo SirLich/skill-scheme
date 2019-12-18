@@ -39,7 +39,7 @@ public class EscapeArtist extends CooldownSkill
 
     @Override
     public void onSwap(PlayerSwapHandItemsEvent event){
-        if(isCooldown()){return;}
+        if(skillCheck()){return;}
         getRpgPlayer().tell("Time is an illusion...");
         getRpgPlayer().teleport(location);
         getRpgPlayer().getPlayer().setHealth(health);

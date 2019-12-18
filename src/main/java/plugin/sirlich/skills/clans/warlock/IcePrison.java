@@ -21,7 +21,7 @@ public class IcePrison extends CooldownSkill
 
     @Override
     public void onSwordDrop(PlayerDropItemEvent event){
-        if(isCooldown()){return;}
+        if(skillCheck()){return;}
         Player player = getRpgPlayer().getPlayer();
         deployed = true;
         BlockUtils.tempPlaceBlock(Material.GLASS,player.getLocation(),data.getInt("duration"));

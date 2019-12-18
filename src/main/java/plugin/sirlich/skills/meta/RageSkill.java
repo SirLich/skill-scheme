@@ -8,8 +8,6 @@ import org.bukkit.Sound;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.List;
-
 public class RageSkill extends CooldownSkill{
 
     //Defaults
@@ -48,7 +46,7 @@ public class RageSkill extends CooldownSkill{
             getRpgPlayer().playSound(currentlyEnragedSound);
             return false;
         } else {
-            if(isCooldown()){
+            if(skillCheck()){
                 return false;
             } else {
 

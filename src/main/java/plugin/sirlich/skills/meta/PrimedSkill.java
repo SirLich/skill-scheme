@@ -24,7 +24,7 @@ public class PrimedSkill extends CooldownSkill {
             getRpgPlayer().tell(alreadyPrimedText);
             getRpgPlayer().playSound(alreadyPrimedSound);
         } else {
-            if(isCooldown()){
+            if(skillCheck()){
                 return;
             } else {
                 primed = true;

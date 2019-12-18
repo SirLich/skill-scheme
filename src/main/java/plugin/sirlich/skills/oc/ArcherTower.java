@@ -36,7 +36,7 @@ public class ArcherTower extends CooldownSkill
 
     @Override
     public void onSwap(PlayerSwapHandItemsEvent event){
-        if(isCooldown()){return;}
+        if(skillCheck()){return;}
         if(!getRpgPlayer().getPlayer().isOnGround()){
             getRpgPlayer().tell(data.xliff("must_be_on_ground"));
             getRpgPlayer().playSound(data.getSound("must_be_on_ground"));

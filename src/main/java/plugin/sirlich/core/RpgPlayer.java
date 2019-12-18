@@ -213,8 +213,15 @@ public class RpgPlayer
         return skillList.get(skillType);
     }
 
+    public void addSkill(SimpleSkill simpleSkill){
+        System.out.println("Adding skill!");
+        addSkill(simpleSkill.getSkillType(),simpleSkill.getLevel() - 1);
+    }
+
     public void addSkill(SkillType skillType, int level){
         try{
+            System.out.println(skillType);
+            System.out.println(level);
             Class clazz = skillType.getSkillClass();
             Constructor<Skill> constructor = clazz.getConstructor(RpgPlayer.class,int.class);
             Skill skill = (Skill) constructor.newInstance(this,level);
@@ -356,7 +363,7 @@ public class RpgPlayer
     public void giveKit(String kit) {
         if(SkillData.kitExists(kit)){
             for(SimpleSkill simpleSkill : SkillData.getKit(kit)){
-                this.addSkill(simpleSkill.getSkillType(), simpleSkill.getLevel());
+                this.addSkill(simpleSkill);
             }
         } else {
             tellX("RpgPlayer.that_kit_does_not_exist");

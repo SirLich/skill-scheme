@@ -1,5 +1,8 @@
 package plugin.sirlich.skills.meta;
 
+import com.massivecraft.factions.Board;
+import com.massivecraft.factions.FLocation;
+import com.massivecraft.factions.Faction;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import plugin.sirlich.SkillScheme;
@@ -61,9 +64,40 @@ public class Skill
         initData();
     }
 
-//    public void skillAllowCheck(){
-//        getRpgPlayer().getPlayer()
-//    }
+    /*
+    This is an abstraction for anything that might block users ability to use their skills.
+    Fundamental checks will be done for some cases, and individual skills/skill types can
+    add their own checks.
+
+    This should always be called as:
+
+    if(SkillCheck() or super().SkillCheck()){return}
+
+    Throwing TRUE will mean the skill isn't run!
+    */
+    public boolean skillCheck(){
+        //Check for silenced
+        if(getRpgPlayer().isSilenced()){
+            getRpgPlayer().tell("You cannot used that skill when silenced");
+            return true;
+        }
+
+        //Check for in safe zone
+        try {
+            FLocation fLoc = new FLocation(getRpgPlayer().getPlayer().getLocation());
+            Faction faction = Board.getInstance().getFactionAt(fLoc);
+            if(faction.isSafeZone()){
+                getRpgPlayer().tell("You cannot used that skill when in safe-zone");
+                return true;
+            }
+        } catch(Exception e){
+            System.out.println("WARNING: Unable to check safezone safegaurd. Are you running the Factions plugin?");
+        }
+
+
+        //The skill check passed!
+        return false;
+    }
 
     //Please call super.initData() if you want to use this method!
     public void initData(){

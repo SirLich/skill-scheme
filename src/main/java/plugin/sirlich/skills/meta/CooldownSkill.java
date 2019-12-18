@@ -50,11 +50,16 @@ public class CooldownSkill extends Skill
         this.cooldown = false;
     }
 
-    public boolean isCooldown(){
+    @Override
+    public boolean skillCheck(){
+
+        //Make sure the player isn't on cooldown
         if(cooldown) {
             playCooldownMedia();
         }
-        return cooldown;
+
+        //Return based on the super check as well as cooldown value
+        return cooldown || super.skillCheck();
     }
 
     public boolean isCooldownNoMedia(){

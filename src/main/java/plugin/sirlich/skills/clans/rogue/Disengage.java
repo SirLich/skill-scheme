@@ -2,7 +2,6 @@ package plugin.sirlich.skills.clans.rogue;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import plugin.sirlich.SkillScheme;
@@ -75,7 +74,7 @@ public class Disengage extends CooldownSkill
         final Player self = (Player) event.getEntity();
         LivingEntity entity = (LivingEntity) event.getDamager();
         if(self.isBlocking()){
-            if(isCooldown()){return;}
+            if(skillCheck()){return;}
             getRpgPlayer().playWorldSound(on_disengage);
             primed = false;
             entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, slowness_duration, slowness_amplifier));

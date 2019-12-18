@@ -5,7 +5,6 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import plugin.sirlich.core.RpgPlayer;
@@ -52,7 +51,7 @@ public class PinDown extends CooldownSkill
 
     @Override
     public void onBowLeftClick(Trigger event){
-        if(isCooldown()){return;}
+        if(skillCheck()){return;}
         Arrow arrow = event.getSelf().launchProjectile(Arrow.class);
         arrow.setVelocity(arrow.getVelocity().multiply(data.getDouble("arrow_velocity")));
         RpgProjectile.registerProjectile(arrow,RpgPlayer.getRpgPlayer(event.getSelf()));
