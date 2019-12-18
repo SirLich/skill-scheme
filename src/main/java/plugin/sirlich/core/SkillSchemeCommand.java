@@ -2,6 +2,7 @@ package plugin.sirlich.core;
 
 import plugin.sirlich.SkillScheme;
 import plugin.sirlich.skills.meta.*;
+import plugin.sirlich.utilities.WeaponUtils;
 import plugin.sirlich.utilities.Xliff;
 import plugin.sirlich.utilities.c;
 import org.bukkit.command.Command;
@@ -99,7 +100,7 @@ public class SkillSchemeCommand implements CommandExecutor
                 SkillGuiHandler.openAllSkillsGui(player);
             }else if(action.equalsIgnoreCase("class") || action.equalsIgnoreCase("c")){
                 if(args.length < 2){
-                    SkillEditObject.giveLoadout(rpgPlayer,ClassType.RANGER);
+                    WeaponUtils.giveLoadout(rpgPlayer,ClassType.RANGER);
                     rpgPlayer.tell("Default applied. Specify like: " + c.gray + "[p]aladin, [f]ighter, [ra]nger, [ro]gue, [w]arlock");
                     return true;
                 }
@@ -107,17 +108,17 @@ public class SkillSchemeCommand implements CommandExecutor
                 action = args[1];
                 player.getInventory().clear();
                 if(action.equalsIgnoreCase("paladin") || action.equalsIgnoreCase("p")){
-                    SkillEditObject.giveLoadout(rpgPlayer,ClassType.PALADIN);
+                    WeaponUtils.giveLoadout(rpgPlayer,ClassType.PALADIN);
                 } else if(action.equalsIgnoreCase("fighter") || action.equalsIgnoreCase("f")){
-                    SkillEditObject.giveLoadout(rpgPlayer,ClassType.FIGHTER);
+                    WeaponUtils.giveLoadout(rpgPlayer,ClassType.FIGHTER);
                 }  else if(action.equalsIgnoreCase("ranger") || action.equalsIgnoreCase("ra")){
-                    SkillEditObject.giveLoadout(rpgPlayer,ClassType.RANGER);
+                    WeaponUtils.giveLoadout(rpgPlayer,ClassType.RANGER);
                 } else if(action.equalsIgnoreCase("rogue") || action.equalsIgnoreCase("ro")){
-                    SkillEditObject.giveLoadout(rpgPlayer,ClassType.ROGUE);
+                    WeaponUtils.giveLoadout(rpgPlayer,ClassType.ROGUE);
                 } else if(action.equalsIgnoreCase("warlock") || action.equalsIgnoreCase("w")){
-                    SkillEditObject.giveLoadout(rpgPlayer,ClassType.WARLOCK);
+                    WeaponUtils.giveLoadout(rpgPlayer,ClassType.WARLOCK);
                 } else {
-                    SkillEditObject.giveLoadout(rpgPlayer,ClassType.RANGER);
+                    WeaponUtils.giveLoadout(rpgPlayer,ClassType.RANGER);
                     rpgPlayer.tell("Default applied. Specify like: " + c.gray + "[p]aladin, [f]ighter, [ra]nger, [ro]gue, [w]arlock");
                 }
             } else if(action.equalsIgnoreCase("team") || action.equalsIgnoreCase("t")){

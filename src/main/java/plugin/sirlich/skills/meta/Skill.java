@@ -61,6 +61,10 @@ public class Skill
         initData();
     }
 
+//    public void skillAllowCheck(){
+//        getRpgPlayer().getPlayer()
+//    }
+
     //Please call super.initData() if you want to use this method!
     public void initData(){
 

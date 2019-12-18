@@ -1,7 +1,10 @@
 package plugin.sirlich.utilities;
 
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import plugin.sirlich.core.RpgPlayer;
+import plugin.sirlich.skills.meta.ClassType;
 
 public class WeaponUtils {
 
@@ -50,5 +53,51 @@ public class WeaponUtils {
                 material.equals(Material.IRON_AXE) ||
                 material.equals(Material.DIAMOND_AXE) ||
                 material.equals(Material.GOLDEN_AXE);
+    }
+
+    public static void giveLoadout(RpgPlayer rpgPlayer, ClassType classType){
+        Player player = rpgPlayer.getPlayer();
+        player.getInventory().clear();
+        if(classType == ClassType.PALADIN){
+            player.getInventory().setHelmet(new ItemStack(Material.DIAMOND_HELMET));
+            player.getInventory().setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE));
+            player.getInventory().setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS));
+            player.getInventory().setBoots(new ItemStack(Material.DIAMOND_BOOTS));
+            player.getInventory().addItem(new ItemStack(Material.IRON_SWORD));
+            player.getInventory().addItem(new ItemStack(Material.IRON_AXE));
+        } else if(classType == ClassType.FIGHTER){
+            player.getInventory().setHelmet(new ItemStack(Material.IRON_HELMET));
+            player.getInventory().setChestplate(new ItemStack(Material.IRON_CHESTPLATE));
+            player.getInventory().setLeggings(new ItemStack(Material.IRON_LEGGINGS));
+            player.getInventory().setBoots(new ItemStack(Material.IRON_BOOTS));
+            player.getInventory().addItem(new ItemStack(Material.IRON_SWORD));
+            player.getInventory().addItem(new ItemStack(Material.IRON_AXE));
+        }  else if(classType == ClassType.RANGER){
+            player.getInventory().setHelmet(new ItemStack(Material.CHAINMAIL_HELMET));
+            player.getInventory().setChestplate(new ItemStack(Material.CHAINMAIL_CHESTPLATE));
+            player.getInventory().setLeggings(new ItemStack(Material.CHAINMAIL_LEGGINGS));
+            player.getInventory().setBoots(new ItemStack(Material.CHAINMAIL_BOOTS));
+            player.getInventory().addItem(new ItemStack(Material.IRON_SWORD));
+            player.getInventory().addItem(new ItemStack(Material.IRON_AXE));
+            player.getInventory().addItem(new ItemStack(Material.BOW));
+            player.getInventory().addItem(new ItemStack(Material.ARROW,64));
+
+        } else if(classType == ClassType.ROGUE){
+            player.getInventory().setHelmet(new ItemStack(Material.LEATHER_HELMET));
+            player.getInventory().setChestplate(new ItemStack(Material.LEATHER_CHESTPLATE));
+            player.getInventory().setLeggings(new ItemStack(Material.LEATHER_LEGGINGS));
+            player.getInventory().setBoots(new ItemStack(Material.LEATHER_BOOTS));
+            player.getInventory().addItem(new ItemStack(Material.IRON_SWORD));
+            player.getInventory().addItem(new ItemStack(Material.IRON_AXE));
+            player.getInventory().addItem(new ItemStack(Material.BOW));
+            player.getInventory().addItem(new ItemStack(Material.ARROW,64));
+        } else if(classType == ClassType.WARLOCK){
+            player.getInventory().setHelmet(new ItemStack(Material.GOLDEN_HELMET));
+            player.getInventory().setChestplate(new ItemStack(Material.GOLDEN_CHESTPLATE));
+            player.getInventory().setLeggings(new ItemStack(Material.GOLDEN_LEGGINGS));
+            player.getInventory().setBoots(new ItemStack(Material.GOLDEN_BOOTS));
+            player.getInventory().addItem(new ItemStack(Material.IRON_SWORD));
+            player.getInventory().addItem(new ItemStack(Material.IRON_AXE));
+        }
     }
 }
