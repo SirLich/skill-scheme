@@ -26,9 +26,20 @@
             <url>https://repo.codemc.org/repository/maven-public/</url>
             <layout>default</layout>
         </repository>
+
+        <repository>
+            <id>illyria</id>
+            <url>https://nexus.illyria.io/repository/maven-public/</url>
+        </repository>
     </repositories>
 
     <dependencies>
+        <dependency>
+            <groupId>com.massivecraft</groupId>
+            <artifactId>SavageFactions</artifactId>
+            <version>1.6.9.5-U0.2.1-RC-1.6.2-RC-2.5-RC-6</version>
+        </dependency>
+
         <dependency>
             <groupId>com.destroystokyo.paper</groupId>
             <artifactId>paper-api</artifactId>

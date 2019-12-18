@@ -108,7 +108,7 @@ public class CooldownSkill extends Skill
 
     //This should be overridden!
     public boolean showActionBar(){
-        System.out.println("WARNING !! THIS ISN'T SETUP CORRECTLY. You must override this value.");
+        System.out.println("Warning: showActionBar is not bring overridden. In: " + getName());
         return false;
     }
 

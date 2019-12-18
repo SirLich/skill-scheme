@@ -1,5 +1,6 @@
 package plugin.sirlich.skills.meta;
 
+import com.connorlinfoot.actionbarapi.ActionBarAPI;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.player.*;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -338,6 +339,10 @@ public class SkillHandler implements Listener
         }
     }
 
+    @EventHandler
+    public void playerItemHeldEvent​(PlayerItemHeldEvent event){
+        ActionBarAPI.sendActionBar(event.getPlayer(),"");
+    }
     /*
     HANDLES: Swap events
      */
