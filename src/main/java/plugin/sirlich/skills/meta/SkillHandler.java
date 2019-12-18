@@ -39,14 +39,14 @@ public class SkillHandler implements Listener
 
             //Fall Damage
             if(event.getCause() == EntityDamageEvent.DamageCause.FALL){
-                for(Skill skill : rpgPlayer.getSkillList().values()){
+                for(Skill skill : rpgPlayer.getActiveSkillList()){
                     skill.onFallDamageSelf(event);
                 }
             }
 
             //Explosion Damage
             else if(event.getCause() == EntityDamageEvent.DamageCause.BLOCK_EXPLOSION || event.getCause() == EntityDamageEvent.DamageCause.ENTITY_EXPLOSION){
-                for(Skill skill : rpgPlayer.getSkillList().values()){
+                for(Skill skill : rpgPlayer.getActiveSkillList()){
                     skill.onExplosionDamageSelf(event);
                 }
             }
@@ -63,7 +63,7 @@ public class SkillHandler implements Listener
         ItemStack itemStack = event.getItemDrop().getItemStack();
         RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(event.getPlayer());
         event.setCancelled(true);
-        for(Skill skill : rpgPlayer.getSkillList().values()){
+        for(Skill skill : rpgPlayer.getActiveSkillList()){
             skill.onItemDrop(event);
             if(isAxe(itemStack)){
                 skill.onAxeDrop(event);
@@ -80,13 +80,13 @@ public class SkillHandler implements Listener
     public void onItemPickup(PlayerPickupItemEvent event) {
         Player player  = event.getPlayer();
         RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
-        for(Skill skill : rpgPlayer.getSkillList().values()){
+        for(Skill skill : rpgPlayer.getActiveSkillList()){
             skill.onItemPickup(event);
         }
 
         for(RpgPlayer otherPlayer : RpgPlayer.getRpgPlayers()){
             if(otherPlayer.getPlayer().getUniqueId() != player.getUniqueId()){
-                for(Skill skill : rpgPlayer.getSkillList().values()){
+                for(Skill skill : rpgPlayer.getActiveSkillList()){
                     skill.onItemPickupOther(event);
                 }
             }
@@ -98,7 +98,7 @@ public class SkillHandler implements Listener
         if(event.getEntity() instanceof Player){
             RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(event.getEntity().getUniqueId());
             rpgPlayer.setLastDamaged(System.currentTimeMillis());
-            for(Skill skill : rpgPlayer.getSkillList().values()){
+            for(Skill skill : rpgPlayer.getActiveSkillList()){
                 skill.onDamageSelf(event);
             }
         }
@@ -126,14 +126,14 @@ public class SkillHandler implements Listener
 
             //Sword melee attack
             if(isSword(itemType)){
-                for(Skill skill : rpgPlayer.getSkillList().values()){
+                for(Skill skill : rpgPlayer.getActiveSkillList()){
                     skill.onSwordMeleeAttackSelf(event);
                 }
             }
 
             //Axe melee attack
             else if(isAxe(itemType)){
-                for(Skill skill : rpgPlayer.getSkillList().values()){
+                for(Skill skill : rpgPlayer.getActiveSkillList()){
                     if(skill instanceof CooldownSkill){
                         skill.onAxeMeleeAttackSelf(event);
                     }
@@ -142,7 +142,7 @@ public class SkillHandler implements Listener
 
             //Called when an arrow hits you
             if(event.getDamager() instanceof Projectile){
-                for(Skill skill : rpgPlayer.getSkillList().values()){
+                for(Skill skill : rpgPlayer.getActiveSkillList()){
                     if(skill instanceof CooldownSkill){
                         skill.onArrowHitSelf(event);
                     }
@@ -151,7 +151,7 @@ public class SkillHandler implements Listener
 
             if(event.getDamager() instanceof LivingEntity){
                 //Called when you get hit with any melee attack
-                for(Skill skill : rpgPlayer.getSkillList().values()){
+                for(Skill skill : rpgPlayer.getActiveSkillList()){
                     if(skill instanceof CooldownSkill){
                         skill.onMeleeAttackSelf(event);
                     }
@@ -167,27 +167,27 @@ public class SkillHandler implements Listener
             RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
             Material itemType  = player.getInventory().getItemInHand().getType();
 
-            for(Skill skill : rpgPlayer.getSkillList().values()){
+            for(Skill skill : rpgPlayer.getActiveSkillList()){
                 skill.onMeleeAttackOther(event);
             }
 
             //Hit another person with a sword attack
             if(isSword(itemType)){
-                for(Skill skill : rpgPlayer.getSkillList().values()){
+                for(Skill skill : rpgPlayer.getActiveSkillList()){
                     skill.onSwordMeleeAttackOther(event);
                 }
             }
 
             //Hit another person with a axe attack
             else if(isAxe(itemType)){
-                for(Skill skill : rpgPlayer.getSkillList().values()){
+                for(Skill skill : rpgPlayer.getActiveSkillList()){
                     skill.onAxeMeleeAttackOther(event);
                 }
             }
 
             //Hit another person with a bow attack (melee)
             else if(itemType == Material.BOW){
-                for(Skill skill : rpgPlayer.getSkillList().values()){
+                for(Skill skill : rpgPlayer.getActiveSkillList()){
                     skill.onBowMeleeAttack(event);
                 }
             }
@@ -208,7 +208,7 @@ public class SkillHandler implements Listener
             Player player = (Player) event.getEntity();
             RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
             RpgProjectile.registerProjectile((Arrow)event.getProjectile(), RpgPlayer.getRpgPlayer((Player)event.getEntity()));
-            for(Skill skill : rpgPlayer.getSkillList().values()){
+            for(Skill skill : rpgPlayer.getActiveSkillList()){
                 skill.onBowFire(event);
             }
             rpgPlayer.setDrawingBow(false);
@@ -230,7 +230,7 @@ public class SkillHandler implements Listener
         if(RpgPlayer.isRpgPlayer(event.getEntity().getUniqueId())){
             Player player = event.getEntity();
             RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
-            for(Skill skill : rpgPlayer.getSkillList().values()){
+            for(Skill skill : rpgPlayer.getActiveSkillList()){
                 skill.onDeath(event);
             }
         }
@@ -246,7 +246,7 @@ public class SkillHandler implements Listener
                     RpgProjectile rpgProjectile = RpgProjectile.getProjectile(arrow);
                     RpgPlayer rpgPlayer = rpgProjectile.getShooter();
                     rpgPlayer.logPlayerAttack();
-                    for(Skill skill : rpgPlayer.getSkillList().values()){
+                    for(Skill skill : rpgPlayer.getActiveSkillList()){
                         System.out.println("onArrowHit");
                         skill.onArrowHitEntity(event);
                     }
@@ -268,7 +268,7 @@ public class SkillHandler implements Listener
                     @Override
                     public void run() {
                         if(!rpgPlayer.didJustAttack()){
-                            for(Skill skill : rpgPlayer.getSkillList().values()){
+                            for(Skill skill : rpgPlayer.getActiveSkillList()){
                                 skill.onArrowHitGround(projectileHitEvent);
                             }
                         }
@@ -297,13 +297,13 @@ public class SkillHandler implements Listener
                 (event.getAction() == Action.LEFT_CLICK_AIR ||
                         event.getAction() == Action.LEFT_CLICK_BLOCK )){
 
-            for(Skill skill : rpgPlayer.getSkillList().values()){
+            for(Skill skill : rpgPlayer.getActiveSkillList()){
                 skill.onLeftClick(new Trigger(event, player));
             }
 
             //Bow left click
             if(event.getMaterial().equals(Material.BOW)){
-                for(Skill skill : rpgPlayer.getSkillList().values()){
+                for(Skill skill : rpgPlayer.getActiveSkillList()){
                     skill.onBowLeftClick(new Trigger(event, player));
                 }
             }
@@ -318,21 +318,21 @@ public class SkillHandler implements Listener
 
             //Axe
             if(isAxe(itemType)){
-                for(Skill skill : rpgPlayer.getSkillList().values()){
+                for(Skill skill : rpgPlayer.getActiveSkillList()){
                     skill.onAxeRightClick(new Trigger(event, player));
                 }
             }
 
             //Sword
             else if(isSword(itemType)){
-                for(Skill skill : rpgPlayer.getSkillList().values()){
+                for(Skill skill : rpgPlayer.getActiveSkillList()){
                     skill.onSwordRightClick(new Trigger(event, player));
                 }
             }
 
             //Bow
             else if(itemType == Material.BOW){
-                for(Skill skill : rpgPlayer.getSkillList().values()){
+                for(Skill skill : rpgPlayer.getActiveSkillList()){
                     skill.onBowRightClickEvent(new Trigger(event, player));
                 }
             }
@@ -351,7 +351,7 @@ public class SkillHandler implements Listener
         if(isMeleeWeapon(event.getOffHandItem().getType())){
             Player player = event.getPlayer();
             RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
-            for(Skill skill : rpgPlayer.getSkillList().values()){
+            for(Skill skill : rpgPlayer.getActiveSkillList()){
                 skill.onSwap(event);
             }
         }

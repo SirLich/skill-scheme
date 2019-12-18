@@ -5,6 +5,7 @@ import plugin.sirlich.utilities.WeaponUtils;
 import plugin.sirlich.utilities.c;
 import org.bukkit.event.inventory.ClickType;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SkillEditObject
@@ -123,9 +124,11 @@ public class SkillEditObject
             this.parent.tell("Your loadout has been applied:");
         }
 
+        ArrayList<SimpleSkill> loadout = new ArrayList<SimpleSkill>();
+
         //This adds the "default" skills for each class. For example ManaRegen
         for(SimpleSkill simpleSkill : SkillData.getDefaultSkills(classType)){
-            parent.addSkill(simpleSkill);
+            loadout.add(simpleSkill);
         }
 
         //This adds the skills you were just editing.
@@ -136,8 +139,11 @@ public class SkillEditObject
             }
 
             //Add skills
-            parent.addSkill(simpleSkill);
+            loadout.add(simpleSkill);
         }
+
+        //Apply
+        parent.setLoadout(classType, loadout);
     }
 
     public ClassType getClassType()

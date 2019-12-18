@@ -1,6 +1,5 @@
 package plugin.sirlich.core;
 
-import plugin.sirlich.SkillScheme;
 import plugin.sirlich.skills.meta.*;
 import plugin.sirlich.utilities.WeaponUtils;
 import plugin.sirlich.utilities.Xliff;
@@ -10,6 +9,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SkillSchemeCommand implements CommandExecutor
@@ -43,10 +43,10 @@ public class SkillSchemeCommand implements CommandExecutor
                         rpgPlayer.tell(c.aqua + skillType.getSkill().getName() + ": " + c.gray + skillType.getSkill().getId());
                     }
                 } else if(action.equalsIgnoreCase("have") || action.equalsIgnoreCase("h")){
-                    if(rpgPlayer.getSkillList().keySet().size() > 0){
+                    if(rpgPlayer.getActiveSkillList().size() > 0){
                         rpgPlayer.tell("Your skills:");
-                        for(SkillType skillType : rpgPlayer.getSkillList().keySet() ){
-                            rpgPlayer.tell(c.gray + skillType.toString() + " : " + c.aqua + rpgPlayer.getSkill(skillType).getLevel());
+                        for(Skill skill : rpgPlayer.getActiveSkillList() ){
+                            rpgPlayer.tell(c.gray + skill.getName() + " : " + c.aqua + skill.getLevel());
                         }
                     } else {
                         rpgPlayer.tell("You don't have any skills equipped.");
@@ -55,23 +55,24 @@ public class SkillSchemeCommand implements CommandExecutor
                 } else if(action.equalsIgnoreCase("clear") || action.equalsIgnoreCase("c")){
                     rpgPlayer.tell("Your skills have been cleared.");
                     rpgPlayer.clearSkills();
-                } else if(action.equalsIgnoreCase("remove") || action.equalsIgnoreCase("r")){
-                    if(args.length < 3){
-                        rpgPlayer.tell("Missing parameter: please list the skill you want to remove.");
-                        return true;
-                    }
-                    action = args[2];
-                    try{
-                        SkillType skillType = SkillType.valueOf(action);
-                        rpgPlayer.removeSkill(skillType);
-                        rpgPlayer.tell("removed " + args[1]);
-                    } catch (Exception e){
-                        rpgPlayer.tell("Malformed parameter: please provide a valid skill.");
-                    }
-                    SkillType skillType = SkillType.valueOf(args[2]);
-                    rpgPlayer.removeSkill(skillType);
-                    rpgPlayer.tell("removed " + args[1]);
-                } else if(action.equalsIgnoreCase("add") || action.equalsIgnoreCase("a")){
+//                } else if(action.equalsIgnoreCase("remove") || action.equalsIgnoreCase("r")){
+//                    if(args.length < 3){
+//                        rpgPlayer.tell("Missing parameter: please list the skill you want to remove.");
+//                        return true;
+//                    }
+//                    action = args[2];
+//                    try{
+//                        SkillType skillType = SkillType.valueOf(action);
+//                        rpgPlayer.removeSkill(skillType);
+//                        rpgPlayer.tell("removed " + args[1]);
+//                    } catch (Exception e){
+//                        rpgPlayer.tell("Malformed parameter: please provide a valid skill.");
+//                    }
+//                    SkillType skillType = SkillType.valueOf(args[2]);
+//                    rpgPlayer.removeSkill(skillType);
+//                    rpgPlayer.tell("removed " + args[1]);
+                 }
+                  else if(action.equalsIgnoreCase("add") || action.equalsIgnoreCase("a")){
                     if(args.length < 3){
                         rpgPlayer.tell("Missing parameter: please list the skill you want to add.");
                         return true;
@@ -197,8 +198,8 @@ public class SkillSchemeCommand implements CommandExecutor
                 SkillData.initializeData();
                 Xliff.initializeData();
                 for(RpgPlayer loop : RpgPlayer.getRpgPlayers()){
-                    HashMap<SkillType, Skill> skillList = rpgPlayer.getSkillList();
-                    for(Skill skill : skillList.values()){
+                    ArrayList<Skill> skillList = rpgPlayer.getActiveSkillList();
+                    for(Skill skill : skillList){
                         skill.initData();
                     }
                 }

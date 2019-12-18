@@ -1,6 +1,7 @@
 package plugin.sirlich.core;
 
 import com.connorlinfoot.actionbarapi.ActionBarAPI;
+import com.sun.org.apache.xalan.internal.xsltc.dom.ArrayNodeListIterator;
 import org.bukkit.scheduler.BukkitRunnable;
 import plugin.sirlich.SkillScheme;
 import plugin.sirlich.skills.meta.*;
@@ -16,7 +17,6 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import java.lang.reflect.Constructor;
-import java.time.chrono.IsoEra;
 import java.util.*;
 
 public class RpgPlayer
@@ -199,23 +199,32 @@ public class RpgPlayer
         }
     }
 
-    private HashMap<SkillType, Skill> skillList = new HashMap<SkillType, Skill>();
+    private ArrayList<Skill> activeSkillList = new ArrayList<Skill>();
+    private HashMap<ClassType, ArrayList<SimpleSkill>> loadouts = new HashMap<ClassType, ArrayList<SimpleSkill>>();
 
-    public HashMap<SkillType, Skill> getSkillList(){
-        return skillList;
+    public ArrayList<Skill> getActiveSkillList(){
+        return activeSkillList;
     }
 
     public boolean hasSkill(SkillType skillType){
-        return skillList.containsKey(skillType);
-    }
-
-    public Skill getSkill(SkillType skillType){
-        return skillList.get(skillType);
+        return activeSkillList.contains(skillType);
     }
 
     public void addSkill(SimpleSkill simpleSkill){
         System.out.println("Adding skill!");
         addSkill(simpleSkill.getSkillType(),simpleSkill.getLevel() - 1);
+    }
+
+    //Sets player loadout, based on
+    public void setLoadout(ClassType classType, ArrayList<SimpleSkill> simpleSkills){
+        loadouts.put(classType, simpleSkills);
+    }
+
+    //Apply skills for a specific loadout
+    public void applySkills(ClassType classType){
+        for(SimpleSkill simpleSkill : loadouts.get(classType)){
+            addSkill(simpleSkill);
+        }
     }
 
     public void addSkill(SkillType skillType, int level){
@@ -226,7 +235,7 @@ public class RpgPlayer
             Constructor<Skill> constructor = clazz.getConstructor(RpgPlayer.class,int.class);
             Skill skill = (Skill) constructor.newInstance(this,level);
             skill.onEnable();
-            skillList.put(skillType,skill);
+            activeSkillList.add(skill);
             refreshPassiveModifiers();
         } catch (Exception e){
             System.out.println("WARNING! Something terrible has occurred in the reflection.");
@@ -271,20 +280,13 @@ public class RpgPlayer
         location.setWorld(getPlayer().getLocation().getWorld());
         getPlayer().teleport(location);
     }
-    public void removeSkill(SkillType skillType){
-        if(skillList.containsKey(skillType)){
-            skillList.get(skillType).onDisable();
-            skillList.remove(skillType);
-        }
-        refreshPassiveModifiers();
-    }
 
     public void clearSkills(){
-        for(Skill skill : skillList.values()){
+        for(Skill skill : activeSkillList){
             skill.onDisable();
         }
         refreshPassiveModifiers();
-        skillList.clear();
+        activeSkillList.clear();
     }
 
     public boolean didJustAttack(){
