@@ -263,7 +263,13 @@ public class RpgPlayer
 
     public void applySkillsFromArmor(){
         if(WeaponUtils.isWearingFullSet(getPlayer())){
-            RpgPlayer.getRpgPlayer(getPlayer()).applySkills(WeaponUtils.getClassTypeFromArmor(getPlayer()));
+            ClassType wearing = WeaponUtils.getClassTypeFromArmor(getPlayer());
+
+            //This is cause sometimes players will queue up multiple pieces of armor at once,
+            //and cause spam.
+            if(wearing != classType){
+                RpgPlayer.getRpgPlayer(getPlayer()).applySkills(wearing);
+            }
         }
 
         //Players with a UNDEFINED class shoulden't get spammed

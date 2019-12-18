@@ -101,6 +101,7 @@ public class SkillSchemeCommand implements CommandExecutor
             }else if(action.equalsIgnoreCase("class") || action.equalsIgnoreCase("c")){
                 if(args.length < 2){
                     WeaponUtils.giveLoadout(rpgPlayer,ClassType.RANGER);
+                    rpgPlayer.applySkillsFromArmor();
                     rpgPlayer.tell("Default applied. Specify like: " + Color.gray + "[p]aladin, [f]ighter, [ra]nger, [ro]gue, [w]arlock");
                     return true;
                 }
@@ -121,6 +122,8 @@ public class SkillSchemeCommand implements CommandExecutor
                     WeaponUtils.giveLoadout(rpgPlayer,ClassType.RANGER);
                     rpgPlayer.tell("Default applied. Specify like: " + Color.gray + "[p]aladin, [f]ighter, [ra]nger, [ro]gue, [w]arlock");
                 }
+                rpgPlayer.applySkillsFromArmor();
+
             } else if(action.equalsIgnoreCase("team") || action.equalsIgnoreCase("t")){
                 if(args.length < 2){
                     rpgPlayer.tell("Please include an argument: " + Color.gray + "[g]et, [s]et, [l]ist, [r]eset");
