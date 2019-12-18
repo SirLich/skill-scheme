@@ -234,6 +234,7 @@ public class RpgPlayer
 
     //Apply skills for a specific loadout
     public void applySkills(ClassType classType){
+        refreshSessionToken();
         playSound(Sound.BLOCK_CONDUIT_DEACTIVATE);
         clearSkills();
         setClassType(classType);
@@ -253,7 +254,12 @@ public class RpgPlayer
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(SkillScheme.getInstance(), new Runnable() {
             public void run() {
                 try {
-                    RpgPlayer.getRpgPlayer(Bukkit.getPlayer(saved_uuid)).applySkillsFromArmor();
+                    ClassType wearing = WeaponUtils.getClassTypeFromArmor(getPlayer());
+                    //This is cause sometimes players will queue up multiple pieces of armor at once,
+                    //and cause spam.
+                    if(wearing != classType){
+                        RpgPlayer.getRpgPlayer(Bukkit.getPlayer(saved_uuid)).applySkillsFromArmor();
+                    }
                 } catch (Exception e){
                     System.out.println("That player UUID is null!");
                 }
@@ -264,12 +270,7 @@ public class RpgPlayer
     public void applySkillsFromArmor(){
         if(WeaponUtils.isWearingFullSet(getPlayer())){
             ClassType wearing = WeaponUtils.getClassTypeFromArmor(getPlayer());
-
-            //This is cause sometimes players will queue up multiple pieces of armor at once,
-            //and cause spam.
-            if(wearing != classType){
-                RpgPlayer.getRpgPlayer(getPlayer()).applySkills(wearing);
-            }
+            RpgPlayer.getRpgPlayer(getPlayer()).applySkills(wearing);
         }
 
         //Players with a UNDEFINED class shoulden't get spammed
@@ -340,6 +341,7 @@ public class RpgPlayer
         for(Skill skill : activeSkillList){
             skill.onDisable();
         }
+        refreshSessionToken();
         refreshPassiveModifiers();
         activeSkillList.clear();
     }

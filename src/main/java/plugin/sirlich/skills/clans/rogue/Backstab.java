@@ -1,4 +1,4 @@
-package plugin.sirlich.skills.clans.Rogue;
+package plugin.sirlich.skills.clans.rogue;
 
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;

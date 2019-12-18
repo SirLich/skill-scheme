@@ -1,7 +1,6 @@
-package plugin.sirlich.skills.clans.rogue;
+package plugin.sirlich.skills.clans.ranger;
 
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.util.Vector;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.skills.meta.ChargeSkill;

@@ -1,12 +1,12 @@
 package plugin.sirlich.skills.meta;
 
 
-import plugin.sirlich.skills.clans.Rogue.*;
+import plugin.sirlich.skills.clans.rogue.*;
 import plugin.sirlich.skills.clans.fighter.BullsCharge;
 import plugin.sirlich.skills.clans.warlock.FireBlast;
 import plugin.sirlich.skills.clans.warlock.IcePrison;
 import plugin.sirlich.skills.clans.any.BreakFall;
-import plugin.sirlich.skills.clans.rogue.*;
+import plugin.sirlich.skills.clans.ranger.*;
 import plugin.sirlich.skills.clans.warlock.ArcticArmor;
 import plugin.sirlich.skills.oc.*;
 

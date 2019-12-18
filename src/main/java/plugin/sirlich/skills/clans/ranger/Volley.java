@@ -1,4 +1,4 @@
-package plugin.sirlich.skills.clans.rogue;
+package plugin.sirlich.skills.clans.ranger;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Arrow;
@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.core.RpgProjectile;
 import plugin.sirlich.skills.meta.PrimedSkill;

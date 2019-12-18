@@ -1,8 +1,7 @@
-package plugin.sirlich.skills.clans.Rogue;
+package plugin.sirlich.skills.clans.rogue;
 
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.skills.meta.Skill;
-import org.bukkit.ChatColor;
 
 import java.util.ArrayList;
 

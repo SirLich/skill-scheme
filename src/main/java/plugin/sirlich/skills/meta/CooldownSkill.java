@@ -124,6 +124,8 @@ public class CooldownSkill extends Skill
 
     @Override
     public void onEnable(){
+        refreshCooldown();
+        //Turn on charge-bar
         schedularID = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(SkillScheme.getInstance(), new Runnable() {
             public void run() {
                 if(cooldown && showActionBar()){

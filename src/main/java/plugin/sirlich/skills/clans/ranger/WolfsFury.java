@@ -1,9 +1,8 @@
-package plugin.sirlich.skills.clans.rogue;
+package plugin.sirlich.skills.clans.ranger;
 
 import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import plugin.sirlich.core.RpgPlayer;

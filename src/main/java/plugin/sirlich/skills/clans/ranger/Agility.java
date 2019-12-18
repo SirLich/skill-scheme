@@ -1,13 +1,11 @@
-package plugin.sirlich.skills.clans.rogue;
+package plugin.sirlich.skills.clans.ranger;
 
 import org.bukkit.Material;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.skills.meta.RageSkill;
-import plugin.sirlich.skills.triggers.Trigger;
 import plugin.sirlich.skills.triggers.Trigger;
 import plugin.sirlich.utilities.WeaponUtils;
 
@@ -49,6 +47,12 @@ public class Agility extends RageSkill {
 
     @Override
     public void onLeftClick(Trigger event){
+        endRageEarly();
+    }
+
+    @Override
+    public void onDisable() {
+        super.onDisable();
         endRageEarly();
     }
 

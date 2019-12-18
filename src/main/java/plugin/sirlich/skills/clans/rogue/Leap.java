@@ -1,4 +1,4 @@
-package plugin.sirlich.skills.clans.Rogue;
+package plugin.sirlich.skills.clans.rogue;
 
 import plugin.sirlich.skills.meta.CooldownSkill;
 import plugin.sirlich.core.RpgPlayer;
