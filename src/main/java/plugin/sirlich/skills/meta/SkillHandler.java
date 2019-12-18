@@ -3,6 +3,7 @@ package plugin.sirlich.skills.meta;
 import com.codingforcookies.armorequip.ArmorEquipEvent;
 import com.codingforcookies.armorequip.ArmorType;
 import com.connorlinfoot.actionbarapi.ActionBarAPI;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.player.*;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -19,6 +20,10 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.*;
 import org.bukkit.inventory.ItemStack;
 import plugin.sirlich.skills.triggers.Trigger;
+import plugin.sirlich.utilities.Color;
+import plugin.sirlich.utilities.WeaponUtils;
+
+import java.util.UUID;
 
 import static plugin.sirlich.utilities.WeaponUtils.*;
 
@@ -55,9 +60,15 @@ public class SkillHandler implements Listener
         }
     }
 
+    //Handles armor equip and de-equip
     @EventHandler
     public void onArmorEquip(ArmorEquipEvent event){
-        
+        final UUID uuid = event.getPlayer().getUniqueId();
+        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(SkillScheme.getInstance(), new Runnable() {
+            public void run() {
+                RpgPlayer.getRpgPlayer(Bukkit.getPlayer(uuid)).applySkillsFromArmor();
+            }
+        }, 5);
     }
 
     /*

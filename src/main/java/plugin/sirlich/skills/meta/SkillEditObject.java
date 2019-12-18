@@ -120,10 +120,6 @@ public class SkillEditObject
             return;
         }
 
-        if(announceLoadout){
-            this.parent.tell("Your loadout has been applied:");
-        }
-
         ArrayList<SimpleSkill> loadout = new ArrayList<SimpleSkill>();
 
         //This adds the "default" skills for each class. For example ManaRegen
@@ -144,6 +140,18 @@ public class SkillEditObject
 
         //Apply
         parent.setLoadout(classType, loadout);
+
+        //Announce
+        if(announceLoadout){
+            //Apply skills if earing armor
+            if(WeaponUtils.isWearingFullSet(parent.getPlayer())){
+                parent.applySkillsFromArmor();
+            } else {
+
+                //Save skills for later
+                this.parent.tell("Skills for " + classType.toString().toLowerCase() + " have been saved.");
+            }
+        }
     }
 
     public ClassType getClassType()

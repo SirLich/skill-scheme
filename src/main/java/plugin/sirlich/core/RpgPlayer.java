@@ -4,6 +4,7 @@ import com.connorlinfoot.actionbarapi.ActionBarAPI;
 import org.bukkit.scheduler.BukkitRunnable;
 import plugin.sirlich.SkillScheme;
 import plugin.sirlich.skills.meta.*;
+import plugin.sirlich.utilities.WeaponUtils;
 import plugin.sirlich.utilities.Xliff;
 import plugin.sirlich.utilities.Color;
 import org.bukkit.Bukkit;
@@ -221,8 +222,21 @@ public class RpgPlayer
 
     //Apply skills for a specific loadout
     public void applySkills(ClassType classType){
+        playSound(Sound.BLOCK_CONDUIT_DEACTIVATE);
+        clearSkills();
+        tell("You applied: " + classType.toString().toLowerCase());
         for(SimpleSkill simpleSkill : loadouts.get(classType)){
+            tell(" - " + simpleSkill.getSkillType().getSkill().getName());
             addSkill(simpleSkill);
+        }
+    }
+
+    public void applySkillsFromArmor(){
+        if(WeaponUtils.isWearingFullSet(getPlayer())){
+            RpgPlayer.getRpgPlayer(getPlayer()).applySkills(WeaponUtils.getClassTypeFromArmor(getPlayer()));
+        } else {
+            tell("You unequiped your class.");
+            clearSkills();
         }
     }
 

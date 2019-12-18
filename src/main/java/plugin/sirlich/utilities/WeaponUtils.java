@@ -3,6 +3,7 @@ package plugin.sirlich.utilities;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.skills.meta.ClassType;
 
@@ -16,9 +17,57 @@ public class WeaponUtils {
         return isMeleeWeapon(material) || material.equals(Material.BOW);
     }
 
+    public static boolean isWearingFullSet(Player player){
+        return getClassTypeFromArmor(player) != ClassType.UNDEFINED;
+    }
+
+    public static ClassType getClassTypeFromArmor(Player player){
+        PlayerInventory inventory = player.getInventory();
+        try{
+            if(inventory.getChestplate().getType() == Material.DIAMOND_CHESTPLATE &&
+            inventory.getLeggings().getType() == Material.DIAMOND_LEGGINGS &&
+            inventory.getBoots().getType() == Material.DIAMOND_BOOTS){
+                return ClassType.PALADIN;
+            }else
+
+            if(inventory.getChestplate().getType() == Material.GOLDEN_CHESTPLATE &&
+                    inventory.getLeggings().getType() == Material.GOLDEN_LEGGINGS &&
+                    inventory.getBoots().getType() == Material.GOLDEN_BOOTS){
+                return ClassType.WARLOCK;
+            } else
+
+            if(inventory.getChestplate().getType() == Material.CHAINMAIL_CHESTPLATE &&
+                    inventory.getLeggings().getType() == Material.CHAINMAIL_LEGGINGS &&
+                    inventory.getBoots().getType() == Material.CHAINMAIL_BOOTS){
+                return ClassType.RANGER;
+            }else
+
+            if(inventory.getChestplate().getType() == Material.LEATHER_CHESTPLATE &&
+                    inventory.getLeggings().getType() == Material.LEATHER_LEGGINGS &&
+                    inventory.getBoots().getType() == Material.LEATHER_BOOTS){
+                return ClassType.ROGUE;
+            }else
+
+            if(inventory.getChestplate().getType() == Material.IRON_CHESTPLATE &&
+                    inventory.getLeggings().getType() == Material.IRON_LEGGINGS &&
+                    inventory.getBoots().getType() == Material.IRON_BOOTS){
+                return ClassType.FIGHTER;
+            } else {
+                return ClassType.UNDEFINED;
+            }
+        }
+
+
+        //Its ok to catch this -its just a null catch for null armor.
+        catch(Exception e){
+            return ClassType.UNDEFINED;
+        }
+    }
+
     public static boolean isMeleeWeapon(ItemStack itemStack){
         return isMeleeWeapon(itemStack.getType());
     }
+
     public static boolean isMeleeWeapon(Material material){
         return isSword(material) || isAxe(material);
     }

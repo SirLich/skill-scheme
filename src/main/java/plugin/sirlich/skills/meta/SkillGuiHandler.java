@@ -125,7 +125,6 @@ public class SkillGuiHandler implements Listener
         if(rpgPlayer.getPlayerState().canInstantlyEquipSkills()){
             rpgPlayer.clearSkills();
             rpgPlayer.getSkillEditObject().addSkills(true);
-            rpgPlayer.tellX("SkillGuiHandler.skills_have_been_equipped");
         } else {
             rpgPlayer.playSoundX("SkillGuiHandler.click_accept_2");
             rpgPlayer.tellX("SkillGuiHandler.skills_have_been_saved");
