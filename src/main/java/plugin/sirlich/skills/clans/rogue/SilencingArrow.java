@@ -11,12 +11,19 @@ import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.core.RpgProjectile;
 import plugin.sirlich.skills.meta.PrimedSkill;
 import plugin.sirlich.skills.triggers.Trigger;
+import plugin.sirlich.utilities.WeaponUtils;
 
 public class SilencingArrow extends PrimedSkill {
     public SilencingArrow(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer,level,"SilencingArrow");
     }
     //Handle the player getting hit with an arrow
+
+
+    @Override
+    public boolean showActionBar() {
+        return WeaponUtils.isBow(getRpgPlayer().getPlayer().getInventory().getItemInMainHand());
+    }
 
     @Override
     public void onArrowHitEntity(EntityDamageByEntityEvent event){
