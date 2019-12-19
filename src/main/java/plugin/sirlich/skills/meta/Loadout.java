@@ -15,10 +15,19 @@ public class Loadout
 
     private HashMap<SkillKind, SimpleSkill> simpleSkillMap = new HashMap<SkillKind, SimpleSkill>();
 
+
     public Loadout(ClassType classType, RpgPlayer parent, int points){
         this.classType = classType;
         this.points = points;
         this.parent = parent;
+    }
+
+    public SimpleSkill getSimpleSkill(SkillKind skillKind){
+        return simpleSkillMap.get(skillKind);
+    }
+
+    public HashMap<SkillKind, SimpleSkill> getSimpleSkillMap() {
+        return simpleSkillMap;
     }
 
     public ArrayList<SimpleSkill> getSimpleSkills(){

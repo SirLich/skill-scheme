@@ -452,6 +452,10 @@ public class RpgPlayer
         return loadouts.get(this.classType);
     }
 
+    public HashMap<ClassType, Loadout> getLoadouts() {
+        return loadouts;
+    }
+
     //Returns loadout based on the passed in class type
     public Loadout getLoadout(ClassType classType){
         return  loadouts.get(classType);
