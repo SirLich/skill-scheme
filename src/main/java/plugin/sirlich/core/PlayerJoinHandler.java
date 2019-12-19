@@ -7,9 +7,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import plugin.sirlich.skills.meta.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class PlayerJoinHandler implements Listener
 {
@@ -26,7 +29,7 @@ public class PlayerJoinHandler implements Listener
     public static void initializePlayerData(Player player){
 
         //Make new RPGPlayer!
-        RpgPlayer.addPlayer(player);
+        RpgPlayer rpgPlayer = RpgPlayer.addPlayer(player);
 
         String playerUuid = player.getUniqueId().toString();
         File playerYml = new File(SkillScheme.getInstance().getDataFolder() + "/players/" + playerUuid + ".yml");
@@ -41,7 +44,28 @@ public class PlayerJoinHandler implements Listener
                 playerConfig.set("info.name", player.getName());
             }
 
-            //TODO Load skills into Loadouts
+            //Add loadout data, based on the player configs.
+            for(ClassType classType : ClassType.values()){
+
+                //Skip classes if they don't exist
+                if(!playerConfig.contains("class." + classType.toString().toLowerCase())){
+                    continue;
+                }
+                //Read points.
+                int points = playerConfig.getInt("class." + classType.toString().toLowerCase() + ".points");
+                Loadout loadout = rpgPlayer.addLoadout(classType, new Loadout(classType, rpgPlayer, points));
+
+                //Fill out
+                for(SkillKind skillKind : SkillKind.values()){
+                    String indexer = "class." + classType.toString().toLowerCase() + "." + skillKind.toString().toLowerCase();
+                    //Skip SkillKinds if they don't exist.
+                    if(!playerConfig.contains(indexer)){
+                        continue;
+                    }
+                    loadout.putSkill(skillKind, SkillType.valueOf(playerConfig.getString(indexer + ".type")), playerConfig.getInt(indexer + ".level"));
+                }
+            }
+
 
             //Save config
             try {

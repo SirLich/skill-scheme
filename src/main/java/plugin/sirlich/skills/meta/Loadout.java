@@ -31,6 +31,9 @@ public class Loadout
         return simpleSkills;
     }
 
+    public void putSkill(SkillKind skillKind, SkillType skillType, int level){
+        simpleSkillMap.put(skillKind, new SimpleSkill(skillType, level));
+    }
     /*
     Disgusting method to handle inventory clicks. This could definitely be improved.
      */

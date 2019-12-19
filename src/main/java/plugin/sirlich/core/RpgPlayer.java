@@ -57,11 +57,12 @@ public class RpgPlayer
         return rpgPlayerHashMap.containsKey(uuid);
     }
 
-    public static void addPlayer(Player player) {
+    public static RpgPlayer addPlayer(Player player) {
         RpgPlayer rpgPlayer = new RpgPlayer(player);
         rpgPlayer.classType = ClassType.UNDEFINED;
         rpgPlayerHashMap.put(player.getUniqueId(), rpgPlayer);
         playerHashMap.put(rpgPlayer, player.getUniqueId());
+        return rpgPlayer;
     }
 
     public static void removePlayer(Player player) {
@@ -155,14 +156,6 @@ public class RpgPlayer
     public RpgPlayer(Player player){
         RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
 
-        //TODO make this read from config
-        this.loadouts.put(ClassType.UNDEFINED, new Loadout(ClassType.UNDEFINED, rpgPlayer, 0));
-        this.loadouts.put(ClassType.WARLOCK, new Loadout(ClassType.WARLOCK, rpgPlayer, SkillData.getDefaultTokens(ClassType.WARLOCK)));
-        this.loadouts.put(ClassType.ROGUE, new Loadout(ClassType.ROGUE, rpgPlayer, SkillData.getDefaultTokens(ClassType.ROGUE)));
-        this.loadouts.put(ClassType.RANGER, new Loadout(ClassType.RANGER, rpgPlayer, SkillData.getDefaultTokens(ClassType.RANGER)));
-        this.loadouts.put(ClassType.FIGHTER, new Loadout(ClassType.FIGHTER, rpgPlayer, SkillData.getDefaultTokens(ClassType.FIGHTER)));
-        this.loadouts.put(ClassType.PALADIN, new Loadout(ClassType.PALADIN, rpgPlayer, SkillData.getDefaultTokens(ClassType.PALADIN)));
-
         this.sessionToken = UUID.randomUUID();
         this.player = player;
         this.team = "Default";
@@ -224,6 +217,11 @@ public class RpgPlayer
 
     //The list of loadouts the player has access to. This is based on their past editing.
     private HashMap<ClassType, Loadout> loadouts = new HashMap<ClassType, Loadout>();
+
+    public Loadout addLoadout(ClassType classType, Loadout loadout){
+        loadouts.put(classType, loadout);
+        return loadout;
+    }
 
     public ArrayList<Skill> getActiveSkillList(){
         return activeSkillList;
