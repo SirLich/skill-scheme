@@ -2,13 +2,12 @@ package plugin.sirlich.skills.meta;
 
 import plugin.sirlich.core.RpgPlayer;
 import plugin.sirlich.utilities.WeaponUtils;
-import plugin.sirlich.utilities.Color;
 import org.bukkit.event.inventory.ClickType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class SkillEditObject
+public class Loadout
 {
     private ClassType classType;
     private RpgPlayer parent;
@@ -16,9 +15,20 @@ public class SkillEditObject
 
     private HashMap<SkillKind, SimpleSkill> simpleSkillMap = new HashMap<SkillKind, SimpleSkill>();
 
-    public SkillEditObject(ClassType classType, RpgPlayer parent){
+    public Loadout(ClassType classType, RpgPlayer parent, int points){
         this.classType = classType;
+        this.points = points;
         this.parent = parent;
+    }
+
+    public ArrayList<SimpleSkill> getSimpleSkills(){
+        //Initialize parameterized list with
+        ArrayList<SimpleSkill> simpleSkills = new ArrayList<SimpleSkill>(SkillData.getDefaultSkills(classType));
+
+        //This adds the skills you were just editing.
+        simpleSkills.addAll(simpleSkillMap.values());
+
+        return simpleSkills;
     }
 
     /*
@@ -112,48 +122,6 @@ public class SkillEditObject
     return true;
     }
 
-    public void addSkills(boolean announceLoadout){
-        parent.refreshSessionToken();
-
-        //Don't run if skill size is 0
-        if(simpleSkillMap.size() == 0){
-            return;
-        }
-
-        ArrayList<SimpleSkill> loadout = new ArrayList<SimpleSkill>();
-
-        //This adds the "default" skills for each class. For example ManaRegen
-        for(SimpleSkill simpleSkill : SkillData.getDefaultSkills(classType)){
-            loadout.add(simpleSkill);
-        }
-
-        //This adds the skills you were just editing.
-        for(SimpleSkill simpleSkill : simpleSkillMap.values()){
-            //Announce
-            if(announceLoadout){
-                this.parent.tell(Color.dgray + " - " + Color.gray + simpleSkill.getSkillType().getSkill().getName() + ": " + Color.green + (simpleSkill.getLevel()));
-            }
-
-            //Add skills
-            loadout.add(simpleSkill);
-        }
-
-        //Apply
-        parent.setLoadout(classType, loadout);
-
-        //Announce
-        if(announceLoadout){
-            //Apply skills if earing armor
-            if(WeaponUtils.isWearingFullSet(parent.getPlayer())){
-                parent.applySkillsFromArmor();
-            } else {
-
-                //Save skills for later
-                this.parent.tell("Skills for " + classType.toString().toLowerCase() + " have been saved.");
-            }
-        }
-    }
-
     public ClassType getClassType()
     {
         return classType;
@@ -164,7 +132,16 @@ public class SkillEditObject
         this.classType = classType;
     }
 
+    public int getLevel(SkillKind skillKind, SkillType skillType){
+        if(simpleSkillMap.containsKey(skillKind)){
+            if(simpleSkillMap.get(skillKind).getSkillType() == skillType){
+                return simpleSkillMap.get(skillKind).getLevel();
+            }
+        }
+        return 0;
+    }
 
+    //Return zero if it isn't added yet
     public int getLevel(SkillKind skillKind){
         if (simpleSkillMap.containsKey(skillKind)) {
             return simpleSkillMap.get(skillKind).getLevel();
@@ -178,7 +155,8 @@ public class SkillEditObject
         simpleSkillMap.clear();
     }
 
-    public void giveLoadout(){
+    //This is unrelated to skills, but purely used for kit-pvp games where armor should be given
+    public void giveArmorLoadout(){
         WeaponUtils.giveLoadout(parent,classType);
     }
 

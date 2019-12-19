@@ -53,7 +53,7 @@ public class SkillSchemeCommand implements CommandExecutor
                     }
                 } else if(action.equalsIgnoreCase("clear") || action.equalsIgnoreCase("c")){
                     rpgPlayer.tell("Your skills have been cleared.");
-                    rpgPlayer.clearSkills();
+                    rpgPlayer.clearActiveSkills();
 //                } else if(action.equalsIgnoreCase("remove") || action.equalsIgnoreCase("r")){
 //                    if(args.length < 3){
 //                        rpgPlayer.tell("Missing parameter: please list the skill you want to remove.");

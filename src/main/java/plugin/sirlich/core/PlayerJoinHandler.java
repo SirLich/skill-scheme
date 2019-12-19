@@ -32,22 +32,24 @@ public class PlayerJoinHandler implements Listener
         File playerYml = new File(SkillScheme.getInstance().getDataFolder() + "/players/" + playerUuid + ".yml");
 
         if (playerYml.exists()) {
+            //Get old config
             FileConfiguration playerConfig = YamlConfiguration.loadConfiguration(playerYml);
 
-            String oldPlayerName = playerConfig.getString("basics.name");
-
-            if(oldPlayerName != player.getName()) {
-                playerConfig.set("basics.name", player.getName());
+            //Handle player name changes (sort of proof of concept, only really to see how configs work)
+            String oldPlayerName = playerConfig.getString("info.name");
+            if(!oldPlayerName.equals(player.getName())) {
+                playerConfig.set("info.name", player.getName());
             }
 
-            Integer playerConfigJoins = playerConfig.getInt("basics.timesjoined");
-            ++playerConfigJoins;
-            playerConfig.set("basics.timesjoined", playerConfigJoins);
+            //TODO Load skills into Loadouts
+
+            //Save config
             try {
                 playerConfig.save(playerYml);
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
         } else {
             System.out.println("Attempting to create core-file for: " + player.getName());
             if(createPlayerYml(player, playerYml, true)) {
@@ -65,8 +67,13 @@ public class PlayerJoinHandler implements Listener
             e.printStackTrace();
         }
         FileConfiguration playerConfig = YamlConfiguration.loadConfiguration(playerYml);
-        playerConfig.set("basics.name", player.getName());
-        playerConfig.set("basics.timesjoined", 0);
+        playerConfig.set("info.name", player.getName());
+        playerConfig.set("kit.warlock", player.getName());
+        playerConfig.set("kit.rogue", player.getName());
+        playerConfig.set("kit.ranger", player.getName());
+        playerConfig.set("kit.fighter", player.getName());
+        playerConfig.set("kit.paladin", player.getName());
+
         try {
             playerConfig.save(playerYml);
         } catch (IOException e) {

@@ -15,7 +15,6 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import java.lang.reflect.Constructor;
@@ -67,7 +66,7 @@ public class RpgPlayer
 
     public static void removePlayer(Player player) {
         RpgPlayer rpgPlayer = rpgPlayerHashMap.get(player.getUniqueId());
-        rpgPlayer.clearSkills();
+        rpgPlayer.clearActiveSkills();
         rpgPlayer.setWalkSpeedModifier(0.2);
         playerHashMap.remove(rpgPlayer);
         rpgPlayerHashMap.remove(player.getUniqueId());
@@ -154,10 +153,21 @@ public class RpgPlayer
     }
 
     public RpgPlayer(Player player){
-        this.skillEditObject = new SkillEditObject(ClassType.UNDEFINED, this);
+        RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
+
+        //TODO make this read from config
+        this.loadouts.put(ClassType.UNDEFINED, new Loadout(ClassType.UNDEFINED, rpgPlayer, 0));
+        this.loadouts.put(ClassType.WARLOCK, new Loadout(ClassType.WARLOCK, rpgPlayer, SkillData.getDefaultTokens(ClassType.WARLOCK)));
+        this.loadouts.put(ClassType.ROGUE, new Loadout(ClassType.ROGUE, rpgPlayer, SkillData.getDefaultTokens(ClassType.ROGUE)));
+        this.loadouts.put(ClassType.RANGER, new Loadout(ClassType.RANGER, rpgPlayer, SkillData.getDefaultTokens(ClassType.RANGER)));
+        this.loadouts.put(ClassType.FIGHTER, new Loadout(ClassType.FIGHTER, rpgPlayer, SkillData.getDefaultTokens(ClassType.FIGHTER)));
+        this.loadouts.put(ClassType.PALADIN, new Loadout(ClassType.PALADIN, rpgPlayer, SkillData.getDefaultTokens(ClassType.PALADIN)));
+
         this.sessionToken = UUID.randomUUID();
         this.player = player;
         this.team = "Default";
+
+        //TODO fix this default player state
         this.playerState = PlayerState.TESTING;
     }
 
@@ -198,9 +208,6 @@ public class RpgPlayer
     private String team;
     private double walkSpeedModifier;
 
-    private SkillEditObject skillEditObject;
-
-
     public void refreshPassiveModifiers(){
         float walkSpeed = (float) walkSpeedModifier + 0.2f;
         if(walkSpeed <= 0){
@@ -212,8 +219,11 @@ public class RpgPlayer
         }
     }
 
+    //The actual list of current skills that the player is using
     private ArrayList<Skill> activeSkillList = new ArrayList<Skill>();
-    private HashMap<ClassType, ArrayList<SimpleSkill>> loadouts = new HashMap<ClassType, ArrayList<SimpleSkill>>();
+
+    //The list of loadouts the player has access to. This is based on their past editing.
+    private HashMap<ClassType, Loadout> loadouts = new HashMap<ClassType, Loadout>();
 
     public ArrayList<Skill> getActiveSkillList(){
         return activeSkillList;
@@ -228,28 +238,29 @@ public class RpgPlayer
         addSkill(simpleSkill.getSkillType(),simpleSkill.getLevel() - 1);
     }
 
-    //Sets player loadout, based on
-    public void setLoadout(ClassType classType, ArrayList<SimpleSkill> simpleSkills){
-        loadouts.put(classType, simpleSkills);
+    //Saves the edited loadout back into the player
+    public void saveLoadout(ClassType classType, Loadout loadout){
+        loadouts.put(classType, loadout);
     }
 
-    //Apply skills for a specific loadout
+    //Apply skills for a specific class (usually based on armor)
     public void applySkills(ClassType classType){
         refreshSessionToken();
         playSound(Sound.BLOCK_CONDUIT_DEACTIVATE);
-        clearSkills();
+        clearActiveSkills();
         setClassType(classType);
 
         //Place holder for the eventual addition of class helmets.
         getPlayer().getInventory().setHelmet(new ItemStack(Material.GRAY_DYE));
 
-        tell("You applied: " + classType.toString().toLowerCase());
-        for(SimpleSkill simpleSkill : loadouts.get(classType)){
-            tell(" - " + simpleSkill.getSkillType().getSkill().getName());
-            addSkill(simpleSkill);
+        for(SimpleSkill simpleSkill : getLoadout(classType).getSimpleSkills()){
+
+            //Transfers the magic of reflection somewhere else.
+            addSkill(simpleSkill.getSkillType(), simpleSkill.getLevel());
         }
     }
 
+    //Apply skills from armor, delayed
     public void applySkillsFromArmor(UUID uuid){
         final UUID saved_uuid = uuid;
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(SkillScheme.getInstance(), new Runnable() {
@@ -268,6 +279,7 @@ public class RpgPlayer
         }, 5);
     }
 
+    //Apply skills based on player armor
     public void applySkillsFromArmor(){
         if(WeaponUtils.isWearingFullSet(getPlayer())){
             ClassType wearing = WeaponUtils.getClassTypeFromArmor(getPlayer());
@@ -276,14 +288,15 @@ public class RpgPlayer
 
         //Players with a UNDEFINED class shoulden't get spammed
         else if(getClassType() != ClassType.UNDEFINED){
-            tell("You unequiped your class.");
+            tell("You unequipped your class.");
             playSound(Sound.ENTITY_VILLAGER_NO);
             setClassType(ClassType.UNDEFINED);
             getPlayer().getInventory().setHelmet(new ItemStack(Material.AIR));
-            clearSkills();
+            clearActiveSkills();
         }
     }
 
+    //Actual method for adding a singular skill onto the players activeSkillList
     public void addSkill(SkillType skillType, int level){
         try{
             System.out.println(skillType);
@@ -297,22 +310,6 @@ public class RpgPlayer
         } catch (Exception e){
             System.out.println("WARNING! Something terrible has occurred in the reflection.");
         }
-
-
-    }
-
-    public void addEffect(PotionEffectType potionEffectType, int level, int ticks){
-        Collection<PotionEffect> effects = getPlayer().getActivePotionEffects();
-
-        //Search through effects for duplicates
-        for(PotionEffect effect : effects){
-
-            //Found a duplicate
-            if(effect.getType() == potionEffectType){
-
-            }
-        }
-
     }
 
     public void removeAllPotionEffects(){
@@ -326,7 +323,7 @@ public class RpgPlayer
         getPlayer().setExp(0);
         getPlayer().setFoodLevel(20);
         removeAllPotionEffects();
-        clearSkills();
+        clearActiveSkills();
     }
 
     public String getName(){
@@ -338,7 +335,7 @@ public class RpgPlayer
         getPlayer().teleport(location);
     }
 
-    public void clearSkills(){
+    public void clearActiveSkills(){
         for(Skill skill : activeSkillList){
             skill.onDisable();
         }
@@ -450,15 +447,15 @@ public class RpgPlayer
         refreshPassiveModifiers();
     }
 
-    public SkillEditObject getSkillEditObject()
+    //Returns loadout based on current class type of the rpgPlayer
+    public Loadout getLoadout()
     {
-        return skillEditObject;
+        return loadouts.get(this.classType);
     }
 
-    public void refreshSkillEditObject(ClassType classType)
-    {
-        this.getSkillEditObject().clearSkills();
-        this.getSkillEditObject().setClassType(classType);
+    //Returns loadout based on the passed in class type
+    public Loadout getLoadout(ClassType classType){
+        return  loadouts.get(classType);
     }
 
     public PlayerState getPlayerState()
@@ -466,6 +463,7 @@ public class RpgPlayer
         return playerState;
     }
 
+    //Set player state, affecting various things as well
     public void setPlayerState(PlayerState playerState)
     {
         this.playerState = playerState;
@@ -477,8 +475,8 @@ public class RpgPlayer
         } else if(playerState == PlayerState.LOBBY){
             wipe();
         } else if(playerState == PlayerState.GAME || playerState == PlayerState.TESTING){
-            getRpgPlayer(getPlayer()).getSkillEditObject().addSkills(true);
-            getRpgPlayer(getPlayer()).getSkillEditObject().giveLoadout();
+            getRpgPlayer(getPlayer()).getLoadout().giveArmorLoadout();
+            applySkillsFromArmor();
         }
     }
 

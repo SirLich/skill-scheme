@@ -36,7 +36,7 @@ public class Backstab extends Skill {
             getRpgPlayer().playWorldSound(backstab_sound);
             if(damager instanceof Player){
                 RpgPlayer rpgDamager = RpgPlayer.getRpgPlayer(damager.getUniqueId());
-                if(rpgDamager.getSkillEditObject().getClassType() == ClassType.ROGUE){
+                if(rpgDamager.getClassType() == ClassType.ROGUE){
                     event.setDamage(event.getDamage() * rogue_damage_reduction);
                 }
             }
