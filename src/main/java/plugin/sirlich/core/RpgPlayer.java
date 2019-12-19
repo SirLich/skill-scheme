@@ -253,10 +253,11 @@ public class RpgPlayer
         //Place holder for the eventual addition of class helmets.
         getPlayer().getInventory().setHelmet(new ItemStack(Material.GRAY_DYE));
 
+        tell("Your skills for have been applied:");
         for(SimpleSkill simpleSkill : getLoadout(classType).getSimpleSkills()){
-
+            tell(Color.aqua + simpleSkill.getSkillType().getSkill().getName() + ": Level " + Color.gray + simpleSkill.getLevel().toString());
             //Transfers the magic of reflection somewhere else.
-            addSkill(simpleSkill.getSkillType(), simpleSkill.getLevel());
+            addSkill(simpleSkill.getSkillType(), simpleSkill.getLevel() - 1);
         }
     }
 
@@ -286,7 +287,7 @@ public class RpgPlayer
             RpgPlayer.getRpgPlayer(getPlayer()).applySkills(wearing);
         }
 
-        //Players with a UNDEFINED class shoulden't get spammed
+        //Players with a UNDEFINED class should'nt get spammed
         else if(getClassType() != ClassType.UNDEFINED){
             tell("You unequipped your class.");
             playSound(Sound.ENTITY_VILLAGER_NO);

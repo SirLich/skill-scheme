@@ -21,6 +21,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import plugin.sirlich.utilities.WeaponUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -117,8 +118,12 @@ public class SkillGuiHandler implements Listener
 
         if(rpgPlayer.getPlayerState().canInstantlyEquipSkills()){
 
-            //Attempt to give skills, with a delay
-            rpgPlayer.applySkillsFromArmor(player.getUniqueId());
+            //Give skills right away:
+            if(WeaponUtils.isWearingFullSet(rpgPlayer.getPlayer())){
+                rpgPlayer.applySkillsFromArmor();
+            } else{
+                rpgPlayer.tell("Your skills have been saved. Equip your kit to use them.");
+            }
         } else {
             rpgPlayer.playSoundX("SkillGuiHandler.click_accept_2");
             rpgPlayer.tellX("SkillGuiHandler.skills_have_been_saved");
