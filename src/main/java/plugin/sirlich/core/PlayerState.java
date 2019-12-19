@@ -38,7 +38,12 @@ public enum PlayerState
     - No access to skills
     - Placed into spectator mode on enter.
      */
-    SPECTATOR(false,false, false);
+    SPECTATOR(false,false, false),
+
+    /*
+    Used specifically for the clans game-mode.
+     */
+    CLANS(true,true,true);
 
     private final boolean canUseEditor;
     private final boolean canBreakBlocks;

@@ -12,6 +12,7 @@ import plugin.sirlich.skills.meta.Loadout;
 import plugin.sirlich.skills.meta.SkillKind;
 
 import java.io.File;
+import java.io.IOException;
 
 public class PlayerLeaveHandler implements Listener
 {
@@ -19,7 +20,6 @@ public class PlayerLeaveHandler implements Listener
     public void onPlayerLeave(PlayerQuitEvent event){
         Player player = event.getPlayer();
         RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
-        RpgPlayer.removePlayer(player);
 
         String playerUuid = player.getUniqueId().toString();
         File playerYml = new File(SkillScheme.getInstance().getDataFolder() + "/players/" + playerUuid + ".yml");
@@ -35,12 +35,20 @@ public class PlayerLeaveHandler implements Listener
                 //Loop through skill kinds
                 for(SkillKind skillKind : loadout.getSimpleSkillMap().keySet()){
                     String indexer = "class." + classType.toString().toLowerCase() + "." + skillKind.toString().toLowerCase();
-                    playerConfig.set(indexer + ".type", loadout.getSimpleSkill(skillKind).toString());
+                    playerConfig.set(indexer + ".type", loadout.getSimpleSkill(skillKind).getSkillType().toString());
                     playerConfig.set(indexer + ".level", loadout.getSimpleSkill(skillKind).getLevel());
                 }
+            }
+            //Save config
+            try {
+                playerConfig.save(playerYml);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         } else {
             System.out.println("WARNING: Illegal player exit.");
         }
+
+        RpgPlayer.removePlayer(player);
     }
 }

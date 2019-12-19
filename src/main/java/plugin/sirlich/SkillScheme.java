@@ -30,11 +30,11 @@ public class SkillScheme extends JavaPlugin
         loadServerConfigFromYML();
         registerEvents();
         registerCommands();
-        for(Player player : Bukkit.getOnlinePlayers()){
-            PlayerJoinHandler.initializePlayerData(player);
-        }
         SkillData.initializeData();
         Xliff.initializeData();
+        for(Player player : Bukkit.getOnlinePlayers()) {
+            PlayerJoinHandler.initializePlayerData(player);
+        }
     }
 
     @Override
@@ -81,7 +81,7 @@ public class SkillScheme extends JavaPlugin
 
         world = Bukkit.getWorld(config.getString("world"));
         WORLD_SPAWN = new Location(world,config.getDouble("spawn_location.x"), config.getDouble("spawn_location.y"),config.getDouble("spawn_location.z"),Float.parseFloat(config.getString("spawn_location.pitch")),Float.parseFloat(config.getString("spawn_location.yaw")));
-        PLAYER_STATE_ON_JOIN = PlayerState.valueOf(config.getString("playerStateOnJoin"));
+        PLAYER_STATE_ON_JOIN = PlayerState.valueOf(config.getString("player_state_on_join"));
     }
 
     public static World getWorld()

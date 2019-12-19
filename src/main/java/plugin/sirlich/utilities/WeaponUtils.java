@@ -106,7 +106,6 @@ public class WeaponUtils {
 
     public static void giveLoadout(RpgPlayer rpgPlayer, ClassType classType){
         Player player = rpgPlayer.getPlayer();
-        player.getInventory().clear();
         if(classType == ClassType.PALADIN){
             player.getInventory().setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE));
             player.getInventory().setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS));

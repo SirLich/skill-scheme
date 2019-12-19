@@ -9,6 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import plugin.sirlich.skills.meta.*;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,6 +50,17 @@ public class PlayerJoinHandler implements Listener
 
                 //Skip classes if they don't exist
                 if(!playerConfig.contains("class." + classType.toString().toLowerCase())){
+                    System.out.println("Can't find class for player. Adding default!");
+
+                    //Only add if its not UNDEFINED
+                    if(classType != ClassType.UNDEFINED){
+                        System.out.println(classType.toString());
+                        System.out.println(rpgPlayer.getName());
+                        System.out.println(SkillData.getDefaultTokens(classType).toString());
+                        rpgPlayer.addLoadout(classType, new Loadout(classType, rpgPlayer, SkillData.getDefaultTokens(classType)));
+                    } else {
+                        rpgPlayer.addLoadout(classType, new Loadout(ClassType.UNDEFINED, rpgPlayer, 0));
+                    }
                     continue;
                 }
                 //Read points.
@@ -66,7 +78,6 @@ public class PlayerJoinHandler implements Listener
                 }
             }
 
-
             //Save config
             try {
                 playerConfig.save(playerYml);
@@ -78,6 +89,7 @@ public class PlayerJoinHandler implements Listener
             System.out.println("Attempting to create core-file for: " + player.getName());
             if(createPlayerYml(player, playerYml, true)) {
                 System.out.println("Created YML file for: " + player.getName());
+                initializePlayerData(player);
             } else {
                 System.out.println("Failed to create YML file for: " + player.getName());
             }
@@ -91,12 +103,8 @@ public class PlayerJoinHandler implements Listener
             e.printStackTrace();
         }
         FileConfiguration playerConfig = YamlConfiguration.loadConfiguration(playerYml);
+
         playerConfig.set("info.name", player.getName());
-        playerConfig.set("kit.warlock", player.getName());
-        playerConfig.set("kit.rogue", player.getName());
-        playerConfig.set("kit.ranger", player.getName());
-        playerConfig.set("kit.fighter", player.getName());
-        playerConfig.set("kit.paladin", player.getName());
 
         try {
             playerConfig.save(playerYml);

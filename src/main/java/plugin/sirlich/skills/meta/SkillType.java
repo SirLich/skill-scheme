@@ -35,7 +35,6 @@ public enum SkillType {
     Precision(new Precision(null, 0)),
     RopedArrow(new RopedArrow(null, 0)),
     SharpShooter(new SharpShooter(null, 0)),
-    StunningShot(new StunningShot(null, 0)),
     VitalitySpores(new VitalitySpores(null, 0)),
     Volley(new Volley(null, 0)),
     Backstab(new Backstab(null, 0)),

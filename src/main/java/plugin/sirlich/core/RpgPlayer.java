@@ -62,6 +62,7 @@ public class RpgPlayer
         rpgPlayer.classType = ClassType.UNDEFINED;
         rpgPlayerHashMap.put(player.getUniqueId(), rpgPlayer);
         playerHashMap.put(rpgPlayer, player.getUniqueId());
+        System.out.println("Adding new player to RpgPlayer: " + rpgPlayer.getName());
         return rpgPlayer;
     }
 
@@ -159,9 +160,6 @@ public class RpgPlayer
         this.sessionToken = UUID.randomUUID();
         this.player = player;
         this.team = "Default";
-
-        //TODO fix this default player state
-        this.playerState = PlayerState.TESTING;
     }
 
     public boolean isSilenced() {
@@ -478,7 +476,9 @@ public class RpgPlayer
         } else if(playerState == PlayerState.LOBBY){
             wipe();
         } else if(playerState == PlayerState.GAME || playerState == PlayerState.TESTING){
-            getRpgPlayer(getPlayer()).getLoadout().giveArmorLoadout();
+            getLoadout().giveArmorLoadout();
+            applySkillsFromArmor();
+        } else if(playerState == PlayerState.CLANS){
             applySkillsFromArmor();
         }
     }

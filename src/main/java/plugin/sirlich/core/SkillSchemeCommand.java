@@ -107,6 +107,7 @@ public class SkillSchemeCommand implements CommandExecutor
                 }
 
                 action = args[1];
+                System.out.println("Clearing inventory first!");
                 player.getInventory().clear();
                 if(action.equalsIgnoreCase("paladin") || action.equalsIgnoreCase("p")){
                     WeaponUtils.giveLoadout(rpgPlayer,ClassType.PALADIN);
