@@ -28,12 +28,24 @@
         </repository>
 
         <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/groups/public/</url>
+        </repository>
+
+        <repository>
             <id>illyria</id>
             <url>https://nexus.illyria.io/repository/maven-public/</url>
         </repository>
     </repositories>
 
     <dependencies>
+        <dependency>
+            <groupId>net.jitse</groupId>
+            <artifactId>npclib-api</artifactId>
+            <version>2.3-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
         <dependency>
             <groupId>com.massivecraft</groupId>
             <artifactId>SavageFactions</artifactId>

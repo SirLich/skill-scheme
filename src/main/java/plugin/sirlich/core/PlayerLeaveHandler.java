@@ -32,6 +32,7 @@ public class PlayerLeaveHandler implements Listener
             for(ClassType classType : ClassType.values()){
                 Loadout loadout = rpgPlayer.getLoadout(classType);
 
+                playerConfig.set("class." + classType.toString().toLowerCase() + ".points", loadout.getPoints());
                 //Loop through skill kinds
                 for(SkillKind skillKind : loadout.getSimpleSkillMap().keySet()){
                     String indexer = "class." + classType.toString().toLowerCase() + "." + skillKind.toString().toLowerCase();

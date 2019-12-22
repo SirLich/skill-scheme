@@ -63,6 +63,7 @@ public class PlayerJoinHandler implements Listener
                     }
                     continue;
                 }
+
                 //Read points.
                 int points = playerConfig.getInt("class." + classType.toString().toLowerCase() + ".points");
                 Loadout loadout = rpgPlayer.addLoadout(classType, new Loadout(classType, rpgPlayer, points));
