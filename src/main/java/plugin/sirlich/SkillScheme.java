@@ -1,5 +1,6 @@
 package plugin.sirlich;
 
+import net.jitse.npclib.NPCLib;
 import plugin.sirlich.core.*;
 import plugin.sirlich.skills.meta.SkillData;
 import plugin.sirlich.utilities.BlockUtils;
@@ -21,11 +22,13 @@ public class SkillScheme extends JavaPlugin
     private static World world;
     private static Location WORLD_SPAWN;
     private static SkillScheme instance;
+    private static NPCLib npcInstance;
     private static PlayerState PLAYER_STATE_ON_JOIN;
 
     @Override
     public void onEnable(){
         instance = this;
+        npcInstance = new NPCLib(this);
         createDataFolder();
         loadServerConfigFromYML();
         registerEvents();
@@ -48,6 +51,10 @@ public class SkillScheme extends JavaPlugin
     public static SkillScheme getInstance()
     {
         return instance;
+    }
+
+    public static NPCLib getNpcInstance(){
+        return npcInstance;
     }
 
 
