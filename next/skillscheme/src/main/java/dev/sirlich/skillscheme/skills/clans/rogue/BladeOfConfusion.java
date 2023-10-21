@@ -1,4 +1,4 @@
-package dev.sirlich.skillscheme.skills.oc;
+package dev.sirlich.skillscheme.skills.clans.rogue;
 
 import dev.sirlich.skillscheme.core.RpgPlayer;
 import dev.sirlich.skillscheme.skills.meta.PrimedSkill;
@@ -8,6 +8,9 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import java.util.Random;
 
+/**
+ * Randomizes the look direction of the target, on strike.
+ */
 public class BladeOfConfusion extends PrimedSkill {
     public BladeOfConfusion(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer, level,"BladeOfConfusion");
@@ -20,7 +23,7 @@ public class BladeOfConfusion extends PrimedSkill {
 
     @Override
     public void onSwordMeleeAttackOther(EntityDamageByEntityEvent event){
-        if(primed){
+        if (primed){
             primed = false;
             getRpgPlayer().playSound(Sound.BLOCK_IRON_TRAPDOOR_CLOSE);
             Random rand = new Random();
