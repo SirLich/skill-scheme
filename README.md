@@ -11,7 +11,12 @@ The inspiration for Skill Scheme comes from [Minplex Champions](https://www.mine
 
 This is hopelessly out of date, but I recorded this private [Youtube Video](https://www.youtube.com/watch?v=lHUul4Qp0wg) which shows the general idea.
 
+## Server 
+
+The Server folder contains an in-progress server (world, etc)
+
 ## Developing 
 
 This plugin was originally developed for *spigot*, around 2019/2020. In the latest iteration I'm attempting to use [paper](https://papermc.io/software/paper) for 1.20 Minecraft.
+
 

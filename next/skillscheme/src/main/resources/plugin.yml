@@ -1,0 +1,14 @@
+name: SkillScheme
+version: '0.1'
+main: dev.sirlich.skillscheme.SkillScheme.java
+api-version: '1.13'
+commands:
+   ss:
+     description: nothing here
+     usage: nothying here
+   server:
+     description: yeah
+     usage: yeah
+   leave:
+     description: yeah
+     usage: ueah
