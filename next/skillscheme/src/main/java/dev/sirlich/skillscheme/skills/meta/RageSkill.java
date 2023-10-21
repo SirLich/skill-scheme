@@ -3,11 +3,12 @@ package dev.sirlich.skillscheme.skills.meta;
 import dev.sirlich.skillscheme.SkillScheme;
 import dev.sirlich.skillscheme.core.RpgPlayer;
 import dev.sirlich.skillscheme.utilities.Color;
-import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
+/**
+ * A RageSkill is a skull which 
+ */
 public class RageSkill extends CooldownSkill{
 
     //Defaults

@@ -25,22 +25,13 @@ import dev.sirlich.skillscheme.utilities.WeaponUtils;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
-import org.bukkit.event.entity.EntityDeathEvent;
 
 
 public class SkillGuiHandler implements Listener 
 {
     //Inventory names
     private final String SELECT_CLASS_INVENTORY_NAME = "~";
-
-    @EventHandler
-    public void onExpSpawn(EntityDeathEvent event) {
-        System.out.println("ENTITY DIED 2");
-        event.setDroppedExp(100);
-    }
 
     //Handles opening the inventory
     @EventHandler

@@ -4,6 +4,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
 import dev.sirlich.skillscheme.core.RpgPlayer;
 import dev.sirlich.skillscheme.skills.meta.RageSkill;
 import dev.sirlich.skillscheme.skills.triggers.Trigger;
@@ -23,9 +24,12 @@ public class WolfsFury extends RageSkill {
         if(isEnraged()){
             double damage = event.getDamage();
             event.setCancelled(true);
+            
+            System.out.println("Hitting: ");
+            System.out.println(damage);
             if(event.getEntity() instanceof LivingEntity){
                 LivingEntity livingEntity = (LivingEntity) event.getEntity();
-                livingEntity.damage(damage, getRpgPlayer().getPlayer());
+                livingEntity.damage(damage);
             }
         }
     }

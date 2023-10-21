@@ -10,7 +10,6 @@ public class Cancelor implements Listener {
     //Cancel mob XP
     @EventHandler
     public void onExpSpawn(EntityDeathEvent event) {
-        System.out.println("ENTITY DIED");
         event.setDroppedExp(0);
     }
 
