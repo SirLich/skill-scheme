@@ -105,11 +105,12 @@ public class SkillData {
         if(yaml.contains("sounds")){
             for(String value : yaml.getConfigurationSection("sounds").getKeys(false)){
                 String key = fname.replace(".yml","") + "_" + value;
+                String soundString = yaml.getString("sounds." + value);
                 Sound sound;
                 try {
-                    sound = Sound.valueOf(yaml.getString("sounds." + value));
+                    sound = Sound.valueOf(soundString);
                 } catch(Exception e) {
-                    System.err.println("SOUND " +  key + " Doesn't exist.");
+                    System.err.println("SOUND " +  soundString + " Doesn't exist.");
                     sound = Sound.UI_BUTTON_CLICK;
                 }
 

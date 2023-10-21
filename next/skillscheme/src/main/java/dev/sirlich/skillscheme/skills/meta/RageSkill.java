@@ -7,7 +7,7 @@ import org.bukkit.Sound;
 import org.bukkit.scheduler.BukkitRunnable;
 
 /**
- * A RageSkill is a skull which 
+ * A RageSkill is a skill with a , and a ra
  */
 public class RageSkill extends CooldownSkill{
 

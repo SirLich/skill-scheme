@@ -4,23 +4,34 @@ import dev.sirlich.skillscheme.SkillScheme;
 import dev.sirlich.skillscheme.core.RpgPlayer;
 import dev.sirlich.skillscheme.skills.meta.TickingSkill;
 import dev.sirlich.skillscheme.utilities.Color;
-import org.bukkit.Sound;
-import org.bukkit.event.entity.ProjectileHitEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.ArrayList;
+import org.bukkit.Bukkit;
+import org.bukkit.Sound;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
+
 import java.util.List;
 
-public class ElfSpeed extends TickingSkill {
 
+/**
+ * Hit consecutive arrows in order to unlock a short-term boost of speed.
+ */
+public class ElfSpeed extends TickingSkill {
+    // Static Data
     private static String id = "ElfSpeed";
+    private static FileConfiguration yml = getYaml(id);
+
+    private static List<Integer> chargesNeeded = yml.getIntegerList("values.chargesNeeded");
+    private static List<Float> speedModifier = yml.getFloatList("values.speedModifier");
+    private static List<Float> duration = yml.getFloatList("values.duration");
+
+    // Internal State
     private int charges;
-    private static List<Integer> chargesNeeded = getYaml(id).getIntegerList("values.chargesNeeded");
-    private static List<Float> speedModifier = getYaml(id).getFloatList("values.speedModifier");
-    private static List<Float> duration = getYaml(id).getFloatList("values.duration");
+    private int schedularID;
 
     public ElfSpeed(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level,"ElfSpeed");
+        super(rpgPlayer, level, ElfSpeed.id);
     }
 
     @Override
@@ -33,35 +44,23 @@ public class ElfSpeed extends TickingSkill {
     }
 
     @Override
-    public ArrayList<String> getDescription(int level){
-        ArrayList<String> lorelines = new ArrayList<String>();
-        lorelines.add(Color.gray + Color.italic + "\"Fly, you fools!\"");
-        lorelines.add("");
-        lorelines.add(Color.dgray + "Land consecutive successful arrow");
-        lorelines.add(Color.dgray + "shots for a temporary boost of speed.");
-        lorelines.add("");
-        lorelines.add(Color.dgray + "Activates on " + Color.green + chargesNeeded.get(level) + Color.dgray + " charges");
-        return lorelines;
-    }
-
-    public void onArrowHitEntity(ProjectileHitEvent event){
+    public void onArrowHitEntity(EntityDamageByEntityEvent event){
         charges++;
         RpgPlayer rpgPlayer = getRpgPlayer();
         if(charges > chargesNeeded.get(getLevel())){
-            rpgPlayer.playSound(Sound.BLOCK_NOTE_BLOCK_HARP);
+            rpgPlayer.playSound(Sound.BLOCK_NOTE_BLOCK_HARP); // TODO: Use xliff
             rpgPlayer.editWalkSpeedModifier(speedModifier.get(getLevel()));
             rpgPlayer.tell(Color.green + "ElfSpeed " + Color.dgray + "has been activated!");
             charges = 0;
-            new BukkitRunnable() {
 
+            schedularID = Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(SkillScheme.getInstance(), new Runnable() {
                 @Override
                 public void run() {
                     getRpgPlayer().editWalkSpeedModifier(-speedModifier.get(getLevel()));
                     getRpgPlayer().playSound(Sound.BLOCK_FIRE_EXTINGUISH);
                     getRpgPlayer().tell(Color.red  + "ElfSpeed has worn off");
                 }
-
-            }.runTaskLater(SkillScheme.getInstance(), Math.round(20 * duration.get(getLevel())));
+            }, Math.round(20 * duration.get(getLevel())));
         }
         chargeReportChat(getRpgPlayer());
     }
@@ -69,6 +68,11 @@ public class ElfSpeed extends TickingSkill {
     private void chargeReportChat(RpgPlayer rpgPlayer){
         rpgPlayer.tell(Color.green + "Elf Speed " + Color.dgray + "charges: " + Color.green + charges);
 
+    }
+
+    @Override
+    public void onDisable(){
+        Bukkit.getServer().getScheduler().cancelTask(schedularID);
     }
 
     @Override

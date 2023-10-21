@@ -25,9 +25,6 @@ import dev.sirlich.skillscheme.skills.meta.TickingSkill;
     skill_expired
 */
 public class HuntersThrill extends TickingSkill {
-    // YAML data
-    private final int TEST = 0;
-
     // Private Implementation
     private int charges;
     private long lastHit;

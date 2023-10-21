@@ -1,9 +1,11 @@
 package dev.sirlich.skillscheme.skills.meta;
 
 import dev.sirlich.skillscheme.core.RpgPlayer;
-import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+/**
+ * Special skill which can be "toggled" on.
+ */
 public class ToggleSkill extends Skill{
     /*
     Required config values:

@@ -9,7 +9,9 @@ import dev.sirlich.skillscheme.core.RpgPlayer;
 import dev.sirlich.skillscheme.utilities.Color;
 import dev.sirlich.skillscheme.utilities.Xliff;
 
-
+/**
+ * CooldownSkill is a special base-class which gives skills a cooldown.
+ */
 public class CooldownSkill extends Skill
 {
     /*

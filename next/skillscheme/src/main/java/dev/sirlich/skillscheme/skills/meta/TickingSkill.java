@@ -4,8 +4,6 @@ import dev.sirlich.skillscheme.SkillScheme;
 import dev.sirlich.skillscheme.core.RpgPlayer;
 import org.bukkit.Bukkit;
 
-import java.util.List;
-
 public class TickingSkill extends Skill {
     /*
     ticking_skill_refresh_rate: int
@@ -16,6 +14,7 @@ public class TickingSkill extends Skill {
         super(rpgPlayer,level,id);
     }
 
+    // Implement This!
     public void onTick(){
 
     }
