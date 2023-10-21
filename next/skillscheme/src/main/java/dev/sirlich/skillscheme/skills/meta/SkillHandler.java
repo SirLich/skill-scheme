@@ -323,7 +323,7 @@ public class SkillHandler implements Listener
             }
         }
     }
-
+    
     @EventHandler
     public void onArrow(ProjectileHitEvent event){
         if(event.getEntity() instanceof Arrow){
@@ -417,7 +417,11 @@ public class SkillHandler implements Listener
      */
     @EventHandler
     public void onPlayerSwapItemEvent(PlayerSwapHandItemsEvent event){
+        System.out.println("Swap Called!");
+
         if(isMeleeWeapon(event.getOffHandItem().getType())){
+            System.out.println("Swap is a weapon!");
+
             Player player = event.getPlayer();
             RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
             for(Skill skill : rpgPlayer.getActiveSkillList()){

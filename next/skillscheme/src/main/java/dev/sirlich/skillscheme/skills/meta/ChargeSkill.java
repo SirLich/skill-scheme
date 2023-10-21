@@ -52,7 +52,7 @@ public class ChargeSkill extends CooldownSkill{
 
     //Overide this!
     public boolean isCharging(){
-        System.out.println("Skill: " + this.getId() + " is configured incorrectly. Please overide isCharging");
+        System.out.println("Skill: " + this.getId() + " is configured incorrectly. Please override isCharging");
         return false;
     }
 

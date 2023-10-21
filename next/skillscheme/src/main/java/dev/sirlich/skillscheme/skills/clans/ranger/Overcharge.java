@@ -16,6 +16,11 @@ public class Overcharge extends ChargeSkill {
     }
 
     @Override
+    public boolean showActionBar(){
+        return false;
+    }
+
+    @Override
     public boolean isCharging(){
         return getRpgPlayer().isDrawingBow() && getRpgPlayer().isBowFullyCharged();
     }
@@ -35,7 +40,7 @@ public class Overcharge extends ChargeSkill {
         if(rpgArrow.hasTag("OVERCHARGE")){
             int charges = rpgArrow.getInt("OVERCHARGE_VALUE");
             System.out.println("Overcharge: " + event.getDamage());
-            event.setDamage(event.getDamage()  + (charges * data.getDouble("damage_per_charge")));
+            event.setDamage(event.getDamage() + (charges * data.getDouble("damage_per_charge")));
             System.out.println("Overcharge: new " + event.getDamage());
         }
     }

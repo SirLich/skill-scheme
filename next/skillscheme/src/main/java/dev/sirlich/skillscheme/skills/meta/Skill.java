@@ -12,6 +12,7 @@ import dev.sirlich.skillscheme.skills.triggers.Trigger;
 import dev.sirlich.skillscheme.utilities.Color;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -115,6 +116,13 @@ public class Skill
 
     public RpgPlayer getRpgPlayer(){
         return this.rpgPlayer;
+    }
+
+    /**
+     * @return The Player that owns this skill.
+     */
+    public Player getPlayer() {
+        return getRpgPlayer().getPlayer();
     }
 
     public int getCost()
@@ -245,6 +253,9 @@ public class Skill
 
     }
 
+    /**
+     * Called when an arrow hits the ground.
+     */
     public void onArrowHitGround(ProjectileHitEvent event){
 
     }

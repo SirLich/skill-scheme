@@ -1,18 +1,17 @@
 package dev.sirlich.skillscheme.skills.clans.ranger;
 
 import org.bukkit.entity.Arrow;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
 import dev.sirlich.skillscheme.core.RpgPlayer;
 import dev.sirlich.skillscheme.core.RpgProjectile;
 import dev.sirlich.skillscheme.skills.meta.TickingSkill;
 
-public class HuntersThrill extends TickingSkill {
-
-    /*
+/**
     duration_on_hit: int
     max_charges: int
     minus_charges: int
@@ -24,7 +23,12 @@ public class HuntersThrill extends TickingSkill {
 
     Sounds:
     skill_expired
-     */
+*/
+public class HuntersThrill extends TickingSkill {
+    // YAML data
+    private final int TEST = 0;
+
+    // Private Implementation
     private int charges;
     private long lastHit;
 
@@ -32,10 +36,8 @@ public class HuntersThrill extends TickingSkill {
         super(rpgPlayer, level, "HuntersThrill");
     }
 
-
     @Override
     public void onArrowHitEntity(EntityDamageByEntityEvent event){
-        LivingEntity hitEntity = (LivingEntity) event.getEntity();
         RpgProjectile rpgArrow = RpgProjectile.getProjectile((Arrow) event.getDamager());
         if(rpgArrow.hasTag("HUNTERS_THRILL")){
             lastHit = System.currentTimeMillis();
@@ -43,16 +45,21 @@ public class HuntersThrill extends TickingSkill {
                 charges++;
             }
 
-            getRpgPlayer().getPlayer().removePotionEffect(PotionEffectType.SPEED);
-            getRpgPlayer().getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, data.getInt("duration_on_hit"), charges - data.getInt("minus_charges")));
+            getPlayer().removePotionEffect(PotionEffectType.SPEED);
+            getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, data.getInt("duration_on_hit"), charges - data.getInt("minus_charges")));
         }
+    }
+
+    @Override
+    public void onArrowHitGround(ProjectileHitEvent event){
+        clearHuntersThrill(false);
     }
 
     @Override
     public void onTick(){
         if (charges != 0 && System.currentTimeMillis() >= lastHit + (data.getInt("base_millis") + data.getInt("per_level_millis"))) {
             charges = 0;
-            getRpgPlayer().getPlayer().removePotionEffect(PotionEffectType.SPEED);
+            clearHuntersThrill(false);
         }
     }
 
@@ -63,4 +70,8 @@ public class HuntersThrill extends TickingSkill {
         RpgProjectile.addTag(arrow.getUniqueId(),"HUNTERS_THRILL");
     }
 
+    public void clearHuntersThrill(Boolean silent) {
+        getPlayer().removePotionEffect(PotionEffectType.SPEED);
+        // TODO implement 'silent' here
+    }
 }

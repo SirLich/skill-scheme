@@ -1,12 +1,13 @@
 package dev.sirlich.skillscheme.skills.meta;
 
 import org.bukkit.Bukkit;
-import dev.sirlich.skillscheme.SkillScheme;
-import dev.sirlich.skillscheme.core.RpgPlayer;
-import dev.sirlich.skillscheme.utilities.Xliff;
-import dev.sirlich.skillscheme.utilities.Color;
 import org.bukkit.Sound;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import dev.sirlich.skillscheme.SkillScheme;
+import dev.sirlich.skillscheme.core.RpgPlayer;
+import dev.sirlich.skillscheme.utilities.Color;
+import dev.sirlich.skillscheme.utilities.Xliff;
 
 
 public class CooldownSkill extends Skill
@@ -113,7 +114,8 @@ public class CooldownSkill extends Skill
 
     //This should be overridden!
     public boolean showActionBar(){
-        System.out.println("Warning: showActionBar is not bring overridden. In: " + getName());
+        // TODO: Decide on this warning
+        // System.out.println("Warning: showActionBar is not bring overridden. In: " + getName());
         return false;
     }
 
@@ -142,6 +144,8 @@ public class CooldownSkill extends Skill
                     m = m + Color.yellow + Color.bold + "] " + getChargeColor() + calculateCooldownLeft();
 
                     getRpgPlayer().setActionBar(m);
+                } else if (showActionBar()){
+                    getRpgPlayer().setActionBar(getName());
                 }
             }
         }, 0L, ACTION_BAR_REFRESH_RATE);
