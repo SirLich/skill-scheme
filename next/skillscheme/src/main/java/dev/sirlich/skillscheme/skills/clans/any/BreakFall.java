@@ -13,6 +13,7 @@ public class BreakFall extends Skill
 
     @Override
     public void onFallDamageSelf(EntityDamageEvent event){
+        System.out.println("ENTITY sdfsdf");
         event.setDamage(event.getDamage() - data.getDouble("damage_reduction"));
     }
 }

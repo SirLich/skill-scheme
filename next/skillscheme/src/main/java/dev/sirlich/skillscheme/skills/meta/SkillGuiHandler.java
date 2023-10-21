@@ -28,16 +28,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class SkillGuiHandler implements Listener
-{
+import org.bukkit.event.entity.EntityDeathEvent;
 
+
+public class SkillGuiHandler implements Listener 
+{
     //Inventory names
     private final String SELECT_CLASS_INVENTORY_NAME = "~";
+
+    @EventHandler
+    public void onExpSpawn(EntityDeathEvent event) {
+        System.out.println("ENTITY DIED 2");
+    }
 
     //Handles opening the inventory
     @EventHandler
     public void clickEnchantTable(PlayerInteractEvent event)
     {
+        System.out.println("PLAYER CLICKED");
+
         RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(event.getPlayer());
         event.getPlayer().sendMessage("BLOCK CLICKED!!");
         event.getPlayer().sendMessage(event.getClickedBlock().getType().toString());

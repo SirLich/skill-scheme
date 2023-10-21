@@ -26,7 +26,7 @@ public enum ArmorType{
 	 * @return The parsed ArmorType, or null if not found.
 	 */
 	public static ArmorType matchType(final ItemStack itemStack){
-		return ArmorType.HELMET;
+		return ArmorType.BOOTS;
 
 		// if(ArmorListener.isAirOrNull(itemStack)) return null;
 		// String type = itemStack.getType().name();

@@ -112,6 +112,7 @@ public class SkillHandler implements Listener
             //Cancel if its a helmet
             if (armorType == ArmorType.HELMET)
             {
+                System.out.println("PlayerInteractEvent: Cancelled due to onPlayerInteract");
                 event.setCancelled(true);
             }
 
