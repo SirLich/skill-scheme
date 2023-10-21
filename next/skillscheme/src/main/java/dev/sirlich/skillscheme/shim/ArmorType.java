@@ -1,5 +1,5 @@
 // TODO: This is a shim!
-
+// https://github.com/Arnuh/ArmorEquipEvent/blob/master/src/com/codingforcookies/armorequip/ArmorListener.java
 
 package com.codingforcookies.armorequip;
 

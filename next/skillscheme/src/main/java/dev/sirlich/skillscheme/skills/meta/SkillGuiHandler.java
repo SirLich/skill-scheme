@@ -39,6 +39,10 @@ public class SkillGuiHandler implements Listener
     public void clickEnchantTable(PlayerInteractEvent event)
     {
         RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(event.getPlayer());
+        event.getPlayer().sendMessage("BLOCK CLICKED!!");
+        event.getPlayer().sendMessage(event.getClickedBlock().getType().toString());
+
+
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (event.getClickedBlock().getType() == Material.ENCHANTING_TABLE) {
                 if(rpgPlayer.getPlayerState().canUseEditor()){
