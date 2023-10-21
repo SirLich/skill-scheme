@@ -39,6 +39,7 @@ public class SkillGuiHandler implements Listener
     @EventHandler
     public void onExpSpawn(EntityDeathEvent event) {
         System.out.println("ENTITY DIED 2");
+        event.setDroppedExp(100);
     }
 
     //Handles opening the inventory
