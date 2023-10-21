@@ -1,13 +1,5 @@
 package dev.sirlich.skillscheme.skills.meta;
 
-// TODO
-// import com.codingforcookies.armorequip.ArmorEquipEvent;
-import com.codingforcookies.armorequip.ArmorType; // TODO: Shimmed
-
-// TODO
-// import com.connorlinfoot.actionbarapi.ActionBarAPI;
-
-
 import org.bukkit.Bukkit;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.inventory.InventoryAction;
@@ -31,12 +23,12 @@ import dev.sirlich.skillscheme.skills.triggers.Trigger;
 import dev.sirlich.skillscheme.utilities.Color;
 import dev.sirlich.skillscheme.utilities.WeaponUtils;
 
-// TODO: What is this?
-// import sun.security.util.ByteArrayLexOrder;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+
+import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent;
+
 
 import static dev.sirlich.skillscheme.utilities.WeaponUtils.*;
 
@@ -73,55 +65,55 @@ public class SkillHandler implements Listener
         }
     }
 
+    // TODO Reimplement this
     //Stop players from interacting with their helmet slot
-    @EventHandler()
-    public void onClick(InventoryClickEvent event)
-    {
-        InventoryType type = event.getInventory().getType();
-        if(type == InventoryType.CRAFTING) {
-            if (event.getSlot() == 39) {
-                event.setCursor(null);
-                event.setCancelled(true);
-            }
-        }
+    // @EventHandler()
+    // public void onClick(InventoryClickEvent event)
+    // {
+    //     InventoryType type = event.getInventory().getType();
+    //     if(type == InventoryType.CRAFTING) {
+    //         if (event.getSlot() == 39) {
+    //             event.setCursor(null);
+    //             event.setCancelled(true);
+    //         }
+    //     }
 
-        //Test for shift clicks
-        if(event.isShiftClick()){
-            if(ArmorType.matchType(event.getCurrentItem()) == ArmorType.HELMET){
-                event.setCancelled(true);
-            }
-        }
-    }
-
-    // TODO: Reimplement This!
-    //Handles armor equip and de-equip simple event
-    // @EventHandler
-    // public void onArmorEquip(ArmorEquipEvent event){
-    //     RpgPlayer.getRpgPlayer(event.getPlayer()).applySkillsFromArmor(event.getPlayer().getUniqueId());
+    //     //Test for shift clicks
+    //     if(event.isShiftClick()){
+    //         if(ArmorType.matchType(event.getCurrentItem()) == ArmorType.HELMET){
+    //             event.setCancelled(true);
+    //         }
+    //     }
     // }
 
+    // Handles armor equip and de-equip simple event
     @EventHandler
-    public void onPlayerInteract(PlayerInteractEvent event)
-    {
-        Player player = event.getPlayer();
-        final UUID uuid = event.getPlayer().getUniqueId();
-        ArmorType armorType = ArmorType.matchType(event.getPlayer().getInventory().getItemInMainHand());
-
-        if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK) || event.getAction().equals(Action.RIGHT_CLICK_AIR))
-        {
-            //Cancel if its a helmet
-            if (armorType == ArmorType.HELMET)
-            {
-                System.out.println("PlayerInteractEvent: Cancelled due to onPlayerInteract");
-                event.setCancelled(true);
-            }
-
-            //Delay apply armor if other armor
-            else if (armorType == ArmorType.LEGGINGS || armorType == ArmorType.BOOTS || armorType == ArmorType.CHESTPLATE){
-                RpgPlayer.getRpgPlayer(player).applySkillsFromArmor(uuid);
-            }
-        }
+    public void onArmorEquip(PlayerArmorChangeEvent event){
+        RpgPlayer.getRpgPlayer(event.getPlayer()).applySkillsFromArmor(event.getPlayer().getUniqueId());
     }
+
+    // TODO Evaluate why this was required
+    // @EventHandler
+    // public void onPlayerInteract(PlayerInteractEvent event)
+    // {
+    //     Player player = event.getPlayer();
+    //     final UUID uuid = event.getPlayer().getUniqueId();
+    //     ArmorType armorType = ArmorType.matchType(event.getPlayer().getInventory().getItemInMainHand());
+
+    //     if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK) || event.getAction().equals(Action.RIGHT_CLICK_AIR))
+    //     {
+    //         //Cancel if its a helmet
+    //         if (armorType == ArmorType.HELMET)
+    //         {
+    //             event.setCancelled(true);
+    //         }
+
+    //         //Delay apply armor if other armor
+    //         else if (armorType == ArmorType.LEGGINGS || armorType == ArmorType.BOOTS || armorType == ArmorType.CHESTPLATE){
+    //             RpgPlayer.getRpgPlayer(player).applySkillsFromArmor(uuid);
+    //         }
+    //     }
+    // }
 
     /*
     Handles item drop events
@@ -417,9 +409,8 @@ public class SkillHandler implements Listener
 
     @EventHandler
     public void playerItemHeldEvent​(PlayerItemHeldEvent event){
-
-        // TODO
-        // ActionBarAPI.sendActionBar(event.getPlayer(),"");
+        // TODO Deprecated
+        event.getPlayer().sendActionBar("");
     }
     /*
     HANDLES: Swap events

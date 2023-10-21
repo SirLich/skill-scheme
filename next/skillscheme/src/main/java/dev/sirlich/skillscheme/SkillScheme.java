@@ -1,8 +1,5 @@
 package dev.sirlich.skillscheme;
 
-// TODO?
-// import net.jitse.npclib.NPCLib;
-
 import dev.sirlich.skillscheme.core.*;
 import dev.sirlich.skillscheme.skills.meta.SkillData;
 import dev.sirlich.skillscheme.utilities.BlockUtils;
@@ -25,16 +22,12 @@ public class SkillScheme extends JavaPlugin
     private static Location WORLD_SPAWN;
     private static SkillScheme instance;
 
-    // TODO
-    // private static NPCLib npcInstance;
     private static PlayerState PLAYER_STATE_ON_JOIN;
 
     @Override
     public void onEnable(){
         instance = this;
 
-        // TODO?
-        // npcInstance = new NPCLib(this);
         createDataFolder();
         loadServerConfigFromYML();
         registerEvents();
@@ -58,12 +51,6 @@ public class SkillScheme extends JavaPlugin
     {
         return instance;
     }
-
-    // TODO
-    // public static NPCLib getNpcInstance(){
-    //     return npcInstance;
-    // }
-
 
     private void createDataFolder(){
         System.out.println("Checking for existence of SkillScheme data folder...");

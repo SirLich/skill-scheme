@@ -398,8 +398,8 @@ public class RpgPlayer
     }
 
     public void setActionBar(String message){
-        // TODO: Reimplement Action Bar
-        // ActionBarAPI.sendActionBar(getPlayer(),message);
+        // TODO: Deprecated
+        getPlayer().sendActionBar(message);
     }
 
     public Player getPlayer()
