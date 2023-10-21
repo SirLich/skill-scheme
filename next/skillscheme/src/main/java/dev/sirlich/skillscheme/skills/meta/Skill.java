@@ -10,6 +10,8 @@ import dev.sirlich.skillscheme.SkillScheme;
 import dev.sirlich.skillscheme.core.RpgPlayer;
 import dev.sirlich.skillscheme.skills.triggers.Trigger;
 import dev.sirlich.skillscheme.utilities.Color;
+
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -43,6 +45,7 @@ public class Skill
     private int maxLevel;
     private UUID sessionToken;
     private ArrayList<String> description = new ArrayList<String>();
+    private ArrayList<Integer> taskIDs = new ArrayList<Integer>();
 
     private RpgPlayer rpgPlayer;
     private int level;
@@ -108,6 +111,14 @@ public class Skill
     }
 
     public void onEnable(){
+    }
+
+    public void onDisableInternal() {
+        for (int id : taskIDs) {
+            Bukkit.getServer().getScheduler().cancelTask(id);
+        }
+
+        onDisable();
     }
 
     public void onDisable(){
@@ -208,6 +219,26 @@ public class Skill
         }
     }
 
+    /**
+     * Schedules a delayed task, which is automatically cleaned up when the skill is disabled
+     * @return schedularID which you can self-cancel
+     */
+    public int delayedTask(long delay, Runnable runnable) {
+        int schedularID = Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(SkillScheme.getInstance(), runnable, delay);
+        taskIDs.add(schedularID);
+        return schedularID;
+    }
+
+    /**
+     * Schedules a repeating task, which is automatically cleaned up when the skill is disabled
+     * @return schedularID which you can self-cancel
+     */
+    public int repeatingTask(long delay, long period, Runnable runnable) {
+        int schedularID = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(SkillScheme.getInstance(), runnable, delay, period);
+        taskIDs.add(schedularID);
+        return schedularID;
+    }
+    
 
     public int getLevel()
     {

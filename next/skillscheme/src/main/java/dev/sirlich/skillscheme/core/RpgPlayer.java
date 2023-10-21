@@ -334,7 +334,7 @@ public class RpgPlayer
 
     public void clearActiveSkills(){
         for(Skill skill : activeSkillList){
-            skill.onDisable();
+            skill.onDisableInternal();
         }
         refreshSessionToken();
         refreshPassiveModifiers();

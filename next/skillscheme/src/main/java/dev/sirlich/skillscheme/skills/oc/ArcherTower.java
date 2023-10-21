@@ -13,6 +13,10 @@ import dev.sirlich.skillscheme.core.RpgPlayer;
 import dev.sirlich.skillscheme.skills.meta.CooldownSkill;
 import dev.sirlich.skillscheme.utilities.BlockUtils;
 
+/**
+ * ArcherTower is a CooldownSkill which places a tower, and teleports you into it. This allows you to
+ * quickly escape from a bad fight.
+ */
 public class ArcherTower extends CooldownSkill
 {
     private static boolean deployed = false;

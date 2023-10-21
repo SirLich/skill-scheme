@@ -1,4 +1,4 @@
-package dev.sirlich.skillscheme.skills.oc;
+package dev.sirlich.skillscheme.skills.clans.paladin;
 
 import dev.sirlich.skillscheme.skills.meta.CooldownSkill;
 import dev.sirlich.skillscheme.core.RpgPlayer;
@@ -9,13 +9,16 @@ import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
 import java.util.List;
 
+/**
+ * Strikes all entities in range with an unblockable lightening strike.
+ */
 public class WrathOfJupiter extends CooldownSkill
 {
 
     private static String id = "WrathOfJupiter";
     private static List<Integer> range = getYaml(id).getIntegerList("values.range");
-    private static List<Float> damageOnStrike = getYaml(id).getFloatList("values.damageOnStrike");
-    private static List<Integer> fireTicks = getYaml(id).getIntegerList("values.fireTicks");
+    private static List<Float> damageOnStrike = getYaml(id).getFloatList("values.damage_on_strike");
+    private static List<Integer> fireTicks = getYaml(id).getIntegerList("values.fire_ticks");
 
     public WrathOfJupiter(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer,level,"WrathOfJupiter");
@@ -25,16 +28,17 @@ public class WrathOfJupiter extends CooldownSkill
     public void onSwap(PlayerSwapHandItemsEvent event){
         if(skillCheck()){return;}
 
-        List<Entity> entities = event.getPlayer().getNearbyEntities(range.get(getLevel()),range.get(getLevel()),range.get(getLevel()));
+        Integer r = range.get(getLevel());
+        List<Entity> entities = event.getPlayer().getNearbyEntities(r,r,r);
+
         if(entities.size() == 0){
-            getRpgPlayer().playSound(Sound.BLOCK_FIRE_EXTINGUISH);
+            getRpgPlayer().playSound(Sound.BLOCK_FIRE_EXTINGUISH); // TODO Xliff
         }
         for(Entity entity : entities){
             if(entity instanceof LivingEntity){
                 event.getPlayer().getWorld().strikeLightningEffect(entity.getLocation());
                 ((LivingEntity) entity).damage(damageOnStrike.get(getLevel()));
                 entity.setFireTicks(fireTicks.get(getLevel()));
-                //event.getPlayer().getWorld().strikeLightning(entity.getLocation());
             }
         }
         refreshCooldown();

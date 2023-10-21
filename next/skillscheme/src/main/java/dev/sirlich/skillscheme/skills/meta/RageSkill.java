@@ -29,10 +29,12 @@ public class RageSkill extends CooldownSkill{
         this.enraged = false;
     }
 
+    // Should implement
     public void onEnrage(){
 
     }
 
+    // Should implement
     public void onRageExpire(){
 
     }
@@ -56,6 +58,7 @@ public class RageSkill extends CooldownSkill{
                 getRpgPlayer().tell(becomeEnragedText);
                 getRpgPlayer().playSound(becomeEnragedSound);
 
+                // TODO: Use a Schedular ID here
                 //Set enraged countdown
                 new BukkitRunnable() {
 
@@ -98,6 +101,7 @@ public class RageSkill extends CooldownSkill{
         return enraged;
     }
 
+    // TODO clean up this shit
     public void setCurrentlyEnragedSound(Sound currentlyEnragedSound) {
         this.currentlyEnragedSound = currentlyEnragedSound;
     }

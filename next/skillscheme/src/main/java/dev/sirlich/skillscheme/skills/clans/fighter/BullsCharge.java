@@ -10,6 +10,10 @@ import dev.sirlich.skillscheme.skills.triggers.Trigger;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * BullsCharge is a RageSkill which gives you a burst of speed. If you hit a target while raging, you
+ * will inflict a speed debuff to them.
+ */
 public class BullsCharge extends RageSkill {
     private static String id = "BullsCharge";
     private static List<Double> slownessPower = getYaml(id).getDoubleList("values.slownessPower");
@@ -18,7 +22,7 @@ public class BullsCharge extends RageSkill {
 
 
     public BullsCharge(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer,level,"BullsCharge");
+        super(rpgPlayer,level,BullsCharge.id);
     }
 
     @Override
