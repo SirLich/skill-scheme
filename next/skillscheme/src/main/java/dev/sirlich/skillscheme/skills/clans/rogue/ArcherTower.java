@@ -1,4 +1,4 @@
-package dev.sirlich.skillscheme.skills.oc;
+package dev.sirlich.skillscheme.skills.clans.rogue;
 
 import org.bukkit.Location;
 import org.bukkit.Material;

@@ -136,9 +136,9 @@ public class SkillGuiHandler implements Listener
             inventory.setItem(0, getStandardGuiButton(Material.IRON_SWORD,"Sword Skills",null));
             inventory.setItem(9, getStandardGuiButton(Material.IRON_AXE,"Axe Skills",null));
             inventory.setItem(18, getStandardGuiButton(Material.BOW,"Bow Skills",null));
-            inventory.setItem(27, getStandardGuiButton(Material.GOLD_NUGGET,"Passive A",null));
-            inventory.setItem(36, getStandardGuiButton(Material.GOLD_NUGGET,"Passive B",null));
-            inventory.setItem(45, getStandardGuiButton(Material.GOLD_NUGGET,"Passive C",null));
+            inventory.setItem(27, getStandardGuiButton(Material.GOLD_NUGGET,"Active",null));
+            inventory.setItem(36, getStandardGuiButton(Material.GOLD_NUGGET,"Passive A",null));
+            inventory.setItem(45, getStandardGuiButton(Material.GOLD_NUGGET,"Passive B",null));
             ItemStack pointsItems = getStandardGuiButton(Material.PRISMARINE_CRYSTALS, "Remaining points",null);
 
             pointsItems.setAmount(rpgPlayer.getLoadout(classType).getPoints());

@@ -2,8 +2,11 @@
 	"java.compile.nullAnalysis.mode": "automatic",
 	"java.jdt.ls.java.home": "C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.0.35-hotspot",
 	"cSpell.words": [
+		"Bandaid",
+		"Bloodlust",
 		"Bukkit",
 		"debuff",
+		"Perun",
 		"skillscheme",
 		"unblockable"
 	]

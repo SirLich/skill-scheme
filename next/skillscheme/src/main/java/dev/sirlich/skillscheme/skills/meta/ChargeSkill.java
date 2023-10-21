@@ -4,6 +4,11 @@ import org.bukkit.Bukkit;
 import dev.sirlich.skillscheme.SkillScheme;
 import dev.sirlich.skillscheme.core.RpgPlayer;
 
+/**
+ * Charge Skills contain the idea of 'charging' something, which must be held down. Skills can either do something
+ * during charging, or when charging finishes (or both!). Most charge skills also contain a cooldown, so you cannot
+ * just endlessly spam it.
+ */
 public class ChargeSkill extends CooldownSkill{
 
     private int schedularID;
@@ -50,7 +55,7 @@ public class ChargeSkill extends CooldownSkill{
         return charges;
     }
 
-    //Overide this!
+    // Implement this!
     public boolean isCharging(){
         System.out.println("Skill: " + this.getId() + " is configured incorrectly. Please override isCharging");
         return false;

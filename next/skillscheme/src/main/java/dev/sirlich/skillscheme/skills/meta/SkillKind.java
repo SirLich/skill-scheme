@@ -5,9 +5,9 @@ public enum SkillKind
     SWORD(1),
     AXE(10),
     BOW(19),
-    PASSIVE_A(28),
-    PASSIVE_B(37),
-    PASSIVE_C(46),
+    ACTIVE(28),
+    PASSIVE_A(37),
+    PASSIVE_B(46),
     UNDEFINED(0);
 
     private final int startingPosition;

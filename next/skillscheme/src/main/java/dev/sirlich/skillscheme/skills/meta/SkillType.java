@@ -2,7 +2,9 @@ package dev.sirlich.skillscheme.skills.meta;
 
 
 import dev.sirlich.skillscheme.skills.clans.rogue.*;
+import dev.sirlich.skillscheme.skills.clans.fighter.AxeOfPerun;
 import dev.sirlich.skillscheme.skills.clans.fighter.BullsCharge;
+import dev.sirlich.skillscheme.skills.clans.paladin.Bandaid;
 import dev.sirlich.skillscheme.skills.clans.paladin.WrathOfJupiter;
 import dev.sirlich.skillscheme.skills.clans.warlock.FireBlast;
 import dev.sirlich.skillscheme.skills.clans.warlock.IcePrison;
