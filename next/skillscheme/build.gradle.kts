@@ -13,8 +13,15 @@ plugins {
 
 repositories {
     mavenCentral()
+
+    // Paper 
     maven("https://repo.papermc.io/repository/maven-public/")
+
+    // Item NBT
+    maven("https://repo.codemc.io/repository/maven-public/")
+
 }
+
 
 dependencies {
     // Use JUnit Jupiter for testing.
@@ -22,10 +29,20 @@ dependencies {
 
     // This dependency is used by the application.
     implementation("com.google.guava:guava:31.1-jre")
-
+    
     // PaperMC
     compileOnly("io.papermc.paper:paper-api:1.20.2-R0.1-SNAPSHOT")
 
+    // External
+    implementation(group = "de.tr7zw", name = "item-nbt-api-plugin", version = "2.12.0")
+
+    // External Dependencies
+    // compileOnly("com.massivecraft.factions:1.6.9.5-U0.2.1-RC-1.6.2-RC-2.5-RC-6")
+    // compileOnly("de.tr7zw.nbtapi:2.12.0")
+    // compileOnly("net.jitse.npclib:2.3-SNAPSHOT")
+    // compileOnly("com.connorlinfoot.actionbarapi:1.5.4")
+    // compileOnly("com.codingforcookies.armorequip")
+    
 }
 
 application {

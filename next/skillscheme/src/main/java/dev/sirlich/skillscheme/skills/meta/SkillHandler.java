@@ -1,8 +1,13 @@
 package dev.sirlich.skillscheme.skills.meta;
 
-import com.codingforcookies.armorequip.ArmorEquipEvent;
-import com.codingforcookies.armorequip.ArmorType;
-import com.connorlinfoot.actionbarapi.ActionBarAPI;
+// TODO
+// import com.codingforcookies.armorequip.ArmorEquipEvent;
+import com.codingforcookies.armorequip.ArmorType; // TODO: Shimmed
+
+// TODO
+// import com.connorlinfoot.actionbarapi.ActionBarAPI;
+
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.inventory.InventoryAction;
@@ -25,7 +30,9 @@ import org.bukkit.inventory.ItemStack;
 import dev.sirlich.skillscheme.skills.triggers.Trigger;
 import dev.sirlich.skillscheme.utilities.Color;
 import dev.sirlich.skillscheme.utilities.WeaponUtils;
-import sun.security.util.ByteArrayLexOrder;
+
+// TODO: What is this?
+// import sun.security.util.ByteArrayLexOrder;
 
 import java.util.Arrays;
 import java.util.List;
@@ -86,11 +93,12 @@ public class SkillHandler implements Listener
         }
     }
 
+    // TODO: Reimplement This!
     //Handles armor equip and de-equip simple event
-    @EventHandler
-    public void onArmorEquip(ArmorEquipEvent event){
-        RpgPlayer.getRpgPlayer(event.getPlayer()).applySkillsFromArmor(event.getPlayer().getUniqueId());
-    }
+    // @EventHandler
+    // public void onArmorEquip(ArmorEquipEvent event){
+    //     RpgPlayer.getRpgPlayer(event.getPlayer()).applySkillsFromArmor(event.getPlayer().getUniqueId());
+    // }
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event)
@@ -408,7 +416,9 @@ public class SkillHandler implements Listener
 
     @EventHandler
     public void playerItemHeldEvent​(PlayerItemHeldEvent event){
-        ActionBarAPI.sendActionBar(event.getPlayer(),"");
+
+        // TODO
+        // ActionBarAPI.sendActionBar(event.getPlayer(),"");
     }
     /*
     HANDLES: Swap events

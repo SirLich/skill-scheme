@@ -1,8 +1,9 @@
 package dev.sirlich.skillscheme.skills.meta;
 
-import com.massivecraft.factions.Board;
-import com.massivecraft.factions.FLocation;
-import com.massivecraft.factions.Faction;
+// import com.massivecraft.factions.Board;
+// import com.massivecraft.factions.FLocation;
+// import com.massivecraft.factions.Faction;
+
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import dev.sirlich.skillscheme.SkillScheme;
@@ -82,17 +83,18 @@ public class Skill
             return true;
         }
 
-        //Check for in safe zone
-        try {
-            FLocation fLoc = new FLocation(getRpgPlayer().getPlayer().getLocation());
-            Faction faction = Board.getInstance().getFactionAt(fLoc);
-            if(faction.isSafeZone()){
-                getRpgPlayer().tell("You cannot used that skill when in safe-zone");
-                return true;
-            }
-        } catch(Exception e){
-            System.out.println("WARNING: Unable to check safezone safegaurd. Are you running the Factions plugin?");
-        }
+        // TODO: Re-add check for factions
+        // //Check for in safe zone
+        // try {
+        //     FLocation fLoc = new FLocation(getRpgPlayer().getPlayer().getLocation());
+        //     Faction faction = Board.getInstance().getFactionAt(fLoc);
+        //     if(faction.isSafeZone()){
+        //         getRpgPlayer().tell("You cannot used that skill when in safe-zone");
+        //         return true;
+        //     }
+        // } catch(Exception e){
+        //     System.out.println("WARNING: Unable to check safezone safegaurd. Are you running the Factions plugin?");
+        // }
 
 
         //The skill check passed!

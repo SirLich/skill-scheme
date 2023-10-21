@@ -1,6 +1,6 @@
 package dev.sirlich.skillscheme.core;
 
-import com.connorlinfoot.actionbarapi.ActionBarAPI;
+// import com.connorlinfoot.actionbarapi.ActionBarAPI;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -398,7 +398,8 @@ public class RpgPlayer
     }
 
     public void setActionBar(String message){
-        ActionBarAPI.sendActionBar(getPlayer(),message);
+        // TODO: Reimplement Action Bar
+        // ActionBarAPI.sendActionBar(getPlayer(),message);
     }
 
     public Player getPlayer()
