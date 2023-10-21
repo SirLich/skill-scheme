@@ -13,7 +13,6 @@ public class Leap extends CooldownSkill
 {
     private static List<Double> power = getYaml("Leap").getDoubleList("values.power");
 
-
     public Leap(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer,level,"Leap");
     }

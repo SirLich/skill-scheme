@@ -15,7 +15,7 @@ xliff:
   agility_has_expired: "Agility has expired"
   that_player_is_using_agility: "That player is using agility, you can't damage them"
 sounds:
-  activate_skill: "NOTE_PLING"
+  activate_skill: "BLOCK_BELL_USE"
   agility_has_expired: "BLAZE_BREATH"
   that_player_is_using_agility: "BLAZE_BREATH"
 values:

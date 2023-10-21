@@ -82,6 +82,8 @@ public class SkillData {
     //Internal method for handling a single file during init
     private static void handleSkill(File file){
         String fname = file.getName();
+        System.out.println(fname);
+
         FileConfiguration yaml = YamlConfiguration.loadConfiguration(file);
         //Handle SkillData
         if(yaml.contains("values")){
@@ -103,7 +105,16 @@ public class SkillData {
         if(yaml.contains("sounds")){
             for(String value : yaml.getConfigurationSection("sounds").getKeys(false)){
                 String key = fname.replace(".yml","") + "_" + value;
-                soundDataMap.put(key, Sound.valueOf(yaml.getString("sounds." + value)));
+                Sound sound;
+                try {
+                    sound = Sound.valueOf(yaml.getString("sounds." + value));
+                } catch(Exception e) {
+                    System.err.println("SOUND " +  key + " Doesn't exist.");
+                    sound = Sound.UI_BUTTON_CLICK;
+                }
+
+
+                soundDataMap.put(key, sound);
             }
         }
     }
