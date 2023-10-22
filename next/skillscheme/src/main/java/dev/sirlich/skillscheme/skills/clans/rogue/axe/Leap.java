@@ -1,4 +1,4 @@
-package dev.sirlich.skillscheme.skills.clans.rogue;
+package dev.sirlich.skillscheme.skills.clans.rogue.axe;
 
 import dev.sirlich.skillscheme.skills.meta.CooldownSkill;
 import dev.sirlich.skillscheme.core.RpgPlayer;

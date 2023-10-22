@@ -1,4 +1,4 @@
-package dev.sirlich.skillscheme.skills.clans.ranger;
+package dev.sirlich.skillscheme.skills.clans.ranger.passiveA;
 
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Projectile;
@@ -9,6 +9,9 @@ import dev.sirlich.skillscheme.core.RpgProjectile;
 import dev.sirlich.skillscheme.skills.meta.TickingSkill;
 import dev.sirlich.skillscheme.utilities.Color;
 
+/**
+ * Chain attacks together to deal ever-increasing amount of damage.
+ */
 public class SharpShooter extends TickingSkill {
     /*
     Config values:

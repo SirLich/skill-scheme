@@ -12,7 +12,9 @@
 		"Loadout",
 		"loadouts",
 		"Perun",
+		"raycast",
 		"skillscheme",
 		"unblockable"
-	]
+	],
+	"java.configuration.updateBuildConfiguration": "interactive"
 }

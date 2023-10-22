@@ -1,4 +1,4 @@
-package dev.sirlich.skillscheme.skills.clans.ranger;
+package dev.sirlich.skillscheme.skills.clans.ranger.passiveA;
 
 import org.bukkit.Location;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -7,6 +7,9 @@ import dev.sirlich.skillscheme.core.RpgPlayer;
 import dev.sirlich.skillscheme.core.RpgProjectile;
 import dev.sirlich.skillscheme.skills.meta.Skill;
 
+/**
+ * Passive skills which makes arrows shot from a far distance do massive damage.
+ */
 public class LongShot extends Skill {
     public LongShot(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer, level, "LongShot");

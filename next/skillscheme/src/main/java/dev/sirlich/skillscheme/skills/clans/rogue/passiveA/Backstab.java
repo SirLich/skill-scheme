@@ -1,4 +1,4 @@
-package dev.sirlich.skillscheme.skills.clans.rogue;
+package dev.sirlich.skillscheme.skills.clans.rogue.passiveA;
 
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
@@ -27,6 +27,7 @@ public class Backstab extends Skill {
     }
 
 
+    // TODO: Handle acceptable angle
     public void onSwordMeleeAttackOther(EntityDamageByEntityEvent event){
         Player player = getRpgPlayer().getPlayer();
         Entity damager = event.getDamager();

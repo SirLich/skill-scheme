@@ -1,4 +1,4 @@
-package dev.sirlich.skillscheme.skills.clans.ranger;
+package dev.sirlich.skillscheme.skills.clans.ranger.unused;
 
 import org.bukkit.entity.Arrow;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -12,6 +12,11 @@ import dev.sirlich.skillscheme.core.RpgProjectile;
 import dev.sirlich.skillscheme.skills.meta.TickingSkill;
 
 /**
+ * Provides massive speed boost, every time you hit, increasing forever. Bad skill.
+ */
+public class HuntersThrill extends TickingSkill {
+
+    /**
     duration_on_hit: int
     max_charges: int
     minus_charges: int
@@ -23,8 +28,8 @@ import dev.sirlich.skillscheme.skills.meta.TickingSkill;
 
     Sounds:
     skill_expired
-*/
-public class HuntersThrill extends TickingSkill {
+    */
+
     // Private Implementation
     private int charges;
     private long lastHit;

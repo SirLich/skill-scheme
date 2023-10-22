@@ -1,4 +1,4 @@
-package dev.sirlich.skillscheme.skills.clans.ranger;
+package dev.sirlich.skillscheme.skills.clans.ranger.bow;
 
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
@@ -13,6 +13,9 @@ import dev.sirlich.skillscheme.skills.meta.CooldownSkill;
 import dev.sirlich.skillscheme.skills.triggers.Trigger;
 import dev.sirlich.skillscheme.utilities.WeaponUtils;
 
+/**
+ * Instant fire a low-velocity arrow that slows down your opponent.
+ */
 public class PinDown extends CooldownSkill
 {
     /*
@@ -35,7 +38,7 @@ public class PinDown extends CooldownSkill
 
     @Override
     public boolean showActionBar(){
-        return WeaponUtils.isBow(getRpgPlayer().getPlayer().getItemInHand());
+        return WeaponUtils.isBow(getRpgPlayer().getPlayer().getInventory().getItemInMainHand());
     }
 
     @Override
@@ -45,7 +48,9 @@ public class PinDown extends CooldownSkill
         RpgProjectile rpgArrow = RpgProjectile.getProjectile((Arrow) event.getDamager());
         if(hitEntity instanceof LivingEntity && rpgArrow.hasTag("PIN_DOWN")){
             LivingEntity livingEntity = (LivingEntity) hitEntity;
-            livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, data.getInt("slowness_duration"),data.getInt("slowness_amplifier")),true);
+
+            // TODO Handle RPGPlayer pathway here.
+            livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, data.getInt("slowness_duration"),data.getInt("slowness_amplifier")));
         }
     }
 

@@ -180,7 +180,7 @@ public class SkillHandler implements Listener
             //Get RpgPlayer
             Player player  = (Player) event.getEntity();
             RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
-            Material itemType  = player.getInventory().getItemInHand().getType();
+            Material itemType  = player.getInventory().getItemInMainHand().getType();
 
             if(event.getDamager() instanceof Player){
                 RpgPlayer.getRpgPlayer((Player)event.getDamager()).logPlayerAttack();
@@ -227,7 +227,7 @@ public class SkillHandler implements Listener
             //Get RpgPlayer
             Player player = (Player) event.getDamager();
             RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
-            Material itemType  = player.getInventory().getItemInHand().getType();
+            Material itemType  = player.getInventory().getItemInMainHand().getType();
 
             for(Skill skill : rpgPlayer.getActiveSkillList()){
                 skill.onMeleeAttackOther(event);

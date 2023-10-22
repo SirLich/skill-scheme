@@ -22,8 +22,8 @@ public class ElfSpeed extends TickingSkill {
     private static String id = "ElfSpeed";
     private static FileConfiguration yml = getYaml(id);
 
-    private static List<Integer> chargesNeeded = yml.getIntegerList("values.chargesNeeded");
-    private static List<Float> speedModifier = yml.getFloatList("values.speedModifier");
+    private static List<Integer> chargesNeeded = yml.getIntegerList("values.charges_needed");
+    private static List<Float> speedModifier = yml.getFloatList("values.speed_modifier");
     private static List<Float> duration = yml.getFloatList("values.duration");
 
     // Internal State

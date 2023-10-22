@@ -1,4 +1,4 @@
-package dev.sirlich.skillscheme.skills.clans.ranger;
+package dev.sirlich.skillscheme.skills.clans.ranger.passiveA;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Arrow;
@@ -11,6 +11,9 @@ import dev.sirlich.skillscheme.core.RpgPlayer;
 import dev.sirlich.skillscheme.core.RpgProjectile;
 import dev.sirlich.skillscheme.skills.meta.ChargeSkill;
 
+/**
+ * Allows you to 'charge' up your bow to shoot additional arrows.
+ */
 public class Barrage extends ChargeSkill {
     public Barrage(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer, level, "Barrage", false, true);

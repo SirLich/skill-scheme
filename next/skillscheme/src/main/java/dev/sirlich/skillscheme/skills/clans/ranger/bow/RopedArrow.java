@@ -1,4 +1,4 @@
-package dev.sirlich.skillscheme.skills.clans.ranger;
+package dev.sirlich.skillscheme.skills.clans.ranger.bow;
 
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -16,6 +16,9 @@ import dev.sirlich.skillscheme.skills.triggers.Trigger;
 import dev.sirlich.skillscheme.utilities.VelocityUtils;
 import dev.sirlich.skillscheme.utilities.WeaponUtils;
 
+/**
+ * Primed skill, which makes the next arrow pull you towards the final location.
+ */
 public class RopedArrow extends PrimedSkill {
     public RopedArrow(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer, level, "RopedArrow");
@@ -34,7 +37,7 @@ public class RopedArrow extends PrimedSkill {
 
     @Override
     public boolean showActionBar(){
-        return WeaponUtils.isBow(getRpgPlayer().getPlayer().getItemInHand());
+        return WeaponUtils.isBow(getRpgPlayer().getPlayer().getInventory().getItemInMainHand());
     }
 
     @Override

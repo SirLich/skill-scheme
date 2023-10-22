@@ -1,4 +1,4 @@
-package dev.sirlich.skillscheme.skills.clans.ranger;
+package dev.sirlich.skillscheme.skills.clans.ranger.sword;
 
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
@@ -36,7 +36,7 @@ public class WolfPounce extends ChargeSkill {
 
     @Override
     public boolean showActionBar(){
-        return WeaponUtils.isSword(getRpgPlayer().getPlayer().getItemInHand());
+        return WeaponUtils.isSword(getRpgPlayer().getPlayer().getInventory().getItemInMainHand());
     }
 
     @Override

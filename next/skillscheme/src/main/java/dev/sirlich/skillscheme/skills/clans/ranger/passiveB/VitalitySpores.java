@@ -1,4 +1,4 @@
-package dev.sirlich.skillscheme.skills.clans.ranger;
+package dev.sirlich.skillscheme.skills.clans.ranger.passiveB;
 
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.potion.PotionEffect;
@@ -7,6 +7,9 @@ import dev.sirlich.skillscheme.core.RpgPlayer;
 import dev.sirlich.skillscheme.skills.meta.TickingSkill;
 import dev.sirlich.skillscheme.utilities.Color;
 
+/**
+ * Allows you to passively heal, as long as you haven't taken damage for a while.
+ */
 public class VitalitySpores extends TickingSkill {
     /*
     regeneration_duration: int, ticks

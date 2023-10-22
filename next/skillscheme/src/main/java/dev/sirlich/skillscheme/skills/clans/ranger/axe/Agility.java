@@ -1,4 +1,4 @@
-package dev.sirlich.skillscheme.skills.clans.ranger;
+package dev.sirlich.skillscheme.skills.clans.ranger.axe;
 
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.potion.PotionEffect;
@@ -8,6 +8,9 @@ import dev.sirlich.skillscheme.skills.meta.RageSkill;
 import dev.sirlich.skillscheme.skills.triggers.Trigger;
 import dev.sirlich.skillscheme.utilities.WeaponUtils;
 
+/**
+ * Gives you a short term speed boost, and immunity to melee attacks, broken if you attempt to attack.
+ */
 public class Agility extends RageSkill {
 
     public Agility(RpgPlayer rpgPlayer, int level){
@@ -26,7 +29,7 @@ public class Agility extends RageSkill {
 
     @Override
     public boolean showActionBar(){
-        return WeaponUtils.isAxe(getRpgPlayer().getPlayer().getItemInHand());
+        return WeaponUtils.isAxe(getRpgPlayer().getPlayer().getInventory().getItemInMainHand());
     }
 
     @Override

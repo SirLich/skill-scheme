@@ -1,4 +1,4 @@
-package dev.sirlich.skillscheme.skills.clans.ranger;
+package dev.sirlich.skillscheme.skills.clans.ranger.passiveA;
 
 import org.bukkit.entity.Arrow;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -7,6 +7,9 @@ import dev.sirlich.skillscheme.core.RpgPlayer;
 import dev.sirlich.skillscheme.core.RpgProjectile;
 import dev.sirlich.skillscheme.skills.meta.ChargeSkill;
 
+/**
+ * Overcharge your bow to deal massive damage.
+ */
 public class Overcharge extends ChargeSkill {
     /*
     damage_per_charge

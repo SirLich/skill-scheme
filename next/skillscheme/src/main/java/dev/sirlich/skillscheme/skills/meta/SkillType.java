@@ -1,13 +1,34 @@
 package dev.sirlich.skillscheme.skills.meta;
 
-
-import dev.sirlich.skillscheme.skills.clans.rogue.*;
+import dev.sirlich.skillscheme.skills.clans.rogue.axe.Leap;
+import dev.sirlich.skillscheme.skills.clans.rogue.bow.SilencingArrow;
+import dev.sirlich.skillscheme.skills.clans.rogue.passiveA.Backstab;
+import dev.sirlich.skillscheme.skills.clans.rogue.passiveB.SpeedBuff;
+import dev.sirlich.skillscheme.skills.clans.rogue.sword.BladeOfConfusion;
+import dev.sirlich.skillscheme.skills.clans.rogue.sword.Evade;
+import dev.sirlich.skillscheme.skills.clans.rogue.unused.ArcherTower;
 import dev.sirlich.skillscheme.skills.clans.paladin.*;
-import dev.sirlich.skillscheme.skills.clans.ranger.*;
+import dev.sirlich.skillscheme.skills.clans.ranger.axe.Agility;
+import dev.sirlich.skillscheme.skills.clans.ranger.axe.WolfsFury;
+import dev.sirlich.skillscheme.skills.clans.ranger.bow.IncendiaryShot;
+import dev.sirlich.skillscheme.skills.clans.ranger.bow.PinDown;
+import dev.sirlich.skillscheme.skills.clans.ranger.bow.RopedArrow;
+import dev.sirlich.skillscheme.skills.clans.ranger.bow.Volley;
+import dev.sirlich.skillscheme.skills.clans.ranger.passiveA.Barrage;
+import dev.sirlich.skillscheme.skills.clans.ranger.passiveA.Entangle;
+import dev.sirlich.skillscheme.skills.clans.ranger.passiveA.LongShot;
+import dev.sirlich.skillscheme.skills.clans.ranger.passiveA.Overcharge;
+import dev.sirlich.skillscheme.skills.clans.ranger.passiveA.SharpShooter;
+import dev.sirlich.skillscheme.skills.clans.ranger.passiveB.Precision;
+import dev.sirlich.skillscheme.skills.clans.ranger.passiveB.VitalitySpores;
+import dev.sirlich.skillscheme.skills.clans.ranger.sword.Disengage;
+import dev.sirlich.skillscheme.skills.clans.ranger.sword.WolfPounce;
+import dev.sirlich.skillscheme.skills.clans.rogue.axe.Flash;
 import dev.sirlich.skillscheme.skills.clans.warlock.*;
 import dev.sirlich.skillscheme.skills.clans.fighter.*;
 import dev.sirlich.skillscheme.skills.oc.*;
 import dev.sirlich.skillscheme.skills.clans.any.*;
+import dev.sirlich.skillscheme.skills.clans.ranger.unused.HuntersThrill;
 
 public enum SkillType {
     SpeedBuff(new SpeedBuff(null,0)),
@@ -17,6 +38,7 @@ public enum SkillType {
     IcePrison(new IcePrison(null,0)),
     Disengage(new Disengage(null,0)),
     ArcticArmor(new ArcticArmor(null,0)),
+    Flash(new Flash(null,0)),
     ManaCharger(new ManaCharger(null, 0)),
     BullsCharge(new BullsCharge(null,0)),
     WolfPounce(new WolfPounce(null, 0)),

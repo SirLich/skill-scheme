@@ -1,4 +1,4 @@
-package dev.sirlich.skillscheme.skills.clans.rogue;
+package dev.sirlich.skillscheme.skills.clans.rogue.bow;
 
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;

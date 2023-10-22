@@ -12,6 +12,9 @@ repositories {
     // Item NBT
     maven("https://repo.codemc.io/repository/maven-public/")
 
+// Idk
+    maven("https://jitpack.io")
+
 }
 
 dependencies {
@@ -26,6 +29,7 @@ dependencies {
 
     // External
     implementation(group = "de.tr7zw", name = "item-nbt-api-plugin", version = "2.12.0")
+    // implementation("com.github.YeetmanLord:RayCastUtility:1.3.1.2")
 }
 
 application {

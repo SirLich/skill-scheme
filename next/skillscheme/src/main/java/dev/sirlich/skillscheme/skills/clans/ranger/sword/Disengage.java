@@ -1,4 +1,4 @@
-package dev.sirlich.skillscheme.skills.clans.ranger;
+package dev.sirlich.skillscheme.skills.clans.ranger.sword;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.LivingEntity;
@@ -97,6 +97,6 @@ public class Disengage extends CooldownSkill
 
     @Override
     public boolean showActionBar(){
-        return WeaponUtils.isSword(getRpgPlayer().getPlayer().getItemInHand());
+        return WeaponUtils.isSword(getRpgPlayer().getPlayer().getInventory().getItemInMainHand());
     }
 }

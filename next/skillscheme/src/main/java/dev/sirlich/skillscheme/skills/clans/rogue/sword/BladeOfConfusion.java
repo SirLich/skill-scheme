@@ -1,4 +1,4 @@
-package dev.sirlich.skillscheme.skills.clans.rogue;
+package dev.sirlich.skillscheme.skills.clans.rogue.sword;
 
 import dev.sirlich.skillscheme.core.RpgPlayer;
 import dev.sirlich.skillscheme.skills.meta.PrimedSkill;

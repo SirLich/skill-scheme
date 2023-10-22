@@ -1,4 +1,4 @@
-package dev.sirlich.skillscheme.skills.clans.ranger;
+package dev.sirlich.skillscheme.skills.clans.ranger.passiveA;
 
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -9,6 +9,9 @@ import dev.sirlich.skillscheme.core.RpgPlayer;
 import dev.sirlich.skillscheme.core.RpgProjectile;
 import dev.sirlich.skillscheme.skills.meta.Skill;
 
+/**
+ * Arrows provide provide passive slowness effect
+ */
 public class Entangle extends Skill {
     public Entangle(RpgPlayer rpgPlayer, int level){
         super(rpgPlayer, level, "Entangle");

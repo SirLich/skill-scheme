@@ -1,4 +1,4 @@
-package dev.sirlich.skillscheme.skills.clans.rogue;
+package dev.sirlich.skillscheme.skills.clans.rogue.unused;
 
 import org.bukkit.Location;
 import org.bukkit.Material;

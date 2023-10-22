@@ -1,4 +1,4 @@
-package dev.sirlich.skillscheme.skills.clans.rogue;
+package dev.sirlich.skillscheme.skills.clans.rogue.sword;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
