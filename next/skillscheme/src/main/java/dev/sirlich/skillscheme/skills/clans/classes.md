@@ -1,6 +1,15 @@
+# Types
+ - Sword -> Active Sword Ability
+ - Axe -> Active Axe Ability
+ - Bow -> Active Bow Ability
+ - Active -> Some "triggered" action (dropping weapon or switching hands with F)
+ - Passive A -> Something which augments melee/ranged passive wise
+ - Passive B -> Something which augments general play style.
+
 ## Fighter (Knight Clone)
 
 Masters of defense, they use abilities to block (Defensive Stance on sword,) deflect attacks (Deflection on passive) or lock people in place (Bulls Charge on axe, or Hilt Smash on sword.) Their passives help them block, deflect, and take hits more easily. However they also have options to play more offensively, by using Hilt Smash on sword, as well as the following passives of Swordsmanship and Vengeance. Knight can take on multiple opponents at a time when using the passives Level Field and Cleave. 
+
 
 ## Warlock (Mage Clone)
 
@@ -17,3 +26,10 @@ Master of range and weaker at melee. They use their abilities to deal massive am
 Masters of surprise and quick kills, they use abilities to get around or confuse targets. Their passives help them deliver more damage (Combo Attack) or surprise the enemy (Viper Strikes and Shocking Strikes). They have the highest damage but also the lowest armor. They also have arrows & bows with abilities that helps hinder their enemies (Smoke Arrow and Silencing Arrow,) or increase their next attack (Marked for Death.) They stall in combat by using Evade or Illusion of their choice, and can also escape easily by Leaping, Blinking, or Flashing away. They can also blind opponents around them (Smoke Bomb,) or teleport away where they were brief moments ago (Recall.)
 
 However assassin's mobility is easily nullified if slowed, and thus cannot use it's axe skills for mobility boost (Leap, Blink, Flash.) They're also very squishy as mentioned earlier, dying in 5 hits from iron and gold weapons, and 4 hits in diamond weapons. 
+
+ - 2 sword skills
+ - 3 axe skills
+ - 3 bow skills
+ - 3 passive a
+ - 4 passive b
+ - 2 passive c

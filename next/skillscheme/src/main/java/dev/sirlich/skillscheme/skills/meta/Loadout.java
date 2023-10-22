@@ -1,11 +1,13 @@
 package dev.sirlich.skillscheme.skills.meta;
 
-import dev.sirlich.skillscheme.core.RpgPlayer;
-import dev.sirlich.skillscheme.utilities.WeaponUtils;
-import org.bukkit.event.inventory.ClickType;
-
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+
+import org.bukkit.event.inventory.ClickType;
+
+import dev.sirlich.skillscheme.core.RpgPlayer;
+import dev.sirlich.skillscheme.utilities.WeaponUtils;
 
 public class Loadout
 {
@@ -41,6 +43,10 @@ public class Loadout
     }
 
     public void putSkill(SkillKind skillKind, SkillType skillType, int level){
+        System.out.println("PUTTING SKILL: ");
+        System.out.println(skillKind.toString());
+        System.out.println(skillType.toString());
+
         simpleSkillMap.put(skillKind, new SimpleSkill(skillType, level));
     }
     /*
@@ -50,6 +56,9 @@ public class Loadout
         //Local data about the current skill
         int maxLevel = skillType.getSkill().getMaxLevel();
         int cost = skillType.getSkill().getCost();
+        
+        System.out.println(skillKind.toString());
+        System.out.println(skillType.toString());
 
         //Left clicks: Attempt to add a skill level
         if(clickType.equals(ClickType.LEFT)){
@@ -78,6 +87,14 @@ public class Loadout
                     //Skill type is different
                     else {
                         parent.tell("You can't select more than one skill from each category.");
+
+                        for (Map.Entry<SkillKind, SimpleSkill> entry : simpleSkillMap.entrySet()) {
+                            System.out.println("-------------");
+                            System.out.println(entry.getKey().toString());
+                            System.out.println(entry.getValue().getSkillType().toString());
+                            System.out.println(entry.getValue().getLevel());
+
+                        }                        
                         return false;
                     }
                 }

@@ -339,6 +339,8 @@ public class Skill
 
     }
 
+
+    // Called when you yourself take melee attack
     public void onMeleeAttackSelf(EntityDamageByEntityEvent event){
 
     }

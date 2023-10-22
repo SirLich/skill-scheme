@@ -1,6 +1,5 @@
 package dev.sirlich.skillscheme.core;
 
-// import com.connorlinfoot.actionbarapi.ActionBarAPI;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -15,16 +14,21 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import java.lang.reflect.Constructor;
 import java.util.*;
 
+/**
+ * RpgPlayer is a wrapper around 'Player' class, giving additional control and state. It's essentially been abused
+ * at this point with random shit, but it's always accessible, so quite convenient.
+ */
 public class RpgPlayer
 {
 
     /*
-    RPGPLAYER LIST STUFF
+    Statics
      */
     public static HashMap<UUID, RpgPlayer> rpgPlayerHashMap = new HashMap<UUID, RpgPlayer>();
     public static HashMap<RpgPlayer, UUID> playerHashMap = new HashMap<RpgPlayer, UUID>();
@@ -75,9 +79,34 @@ public class RpgPlayer
     }
 
 
-    /*
-    END RPGPLAYER LIST STUFF
-     */
+    /**
+     * Non Statics
+    */
+
+    // TODO: Handle positive potion effects
+    // A modifier which can shorten or lengthen the effect modifier (i.e., 0.5 = half as long potion effects.)
+    public double negativeEffectDurationModifier = 1.0;
+
+    // TODO: Add more shit here
+    static boolean isEffectNegative(PotionEffectType effect) {
+        List<PotionEffectType> negativeEffectTypes = Arrays.asList(
+            PotionEffectType.SLOW,
+            PotionEffectType.SLOW_DIGGING,
+            PotionEffectType.BLINDNESS
+        );
+
+        return negativeEffectTypes.contains(effect);
+    }
+
+    public void addEffect(PotionEffectType potionEffectType, int level, int ticks){
+        int newDuration = ticks;
+        if (isEffectNegative(potionEffectType))
+        {
+            newDuration = (int) (ticks * negativeEffectDurationModifier);
+        }
+
+        getPlayer().addPotionEffect(new PotionEffect(potionEffectType, newDuration, level));
+    }
 
     private ClassType classType;
 
@@ -171,7 +200,6 @@ public class RpgPlayer
     }
 
 
-
     public void refreshSessionToken(){
         this.sessionToken = UUID.randomUUID();
     }
@@ -226,6 +254,7 @@ public class RpgPlayer
     }
 
     public boolean hasSkill(SkillType skillType){
+        // TODO: This is probably wrong
         return activeSkillList.contains(skillType);
     }
 
@@ -295,6 +324,8 @@ public class RpgPlayer
 
     //Actual method for adding a singular skill onto the players activeSkillList
     public void addSkill(SkillType skillType, int level){
+
+        // TODO: Could be refactored into a factory of some kind
         try{
             System.out.println(skillType);
             System.out.println(level);

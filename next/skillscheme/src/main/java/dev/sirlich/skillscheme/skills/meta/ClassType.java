@@ -18,5 +18,4 @@ public enum ClassType
     public boolean canUseBow(){
         return canUseBow;
     }
-
 }

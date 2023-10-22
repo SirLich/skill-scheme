@@ -72,7 +72,7 @@ public class SkillScheme extends JavaPlugin
         getServer().getPluginManager().registerEvents(new PlayerLeaveHandler(),this);
         getServer().getPluginManager().registerEvents(new SkillHandler(),this);
         getServer().getPluginManager().registerEvents(new BlockUtils(), this);
-        getServer().getPluginManager().registerEvents(new Cancelor(), this);
+        getServer().getPluginManager().registerEvents(new Canceller(), this);
     }
 
     private static void loadServerConfigFromYML(){

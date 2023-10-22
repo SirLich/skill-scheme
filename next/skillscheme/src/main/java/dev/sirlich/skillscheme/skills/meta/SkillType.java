@@ -2,16 +2,12 @@ package dev.sirlich.skillscheme.skills.meta;
 
 
 import dev.sirlich.skillscheme.skills.clans.rogue.*;
-import dev.sirlich.skillscheme.skills.clans.fighter.AxeOfPerun;
-import dev.sirlich.skillscheme.skills.clans.fighter.BullsCharge;
-import dev.sirlich.skillscheme.skills.clans.paladin.Bandaid;
-import dev.sirlich.skillscheme.skills.clans.paladin.WrathOfJupiter;
-import dev.sirlich.skillscheme.skills.clans.warlock.FireBlast;
-import dev.sirlich.skillscheme.skills.clans.warlock.IcePrison;
-import dev.sirlich.skillscheme.skills.clans.any.BreakFall;
+import dev.sirlich.skillscheme.skills.clans.paladin.*;
 import dev.sirlich.skillscheme.skills.clans.ranger.*;
-import dev.sirlich.skillscheme.skills.clans.warlock.ArcticArmor;
+import dev.sirlich.skillscheme.skills.clans.warlock.*;
+import dev.sirlich.skillscheme.skills.clans.fighter.*;
 import dev.sirlich.skillscheme.skills.oc.*;
+import dev.sirlich.skillscheme.skills.clans.any.*;
 
 public enum SkillType {
     SpeedBuff(new SpeedBuff(null,0)),
@@ -59,7 +55,8 @@ public enum SkillType {
     StrikeTheSky(new StrikeTheSky(null, 0)),
     StrikeTheEarth(new StrikeTheEarth(null, 0)),
     WebShot(new WebShot(null, 0)),
-    WrathOfJupier(new WrathOfJupiter(null, 0));
+    WrathOfJupiter(new WrathOfJupiter(null, 0)),
+    Constitution(new Constitution(null, 0));
 
     //Overcharge(new Overcharge(null, 0));
 

@@ -75,6 +75,7 @@ public class Disengage extends CooldownSkill
         LivingEntity entity = (LivingEntity) event.getDamager();
         if(self.isBlocking()){
             if(skillCheck()){return;}
+
             getRpgPlayer().playWorldSound(on_disengage);
             primed = false;
             entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, slowness_duration, slowness_amplifier));

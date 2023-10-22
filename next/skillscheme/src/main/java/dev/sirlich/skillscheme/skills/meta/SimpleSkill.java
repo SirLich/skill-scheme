@@ -1,10 +1,9 @@
 package dev.sirlich.skillscheme.skills.meta;
 
+/**
+This simple class allows skills to be used to without instantiating them.
+*/
 public class SimpleSkill {
-
-    /*
-    This simple class allows skills to be used to without instantiating them.
-     */
     private SkillType skillType;
     private Integer level;
 

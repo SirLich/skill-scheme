@@ -9,12 +9,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import dev.sirlich.skillscheme.skills.meta.*;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Map;
 
+/**
+ * Deprecated!
+ */
 public class PlayerJoinHandler implements Listener
 {
     @EventHandler
