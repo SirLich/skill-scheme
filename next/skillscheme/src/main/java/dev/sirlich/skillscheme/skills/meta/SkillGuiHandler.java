@@ -124,6 +124,7 @@ public class SkillGuiHandler implements Listener
                 rpgPlayer.tell("Your skills have been saved. Equip your kit to use them.");
             }
         } else {
+            rpgPlayer.setPendingClassType(rpgPlayer.editorTempClassType);
             rpgPlayer.playSoundX("SkillGuiHandler.click_accept_2");
             rpgPlayer.tellX("SkillGuiHandler.skills_have_been_saved");
         }
@@ -154,7 +155,8 @@ public class SkillGuiHandler implements Listener
     //Opens a class GUI. Should initialize with correct data.
     private void openSkillGui(Player player, ClassType classType){
         RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(player);
-
+        rpgPlayer.editorTempClassType = classType;
+    
         //This is the loadout thats currently being edited
         Loadout loadout = rpgPlayer.getLoadout(classType);
         Inventory inventory = getStandardKitsGui(classType, rpgPlayer);

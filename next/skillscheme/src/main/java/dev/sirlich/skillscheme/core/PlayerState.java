@@ -43,7 +43,12 @@ public enum PlayerState
     /*
     Used specifically for the clans game-mode.
      */
-    CLANS(true,true,true);
+    CLANS(true,true,true),
+
+    /*
+     * Used for KitPvp
+     */
+    KITPVP(false,false, true);
 
     private final boolean canUseEditor;
     private final boolean canBreakBlocks;

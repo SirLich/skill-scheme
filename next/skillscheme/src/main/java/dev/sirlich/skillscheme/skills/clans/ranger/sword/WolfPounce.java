@@ -9,7 +9,7 @@ import dev.sirlich.skillscheme.utilities.WeaponUtils;
 
 public class WolfPounce extends ChargeSkill {
     public WolfPounce(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer, level, "WolfPounce", true, true);
+        super(rpgPlayer, level, "WolfPounce", true, true, true);
     }
 
     private double base_power;

@@ -28,6 +28,8 @@ public class PlayerLeaveHandler implements Listener
             //Get old config
             FileConfiguration playerConfig = YamlConfiguration.loadConfiguration(playerYml);
 
+            playerConfig.set("info.class_type", rpgPlayer.getPendingClassType().toString());
+
             //Loop  through classes
             for(ClassType classType : ClassType.values()){
                 Loadout loadout = rpgPlayer.getLoadout(classType);

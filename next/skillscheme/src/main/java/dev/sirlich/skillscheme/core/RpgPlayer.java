@@ -108,7 +108,14 @@ public class RpgPlayer
         getPlayer().addPotionEffect(new PotionEffect(potionEffectType, newDuration, level));
     }
 
+    // The actual class of the player
     private ClassType classType;
+
+    // The pending class, which the player would like to have applied.
+    private  ClassType pendingClassType;
+
+    // The temp class type of the editor
+    public ClassType editorTempClassType;
 
     public ClassType getClassType() {
         return classType;
@@ -116,6 +123,15 @@ public class RpgPlayer
 
     public void setClassType(ClassType classType) {
         this.classType = classType;
+    }
+    
+    public ClassType getPendingClassType() {
+        return pendingClassType;
+    }
+
+    public void setPendingClassType(ClassType classType) {
+        tell("Set pending class type " + classType.toString());
+        this.pendingClassType = classType;
     }
 
     private boolean drawingBow;
@@ -280,6 +296,7 @@ public class RpgPlayer
 
         tell("Your skills for have been applied:");
         for(SimpleSkill simpleSkill : getLoadout(classType).getSimpleSkills()){
+
             tell(Color.aqua + simpleSkill.getSkillType().getSkill().getName() + ": Level " + Color.gray + simpleSkill.getLevel().toString());
             //Transfers the magic of reflection somewhere else.
             addSkill(simpleSkill.getSkillType(), simpleSkill.getLevel() - 1);
@@ -499,6 +516,7 @@ public class RpgPlayer
     //Set player state, affecting various things as well
     public void setPlayerState(PlayerState playerState)
     {
+        
         this.playerState = playerState;
 
         if(playerState == PlayerState.HUB){
@@ -508,6 +526,13 @@ public class RpgPlayer
         } else if(playerState == PlayerState.LOBBY){
             wipe();
         } else if(playerState == PlayerState.GAME || playerState == PlayerState.TESTING){
+            getLoadout().giveArmorLoadout();
+            applySkillsFromArmor();
+        } else if(playerState == PlayerState.KITPVP) {
+            tell("setPlayerState " + playerState.toString());
+
+            // Re-apply pending class type, rather than true class type
+            setClassType(pendingClassType);
             getLoadout().giveArmorLoadout();
             applySkillsFromArmor();
         } else if(playerState == PlayerState.CLANS){

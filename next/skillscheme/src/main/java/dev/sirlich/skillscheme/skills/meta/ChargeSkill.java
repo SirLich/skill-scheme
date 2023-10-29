@@ -3,6 +3,7 @@ package dev.sirlich.skillscheme.skills.meta;
 import org.bukkit.Bukkit;
 import dev.sirlich.skillscheme.SkillScheme;
 import dev.sirlich.skillscheme.core.RpgPlayer;
+import dev.sirlich.skillscheme.utilities.Color;
 
 /**
  * Charge Skills contain the idea of 'charging' something, which must be held down. Skills can either do something
@@ -18,6 +19,7 @@ public class ChargeSkill extends CooldownSkill{
     private boolean isFullyCharged;
     private boolean useCooldown;
     private boolean useChargePitch;
+    private boolean useChargeBar;
 
     /*
     Required config values:
@@ -33,7 +35,7 @@ public class ChargeSkill extends CooldownSkill{
     Optional config values:
     */
 
-    public ChargeSkill(RpgPlayer rpgPlayer, int level, String id, boolean useCooldown, boolean useChargePitch){
+    public ChargeSkill(RpgPlayer rpgPlayer, int level, String id, boolean useCooldown, boolean useChargePitch, boolean useChargeBar){
         super(rpgPlayer,level,id);
         this.maxCharges = data.getInt("max_charges");
         this.isCharging = false;
@@ -41,6 +43,7 @@ public class ChargeSkill extends CooldownSkill{
         this.charges = 0;
         this.useCooldown = useCooldown;
         this.useChargePitch = useChargePitch;
+        this.useChargeBar = useChargeBar;
     }
 
     public void onReleaseCharge(int charges, boolean isFullyCharged){
@@ -61,6 +64,19 @@ public class ChargeSkill extends CooldownSkill{
         return false;
     }
 
+    public String getChargingActionbar(){
+        String m = Color.gold + getName() + Color.yellow + Color.bold + ": [";
+        for(int i = 0; i < maxCharges; i ++){
+            if(i < charges){
+                m = m + Color.green + Color.bold + "⏺";
+            } else {
+                m = m + Color.gray + Color.bold + "⏺";
+            }
+        }
+        m += Color.yellow + Color.bold + "]";
+        return m;
+    }
+
     //please use a super() call if you want to use this method.
     @Override
     public void onEnable(){
@@ -70,6 +86,12 @@ public class ChargeSkill extends CooldownSkill{
                 //Handle ticks when you are charging
                 if(isCharging()){
                     if(!useCooldown || !isCooldownNoMedia()){
+
+                        if (useChargeBar)
+                        {
+                            getRpgPlayer().setActionBar(getChargingActionbar());
+                        }
+
                         if(charges == maxCharges){
                             if(!isFullyCharged){
                                 getRpgPlayer().playSound(data.getSound("charge_finish_sound"));

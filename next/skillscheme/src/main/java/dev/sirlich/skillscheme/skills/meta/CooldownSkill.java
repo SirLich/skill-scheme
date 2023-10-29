@@ -128,7 +128,7 @@ public class CooldownSkill extends Skill
 
     @Override
     public void onEnable(){
-        refreshCooldown();
+        // refreshCooldown();
         //Turn on charge-bar
         schedularID = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(SkillScheme.getInstance(), new Runnable() {
             public void run() {
@@ -146,8 +146,6 @@ public class CooldownSkill extends Skill
                     m = m + Color.yellow + Color.bold + "] " + getChargeColor() + calculateCooldownLeft();
 
                     getRpgPlayer().setActionBar(m);
-                } else if (showActionBar()){
-                    getRpgPlayer().setActionBar(getName());
                 }
             }
         }, 0L, ACTION_BAR_REFRESH_RATE);

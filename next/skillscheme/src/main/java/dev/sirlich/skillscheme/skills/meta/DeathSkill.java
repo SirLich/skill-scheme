@@ -8,6 +8,9 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A skill that provides some effect on death
+ */
 public class DeathSkill extends Skill{
 
     private List<Integer> range;

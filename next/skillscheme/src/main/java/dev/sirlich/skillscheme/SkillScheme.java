@@ -1,6 +1,7 @@
 package dev.sirlich.skillscheme;
 
 import dev.sirlich.skillscheme.core.*;
+import dev.sirlich.skillscheme.kitpvp.KitPvp;
 import dev.sirlich.skillscheme.skills.meta.SkillData;
 import dev.sirlich.skillscheme.utilities.BlockUtils;
 import org.bukkit.Bukkit;
@@ -9,6 +10,7 @@ import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import dev.sirlich.skillscheme.skills.meta.SkillHandler;
 import dev.sirlich.skillscheme.skills.meta.SkillGuiHandler;
@@ -16,12 +18,17 @@ import dev.sirlich.skillscheme.utilities.Xliff;
 
 import java.io.File;
 
+/**
+ * General configuration 
+ */
 public class SkillScheme extends JavaPlugin
 {
-    private static World world;
-    private static Location WORLD_SPAWN;
+
     private static SkillScheme instance;
 
+    // Settings
+    private static World world;
+    private static Location WORLD_SPAWN;
     private static PlayerState PLAYER_STATE_ON_JOIN;
 
     @Override
@@ -37,6 +44,8 @@ public class SkillScheme extends JavaPlugin
         for(Player player : Bukkit.getOnlinePlayers()) {
             PlayerJoinHandler.initializePlayerData(player);
         }
+
+        KitPvp.init();
     }
 
     @Override
@@ -44,6 +53,8 @@ public class SkillScheme extends JavaPlugin
         for(Player player : Bukkit.getOnlinePlayers()){
             RpgPlayer.removePlayer(player);
         }
+
+        KitPvp.deinit();
     }
 
 
@@ -66,13 +77,16 @@ public class SkillScheme extends JavaPlugin
         }
     }
 
+    // Register Events
     private void registerEvents(){
-        getServer().getPluginManager().registerEvents(new PlayerJoinHandler(), this);
-        getServer().getPluginManager().registerEvents(new SkillGuiHandler(), this);
-        getServer().getPluginManager().registerEvents(new PlayerLeaveHandler(),this);
-        getServer().getPluginManager().registerEvents(new SkillHandler(),this);
-        getServer().getPluginManager().registerEvents(new BlockUtils(), this);
-        getServer().getPluginManager().registerEvents(new Canceller(), this);
+        PluginManager manager = getServer().getPluginManager();
+        manager.registerEvents(new PlayerJoinHandler(), this);
+        manager.registerEvents(new SkillGuiHandler(), this);
+        manager.registerEvents(new PlayerLeaveHandler(),this);
+        manager.registerEvents(new SkillHandler(),this);
+        manager.registerEvents(new BlockUtils(), this);
+        manager.registerEvents(new Canceller(), this);
+        manager.registerEvents(new KitPvp(), this);
     }
 
     private static void loadServerConfigFromYML(){

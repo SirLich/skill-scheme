@@ -8,7 +8,7 @@ import dev.sirlich.skillscheme.skills.meta.ChargeSkill;
  */
 public class Bandaid extends ChargeSkill {
     public Bandaid(RpgPlayer rpgPlayer, int level){
-        super(rpgPlayer, level, "Bandaid", true, true);
+        super(rpgPlayer, level, "Bandaid", true, true, true);
     }
 
     @Override

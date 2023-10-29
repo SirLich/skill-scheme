@@ -45,6 +45,8 @@ public class PlayerJoinHandler implements Listener
                 playerConfig.set("info.name", player.getName());
             }
 
+            rpgPlayer.setPendingClassType(ClassType.valueOf(playerConfig.getString("info.class_type")));
+
             //Add loadout data, based on the player configs.
             for(ClassType classType : ClassType.values()){
 
@@ -106,6 +108,7 @@ public class PlayerJoinHandler implements Listener
         FileConfiguration playerConfig = YamlConfiguration.loadConfiguration(playerYml);
 
         playerConfig.set("info.name", player.getName());
+        playerConfig.set("info.class_type", ClassType.RANGER.toString());
 
         try {
             playerConfig.save(playerYml);

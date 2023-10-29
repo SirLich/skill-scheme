@@ -186,7 +186,9 @@ public class Loadout
 
     //This is unrelated to skills, but purely used for kit-pvp games where armor should be given
     public void giveArmorLoadout(){
-        WeaponUtils.giveLoadout(parent,classType);
+        System.out.println("GIVING PLAYER LOADOUT");
+        System.out.println(classType);
+        WeaponUtils.giveLoadout(parent, classType);
     }
 
     public Integer getPoints() {

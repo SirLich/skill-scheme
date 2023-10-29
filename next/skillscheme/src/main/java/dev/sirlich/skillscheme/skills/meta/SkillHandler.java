@@ -1,10 +1,6 @@
 package dev.sirlich.skillscheme.skills.meta;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.event.inventory.InventoryAction;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.*;
 import org.bukkit.scheduler.BukkitRunnable;
 import dev.sirlich.skillscheme.SkillScheme;
@@ -20,18 +16,13 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.*;
 import org.bukkit.inventory.ItemStack;
 import dev.sirlich.skillscheme.skills.triggers.Trigger;
-import dev.sirlich.skillscheme.utilities.Color;
-import dev.sirlich.skillscheme.utilities.WeaponUtils;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
-
 import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent;
-
 
 import static dev.sirlich.skillscheme.utilities.WeaponUtils.*;
 
+/**
+ * A special listener which forwards pre-configured events to skills.
+ */
 public class SkillHandler implements Listener
 {
     /*
