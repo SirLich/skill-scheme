@@ -319,6 +319,10 @@ public class Skill
 
     }
 
+    public void onWeaponDrop(PlayerDropItemEvent event) {
+        
+    }
+
     public void onBowFire(EntityShootBowEvent event){
 
     }

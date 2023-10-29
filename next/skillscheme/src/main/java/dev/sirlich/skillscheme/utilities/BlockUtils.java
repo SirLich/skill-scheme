@@ -6,6 +6,9 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.Directional;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -19,12 +22,12 @@ import java.util.List;
 public class BlockUtils implements Listener
 {
 
-    private static HashSet<Location> dontBreak = new HashSet<Location>();
+    private static HashSet<Location> doNotBreakBlocks = new HashSet<Location>();
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event){
         //Deny block breaking if the block is placed as part of a temporary block placement.
-        if(event.getPlayer() != null && dontBreak.contains(event.getBlock().getLocation())){
+        if(event.getPlayer() != null && doNotBreakBlocks.contains(event.getBlock().getLocation())){
             event.setCancelled(true);
         }
 
@@ -44,7 +47,7 @@ public class BlockUtils implements Listener
 
 
     public static void tempPlaceBlock(Material material, Location location, int ticks){
-        tempPlaceBlock(material,location,ticks,(byte)0x0);
+        tempPlaceBlock(material,location,ticks, BlockFace.UP);
     }
 
     public static List<Block> getNearbyBlocks(Location location, int radius) {
@@ -62,17 +65,27 @@ public class BlockUtils implements Listener
         return blocks;
     }
 
-    public static void tempPlaceBlock(Material material, Location location, int ticks,byte direction){
-        final Material oldMaterial = location.getWorld().getBlockAt(location).getType();
-        final Location oldLocation = new Location(location.getWorld(),location.getBlockX(),location.getBlockY(),location.getBlockZ());
-        final Byte oldDirection = location.getWorld().getBlockAt(location).getData();
-        dontBreak.add(oldLocation);
-        location.getWorld().getBlockAt(location).setType(material);
+    public static void tempPlaceBlock(Material material, Location location, int ticks, BlockFace direction){
+        Block block = location.getWorld().getBlockAt(location);
+        BlockData blockData = block.getBlockData();
+        Location blockLocation = new Location(location.getWorld(),location.getBlockX(),location.getBlockY(),location.getBlockZ());
+
+        final BlockData oldBlockData = blockData.clone();
+
+        doNotBreakBlocks.add(blockLocation);
+
+        block.setType(material);
+        if (blockData instanceof Directional) {
+            Directional directionalBlock = (Directional) blockData;
+            directionalBlock.setFacing(direction);
+            block.setBlockData(directionalBlock);
+        }
+
         new BukkitRunnable() {
             @Override
             public void run() {
-                oldLocation.getWorld().getBlockAt(oldLocation).setType(oldMaterial);
-                dontBreak.remove(oldLocation);
+                blockLocation.getWorld().setBlockData(blockLocation, oldBlockData);
+                doNotBreakBlocks.remove(blockLocation);
             }
 
         }.runTaskLater(SkillScheme.getInstance(), ticks);

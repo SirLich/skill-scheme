@@ -1,6 +1,7 @@
 package dev.sirlich.skillscheme.skills.clans.ranger.bow;
 
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -30,10 +31,22 @@ public class Volley extends PrimedSkill {
         super(rpgPlayer, level, "Volley");
     }
 
+    int effectWidth;
+    Sound onFireSound;
+    double arrowDamage;
+
+    @Override
+    public void initData(){
+        super.initData();
+        this.effectWidth = data.getInt("effect_width");
+        this.onFireSound = data.getSound("on_fire");
+        this.arrowDamage = data.getDouble("arrow_damage");
+    }
+
     public void launchProjectiles(){
         Player player = getRpgPlayer().getPlayer();
         Location loc = player.getLocation();
-        for (int i = - data.getInt("effect_width"); i < data.getInt("effect_width") + 1; i += 1) {
+        for (int i = - effectWidth; i < effectWidth + 1; i += 1) {
             Arrow arrow = player.launchProjectile(Arrow.class);
             RpgProjectile rpgProjectile = RpgProjectile.registerProjectile(arrow, getRpgPlayer());
             rpgProjectile.addTag("VOLLEY");
@@ -47,7 +60,7 @@ public class Volley extends PrimedSkill {
             }
         }
 
-        getRpgPlayer().playWorldSound(data.getSound("on_fire"), 3f, 1f);
+        getRpgPlayer().playWorldSound(onFireSound, 3f, 1f);
     }
 
     @Override
@@ -57,12 +70,11 @@ public class Volley extends PrimedSkill {
 
     @Override
     public void onArrowHitEntity(EntityDamageByEntityEvent event){
-        Entity hitEntity = event.getEntity();
         RpgProjectile rpgArrow = RpgProjectile.getProjectile((Arrow) event.getDamager());
 
         //Check if Player and if RpgPlayer exists and if SILENCING_ARROW
         if(rpgArrow.hasTag("VOLLEY")){
-            event.setDamage(data.getDouble("arrow_damage"));
+            event.setDamage(arrowDamage);
         }
 
     }

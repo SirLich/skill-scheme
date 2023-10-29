@@ -125,6 +125,11 @@ public class SkillHandler implements Listener
             } else if (isBow(itemStack)){
                 skill.onBowDrop(event);
             }
+
+            if (isWeapon(itemStack))
+            {
+                skill.onWeaponDrop(event);
+            }
         }
     }
 
