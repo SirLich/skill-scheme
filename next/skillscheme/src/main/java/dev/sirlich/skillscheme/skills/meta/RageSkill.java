@@ -15,6 +15,7 @@ public class RageSkill extends CooldownSkill{
     private boolean enraged;
     private boolean endRageEarly = false;
 
+    // TODO: Make these configurable
     private Sound currentlyEnragedSound = Sound.BLOCK_ANVIL_BREAK;
     private String currentlyEnragedText = Color.red + getName() + Color.dgray + "  is already active.";
     private Sound becomeEnragedSound = Sound.ENTITY_COW_HURT;

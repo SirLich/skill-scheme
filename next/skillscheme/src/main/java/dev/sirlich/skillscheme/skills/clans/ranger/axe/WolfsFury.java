@@ -1,5 +1,6 @@
 package dev.sirlich.skillscheme.skills.clans.ranger.axe;
 
+import org.bukkit.Sound;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.potion.PotionEffectType;
@@ -17,20 +18,50 @@ public class WolfsFury extends RageSkill {
         super(rpgPlayer,level,"WolfsFury");
     }
 
+    private double allowedMissedAttacks;
+    private int amplifier;
+    private int duration;
+    Sound onAttackSound;
+
     @Override
-    public void onEnrage(){
-        getRpgPlayer().addEffect(PotionEffectType.INCREASE_DAMAGE, data.getInt("amplifier"), data.getInt("duration"));
+    public void initData(){
+        super.initData();
+        this.allowedMissedAttacks = data.getInt("allowed_missed_attacks");
+        this.duration = data.getInt("duration");
+        this.amplifier = data.getInt("amplifier");
+        this.onAttackSound = data.getSound("on_attack");
     }
 
+    private int missedAttacks = 0;
+
+    @Override
+    public void onEnrage(){
+        missedAttacks = 0;
+        getRpgPlayer().addEffect(PotionEffectType.INCREASE_DAMAGE, amplifier, duration);
+    }
+
+    @Override
     public void onMeleeAttackOther(EntityDamageByEntityEvent event){
         if(isEnraged()){
             double damage = event.getDamage();
             event.setCancelled(true);
-            
+            missedAttacks = 0;
             if(event.getEntity() instanceof LivingEntity){
-                getRpgPlayer().playSound(data.getSound("on_attack"));
+                getRpgPlayer().playWorldSound(onAttackSound);
                 LivingEntity livingEntity = (LivingEntity) event.getEntity();
                 livingEntity.damage(damage);
+            }
+        }
+    }
+
+    @Override
+    public void onLeftClick(Trigger event){
+        if (isEnraged())
+        {
+            missedAttacks += 1;
+            if (missedAttacks > allowedMissedAttacks)
+            {
+                endRageEarly();
             }
         }
     }
@@ -40,12 +71,8 @@ public class WolfsFury extends RageSkill {
         return WeaponUtils.isAxe(getRpgPlayer().getPlayer().getInventory().getItemInMainHand());
     }
 
-
-    //TODO: Add logic to cancel the rage early (see Agility) if the player whiffs (misses) two attacks in a row.
-
     @Override
     public void onRageExpire(){
-        // TODO: Stacking?
         getRpgPlayer().getPlayer().removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
     }
 
