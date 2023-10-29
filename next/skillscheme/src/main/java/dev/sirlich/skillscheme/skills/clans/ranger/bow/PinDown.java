@@ -27,6 +27,18 @@ public class PinDown extends CooldownSkill
         super(rpgPlayer,level, "PinDown");
     }
 
+    int slownessAmplifier;
+    int slownessDuration;
+    double arrowVelocity;
+
+    @Override
+    public void initData(){
+        super.initData();
+        this.slownessAmplifier = data.getInt("slowness_amplifier");
+        this.slownessDuration = data.getInt("slowness_duration");
+        this.arrowVelocity = data.getDouble("arrow_velocity");
+    }
+
 
     @Override
     public void onArrowHitGround(ProjectileHitEvent event){
@@ -43,14 +55,13 @@ public class PinDown extends CooldownSkill
 
     @Override
     public void onArrowHitEntity(EntityDamageByEntityEvent event){
-        System.out.println("inside PinDown");
         Entity hitEntity = event.getEntity();
         RpgProjectile rpgArrow = RpgProjectile.getProjectile((Arrow) event.getDamager());
         if(hitEntity instanceof LivingEntity && rpgArrow.hasTag("PIN_DOWN")){
             LivingEntity livingEntity = (LivingEntity) hitEntity;
 
             // TODO Handle RPGPlayer pathway here.
-            livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, data.getInt("slowness_duration"),data.getInt("slowness_amplifier")));
+            livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, slownessDuration,slownessAmplifier));
         }
     }
 
@@ -58,7 +69,7 @@ public class PinDown extends CooldownSkill
     public void onBowLeftClick(Trigger event){
         if(skillCheck()){return;}
         Arrow arrow = event.getSelf().launchProjectile(Arrow.class);
-        arrow.setVelocity(arrow.getVelocity().multiply(data.getDouble("arrow_velocity")));
+        arrow.setVelocity(arrow.getVelocity().multiply(arrowVelocity));
         RpgProjectile.registerProjectile(arrow,RpgPlayer.getRpgPlayer(event.getSelf()));
         RpgProjectile rpgArrow = RpgProjectile.getProjectile(arrow.getUniqueId());
         rpgArrow.addTag("PIN_DOWN");
