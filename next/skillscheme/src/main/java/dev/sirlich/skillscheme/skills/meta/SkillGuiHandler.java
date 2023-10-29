@@ -79,6 +79,10 @@ public class SkillGuiHandler implements Listener
             player.closeInventory();
             rpgPlayer.playSoundX("SkillGuiHandler.open_class_gui");
             openSkillGui(player, ClassType.valueOf(classGui));
+        } else if(buttonAction.equalsIgnoreCase("class_disabled")) {
+            rpgPlayer.playSoundX("SkillGuiHandler.click_skill_false");
+            rpgPlayer.tell(Color.gray + "That class is currently disabled.");
+
         } else if(buttonAction.equalsIgnoreCase("accept")){
             acceptSkills(player,rpgPlayer);
         } else if(buttonAction.equalsIgnoreCase("open_main_gui")){
@@ -101,7 +105,7 @@ public class SkillGuiHandler implements Listener
 
                 //Handle points
                 ItemStack point = getStandardGuiButton(Material.PRISMARINE_CRYSTALS,"Points remaining",null);
-                point.setAmount(rpgPlayer.getLoadout().getPoints());
+                point.setAmount(rpgPlayer.getLoadout(classType).getPoints());
                 oldInventory.setItem(51,point);
             } else {
                 rpgPlayer.playSoundX("SkillGuiHandler.click_skill_false");
@@ -215,11 +219,22 @@ public class SkillGuiHandler implements Listener
     {
         Inventory inventory = Bukkit.createInventory(null, 27, ChatColor.DARK_GRAY + "~ Select a class to edit:");
 
-        inventory.setItem(10, getStandardGuiButton(Material.DIAMOND_CHESTPLATE,"Paladin","open_class_gui","PALADIN"));
-        inventory.setItem(11, getStandardGuiButton(Material.IRON_CHESTPLATE,"Fighter","open_class_gui","FIGHTER"));
+        // inventory.setItem(10, getStandardGuiButton(Material.DIAMOND_CHESTPLATE,"Paladin","open_class_gui","PALADIN"));
+        inventory.setItem(10, getStandardGuiButton(Material.NETHERITE_SCRAP,"Paladin","class_disabled","PALADIN"));
+
+
+        // inventory.setItem(11, getStandardGuiButton(Material.IRON_CHESTPLATE,"Fighter","open_class_gui","FIGHTER"));
+        inventory.setItem(11, getStandardGuiButton(Material.NETHERITE_SCRAP,"Fighter","class_disabled","FIGHTER"));
+
+
         inventory.setItem(13, getStandardGuiButton(Material.CHAINMAIL_CHESTPLATE,"Ranger","open_class_gui","RANGER"));
-        inventory.setItem(14, getStandardGuiButton(Material.LEATHER_CHESTPLATE,"Rogue","open_class_gui","ROGUE"));
-        inventory.setItem(16, getStandardGuiButton(Material.GOLDEN_CHESTPLATE,"Warlock","open_class_gui","WARLOCK"));
+
+
+        // inventory.setItem(14, getStandardGuiButton(Material.LEATHER_CHESTPLATE,"Rogue","open_class_gui","ROGUE"));
+        inventory.setItem(14, getStandardGuiButton(Material.NETHERITE_SCRAP,"Rogue","class_disabled","ROGUE"));
+
+        // inventory.setItem(16, getStandardGuiButton(Material.GOLDEN_CHESTPLATE,"Warlock","open_class_gui","WARLOCK"));
+        inventory.setItem(16, getStandardGuiButton(Material.NETHERITE_SCRAP,"Warlock","class_disabled","WARLOCK"));
 
         overfillLeftoverSlots(inventory);
         player.openInventory(inventory);

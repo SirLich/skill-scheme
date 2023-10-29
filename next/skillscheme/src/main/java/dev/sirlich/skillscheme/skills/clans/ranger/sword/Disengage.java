@@ -60,7 +60,7 @@ public class Disengage extends CooldownSkill
                 //If you didn't use disengage, its a miss after 1 second
                 if(!usedDisengage){
                     getRpgPlayer().playSound(miss_disengage);
-                    getRpgPlayer().tell(Color.red + "You missed disengage");
+                    getRpgPlayer().tell(Color.red + "You missed disengage.");
                     refreshCooldown();
                 }
                 usedDisengage = false;
@@ -72,20 +72,20 @@ public class Disengage extends CooldownSkill
     @Override
     public void onMeleeAttackSelf(EntityDamageByEntityEvent event){
         final Player self = (Player) event.getEntity();
-        LivingEntity entity = (LivingEntity) event.getDamager();
+        LivingEntity attacker = (LivingEntity) event.getDamager();
         if(self.isBlocking()){
             if(skillCheck()){return;}
 
             getRpgPlayer().playWorldSound(on_disengage);
             primed = false;
-            entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, slowness_duration, slowness_amplifier));
-            if(entity instanceof Player){
-                Player damager = (Player) entity;
+            attacker.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, slowness_duration, slowness_amplifier));
+            if(attacker instanceof Player){
+                Player damager = (Player) attacker;
                 damager.sendMessage(Color.red + "You were hit by disengage!");
             }
             usedDisengage = true;
-            getRpgPlayer().tell(Color.green + "You successfully disengaged");
-            final Vector velocity  = VelocityUtils.getTrajectory(entity, self).normalize().multiply(power).setY(y_power);
+            getRpgPlayer().tell(Color.green + "You successfully disengaged!");
+            final Vector velocity  = VelocityUtils.getTrajectory(attacker, self).normalize().multiply(power).setY(y_power);
             Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(SkillScheme.getInstance(), new Runnable() {
                 public void run() {
                     self.setVelocity(velocity);

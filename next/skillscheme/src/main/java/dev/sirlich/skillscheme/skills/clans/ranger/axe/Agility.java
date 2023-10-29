@@ -6,6 +6,7 @@ import org.bukkit.potion.PotionEffectType;
 import dev.sirlich.skillscheme.core.RpgPlayer;
 import dev.sirlich.skillscheme.skills.meta.RageSkill;
 import dev.sirlich.skillscheme.skills.triggers.Trigger;
+import dev.sirlich.skillscheme.utilities.Color;
 import dev.sirlich.skillscheme.utilities.WeaponUtils;
 
 /**
@@ -60,13 +61,19 @@ public class Agility extends RageSkill {
 
     @Override
     public void onMeleeAttackSelf(EntityDamageByEntityEvent event){
-        if(isEnraged() && getRpgPlayer().getPlayer().isSprinting()){
-            if(RpgPlayer.isRpgPlayer(event.getDamager().getUniqueId())){
+        if(isEnraged()){
+            // Cancel
+            event.setCancelled(true);
+
+            // Send info to attacker
+            if(getRpgPlayer().getPlayer().isSprinting() && RpgPlayer.isRpgPlayer(event.getDamager().getUniqueId())){
                 RpgPlayer rpgPlayer = RpgPlayer.getRpgPlayer(event.getDamager().getUniqueId());
                 rpgPlayer.tell(data.xliff("that_player_is_using_agility"));
                 rpgPlayer.playSound(data.getSound("that_player_is_using_agility"));
             }
-            event.setCancelled(true);
+
+            // Send info to self
+            getRpgPlayer().tell(Color.dgray + Color.italic + "*Agile Miss!*");
         }
     }
 }

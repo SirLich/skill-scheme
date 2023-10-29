@@ -24,14 +24,22 @@ public class RopedArrow extends PrimedSkill {
         super(rpgPlayer, level, "RopedArrow");
     }
 
+    private double power;
+    
+    @Override
+    public void initData(){
+        super.initData();
+        this.power = data.getDouble("power");
+    }
+
     @Override
     public void onArrowHitEntity(EntityDamageByEntityEvent event){
         Projectile projectile = (Projectile) event.getDamager();
         Location location = projectile.getLocation();
-        Vector power = projectile.getVelocity();
+        Vector power_ = projectile.getVelocity();
         RpgProjectile rpgProjectile = RpgProjectile.getProjectile(projectile.getUniqueId());
         if(rpgProjectile.hasTag("ROPED_ARROW")){
-            handleRopedArrow(location, power, projectile);
+            handleRopedArrow(location, power_, projectile);
         }
     }
 
@@ -51,15 +59,9 @@ public class RopedArrow extends PrimedSkill {
         }
     }
 
-    public void handleRopedArrow(Location location, Vector power, Projectile projectile){
-        Player player = getRpgPlayer().getPlayer();
-
-        Vector vec = VelocityUtils.getTrajectory(getRpgPlayer().getPlayer().getLocation(), location);
-        double mult = power.length() / 3.0D;
-
-        VelocityUtils.velocity(player, vec,
-                2.5D + mult, false, 0.4D, 0.3D * mult, 1.5D * mult, true);
-
+    public void handleRopedArrow(Location location, Vector arrowPower, Projectile projectile){
+        final Vector velocity  = VelocityUtils.getTrajectory(getPlayer().getLocation(), location).normalize().multiply(power);
+        getPlayer().setVelocity(velocity);
         projectile.getWorld().playSound(projectile.getLocation(), Sound.ENTITY_BLAZE_SHOOT, 2.5F, 2.0F);
     }
 
