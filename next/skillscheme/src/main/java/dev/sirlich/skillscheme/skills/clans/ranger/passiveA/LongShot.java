@@ -17,7 +17,6 @@ public class LongShot extends Skill {
 
     @Override
     public void onBowFire(EntityShootBowEvent event){
-        //TODO Make sure that you can't fire from your own territory
         RpgProjectile rpgProjectile = RpgProjectile.getProjectile(event.getProjectile().getUniqueId());
         event.getProjectile().setVelocity(event.getProjectile().getVelocity().multiply(1 + (data.getInt("arrow_fly_percent_faster")/100)));
         rpgProjectile.addTag("LONG_SHOT");

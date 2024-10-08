@@ -18,6 +18,7 @@ public class WolfPounce extends ChargeSkill {
 
     @Override
     public void initData(){
+        super.initData();
         this.base_power = data.getDouble("base_power");
         this.power_per_charge = data.getDouble("power_per_charge");
         this.y_velocity_bias = data.getDouble("y_velocity_bias");

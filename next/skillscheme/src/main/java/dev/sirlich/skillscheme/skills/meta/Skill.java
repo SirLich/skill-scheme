@@ -184,6 +184,19 @@ public class Skill
         return inWater;
     }
 
+
+    // https://stackoverflow.com/questions/703396/how-to-nicely-format-floating-numbers-to-string-without-unnecessary-decimal-0s
+    public static String numberToString(double d)
+    {
+        if(d == (long) d)
+        {
+            return String.format("%d",(long)d);
+        }
+        else {
+            return String.format("%s",d);
+        }
+    }
+
     private static String processDescriptionLine(String line, String id, int level){
         String regex = "\\[(.*?)\\]";
         Pattern pattern = Pattern.compile(regex);
@@ -206,7 +219,7 @@ public class Skill
                     skillValue = skillValue / value;
                 }
             }
-            line = line.replace(match, Color.green + skillValue.toString() + Color.dgray);
+            line = line.replace(match, Color.green + numberToString(skillValue) + Color.dgray);
         }
         return line;
     }

@@ -18,6 +18,14 @@ public class Precision extends Skill {
         super(rpgPlayer, level, "Precision");
     }
 
+    double bonusDamage;
+
+    @Override
+    public void initData(){
+        super.initData();
+        this.bonusDamage = data.getDouble("bonus_damage");
+    }
+
     @Override
     public void onBowFire(EntityShootBowEvent event){
         RpgProjectile rpgProjectile = RpgProjectile.getProjectile(event.getProjectile().getUniqueId());
@@ -28,7 +36,7 @@ public class Precision extends Skill {
     public void onArrowHitEntity(EntityDamageByEntityEvent event){
         RpgProjectile rpgProjectile = RpgProjectile.getProjectile(event.getDamager().getUniqueId());
         if(rpgProjectile.hasTag("PRECISION")){
-            event.setDamage(event.getDamage() + data.getDouble("bonus_damage"));
+            event.setDamage(event.getDamage() + bonusDamage);
         }
     }
 }

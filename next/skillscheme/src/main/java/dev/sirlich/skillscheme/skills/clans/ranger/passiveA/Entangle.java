@@ -17,6 +17,16 @@ public class Entangle extends Skill {
         super(rpgPlayer, level, "Entangle");
     }
 
+    int slownessDuration;
+    int slownessAmplifier;
+
+    @Override
+    public void initData(){
+        super.initData();
+        this.slownessDuration = data.getInt("slowness_duration");
+        this.slownessAmplifier = data.getInt("slowness_amplifier");
+    }
+
     @Override
     public void onBowFire(EntityShootBowEvent event){
         RpgProjectile rpgProjectile = RpgProjectile.getProjectile(event.getProjectile().getUniqueId());
@@ -34,7 +44,7 @@ public class Entangle extends Skill {
         LivingEntity hitEntity = (LivingEntity) event.getEntity();
         RpgProjectile rpgProjectile = RpgProjectile.getProjectile(event.getDamager().getUniqueId());
         if(rpgProjectile.hasTag("ENTANGLE")){
-            hitEntity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, data.getInt("slowness_duration"),data.getInt("slowness_amplifier")));
+            hitEntity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, slownessDuration, slownessAmplifier));
         }
     }
 }

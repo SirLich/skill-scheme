@@ -311,7 +311,6 @@ public class SkillHandler implements Listener
                     RpgPlayer rpgPlayer = rpgProjectile.getShooter();
                     rpgPlayer.logPlayerAttack();
                     for(Skill skill : rpgPlayer.getActiveSkillList()){
-                        System.out.println("onArrowHit");
                         skill.onArrowHitEntity(event);
                     }
                     rpgProjectile.deregisterSelf();
